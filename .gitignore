@@ -1,0 +1,12 @@
+/.gradle
+/.idea
+/bin
+/build
+/local.properties
+/project/project
+/project/target
+/target
+*.iml
+*.swp
+*.ipr
+*.iws
