@@ -19,7 +19,7 @@
             android:padding="16dp"
             android:tint="#DC4254"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_file_download_black_24dp"/>
+            android:src="@drawable/ic_file_download_black_24dp" />
 
         <TextView
             android:padding="18dp"

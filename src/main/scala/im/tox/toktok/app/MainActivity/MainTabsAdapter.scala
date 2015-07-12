@@ -21,7 +21,7 @@ class MainTabsAdapter(fm: FragmentManager) extends FragmentPagerAdapter(fm) {
     return 2
   }
 
-  override def getPageTitle (i : Int) : CharSequence = {
+  override def getPageTitle(i: Int): CharSequence = {
     i match {
       case 1 => return "Chats"
       case 0 => return "Friends"

@@ -16,7 +16,7 @@ class SimpleColorDialogDesignAdapter(list: List[String]) extends RecyclerView.Ad
     val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.simple_color_dialog_item, viewGroup, false)
     itemView.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-        Log.d("asd","adsd")
+        Log.d("asd", "adsd")
         v.setZ(1000.0f)
       }
     })
@@ -25,7 +25,7 @@ class SimpleColorDialogDesignAdapter(list: List[String]) extends RecyclerView.Ad
 
   def onBindViewHolder(viewHolder: SimpleColorDialogDesignViewHolder, position: Int) = {
     val item: String = items(position)
-    Log.d("asdasd",item+"")
+    Log.d("asdasd", item + "")
     viewHolder.mColor.setBackgroundColor(Color.parseColor(item))
   }
 
@@ -34,12 +34,12 @@ class SimpleColorDialogDesignAdapter(list: List[String]) extends RecyclerView.Ad
   }
 }
 
-final class SimpleColorDialogDesignViewHolder(itemView: View) extends RecyclerView.ViewHolder(itemView) with OnClickListener  {
+final class SimpleColorDialogDesignViewHolder(itemView: View) extends RecyclerView.ViewHolder(itemView) with OnClickListener {
 
   var mColor: View = itemView.findViewById(R.id.simple_color_dialog_item)
 
-  def onClick(v : View)={
-    Log.d("asd","adsd")
+  def onClick(v: View) = {
+    Log.d("asd", "adsd")
   }
 
 

@@ -28,15 +28,15 @@ class ChatsFragment extends Fragment {
     mChats_Recycler.setLayoutManager(mLayoutManager)
     var a = ListBuffer[ChatsMessageObject]()
 
-    a += new ChatsMessageObject(new Friend("Lorem Ipsum","Trying to TokTok",0,Color.parseColor("#DC4254"),Color.parseColor("#7D2530"),R.drawable.lorem), "Hello, how are you?")
-    a += new ChatsMessageObject(new Friend("John Doe","Up!",0,Color.parseColor("#009688"),Color.parseColor("#00796B"),R.drawable.john), "Hello, how are you?")
+    a += new ChatsMessageObject(new Friend("Lorem Ipsum", "Trying to TokTok", 0, Color.parseColor("#DC4254"), Color.parseColor("#7D2530"), R.drawable.lorem), "Hello, how are you?")
+    a += new ChatsMessageObject(new Friend("John Doe", "Up!", 0, Color.parseColor("#009688"), Color.parseColor("#00796B"), R.drawable.john), "Hello, how are you?")
 
     var friends = ListBuffer[Friend]()
 
-    friends += new Friend("Lorem Ipsum","Trying to TokTok",0,Color.parseColor("#DC4254"),Color.parseColor("#7D2530"),R.drawable.lorem)
-    friends += new Friend("John Doe","Up!",0,Color.parseColor("#009688"),Color.parseColor("#00796B"),R.drawable.john)
+    friends += new Friend("Lorem Ipsum", "Trying to TokTok", 0, Color.parseColor("#DC4254"), Color.parseColor("#7D2530"), R.drawable.lorem)
+    friends += new Friend("John Doe", "Up!", 0, Color.parseColor("#009688"), Color.parseColor("#00796B"), R.drawable.john)
 
-    a += new ChatsMessageObject(new Group("The Amazing Group",friends,Color.parseColor("#9B9B9B"),Color.parseColor("#5A5A5A")),"Let's Go!")
+    a += new ChatsMessageObject(new Group("The Amazing Group", friends, Color.parseColor("#9B9B9B"), Color.parseColor("#5A5A5A")), "Let's Go!")
 
 
     val mChats_Recycler_Adapter: ChatsRecyclerAdapter = new ChatsRecyclerAdapter(a)

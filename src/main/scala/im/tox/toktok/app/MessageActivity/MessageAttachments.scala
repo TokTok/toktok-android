@@ -10,16 +10,16 @@ import im.tox.toktok.app.MainChatsFragment.ChatsFragment
 import im.tox.toktok.app.MainFriendsFragment.FriendsFragment
 
 
-class MessageAttachments extends Fragment{
+class MessageAttachments extends Fragment {
 
-  override def onCreateView(inflater : LayoutInflater, container : ViewGroup, savedInstanceState : Bundle ): View ={
-    val view : View = inflater.inflate(R.layout.fragment_attachments, container, false);
+  override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle): View = {
+    val view: View = inflater.inflate(R.layout.fragment_attachments, container, false);
 
-    val mViewPaper : ViewPager = view.findViewById(R.id.fragment_viewpager).asInstanceOf[ViewPager]
-    val mViewPaperAdapter : MessageAttachmentsTabsAdapter = new MessageAttachmentsTabsAdapter(getChildFragmentManager)
+    val mViewPaper: ViewPager = view.findViewById(R.id.fragment_viewpager).asInstanceOf[ViewPager]
+    val mViewPaperAdapter: MessageAttachmentsTabsAdapter = new MessageAttachmentsTabsAdapter(getChildFragmentManager)
     mViewPaper.setAdapter(mViewPaperAdapter)
 
-    val mTabs : TabLayout = view.findViewById(R.id.fragment_tabs).asInstanceOf[TabLayout]
+    val mTabs: TabLayout = view.findViewById(R.id.fragment_tabs).asInstanceOf[TabLayout]
     mTabs.setupWithViewPager(mViewPaper)
 
     return view
@@ -27,7 +27,7 @@ class MessageAttachments extends Fragment{
 
 }
 
-class MessageAttachmentsTabsAdapter(fm: FragmentManager) extends FragmentPagerAdapter(fm){
+class MessageAttachmentsTabsAdapter(fm: FragmentManager) extends FragmentPagerAdapter(fm) {
 
   override def getItem(i: Int): Fragment = {
 
@@ -44,7 +44,7 @@ class MessageAttachmentsTabsAdapter(fm: FragmentManager) extends FragmentPagerAd
     return 2
   }
 
-  override def getPageTitle (i : Int) : CharSequence = {
+  override def getPageTitle(i: Int): CharSequence = {
     i match {
       case 1 => return "Attachments"
       case 0 => return "Add Items"

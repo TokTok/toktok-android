@@ -11,17 +11,17 @@ import im.tox.toktok.app.ContactsActivity.ContactsActivity
 
 final class FriendsRecyclerViewHolder(itemView: View) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener {
 
-  var context : Context = itemView.getContext
+  var context: Context = itemView.getContext
 
   itemView.setOnClickListener(this)
   var mUserName: TextView = itemView.findViewById(R.id.home_friends_name).asInstanceOf[TextView]
-  var mLayout : LinearLayout = itemView.findViewById(R.id.home_friends_layout).asInstanceOf[LinearLayout]
+  var mLayout: LinearLayout = itemView.findViewById(R.id.home_friends_layout).asInstanceOf[LinearLayout]
   //var mUserStatus: TextView = itemView.findViewById(R.id.home_friends_status).asInstanceOf[TextView]
-  var mUserImage : CircularImageView = itemView.findViewById(R.id.home_friends_img).asInstanceOf[CircularImageView]
+  var mUserImage: CircularImageView = itemView.findViewById(R.id.home_friends_img).asInstanceOf[CircularImageView]
 
 
   def onClick(view: View) = {
-    val contactIntent : Intent  = new Intent(context,classOf[ContactsActivity])
+    val contactIntent: Intent = new Intent(context, classOf[ContactsActivity])
     context.startActivity(contactIntent)
 
   }

@@ -27,8 +27,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/lorem"
-                />
+                android:src="@drawable/lorem" />
 
             <TextView
                 android:id="@+id/newmessage_toolbar_friends_text"

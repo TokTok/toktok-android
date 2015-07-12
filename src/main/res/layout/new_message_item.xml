@@ -17,8 +17,7 @@
         android:layout_height="50dp"
         android:layout_marginRight="20dp"
         android:src="@drawable/lorem"
-        app:siBorderAlpha="0.0"
-        />
+        app:siBorderAlpha="0.0" />
 
     <View
         android:id="@+id/newmessage_item_status"
@@ -29,7 +28,7 @@
         android:backgroundTint="#2ECC71"
         android:layout_marginRight="20dp"
         android:layout_toRightOf="@id/newmessage_item_img"
-        android:background="@drawable/status_circle"/>
+        android:background="@drawable/status_circle" />
 
     <TextView
         android:id="@+id/newmessage_item_name"
@@ -40,7 +39,6 @@
         android:fontFamily="sans-serif-light"
         android:textSize="18sp"
         android:layout_toRightOf="@id/newmessage_item_status"
-        android:layout_centerInParent="true"
-        />
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

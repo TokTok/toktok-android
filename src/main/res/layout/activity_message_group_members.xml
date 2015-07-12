@@ -26,7 +26,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/message_group_members_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/message_group_members_fab"
@@ -38,7 +38,7 @@
         android:src="@drawable/ic_content_add"
         app:layout_anchor="@id/message_group_members_recycler"
         app:layout_anchorGravity="bottom|right|end"
-        app:borderWidth="0dp"/>
+        app:borderWidth="0dp" />
 
 </android.support.design.widget.CoordinatorLayout>
 

@@ -4,21 +4,21 @@ import im.tox.toktok.app.MainFriendsFragment.Friend
 
 import scala.collection.mutable.ListBuffer
 
-class Group(name :String,list: ListBuffer[Friend], color : Int, statusColor : Int){
-  
+class Group(name: String, list: ListBuffer[Friend], color: Int, statusColor: Int) {
+
   def getGroupName(): String = {
     return name
   }
-  
+
   def getFriendsList(): ListBuffer[Friend] = {
     return list
   }
 
-  def getPrimaryColor() : Int = {
+  def getPrimaryColor(): Int = {
     return color
   }
 
-  def getStatusColor() : Int = {
+  def getStatusColor(): Int = {
     return statusColor
   }
 

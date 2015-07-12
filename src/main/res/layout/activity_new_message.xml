@@ -16,39 +16,39 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <android.support.v7.widget.Toolbar
-                android:id="@+id/newMessage_toolbar"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:minHeight="?attr/actionBarSize"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-    
+            android:id="@+id/newMessage_toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
         </android.support.v7.widget.Toolbar>
 
-            <!--<include layout="@layout/new_message_toolbar_friend"></include>-->
+        <!--<include layout="@layout/new_message_toolbar_friend"></include>-->
 
-            <android.support.v7.widget.CardView
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
+        <android.support.v7.widget.CardView
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent">
-
-                <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentLeft="true"
-                        android:id="@+id/newmessage_search_icon"
-                        android:src="@drawable/ic_action_search"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/newmessage_search_icon"
+                    android:src="@drawable/ic_action_search" />
 
                 <EditText
                     style="@style/Widget.AppCompat.EditText"
@@ -62,25 +62,24 @@
                     android:layout_centerVertical="true" />
 
 
-                </RelativeLayout>
+            </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
 
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-                android:id="@+id/newmessage_recycler"
-                android:scrollbars="vertical"
-                android:paddingTop="16dp"
-                android:clipToPadding="false"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            android:id="@+id/newmessage_recycler"
+            android:scrollbars="vertical"
+            android:paddingTop="16dp"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/home_fab"
@@ -92,7 +91,7 @@
             android:src="@drawable/ic_navigation_arrow_forward"
             app:layout_anchor="@id/newmessage_recycler"
             app:layout_anchorGravity="bottom|right|end"
-            app:borderWidth="0dp"/>
+            app:borderWidth="0dp" />
 
 
     </android.support.design.widget.CoordinatorLayout>

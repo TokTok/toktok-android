@@ -3,11 +3,13 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -19,7 +21,7 @@
                 android:minHeight="?attr/actionBarSize"
                 android:title=""
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
             <RelativeLayout
@@ -46,17 +48,17 @@
 
             </android.support.v7.widget.RecyclerView>
 
-                <android.support.v7.widget.CardView
-                    android:layout_marginBottom="8dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
+            <android.support.v7.widget.CardView
+                android:layout_marginBottom="8dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <ImageButton
                         android:background="@null"
@@ -78,18 +80,17 @@
                         android:layout_toRightOf="@id/message_attachments_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/message_input"
-                         />
+                        android:id="@+id/message_input" />
 
-                    </RelativeLayout>
+                </RelativeLayout>
 
-                </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
         </RelativeLayout>
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/message_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-    </FrameLayout>
+        android:layout_alignParentBottom="true"></FrameLayout>
 </RelativeLayout>

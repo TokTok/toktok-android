@@ -19,13 +19,13 @@ class MainActivityFragment extends Fragment {
   var mViewPaper: ViewPager = null
   var mMenu: Menu = null
   var mToolbar: Toolbar = null
-  var mTabs : TabLayout = null
-  var mFab : FloatingActionButton = null
-  var mPagerAdapter : MainTabsAdapter = null
-  var mDrawer : DrawerLayout = null
+  var mTabs: TabLayout = null
+  var mFab: FloatingActionButton = null
+  var mPagerAdapter: MainTabsAdapter = null
+  var mDrawer: DrawerLayout = null
 
 
-  override def onCreate( savedState: Bundle): Unit ={
+  override def onCreate(savedState: Bundle): Unit = {
     super.onCreate(savedState)
     setHasOptionsMenu(true);
   }
@@ -33,7 +33,7 @@ class MainActivityFragment extends Fragment {
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedState: Bundle): View = {
 
     super.onCreate(savedState)
-    val view : View  = inflater.inflate(R.layout.activity_main_fragment, container, false)
+    val view: View = inflater.inflate(R.layout.activity_main_fragment, container, false)
 
     initViewPaper(view)
     initToolbar(view)
@@ -44,14 +44,14 @@ class MainActivityFragment extends Fragment {
   }
 
 
-  override def onCreateOptionsMenu(menu: Menu, inflater : MenuInflater) = {
+  override def onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) = {
     mMenu = menu
     inflater.inflate(R.menu.menu_main, menu)
-    super.onCreateOptionsMenu(menu,inflater)
+    super.onCreateOptionsMenu(menu, inflater)
   }
 
 
-  def initViewPaper(view : View): Unit ={
+  def initViewPaper(view: View): Unit = {
 
     mViewPaper = view.findViewById(R.id.home_tab_holder).asInstanceOf[ViewPager]
     mPagerAdapter = new MainTabsAdapter(getChildFragmentManager);
@@ -64,7 +64,7 @@ class MainActivityFragment extends Fragment {
 
   }
 
-  def initToolbar(view: View): Unit ={
+  def initToolbar(view: View): Unit = {
 
     mToolbar = view.findViewById(R.id.home_toolbar).asInstanceOf[Toolbar]
     mToolbar.setTitle("TokTok")
@@ -82,23 +82,23 @@ class MainActivityFragment extends Fragment {
 
   }
 
-  def initFAB(view: View): Unit ={
+  def initFAB(view: View): Unit = {
 
-    mFab  =  view.findViewById(R.id.home_fab).asInstanceOf[FloatingActionButton]
+    mFab = view.findViewById(R.id.home_fab).asInstanceOf[FloatingActionButton]
     mFab.setOnClickListener(new OnClickListener {
       override def onClick(view: View): Unit = {
-        startActivity(new Intent(getActivity,classOf[NewMessageActivity]))
+        startActivity(new Intent(getActivity, classOf[NewMessageActivity]))
       }
     })
 
   }
 
-  override def onOptionsItemSelected(item : MenuItem) : Boolean = {
+  override def onOptionsItemSelected(item: MenuItem): Boolean = {
 
     item.getItemId match {
 
-      case android.R.id.home =>{
-        mDrawer.openDrawer(GravityCompat.START);  // OPEN DRAWER
+      case android.R.id.home => {
+        mDrawer.openDrawer(GravityCompat.START); // OPEN DRAWER
         return true;
       }
     }

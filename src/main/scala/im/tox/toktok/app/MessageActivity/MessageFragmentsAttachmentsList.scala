@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.{View, ViewGroup, LayoutInflater}
 import im.tox.toktok.R
 
-class MessageFragmentsAttachmentsList extends Fragment{
+class MessageFragmentsAttachmentsList extends Fragment {
 
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedState: Bundle): View = {
 

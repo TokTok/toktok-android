@@ -26,7 +26,7 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend]) extends RecyclerView.Adap
     return items.length
   }
 
-  def getItemPosition(i : Int) : String ={
+  def getItemPosition(i: Int): String = {
     return items(i).getUserName()
   }
 

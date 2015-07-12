@@ -16,8 +16,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginRight="16dp"
-        android:src="@drawable/lorem"
-        />
+        android:src="@drawable/lorem" />
 
     <android.support.v7.widget.CardView
         android:layout_toLeftOf="@id/message_item_img"

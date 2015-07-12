@@ -1,7 +1,7 @@
 // General settings
-organization  := "im.tox"
-name          := "toktok"
-scalaVersion  := "2.12.0-M1"
+organization := "im.tox"
+name := "toktok"
+scalaVersion := "2.12.0-M1"
 
 // Dependencies.
 libraryDependencies ++= Seq(

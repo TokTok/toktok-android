@@ -8,9 +8,9 @@ import im.tox.toktok.R
 import scala.collection.mutable.ListBuffer
 
 
-class MessageRecallRecyclerAdapter(list : ListBuffer[Message]) extends RecyclerView.Adapter[MessageRecallRecyclerViewHolder]{
+class MessageRecallRecyclerAdapter(list: ListBuffer[Message]) extends RecyclerView.Adapter[MessageRecallRecyclerViewHolder] {
 
-  val items : ListBuffer[Message] = list
+  val items: ListBuffer[Message] = list
 
   def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MessageRecallRecyclerViewHolder = {
     val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.recall_item, viewGroup, false)
@@ -21,7 +21,7 @@ class MessageRecallRecyclerAdapter(list : ListBuffer[Message]) extends RecyclerV
   def onBindViewHolder(viewHolder: MessageRecallRecyclerViewHolder, position: Int) = {
 
     val item: Message = items(position)
-    val view : MessageRecallRecyclerViewHolder = viewHolder.asInstanceOf[MessageRecallRecyclerViewHolder]
+    val view: MessageRecallRecyclerViewHolder = viewHolder.asInstanceOf[MessageRecallRecyclerViewHolder]
 
     view.mMessageText.setText(item.getMsgContent())
     view.mMessageDetails.setText(item.getMsgDetails())
@@ -32,14 +32,14 @@ class MessageRecallRecyclerAdapter(list : ListBuffer[Message]) extends RecyclerV
     return items.length
   }
 
-  def getItemPosition(position: Int): Message ={
+  def getItemPosition(position: Int): Message = {
     return items(position)
   }
 
 }
 
 
-final class MessageRecallRecyclerViewHolder (itemView : View) extends RecyclerView.ViewHolder(itemView){
+final class MessageRecallRecyclerViewHolder(itemView: View) extends RecyclerView.ViewHolder(itemView) {
 
   var mMessageText = itemView.findViewById(R.id.message_item_text).asInstanceOf[TextView]
   var mMessageDetails = itemView.findViewById(R.id.message_item_details).asInstanceOf[TextView]

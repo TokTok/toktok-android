@@ -8,9 +8,9 @@ import im.tox.toktok.app.MainFriendsFragment.Friend
 import scala.collection.mutable.ListBuffer
 
 
-class NewMessageRecyclerAdapter(list : ListBuffer[Friend]) extends RecyclerView.Adapter[NewMessageRecyclerViewHolder] {
+class NewMessageRecyclerAdapter(list: ListBuffer[Friend]) extends RecyclerView.Adapter[NewMessageRecyclerViewHolder] {
 
-  private val items : ListBuffer[Friend] = list
+  private val items: ListBuffer[Friend] = list
 
   def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): NewMessageRecyclerViewHolder = {
     val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.new_message_item, viewGroup, false)
@@ -26,7 +26,7 @@ class NewMessageRecyclerAdapter(list : ListBuffer[Friend]) extends RecyclerView.
     return items.length
   }
 
-  def getItemPosition(i : Int) : String ={
+  def getItemPosition(i: Int): String = {
     return items(i).getUserName()
   }
 

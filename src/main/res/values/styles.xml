@@ -7,7 +7,7 @@
         <item name="colorPrimaryDark">@color/HomeColorSecond</item>
         <item name="android:windowBackground">@color/backgroundColor</item>
         <item name="colorAccent">@color/colorAccent</item>
-        
+
     </style>
 
     <style name="AppTheme.DialogTheme" parent="Theme.AppCompat.Light.Dialog">

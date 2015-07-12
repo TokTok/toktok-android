@@ -21,80 +21,80 @@
             android:textColor="#DC4254"
             android:padding="16dp"
             android:layout_marginBottom="12dp"
-            android:text="Contact Settings "/>
+            android:text="Contact Settings " />
 
-            <RelativeLayout
-                android:id="@+id/contact_edit_color"
-                android:layout_below="@id/contacts_other_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/contacts_ripple">
+        <RelativeLayout
+            android:id="@+id/contact_edit_color"
+            android:layout_below="@id/contacts_other_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/contacts_ripple">
 
-                <ImageView
-                    android:src="@drawable/ic_image_color_lens_24"
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:tint="#DC4254" />
-
-                <TextView
-                    android:padding="18dp"
-                    android:layout_marginLeft="56dp"
-                    android:id="@+id/contacts_item_voice_call"
-                    android:text="Choose Contact color"
-                    android:fontFamily="sans-serif-light"
-                    android:textAllCaps="false"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-
-            </RelativeLayout>
-
-            <View
+            <ImageView
+                android:src="@drawable/ic_image_color_lens_24"
+                android:layout_width="wrap_content"
                 android:layout_centerVertical="true"
-                android:background="#D7D7D7"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="56dp"/>
-
-            <RelativeLayout
-                android:layout_below="@id/contacts_other_title"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/contacts_edit_alias"
-                android:background="@drawable/contacts_ripple">
+                android:padding="16dp"
+                android:tint="#DC4254" />
 
-                <ImageView
-                    android:src="@drawable/ic_editor_mode_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:tint="#DC4254" />
-
-                <TextView
-                    android:padding="18dp"
-                    android:layout_marginLeft="56dp"
-                    android:text="Edit friend alias"
-                    android:fontFamily="sans-serif-light"
-                    android:textAllCaps="false"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <TextView
+                android:padding="18dp"
+                android:layout_marginLeft="56dp"
+                android:id="@+id/contacts_item_voice_call"
+                android:text="Choose Contact color"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
 
-            </RelativeLayout>
+        </RelativeLayout>
 
         <View
             android:layout_centerVertical="true"
             android:background="#D7D7D7"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="56dp"/>
+            android:layout_marginLeft="56dp" />
+
+        <RelativeLayout
+            android:layout_below="@id/contacts_other_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/contacts_edit_alias"
+            android:background="@drawable/contacts_ripple">
+
+            <ImageView
+                android:src="@drawable/ic_editor_mode_edit"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:tint="#DC4254" />
+
+            <TextView
+                android:padding="18dp"
+                android:layout_marginLeft="56dp"
+                android:text="Edit friend alias"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_centerVertical="true"
+            android:background="#D7D7D7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="56dp" />
 
         <RelativeLayout
             android:id="@+id/contacts_delete"
@@ -130,7 +130,7 @@
             android:background="#D7D7D7"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="56dp"/>
+            android:layout_marginLeft="56dp" />
 
         <RelativeLayout
             android:layout_below="@id/contacts_other_title"

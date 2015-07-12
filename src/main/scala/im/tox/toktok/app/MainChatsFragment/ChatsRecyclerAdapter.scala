@@ -12,26 +12,26 @@ import im.tox.toktok.app.MessageActivity.MessageActivity
 
 import scala.collection.mutable.ListBuffer
 
-class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject]) extends RecyclerView.Adapter[RecyclerView.ViewHolder]{
+class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject]) extends RecyclerView.Adapter[RecyclerView.ViewHolder] {
 
   private val items: ListBuffer[ChatsMessageObject] = list
 
-  override def getItemViewType(position : Int) : Int = {
+  override def getItemViewType(position: Int): Int = {
     return items(position).getType()
   }
 
   def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder = {
 
-    if (viewType == 0){
+    if (viewType == 0) {
 
       val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.home_chats_item_user, viewGroup, false)
-      return new ChatsRecyclerViewHolderUser(itemView,items)
+      return new ChatsRecyclerViewHolderUser(itemView, items)
 
     }
-    else{
+    else {
 
       val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.home_chats_item_group, viewGroup, false)
-      return new ChatsRecyclerViewHolderGroup(itemView,items)
+      return new ChatsRecyclerViewHolderGroup(itemView, items)
 
     }
 
@@ -41,9 +41,9 @@ class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject]) extends Recycle
   def onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) = {
     val item: ChatsMessageObject = items(position)
 
-    if(getItemViewType(position) == 0) {
+    if (getItemViewType(position) == 0) {
 
-      val view : ChatsRecyclerViewHolderUser = viewHolder.asInstanceOf[ChatsRecyclerViewHolderUser]
+      val view: ChatsRecyclerViewHolderUser = viewHolder.asInstanceOf[ChatsRecyclerViewHolderUser]
 
       view.mUserName.setText(item.getUser().getUserName())
       view.mUserStatus.setText(item.getUser().getUserMessage())
@@ -52,9 +52,9 @@ class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject]) extends Recycle
       view.mColor.setBackgroundColor(item.getUser().getColor())
 
     }
-    else{
+    else {
 
-      val view : ChatsRecyclerViewHolderGroup = viewHolder.asInstanceOf[ChatsRecyclerViewHolderGroup]
+      val view: ChatsRecyclerViewHolderGroup = viewHolder.asInstanceOf[ChatsRecyclerViewHolderGroup]
 
       view.mUserName.setText(item.getGroup().getGroupName())
       view.mLastMessage.setText(item.getLastMessage())
@@ -70,30 +70,30 @@ class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject]) extends Recycle
 
 }
 
-final class ChatsRecyclerViewHolderUser(itemView: View,list: ListBuffer[ChatsMessageObject]) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener {
+final class ChatsRecyclerViewHolderUser(itemView: View, list: ListBuffer[ChatsMessageObject]) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener {
 
-  var context : Context = itemView.getContext
+  var context: Context = itemView.getContext
   itemView.setOnClickListener(this)
 
   var mUserName: TextView = itemView.findViewById(R.id.home_item_name).asInstanceOf[TextView]
   var mUserStatus: TextView = itemView.findViewById(R.id.home_item_status).asInstanceOf[TextView]
   var mLastMessage: TextView = itemView.findViewById(R.id.home_item_last_message).asInstanceOf[TextView]
-  var mUserImage : CircularImageView = itemView.findViewById(R.id.home_item_img).asInstanceOf[CircularImageView]
-  var mColor : RelativeLayout = itemView.findViewById(R.id.home_item_color).asInstanceOf[RelativeLayout]
+  var mUserImage: CircularImageView = itemView.findViewById(R.id.home_item_img).asInstanceOf[CircularImageView]
+  var mColor: RelativeLayout = itemView.findViewById(R.id.home_item_color).asInstanceOf[RelativeLayout]
 
   def onClick(view: View) = {
 
-    val item : ChatsMessageObject = list(getLayoutPosition)
+    val item: ChatsMessageObject = list(getLayoutPosition)
 
-    val bundle : Bundle =  new Bundle()
+    val bundle: Bundle = new Bundle()
 
-    bundle.putInt("messageType",0)
-    bundle.putInt("contactColorPrimary",item.getPrimaryColor())
-    bundle.putInt("contactColorStatus",item.getStatusColor())
-    bundle.putString("messageTitle",item.getUser().getUserName())
-    bundle.putInt("imgResource",item.getUser().getPhotoReference())
+    bundle.putInt("messageType", 0)
+    bundle.putInt("contactColorPrimary", item.getPrimaryColor())
+    bundle.putInt("contactColorStatus", item.getStatusColor())
+    bundle.putString("messageTitle", item.getUser().getUserName())
+    bundle.putInt("imgResource", item.getUser().getPhotoReference())
 
-    val messageIntent : Intent  = new Intent(context,classOf[MessageActivity])
+    val messageIntent: Intent = new Intent(context, classOf[MessageActivity])
     messageIntent.putExtras(bundle)
 
     context.startActivity(messageIntent)
@@ -101,27 +101,27 @@ final class ChatsRecyclerViewHolderUser(itemView: View,list: ListBuffer[ChatsMes
   }
 }
 
-final class ChatsRecyclerViewHolderGroup(itemView: View,list: ListBuffer[ChatsMessageObject]) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener {
+final class ChatsRecyclerViewHolderGroup(itemView: View, list: ListBuffer[ChatsMessageObject]) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener {
 
-  var context : Context = itemView.getContext
+  var context: Context = itemView.getContext
   itemView.setOnClickListener(this)
 
   var mUserName: TextView = itemView.findViewById(R.id.home_item_name).asInstanceOf[TextView]
   var mLastMessage: TextView = itemView.findViewById(R.id.home_item_last_message).asInstanceOf[TextView]
-  var mColor : RelativeLayout = itemView.findViewById(R.id.home_item_color).asInstanceOf[RelativeLayout]
+  var mColor: RelativeLayout = itemView.findViewById(R.id.home_item_color).asInstanceOf[RelativeLayout]
 
   def onClick(view: View) = {
 
-    val item : ChatsMessageObject = list(getLayoutPosition)
+    val item: ChatsMessageObject = list(getLayoutPosition)
 
-    val bundle : Bundle =  new Bundle()
+    val bundle: Bundle = new Bundle()
 
-    bundle.putInt("messageType",1)
-    bundle.putInt("contactColorPrimary",item.getPrimaryColor())
-    bundle.putInt("contactColorStatus",item.getStatusColor())
-    bundle.putString("messageTitle",item.getGroup().getGroupName())
+    bundle.putInt("messageType", 1)
+    bundle.putInt("contactColorPrimary", item.getPrimaryColor())
+    bundle.putInt("contactColorStatus", item.getStatusColor())
+    bundle.putString("messageTitle", item.getGroup().getGroupName())
 
-    val messageIntent : Intent  = new Intent(context,classOf[MessageActivity])
+    val messageIntent: Intent = new Intent(context, classOf[MessageActivity])
     messageIntent.putExtras(bundle)
 
     context.startActivity(messageIntent)

@@ -18,7 +18,7 @@
             android:padding="16dp"
             android:tint="#DC4254"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_communication_message"/>
+            android:src="@drawable/ic_communication_message" />
 
         <TextView
             android:padding="18dp"

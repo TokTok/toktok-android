@@ -17,7 +17,7 @@ class CallActivity extends AppCompatActivity {
     setContentView(R.layout.activity_call)
     background = findViewById(R.id.call_background).asInstanceOf[ImageView]
     //val backgroundBlurred: BlurringView = findViewById(R.id.call_background_blur).asInstanceOf[BlurringView]
-    //ackgroundBlurred.setBlurredView(background)
+    //backgroundBlurred.setBlurredView(background)
 
 
   }

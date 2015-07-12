@@ -13,18 +13,18 @@ import im.tox.toktok.R
 
 import scala.collection.mutable.ListBuffer
 
-class MessageActivity extends AppCompatActivity{
+class MessageActivity extends AppCompatActivity {
 
-  var mMenu : Menu = null
-  var mToolbar : Toolbar = null
-  var mUserName : TextView = null
-  var mStatus : ImageView = null
-  var contactColorPrimary : Int = 0
+  var mMenu: Menu = null
+  var mToolbar: Toolbar = null
+  var mUserName: TextView = null
+  var mStatus: ImageView = null
+  var contactColorPrimary: Int = 0
   var contactColorStatus: Int = 0
-  var typeOfMessage : Int = 0
-  var header : RelativeLayout = null
-  var title : String = ""
-  var imgSRC : Int = 0
+  var typeOfMessage: Int = 0
+  var header: RelativeLayout = null
+  var title: String = ""
+  var imgSRC: Int = 0
 
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
@@ -32,7 +32,7 @@ class MessageActivity extends AppCompatActivity{
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_message)
 
-    val bundle : Bundle = getIntent.getExtras
+    val bundle: Bundle = getIntent.getExtras
 
     contactColorPrimary = bundle.getInt("contactColorPrimary")
     contactColorStatus = bundle.getInt("contactColorStatus")
@@ -48,16 +48,16 @@ class MessageActivity extends AppCompatActivity{
 
   }
 
-  override def onOptionsItemSelected(item: MenuItem) : Boolean ={
+  override def onOptionsItemSelected(item: MenuItem): Boolean = {
 
     item.getItemId() match {
 
       case R.id.action_recall_message => {
 
-        val recallMessageIntent : Intent  = new Intent(this,classOf[MessageRecallActivity])
-        val bundle : Bundle =  new Bundle()
-        bundle.putInt("colorPrimary",contactColorPrimary)
-        bundle.putInt("colorPrimaryStatus",contactColorStatus)
+        val recallMessageIntent: Intent = new Intent(this, classOf[MessageRecallActivity])
+        val bundle: Bundle = new Bundle()
+        bundle.putInt("colorPrimary", contactColorPrimary)
+        bundle.putInt("colorPrimaryStatus", contactColorStatus)
         recallMessageIntent.putExtras(bundle)
         startActivity(recallMessageIntent)
         return true
@@ -65,10 +65,10 @@ class MessageActivity extends AppCompatActivity{
       }
       case R.id.action_group_members => {
 
-        val contactListIntent : Intent  = new Intent(this,classOf[MessageGroupContacts])
-        val bundle : Bundle =  new Bundle()
-        bundle.putInt("colorPrimary",contactColorPrimary)
-        bundle.putInt("colorPrimaryStatus",contactColorStatus)
+        val contactListIntent: Intent = new Intent(this, classOf[MessageGroupContacts])
+        val bundle: Bundle = new Bundle()
+        bundle.putInt("colorPrimary", contactColorPrimary)
+        bundle.putInt("colorPrimaryStatus", contactColorStatus)
         contactListIntent.putExtras(bundle)
         startActivity(contactListIntent)
         return true
@@ -85,10 +85,10 @@ class MessageActivity extends AppCompatActivity{
   override def onCreateOptionsMenu(menu: Menu): Boolean = {
     mMenu = menu
 
-    if(typeOfMessage == 0) {
+    if (typeOfMessage == 0) {
       getMenuInflater.inflate(R.menu.menu_single_message, menu)
     }
-    else{
+    else {
       getMenuInflater.inflate(R.menu.menu_group_message, menu)
     }
 
@@ -96,7 +96,7 @@ class MessageActivity extends AppCompatActivity{
     return true
   }
 
-  def initToolbar(): Unit ={
+  def initToolbar(): Unit = {
     mToolbar = findViewById(R.id.message_toolbar).asInstanceOf[Toolbar]
     mToolbar.setBackgroundColor(contactColorPrimary)
 
@@ -110,19 +110,19 @@ class MessageActivity extends AppCompatActivity{
 
     header = findViewById(R.id.message_header).asInstanceOf[RelativeLayout]
 
-    val params : RelativeLayout.LayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    val params: RelativeLayout.LayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     params.addRule(RelativeLayout.CENTER_VERTICAL)
 
-    if(typeOfMessage == 0){
+    if (typeOfMessage == 0) {
 
-      header.addView(getLayoutInflater.inflate(R.layout.message_header_user,null,true),params)
+      header.addView(getLayoutInflater.inflate(R.layout.message_header_user, null, true), params)
       header.findViewById(R.id.message_header_user_img).asInstanceOf[CircularImageView].setImageResource(imgSRC)
 
     }
 
-    else{
+    else {
 
-      header.addView(getLayoutInflater.inflate(R.layout.message_header_group,null,true),params)
+      header.addView(getLayoutInflater.inflate(R.layout.message_header_group, null, true), params)
 
     }
 
@@ -131,13 +131,13 @@ class MessageActivity extends AppCompatActivity{
 
   }
 
-  def initRecyclerView(): Unit ={
+  def initRecyclerView(): Unit = {
 
-    val mRecycler : RecyclerView = findViewById(R.id.message_recycler).asInstanceOf[RecyclerView]
-    val list : ListBuffer[Message] = new ListBuffer[Message]
-    list+= new Message(1,"Lorem ipsum dolor sit amet, consectetur adipiscing elit.","14:30 Delivered",R.drawable.user)
-    list+= new Message(2,"Lorem ipsum dolor sit amet, consectetur adipiscing elit.","14:30 Delivered",imgSRC)
-    list+= new Message(3,"Lorem ipsum dolor sit amet","",imgSRC)
+    val mRecycler: RecyclerView = findViewById(R.id.message_recycler).asInstanceOf[RecyclerView]
+    val list: ListBuffer[Message] = new ListBuffer[Message]
+    list += new Message(1, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "14:30 Delivered", R.drawable.user)
+    list += new Message(2, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "14:30 Delivered", imgSRC)
+    list += new Message(3, "Lorem ipsum dolor sit amet", "", imgSRC)
 
 
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
@@ -146,14 +146,14 @@ class MessageActivity extends AppCompatActivity{
     mRecycler.setAdapter(new MessageAdapter(list))
 
 
-    val attachButton : ImageButton = findViewById(R.id.message_attachments_button).asInstanceOf[ImageButton]
+    val attachButton: ImageButton = findViewById(R.id.message_attachments_button).asInstanceOf[ImageButton]
 
     attachButton.setOnClickListener(new OnClickListener {
 
       override def onClick(v: View): Unit = {
-        val attachFragment : Fragment  = new MessageAttachments
-        val trans : FragmentTransaction = getSupportFragmentManager.beginTransaction()
-        trans.add(R.id.message_frame,attachFragment)
+        val attachFragment: Fragment = new MessageAttachments
+        val trans: FragmentTransaction = getSupportFragmentManager.beginTransaction()
+        trans.add(R.id.message_frame, attachFragment)
         trans.commit()
 
       }
@@ -162,12 +162,12 @@ class MessageActivity extends AppCompatActivity{
 
   }
 
-  def initInput(): Unit ={
+  def initInput(): Unit = {
 
-    val input : EditText = findViewById(R.id.message_input).asInstanceOf[EditText]
+    val input: EditText = findViewById(R.id.message_input).asInstanceOf[EditText]
 
-    if(typeOfMessage == 0){
-      input.setHint("Message "+title)
+    if (typeOfMessage == 0) {
+      input.setHint("Message " + title)
     }
 
   }

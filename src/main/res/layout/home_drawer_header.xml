@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/HomeColor"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,8 +12,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/user"
-        app:siBorderAlpha="0.0"
-        />
+        app:siBorderAlpha="0.0" />
 
     <TextView
         android:fontFamily="sans-serif-light"

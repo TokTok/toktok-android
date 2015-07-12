@@ -9,7 +9,7 @@ import im.tox.toktok.app.ContactsActivity.File
 import scala.collection.mutable.ListBuffer
 
 
-class FileSendActivityAdapter(list: ListBuffer[File]) extends RecyclerView.Adapter[FileSendActivityViewHolder]{
+class FileSendActivityAdapter(list: ListBuffer[File]) extends RecyclerView.Adapter[FileSendActivityViewHolder] {
 
   val items: ListBuffer[File] = list
 
@@ -26,7 +26,7 @@ class FileSendActivityAdapter(list: ListBuffer[File]) extends RecyclerView.Adapt
 
   }
 
-    def getItemCount(): Int = {
+  def getItemCount(): Int = {
     return items.length
   }
 
@@ -35,7 +35,7 @@ class FileSendActivityAdapter(list: ListBuffer[File]) extends RecyclerView.Adapt
 final class FileSendActivityViewHolder(itemView: View) extends RecyclerView.ViewHolder(itemView) {
 
   var mIcon: ImageView = itemView.findViewById(R.id.files_send_item_icon).asInstanceOf[ImageView]
-  var mFileName : TextView = itemView.findViewById(R.id.files_send_item_name).asInstanceOf[TextView]
-  var mFileDate : TextView = itemView.findViewById(R.id.files_send_item_date).asInstanceOf[TextView]
+  var mFileName: TextView = itemView.findViewById(R.id.files_send_item_name).asInstanceOf[TextView]
+  var mFileDate: TextView = itemView.findViewById(R.id.files_send_item_date).asInstanceOf[TextView]
 
 }

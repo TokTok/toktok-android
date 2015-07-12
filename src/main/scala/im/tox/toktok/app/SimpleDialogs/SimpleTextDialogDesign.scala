@@ -9,18 +9,18 @@ import android.widget.{EditText, ImageView, RelativeLayout, TextView}
 import im.tox.toktok.R
 
 
-class SimpleTextDialogDesign(activity : Activity, title : String, icon : Int, value :String ,clickAction : OnClickListener ) extends Dialog(activity){
+class SimpleTextDialogDesign(activity: Activity, title: String, icon: Int, value: String, clickAction: OnClickListener) extends Dialog(activity) {
 
-  var  a : Activity = activity
+  var a: Activity = activity
 
-  override def onCreate(savedInstanceState : Bundle): Unit ={
+  override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
     requestWindowFeature(Window.FEATURE_NO_TITLE)
     setContentView(R.layout.simple_input_dialog_design)
     findViewById(R.id.simple_dialog_img).asInstanceOf[ImageView].setBackgroundResource(icon)
     findViewById(R.id.simple_dialog_text).asInstanceOf[TextView].setText(title)
 
-    val input : EditText = findViewById(R.id.simple_dialog_input).asInstanceOf[EditText]
+    val input: EditText = findViewById(R.id.simple_dialog_input).asInstanceOf[EditText]
 
     input.setText(value)
 
@@ -43,8 +43,8 @@ class SimpleTextDialogDesign(activity : Activity, title : String, icon : Int, va
 
       override def afterTextChanged(s: Editable): Unit = {
 
-      confirmButton.setAlpha(1)
-      confirmButton.setOnClickListener(clickAction)
+        confirmButton.setAlpha(1)
+        confirmButton.setOnClickListener(clickAction)
 
       }
     })

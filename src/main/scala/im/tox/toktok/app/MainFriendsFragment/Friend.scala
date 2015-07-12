@@ -1,12 +1,12 @@
 package im.tox.toktok.app.MainFriendsFragment
 
-class Friend(userName: String,userMessage : String, userStatus: Int, color : Int, secondColor : Int, photo : Int) {
+class Friend(userName: String, userMessage: String, userStatus: Int, color: Int, secondColor: Int, photo: Int) {
 
   def getUserName(): String = {
     return userName
   }
 
-  def getUserMessage():String = {
+  def getUserMessage(): String = {
     return userMessage
   }
 
@@ -14,15 +14,15 @@ class Friend(userName: String,userMessage : String, userStatus: Int, color : Int
     return userStatus
   }
 
-  def getColor() : Int = {
+  def getColor(): Int = {
     return color
   }
 
-  def getSecondColor() : Int = {
+  def getSecondColor(): Int = {
     return secondColor
   }
 
-  def getPhotoReference() : Int = {
+  def getPhotoReference(): Int = {
     return photo
   }
 

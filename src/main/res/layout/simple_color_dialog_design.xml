@@ -7,7 +7,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-
     <RelativeLayout
         android:layout_width="250dp"
         android:layout_height="wrap_content">
@@ -18,12 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/simpleDialogIcon"
-            android:background="@drawable/ic_delete_black_48dp"/>
+            android:background="@drawable/ic_delete_black_48dp" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
@@ -34,12 +35,13 @@
             android:textAlignment="center"
             android:textColor="#000000"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="32dp"/>
+            android:layout_marginBottom="32dp" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.v7.widget.RecyclerView
             android:layout_marginBottom="32dp"
             android:layout_width="match_parent"
@@ -48,6 +50,7 @@
 
         </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/simple_dialog_confirm"
         android:layout_marginBottom="10dp"
@@ -63,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:tint="@color/simpleDialogIconButtonAssets"
-            android:src="@drawable/ic_done_black_24dp"/>
+            android:src="@drawable/ic_done_black_24dp" />
 
         <TextView
             android:text="Confirm"
@@ -76,6 +79,7 @@
 
 
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/simple_dialog_cancel"
         android:background="@drawable/simple_dialog_button"
@@ -90,7 +94,7 @@
             android:tint="@color/simpleDialogIconButtonAssets"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_content_clear"/>
+            android:src="@drawable/ic_content_clear" />
 
         <TextView
             android:textColor="@color/simpleDialogIconButtonAssets"

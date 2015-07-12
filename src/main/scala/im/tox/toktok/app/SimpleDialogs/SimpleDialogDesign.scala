@@ -7,11 +7,11 @@ import android.view.{View, Window}
 import android.widget.{ImageView, RelativeLayout, TextView}
 import im.tox.toktok.R
 
-class SimpleDialogDesign(activity : Activity, question : String, icon : Int, clickAction : OnClickListener ) extends Dialog(activity){
+class SimpleDialogDesign(activity: Activity, question: String, icon: Int, clickAction: OnClickListener) extends Dialog(activity) {
 
-  var  a : Activity = activity
+  var a: Activity = activity
 
-  override def onCreate(savedInstanceState : Bundle): Unit ={
+  override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
     requestWindowFeature(Window.FEATURE_NO_TITLE)
     setContentView(R.layout.simple_dialog_design)

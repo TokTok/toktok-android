@@ -19,7 +19,7 @@
             android:padding="16dp"
             android:tint="#DC4254"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_communication_call"/>
+            android:src="@drawable/ic_communication_call" />
 
         <TextView
             android:padding="18dp"
@@ -38,7 +38,7 @@
             android:background="#D7D7D7"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="56dp"/>
+            android:layout_marginLeft="56dp" />
 
         <TextView
             android:padding="18dp"

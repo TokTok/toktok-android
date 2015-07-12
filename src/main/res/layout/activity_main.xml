@@ -8,8 +8,7 @@
     <FrameLayout
         android:id="@+id/home_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
+        android:layout_height="match_parent"></FrameLayout>
 
     <android.support.design.widget.NavigationView
         android:layout_width="match_parent"
@@ -58,6 +57,7 @@
                                 android:layout_height="wrap_content" />
 
                         </LinearLayout>
+
                         <LinearLayout
                             android:padding="16dp"
                             android:layout_width="match_parent"
@@ -78,6 +78,7 @@
                                 android:layout_height="wrap_content" />
 
                         </LinearLayout>
+
                         <LinearLayout
                             android:padding="16dp"
                             android:layout_width="match_parent"
@@ -115,7 +116,7 @@
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:layout_gravity="center"
-                    android:layout_marginRight="10dp"/>
+                    android:layout_marginRight="10dp" />
 
                 <TextView
                     android:text="Connecting to Tox"

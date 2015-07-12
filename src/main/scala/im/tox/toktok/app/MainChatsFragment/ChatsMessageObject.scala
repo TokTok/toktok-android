@@ -6,16 +6,16 @@ class ChatsMessageObject() {
 
   var typeMessage: Int = 0
   var lastMessage: String = ""
-  var user : Friend = null
-  var group : Group = null
-  var color : Int = 0
-  var colorStatus : Int = 0
+  var user: Friend = null
+  var group: Group = null
+  var color: Int = 0
+  var colorStatus: Int = 0
 
   def getUser(): Friend = {
     return user
   }
 
-  def getType() : Int = {
+  def getType(): Int = {
     return typeMessage
   }
 
@@ -35,7 +35,7 @@ class ChatsMessageObject() {
     return colorStatus
   }
 
-  def this(group : Group, lastMessage: String){
+  def this(group: Group, lastMessage: String) {
     this
     typeMessage = 1
     this.group = group
@@ -44,7 +44,7 @@ class ChatsMessageObject() {
     this.colorStatus = group.getStatusColor()
   }
 
-  def this(friend : Friend, lastMessage : String){
+  def this(friend: Friend, lastMessage: String) {
     this
     typeMessage = 0
     this.user = friend
