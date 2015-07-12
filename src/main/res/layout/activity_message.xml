@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/message_toolbar"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:minHeight="?attr/actionBarSize"
+                android:title=""
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+
+            <RelativeLayout
+                android:id="@+id/message_header"
+                android:layout_width="match_parent"
+                android:paddingLeft="64dp"
+                android:layout_height="?attr/actionBarSize">
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:paddingTop="10dp"
+                android:paddingBottom="50dp"
+                android:clipToPadding="false"
+                android:id="@+id/message_recycler"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_marginBottom="8dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:background="@null"
+                        android:id="@+id/message_attachments_button"
+                        android:src="@drawable/ic_file_attachment"
+                        android:layout_margin="10dp"
+                        android:padding="16dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp" />
+
+
+                    <EditText
+                        android:background="@null"
+                        android:layout_centerVertical="true"
+                        android:hint="Message Group"
+                        android:padding="10dp"
+                        android:textSize="16dp"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_toRightOf="@id/message_attachments_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/message_input"
+                         />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/message_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+    </FrameLayout>
+</RelativeLayout>

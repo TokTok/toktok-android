@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="im.tox.toktok">
+
+    <uses-sdk android:minSdkVersion="14" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".app.MainActivityHolder"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".app.NewMessageActivity.NewMessageActivity"
+            android:label="New Message"
+            android:parentActivityName=".app.MainActivityHolder">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".app.MainActivityHolder" />
+        </activity>
+        <activity
+            android:name=".app.ContactsActivity.ContactsActivity"
+            android:label="Contact"
+            android:parentActivityName=".app.MainActivityHolder">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".app.MainActivityHolder" />
+        </activity>
+        <activity
+            android:name=".app.ContactsActivity.FileSendActivity"
+            android:label="File Send"
+            android:parentActivityName=".app.ContactsActivity.ContactsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".app.ContactsActivity.ContactsActivity" />
+        </activity>
+        <activity
+            android:name=".app.MessageActivity.MessageActivity"
+            android:label="Message"
+            android:parentActivityName=".app.MainActivityHolder"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".app.MainActivityHolder" />
+        </activity>
+        <activity
+            android:name=".app.MessageActivity.MessageRecallActivity"
+            android:label="Recall Messages"
+            android:parentActivityName=".app.MessageActivity.MessageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".app.MessageActivity.MessageRecallActivity" />
+        </activity>
+        <activity
+            android:name=".app.MessageActivity.MessageGroupContacts"
+            android:label="Contacts List"
+            android:parentActivityName=".app.MessageActivity.MessageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".app.MessageActivity.MessageRecallActivity" />
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:paddingLeft="26dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/status_circle"
+
+        >
+
+
+        <TextView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:weightSum="1"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="L"
+                android:textColor="#000000"
+                android:id="@+id/recycler_header_text"
+                android:fontFamily="sans-serif-light"
+                />
+
+    </RelativeLayout>
+
+</LinearLayout>
+
