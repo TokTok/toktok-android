@@ -11,6 +11,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
+            app:statusBarScrim="@android:color/transparent"
             android:id="@+id/contacts_collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
