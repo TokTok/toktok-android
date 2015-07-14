@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:sothree="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -20,143 +18,21 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:gravity="center"
             android:id="@+id/call_top_painel"
             android:layout_width="fill_parent"
-            android:layout_height="0dp">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
-
-                <com.github.siyamed.shapeimageview.CircularImageView
-                    android:id="@+id/call_img"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/lorem"
-                    app:siBorderAlpha="0.0" />
-
-                <TextView
-                    android:id="@+id/call_friend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/call_img"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"
-                    android:shadowColor="#000000"
-                    android:shadowDx="0"
-                    android:shadowDy="2"
-                    android:shadowRadius="4"
-                    android:text="Lorem Ipsum"
-                    android:textColor="#ffffff"
-                    android:textSize="28sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/call_friend"
-                    android:layout_centerHorizontal="true"
-                    android:shadowColor="#000000"
-                    android:shadowDx="0"
-                    android:shadowDy="2"
-                    android:shadowRadius="2"
-                    android:text="is calling you"
-                    android:textColor="#ffffff"
-                    android:textSize="16sp" />
-
-            </RelativeLayout>
+            android:layout_height="wrap_content">
 
         </RelativeLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/call_bottom_painel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="#B0DC4254">
 
-            <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:sothree="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/sliding_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                sothree:umanoPanelHeight="32dp"
-                sothree:umanoShadowHeight="4dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <SeekBar
-                        android:id="@+id/call_answer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:paddingLeft="28dp"
-                        android:paddingRight="0dp"
-                        android:progressDrawable="@drawable/call_rect_lines"
-                        android:thumb="@drawable/call_answer_button" />
-
-
-                    <SeekBar
-                        android:id="@+id/call_decline"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="100dp"
-                        android:layout_marginRight="40dp"
-                        android:paddingLeft="28dp"
-                        android:paddingRight="0dp"
-                        android:progressDrawable="@drawable/call_rect_lines"
-                        android:thumb="@drawable/call_decline_button" />
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="32dp"
-                        android:background="#20000000"
-                        android:gravity="center"
-                        android:text="Reject with message"
-                        android:textColor="#ffffff" />
-
-                    <android.support.v7.widget.RecyclerView
-                        android:paddingTop="32dp"
-                        android:id="@+id/call_messages_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingBottom="48dp"
-                        android:clipToPadding="false" />
-
-                    <EditText
-                        android:layout_alignParentBottom="true"
-                        android:id="@+id/call_message_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#ffffff"
-                        android:fontFamily="sans-serif-light"
-                        android:hint="Message Lorem Ipsum"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="30dp"
-                        android:textSize="16sp" />
-
-                </RelativeLayout>
-
-            </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
-        </LinearLayout>
+        </FrameLayout>
 
     </RelativeLayout>
 

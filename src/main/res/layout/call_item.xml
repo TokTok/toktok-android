@@ -8,7 +8,7 @@
         android:textSize="18sp"
         android:id="@+id/call_item_message"
         android:layout_width="match_parent"
-        android:padding="10dp"
+        android:padding="16dp"
         android:gravity="center"
         android:layout_height="match_parent" />
 
@@ -16,7 +16,7 @@
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         android:layout_width="match_parent"
-        android:background="#ffffff"
+        android:background="#50ffffff"
         android:layout_height="1dp"/>
 
 </LinearLayout>

@@ -6,16 +6,16 @@ import android.widget.TextView
 import im.tox.toktok.R
 import scala.collection.mutable.ListBuffer
 
-class CallAdapter (list: ListBuffer[String]) extends RecyclerView.Adapter[CallViewHolder] {
+class CallMessageAdapter (list: ListBuffer[String]) extends RecyclerView.Adapter[CallMessageViewHolder] {
 
   val items: ListBuffer[String] = list
 
-  def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): CallViewHolder = {
+  def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): CallMessageViewHolder = {
     val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.call_item, viewGroup, false)
-    return new CallViewHolder(itemView)
+    return new CallMessageViewHolder(itemView)
   }
 
-  def onBindViewHolder(viewHolder: CallViewHolder, position: Int) = {
+  def onBindViewHolder(viewHolder: CallMessageViewHolder, position: Int) = {
     val item: String = items(position)
     viewHolder.mMessage.setText(item)
 
@@ -27,7 +27,7 @@ class CallAdapter (list: ListBuffer[String]) extends RecyclerView.Adapter[CallVi
 
 }
 
-final class CallViewHolder(itemView: View) extends RecyclerView.ViewHolder(itemView) {
+final class CallMessageViewHolder(itemView: View) extends RecyclerView.ViewHolder(itemView) {
 
   var mMessage : TextView = itemView.findViewById(R.id.call_item_message).asInstanceOf[TextView]
 
