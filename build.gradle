@@ -51,5 +51,6 @@ dependencies {
     compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.1@aar'
     compile 'com.github.500px:500px-android-blur:792dd6538a'
+    compile 'com.sothree.slidinguppanel:library:3.0.0'
     //compile "im.tox:tox4j_2.11:0.0.0-SNAPSHOT"
 }
