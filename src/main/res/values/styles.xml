@@ -3,11 +3,12 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/HomeColor</item>
-        <item name="colorPrimaryDark">@color/HomeColorSecond</item>
+        <item name="colorPrimary">@color/homeColorToolbar</item>
+        <item name="colorPrimaryDark">@color/homeColorStatusBar</item>
         <item name="android:windowBackground">@color/backgroundColor</item>
         <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.DialogTheme" parent="Theme.AppCompat.Light.Dialog">

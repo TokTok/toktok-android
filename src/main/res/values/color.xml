@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="HomeColor" type="color">#4A90E2</item>
-    <item name="HomeColorSecond" type="color">#2A5281</item>
+    <item name="homeColorToolbar" type="color">#1565C0</item>
+    <item name="homeColorStatusBar" type="color">#0D47A1</item>
+
+    <item name="backgroundColor" type="color">#F5F5F5</item>
+
+    <item name="cardBoardBackground" type="color">#FAFAFA</item>
+
+
+    <item name="statusOnline" type="color">#2ECC71</item>
+    <item name="statusBusy" type="color">#F8E71C</item>
+    <item name="statusAway" type="color">#9B9B9B</item>
+
+
     <item name="HomeColorTabSelected" type="color">#4A4A4A</item>
     <item name="HomeColorTab" type="color">#9B9B9B</item>
     <item name="FABColor" type="color">#FAFAFA</item>
-    <item name="backgroundColor" type="color">#f4f4f4</item>
+
+
+
     <item name="colorAccent" type="color">#9B9B9B</item>
+
+
+    <item name="drawerSelected" type="color">#E9E9E9</item>
+    <item name="drawerColor" type="color">#ffffff</item>
+    <item name="drawerTint" type="color">#4A4A4A</item>
+
     <item name="simpleDialogIcon" type="color">#7D7D7D</item>
     <item name="simpleDialogIconButton" type="color">#F5F5F5</item>
     <item name="simpleDialogIconButtonBorder" type="color">#C6C6C6</item>

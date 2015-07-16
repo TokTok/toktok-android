@@ -25,7 +25,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 22
         multiDexEnabled true
     }
@@ -40,13 +40,10 @@ android {
 
 dependencies {
     compile 'org.scala-lang:scala-library:2.12.0-M1'
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:gridlayout-v7:22.1.1'
-    compile 'com.android.support:support-v4:22.2.0'
-    compile 'com.android.support:design:22.2.0'
-    compile 'com.android.support:appcompat-v7:22.1.1'
-    compile 'com.android.support:recyclerview-v7:22.2.+'
-    compile 'com.android.support:cardview-v7:21.0.+'
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:recyclerview-v7:22.2.0'
+    compile 'com.android.support:cardview-v7:22.2.0'
+    compile 'com.android.support:palette-v7:22.2.0'
     compile 'com.android.support:design:22.2.0'
     compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.1@aar'

@@ -6,9 +6,8 @@ import android.support.design.widget.{FloatingActionButton, TabLayout}
 import android.support.v4.app.Fragment
 import android.support.v4.view.{GravityCompat, ViewPager}
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.{ActionBarDrawerToggle, AppCompatActivity}
+import android.support.v7.app.{ AppCompatActivity}
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.View.{OnClickListener}
 import android.view._
 import im.tox.toktok.R
@@ -27,7 +26,7 @@ class MainActivityFragment extends Fragment {
 
   override def onCreate(savedState: Bundle): Unit = {
     super.onCreate(savedState)
-    setHasOptionsMenu(true);
+    setHasOptionsMenu(true)
   }
 
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedState: Bundle): View = {
@@ -66,19 +65,20 @@ class MainActivityFragment extends Fragment {
 
   def initToolbar(view: View): Unit = {
 
+    getActivity.getWindow.setStatusBarColor(getResources.getColor(R.color.homeColorStatusBar))
+
     mToolbar = view.findViewById(R.id.home_toolbar).asInstanceOf[Toolbar]
-    mToolbar.setTitle("TokTok")
 
     mToolbar.setNavigationOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-        mDrawer.openDrawer(GravityCompat.START);
+        mDrawer.openDrawer(GravityCompat.START)
       }
     })
 
     getActivity.asInstanceOf[AppCompatActivity].setSupportActionBar(mToolbar)
     getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar.setTitle("TokTok")
     getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar.setHomeAsUpIndicator(R.drawable.ic_navigation_menu)
-    getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar.setDisplayHomeAsUpEnabled(true);
+    getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar.setDisplayHomeAsUpEnabled(true)
 
   }
 
@@ -98,8 +98,8 @@ class MainActivityFragment extends Fragment {
     item.getItemId match {
 
       case android.R.id.home => {
-        mDrawer.openDrawer(GravityCompat.START); // OPEN DRAWER
-        return true;
+        mDrawer.openDrawer(GravityCompat.START)
+        return true
       }
     }
 
