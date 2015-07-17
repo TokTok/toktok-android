@@ -1,38 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/background_ripple"
-    android:paddingLeft="56dp"
-    android:paddingRight="16dp"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
     android:clickable="true"
     android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:paddingBottom="8dp"
+    android:paddingLeft="56dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
 
-    <com.github.siyamed.shapeimageview.CircularImageView
-        android:id="@+id/home_friends_img"
-        style="@style/SmallUserImage"
-        android:layout_marginRight="20dp"
-        app:siBorderAlpha="0.0" />
-
-    <ImageView
-        android:id="@+id/home_friends_status"
-        style="@style/CircleUserStatus"
-        android:layout_centerVertical="true"
-        android:tint="@color/statusOnline"
-        android:layout_toRightOf="@id/home_friends_img"
-        android:src="@drawable/status_circle" />
-
-    <TextView
-        android:id="@+id/home_friends_name"
+    <RelativeLayout
+        android:id="@+id/home_item_info"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textDarkColor"
-        android:fontFamily="sans-serif-light"
-        android:textSize="18sp"
-        android:layout_toRightOf="@id/home_friends_status"
-        android:layout_centerInParent="true" />
+        android:layout_height="wrap_content">
+
+        <com.github.siyamed.shapeimageview.CircularImageView
+            android:id="@+id/home_friends_img"
+            style="@style/SmallUserImage"
+            android:layout_marginRight="20dp"
+            app:siBorderAlpha="0.0" />
+
+        <ImageView
+            android:id="@+id/home_friends_status"
+            style="@style/CircleUserStatus"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/home_friends_img"
+            android:src="@drawable/status_circle"
+            android:tint="@color/statusOnline" />
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/home_friends_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/home_friends_status"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/textDarkColor"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/home_friends_expend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/backgroundColor"
+            android:src="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
+            android:tint="@color/colorAccent" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/home_friends_expended_area"
+        android:visibility="gone"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/home_item_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/home_friends_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cardboard_ripple"
+            android:padding="8dp"
+            android:text="Call"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/home_friends_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/cardboard_ripple"
+            android:padding="8dp"
+            android:text="Message"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </RelativeLayout>
