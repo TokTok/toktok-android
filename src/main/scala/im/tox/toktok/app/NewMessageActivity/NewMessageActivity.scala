@@ -9,7 +9,7 @@ import android.view.{Window, WindowManager}
 import android.widget.LinearLayout
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import im.tox.toktok.R
-import im.tox.toktok.app.MainFriendsFragment.Friend
+import im.tox.toktok.app.Friend
 
 import scala.collection.mutable.ListBuffer
 

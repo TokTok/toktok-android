@@ -10,7 +10,7 @@ import android.view.ViewGroup.LayoutParams
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget._
 import im.tox.toktok.R
-import im.tox.toktok.app.MainFriendsFragment.Friend
+import im.tox.toktok.app.Friend
 
 import scala.collection.mutable.ListBuffer
 

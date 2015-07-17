@@ -1,40 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/ripple"
+    android:background="@drawable/background_ripple"
     android:padding="16dp"
     android:clickable="true"
     android:orientation="horizontal"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <com.github.siyamed.shapeimageview.CircularImageView
         android:id="@+id/home_friends_img"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        style="@style/SmallUserImage"
         android:layout_marginRight="20dp"
-        android:src="@drawable/lorem"
         app:siBorderAlpha="0.0" />
 
-
-    <View
+    <ImageView
         android:id="@+id/home_friends_status"
         android:layout_width="15dp"
         android:layout_gravity="center"
         android:layout_centerVertical="true"
         android:layout_height="15dp"
-        android:backgroundTint="#2ECC71"
+        android:tint="@color/statusOnline"
         android:layout_marginRight="20dp"
         android:layout_toRightOf="@id/home_friends_img"
-        android:background="@drawable/status_circle" />
-
+        android:src="@drawable/status_circle" />
 
     <TextView
         android:id="@+id/home_friends_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Lorem Ipsum"
+        android:textColor="@color/textDarkColor"
         android:fontFamily="sans-serif-light"
         android:textSize="18sp"
         android:layout_toRightOf="@id/home_friends_status"
@@ -44,7 +39,7 @@
         android:layout_toLeftOf="@+id/home_friends_call"
         android:src="@drawable/ic_communication_call"
         android:layout_centerVertical="true"
-        android:background="#00000000"
+        android:background="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -54,7 +49,7 @@
         android:id="@id/home_friends_call"
         android:src="@drawable/ic_communication_chat"
         android:layout_centerVertical="true"
-        android:background="#00000000"
+        android:background="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

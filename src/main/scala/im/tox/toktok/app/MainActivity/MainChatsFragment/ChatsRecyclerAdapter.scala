@@ -1,4 +1,4 @@
-package im.tox.toktok.app.MainChatsFragment
+package im.tox.toktok.app.MainActivity.MainChatsFragment
 
 import android.content.{Intent, Context}
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.{RelativeLayout, TextView}
 import com.github.siyamed.shapeimageview.CircularImageView
 import im.tox.toktok.R
-import im.tox.toktok.app.MainFriendsFragment.Friend
+import im.tox.toktok.app.{ChatsMessageObject, Friend}
 import im.tox.toktok.app.MessageActivity.MessageActivity
 
 import scala.collection.mutable.ListBuffer
@@ -24,13 +24,13 @@ class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject]) extends Recycle
 
     if (viewType == 0) {
 
-      val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.home_chats_item_user, viewGroup, false)
+      val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.fragment_home_chats_item_user, viewGroup, false)
       return new ChatsRecyclerViewHolderUser(itemView, items)
 
     }
     else {
 
-      val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.home_chats_item_group, viewGroup, false)
+      val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.fragment_home_chats_item_group, viewGroup, false)
       return new ChatsRecyclerViewHolderGroup(itemView, items)
 
     }
@@ -79,7 +79,7 @@ final class ChatsRecyclerViewHolderUser(itemView: View, list: ListBuffer[ChatsMe
   var mUserStatus: TextView = itemView.findViewById(R.id.home_item_status).asInstanceOf[TextView]
   var mLastMessage: TextView = itemView.findViewById(R.id.home_item_last_message).asInstanceOf[TextView]
   var mUserImage: CircularImageView = itemView.findViewById(R.id.home_item_img).asInstanceOf[CircularImageView]
-  var mColor: RelativeLayout = itemView.findViewById(R.id.home_item_color).asInstanceOf[RelativeLayout]
+  var mColor: View = itemView.findViewById(R.id.home_item_color)
 
   def onClick(view: View) = {
 
@@ -108,7 +108,7 @@ final class ChatsRecyclerViewHolderGroup(itemView: View, list: ListBuffer[ChatsM
 
   var mUserName: TextView = itemView.findViewById(R.id.home_item_name).asInstanceOf[TextView]
   var mLastMessage: TextView = itemView.findViewById(R.id.home_item_last_message).asInstanceOf[TextView]
-  var mColor: RelativeLayout = itemView.findViewById(R.id.home_item_color).asInstanceOf[RelativeLayout]
+  var mColor: View = itemView.findViewById(R.id.home_item_color)
 
   def onClick(view: View) = {
 

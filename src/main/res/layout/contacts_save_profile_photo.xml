@@ -8,27 +8,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
-
+        android:background="@drawable/cardboard_ripple"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/contacts_icon_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:tint="#DC4254"
+            style="@style/ContactsButtonIcon"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_photo_black_24dp" />
 
         <TextView
-            android:padding="18dp"
-            android:layout_marginLeft="56dp"
             android:id="@+id/contacts_item_voice_call"
-            android:text="Save Profile Photo"
-            android:fontFamily="sans-serif-light"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="16sp"
+            android:text="@string/contact_save_photo"
+            style="@style/ContactsButtonText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

@@ -1,6 +1,7 @@
-package im.tox.toktok.app.MainChatsFragment
+package im.tox.toktok.app
 
-import im.tox.toktok.app.MainFriendsFragment.Friend
+import android.graphics.Color
+import im.tox.toktok.app.Friend
 
 import scala.collection.mutable.ListBuffer
 
@@ -22,4 +23,8 @@ class Group(name: String, list: ListBuffer[Friend], color: Int, statusColor: Int
     return statusColor
   }
 
+}
+
+object Group{
+  val group = new Group("The Amazing Group", ListBuffer(Friend.lorem,Friend.john) , Color.parseColor("#9B9B9B"), Color.parseColor("#5A5A5A"))
 }

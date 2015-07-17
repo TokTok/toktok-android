@@ -1,6 +1,9 @@
-package im.tox.toktok.app.MainChatsFragment
+package im.tox.toktok.app
 
-import im.tox.toktok.app.MainFriendsFragment.Friend
+import android.graphics.Color
+import im.tox.toktok.R
+
+import scala.collection.mutable.ListBuffer
 
 class ChatsMessageObject() {
 
@@ -53,4 +56,10 @@ class ChatsMessageObject() {
     this.colorStatus = user.getSecondColor()
   }
 
+}
+
+object ChatsMessageObject{
+  val loremMessage = new ChatsMessageObject(Friend.lorem, "Hello, how are you?")
+  val johnMessage =  new ChatsMessageObject(Friend.john, "Hello, how are you?")
+  val groupMessage = new ChatsMessageObject(Group.group, "Let's Go!")
 }

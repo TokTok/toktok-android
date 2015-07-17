@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <item name="homeColorToolbar" type="color">#1565C0</item>
     <item name="homeColorStatusBar" type="color">#0D47A1</item>
+    <item name="homeColorTabSelected" type="color">#424242</item>
+    <item name="homeColorTab" type="color">#BDBDBD</item>
 
-    <item name="backgroundColor" type="color">#F5F5F5</item>
-
+    <item name="backgroundColor" type="color">#EEEEEE</item>
     <item name="cardBoardBackground" type="color">#FAFAFA</item>
 
+    <item name="basicFABColor" type="color">#FAFAFA</item>
+    <item name="basicFABTint" type="color">#424242</item>
 
     <item name="statusOnline" type="color">#2ECC71</item>
     <item name="statusBusy" type="color">#F8E71C</item>
     <item name="statusAway" type="color">#9B9B9B</item>
 
+    <item name="drawerBackgroundSelected" type="color">#E9E9E9</item>
+    <item name="drawerTint" type="color">#424242</item>
+    <item name="drawerTextColor" type="color">#616161</item>
 
-    <item name="HomeColorTabSelected" type="color">#4A4A4A</item>
-    <item name="HomeColorTab" type="color">#9B9B9B</item>
-    <item name="FABColor" type="color">#FAFAFA</item>
+    <item name="recyclerViewHeaderBackground" type="color">#E0E0E0</item>
 
+    <item name="textDarkColor" type="color">#212121</item>
+    <item name="textLightColor" type="color">#757575</item>
+    <item name="textWhiteColor" type="color">#FFFFFF</item>
 
+    <item name="dividerColor" type="color">#E0E0E0</item>
 
     <item name="colorAccent" type="color">#9B9B9B</item>
 
 
-    <item name="drawerSelected" type="color">#E9E9E9</item>
-    <item name="drawerColor" type="color">#ffffff</item>
-    <item name="drawerTint" type="color">#4A4A4A</item>
 
     <item name="simpleDialogIcon" type="color">#7D7D7D</item>
     <item name="simpleDialogIconButton" type="color">#F5F5F5</item>

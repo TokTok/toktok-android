@@ -10,26 +10,22 @@
     <RelativeLayout
         android:id="@+id/contacts_file_download"
         android:layout_width="match_parent"
-        android:background="@drawable/contacts_ripple"
+        android:background="@drawable/cardboard_ripple"
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/contacts_icon_download"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:tint="#DC4254"
+            style="@style/ContactsButtonIcon"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_file_download_black_24dp" />
 
         <TextView
-            android:padding="18dp"
-            android:layout_marginLeft="56dp"
+
             android:id="@+id/contacts_item_voice_call"
-            android:text="Files send by Lorem Ipsum"
-            android:fontFamily="sans-serif-light"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="16sp"
+            android:text="@string/contact_files"
+            style="@style/ContactsButtonText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

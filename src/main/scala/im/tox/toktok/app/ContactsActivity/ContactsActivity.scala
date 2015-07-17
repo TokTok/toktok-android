@@ -5,37 +5,71 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.{CollapsingToolbarLayout, FloatingActionButton}
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.RelativeLayout
+import android.widget.{LinearLayout, TextView, ImageView, RelativeLayout}
 import im.tox.toktok.R
 import im.tox.toktok.app.SimpleDialogs.{SimpleColorDialogDesign, SimpleDialogDesign, SimpleTextDialogDesign}
 
 class ContactsActivity extends AppCompatActivity {
 
+  final val friendIcons = List(R.id.contacts_icon_call, R.id.contacts_icon_message, R.id.contacts_icon_image, R.id.contacts_icon_download, R.id.contacts_icon_palette, R.id.contacts_icon_edit, R.id.contacts_icon_trash,R.id.contacts_icon_lock)
+  var friendTitle: String = ""
+  var friendMessage: String = ""
+  var friendImgSRC: Int = 0
+  var friendColor: Int = 0
+  var friendSecondColor: Int = 0
+
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_contacts)
 
+    val bundle: Bundle = getIntent.getExtras
+
+    friendTitle = bundle.getString("contactName")
+    friendMessage = bundle.getString("contactStatusMessage")
+    friendColor = bundle.getInt("contactColorPrimary")
+    friendSecondColor = bundle.getInt("contactColorSecondary")
+    friendImgSRC = bundle.getInt("contactPhotoReference")
+
     val mFAB: FloatingActionButton = findViewById(R.id.contacts_FAB).asInstanceOf[FloatingActionButton]
-    mFAB.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#DC4254")))
+    mFAB.setBackgroundTintList(ColorStateList.valueOf(friendColor))
 
     val mToolbar: Toolbar = findViewById(R.id.contacts_toolbar).asInstanceOf[Toolbar]
     setSupportActionBar(mToolbar)
 
+    val mImage: ImageView = findViewById(R.id.contact_image).asInstanceOf[ImageView]
+    mImage.setImageResource(friendImgSRC)
+
+    val mMessage: TextView = findViewById(R.id.contact_message_status).asInstanceOf[TextView]
+    mMessage.setText(friendMessage)
+
     val mCollapsingToolbar: CollapsingToolbarLayout = findViewById(R.id.contacts_collapsing_toolbar).asInstanceOf[CollapsingToolbarLayout]
-    mCollapsingToolbar.setTitle("Lorem Ipsum")
-    mCollapsingToolbar.setBackgroundColor(Color.parseColor("#DC4254"))
-    mCollapsingToolbar.setContentScrimColor(Color.parseColor("#DC4254"))
+    mCollapsingToolbar.setTitle(friendTitle)
+    mCollapsingToolbar.setBackgroundColor(friendColor)
+    mCollapsingToolbar.setContentScrimColor(friendColor)
+    mCollapsingToolbar.setStatusBarScrimColor(friendSecondColor)
+
     getWindow().setStatusBarColor(Color.parseColor("#2b000000"));
+
+    for (icon <-friendIcons){
+
+      val obj = findViewById(icon).asInstanceOf[ImageView]
+      obj.setImageTintList(ColorStateList.valueOf(friendColor))
+
+    }
+
+    findViewById(R.id.contacts_other_title).asInstanceOf[TextView].setTextColor(friendColor)
 
 
     val mDeleteLayout: RelativeLayout = findViewById(R.id.contacts_delete).asInstanceOf[RelativeLayout]
     mDeleteLayout.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-        val dial: SimpleDialogDesign = new SimpleDialogDesign(ContactsActivity.this, "Delete friend ?", R.drawable.ic_delete_black_48dp, null)
+        val dial: SimpleDialogDesign = new SimpleDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_delete_friend), R.drawable.ic_delete_black_48dp, null)
         dial.show()
       }
     })
@@ -44,7 +78,7 @@ class ContactsActivity extends AppCompatActivity {
 
     mEditName.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-        val dial: SimpleTextDialogDesign = new SimpleTextDialogDesign(ContactsActivity.this, "Edit alias", R.drawable.ic_person_black_48dp, "Lorem Ipsum", null)
+        val dial: SimpleTextDialogDesign = new SimpleTextDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_edit_alias), R.drawable.ic_person_black_48dp, friendTitle, null)
         dial.show()
       }
     })
@@ -53,7 +87,7 @@ class ContactsActivity extends AppCompatActivity {
 
     mColorContact.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-        val dial: SimpleColorDialogDesign = new SimpleColorDialogDesign(ContactsActivity.this, "Edit contact color", R.drawable.ic_image_color_lens, 0, null)
+        val dial: SimpleColorDialogDesign = new SimpleColorDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_edit_contact_color), R.drawable.ic_image_color_lens, 0, null)
         dial.show()
       }
     })

@@ -5,10 +5,12 @@
     <string name="search_hint">Search for your friends</string>
 
 
+    <string name="home_tabs_chats">Chats</string>
+    <string name="home_tabs_friends">Friends</string>
 
+    <string name="user_name">André Almeida</string>
 
     <!-- Drawer -->
-
     <string name="drawer_chats">Chats</string>
     <string name="drawer_profile">Profile</string>
     <string name="drawer_settings">Settings</string>
@@ -17,5 +19,24 @@
     <string name="drawer_connection_connected">Connected to Tox</string>
     <string name="drawer_connection_not_available">Unavailable</string>
 
+    <!-- Menu -->
+
+    <string name="menu_search">Search</string>
+    <string name="menu_add_friend">Add Friend</string>
+
+    <!-- Contacts -->
+    <string name="contact_voice_call">Voice Call</string>
+    <string name="contact_video_call">Video Call</string>
+    <string name="contact_message">Message</string>
+    <string name="contact_save_photo">Save Profile Photo</string>
+    <string name="contact_files">Files send by</string>
+    <string name="contact_block">Block friend</string>
+    <string name="contact_delete">Delete friend</string>
+    <string name="contact_settings">Friend Settings</string>
+    <string name="contact_choose_color">Choose friend color</string>
+    <string name="contact_edit_alias">Edit friend alias</string>
+    <string name="contact_popup_edit_contact_color">Edit friend color</string>
+    <string name="contact_popup_edit_alias">Edit alias</string>
+    <string name="contact_popup_delete_friend">Delete friend ?</string>
 
 </resources>

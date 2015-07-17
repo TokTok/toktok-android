@@ -3,7 +3,7 @@ package im.tox.toktok.app.NewMessageActivity
 import android.support.v7.widget.RecyclerView
 import android.view.{LayoutInflater, View, ViewGroup}
 import im.tox.toktok.R
-import im.tox.toktok.app.MainFriendsFragment.Friend
+import im.tox.toktok.app.Friend
 
 import scala.collection.mutable.ListBuffer
 

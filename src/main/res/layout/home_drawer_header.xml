@@ -20,9 +20,9 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         android:layout_centerHorizontal="true"
-        android:text="André Almeida"
+        android:text="@string/user_name"
         android:textSize="20sp"
-        android:textColor="#ffffff"
+        android:textColor="@color/textWhiteColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

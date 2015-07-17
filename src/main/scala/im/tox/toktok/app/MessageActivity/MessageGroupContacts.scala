@@ -10,7 +10,8 @@ import android.view.View
 import android.view.View.OnClickListener
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import im.tox.toktok.R
-import im.tox.toktok.app.MainFriendsFragment.{FriendsRecyclerHeaderAdapter, Friend}
+import im.tox.toktok.app.Friend
+import im.tox.toktok.app.MainActivity.MainFriendsFragment.FriendsRecyclerHeaderAdapter
 import im.tox.toktok.app.NewMessageActivity.NewMessageActivity
 
 import scala.collection.mutable.ListBuffer

@@ -31,7 +31,7 @@ class MainActivityHolder extends AppCompatActivity {
 
     activeTab = chatsTabButton
 
-    activeTab.setBackgroundResource(R.color.drawerSelected)
+    activeTab.setBackgroundResource(R.color.drawerBackgroundSelected)
 
     peopleTabButton.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
@@ -69,10 +69,9 @@ class MainActivityHolder extends AppCompatActivity {
 
     def changeTab(v: View): Unit = {
 
-      activeTab.setBackgroundResource(R.drawable.ripple_drawer)
+      activeTab.setBackgroundResource(R.drawable.background_ripple)
       activeTab = v.asInstanceOf[LinearLayout]
-      activeTab.setBackgroundResource(R.color.drawerSelected)
-
+      activeTab.setBackgroundResource(R.color.drawerBackgroundSelected)
       findViewById(R.id.home_layout).asInstanceOf[DrawerLayout].closeDrawers()
 
 

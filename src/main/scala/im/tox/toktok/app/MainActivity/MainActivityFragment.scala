@@ -53,7 +53,7 @@ class MainActivityFragment extends Fragment {
   def initViewPaper(view: View): Unit = {
 
     mViewPaper = view.findViewById(R.id.home_tab_holder).asInstanceOf[ViewPager]
-    mPagerAdapter = new MainTabsAdapter(getChildFragmentManager);
+    mPagerAdapter = new MainTabsAdapter(getChildFragmentManager,getActivity);
     mViewPaper.setAdapter(mPagerAdapter)
 
     mTabs = view.findViewById(R.id.home_tabs).asInstanceOf[TabLayout]
@@ -76,9 +76,11 @@ class MainActivityFragment extends Fragment {
     })
 
     getActivity.asInstanceOf[AppCompatActivity].setSupportActionBar(mToolbar)
-    getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar.setTitle("TokTok")
-    getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar.setHomeAsUpIndicator(R.drawable.ic_navigation_menu)
-    getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar.setDisplayHomeAsUpEnabled(true)
+
+    val mActionBar = getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar
+    mActionBar.setTitle(getResources.getString(R.string.app_name))
+    mActionBar.setHomeAsUpIndicator(R.drawable.ic_navigation_menu)
+    mActionBar.setDisplayHomeAsUpEnabled(true)
 
   }
 

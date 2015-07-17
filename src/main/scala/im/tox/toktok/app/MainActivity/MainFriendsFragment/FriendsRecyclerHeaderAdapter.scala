@@ -1,4 +1,4 @@
-package im.tox.toktok.app.MainFriendsFragment
+package im.tox.toktok.app.MainActivity.MainFriendsFragment
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
@@ -6,6 +6,7 @@ import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.TextView
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter
 import im.tox.toktok.R
+import im.tox.toktok.app.Friend
 
 import scala.collection.mutable.ListBuffer
 
