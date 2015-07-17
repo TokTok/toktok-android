@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:background="#ffffff"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="32dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/simple_dialog_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/simpleDialogIcon" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:layout_height="wrap_content"
+            android:id="@+id/simple_dialog_text"
+            android:textSize="18dp"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:textSize="16sp"
+            android:hint="Insert your friend ID"
+            android:singleLine="true"
+            android:fontFamily="sans-serif-light"
+            android:textColor="#000000"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/simple_dialog_input"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/simple_dialog_qrcode"
+        android:background="@drawable/simple_dialog_button"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginBottom="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:tint="@color/simpleDialogIconButtonAssets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_image_photo_camera" />
+
+        <TextView
+            android:textColor="@color/simpleDialogIconButtonAssets"
+            android:text="QrCode"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginLeft="48dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:alpha="0.5"
+        android:id="@+id/simple_dialog_confirm"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/simple_dialog_button"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/simpleDialogIconButtonAssets"
+            android:src="@drawable/ic_done_black_24dp" />
+
+        <TextView
+            android:text="Confirm"
+            android:textColor="@color/simpleDialogIconButtonAssets"
+            android:layout_marginLeft="48dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/simple_dialog_cancel"
+        android:background="@drawable/simple_dialog_button"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:tint="@color/simpleDialogIconButtonAssets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_content_clear" />
+
+        <TextView
+            android:textColor="@color/simpleDialogIconButtonAssets"
+            android:text="Cancel"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginLeft="48dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+

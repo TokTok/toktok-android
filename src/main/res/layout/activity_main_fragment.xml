@@ -24,9 +24,7 @@
             android:layout_height="40dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/cardBoardBackground">
+            android:layout_marginRight="16dp">
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/home_tabs"
@@ -36,6 +34,26 @@
                 app:tabIndicatorHeight="3dp"
                 app:tabSelectedTextColor="@color/homeColorTabSelected"
                 app:tabTextColor="@color/homeColorTab" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/home_friends_requests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/home_frieds_requests_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="1 pending friend request"
+                android:textColor="@color/textDarkColor" />
 
         </android.support.v7.widget.CardView>
 
@@ -50,8 +68,8 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/home_fab"
         style="@style/BasicFloatingActionButton"
-        android:tint="@color/basicFABTint"
         android:src="@drawable/ic_content_add_home"
+        android:tint="@color/basicFABTint"
         app:backgroundTint="@color/basicFABColor"
         app:borderWidth="0dp"
         app:layout_anchor="@id/home_tab_holder"
