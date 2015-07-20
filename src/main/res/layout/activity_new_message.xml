@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/newMessage_appbar"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/new_message_app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/newMessage_toolbar"
@@ -25,7 +20,7 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <!--<include layout="@layout/new_message_toolbar_friend"></include>-->
+        <!--<include layout="@layout/new_message_toolbar_friend"/>-->
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -43,52 +38,51 @@
                 android:paddingTop="10dp">
 
                 <ImageView
-                    android:id="@+id/newmessage_search_icon"
+                    android:id="@+id/new_message_search_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_action_search" />
+                    android:src="@drawable/ic_action_search"
+                    android:tint="@color/textDarkColor" />
 
                 <EditText
-                    android:id="@+id/newmessage_search_field"
+                    android:id="@+id/new_message_search_field"
                     style="@style/Widget.AppCompat.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="30dp"
                     android:background="@null"
+                    android:textCursorDrawable="@null"
+                    android:fontFamily="sans-serif-light"
                     android:hint="@string/search_hint"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textColor="@color/textDarkColor" />
 
 
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
-    </LinearLayout>
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/coordinatorLayout"
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/new_message_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="16dp"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/newmessage_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingTop="16dp"
-            android:scrollbars="vertical" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/new_message_fab"
+        style="@style/BasicFloatingActionButton"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_navigation_arrow_forward"
+        app:backgroundTint="@color/basicFABColor"
+        app:borderWidth="0dp" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/home_fab"
-            style="@style/BasicFloatingActionButton"
-            android:src="@drawable/ic_navigation_arrow_forward"
-            app:backgroundTint="@color/basicFABColor"
-            app:borderWidth="0dp"
-            app:layout_anchor="@id/newmessage_recycler"
-            app:layout_anchorGravity="bottom|right|end" />
-
-    </android.support.design.widget.CoordinatorLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

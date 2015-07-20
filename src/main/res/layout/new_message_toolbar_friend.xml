@@ -5,38 +5,37 @@
     android:layout_marginBottom="10dp"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:id="@+id/newmessage_toolbal_friends_top"
-            android:layout_height="wrap_content">
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
             <com.github.siyamed.shapeimageview.CircularImageView
-                android:id="@+id/newmessage_friends_img"
+                app:siBorderAlpha="0.0"
+                android:id="@+id/new_message_friends_img"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/lorem" />
+                android:layout_marginRight="20dp" />
 
             <TextView
-                android:id="@+id/newmessage_toolbar_friends_text"
+                android:id="@+id/new_message_toolbar_friends_text"
                 android:layout_width="wrap_content"
-                android:text="Lorem Ipsum"
-                android:textSize="18dp"
-                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textColor="@color/textDarkColor"
                 android:fontFamily="sans-serif-light"
-                android:layout_toRightOf="@id/newmessage_friends_img"
+                android:layout_toRightOf="@id/new_message_friends_img"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true" />
 
@@ -50,18 +49,11 @@
                 android:layout_centerVertical="true"
                 android:padding="8dp" />
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_below="@id/newmessage_toolbal_friends_top"
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content">
-
-            <include layout="@layout/new_message_toolbar_friend_mini"></include>
-
-        </RelativeLayout>
-
     </RelativeLayout>
+
+
+        <include layout="@layout/new_message_toolbar_friend_mini"/>
+
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>

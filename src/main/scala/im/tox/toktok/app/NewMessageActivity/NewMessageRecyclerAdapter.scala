@@ -2,6 +2,8 @@ package im.tox.toktok.app.NewMessageActivity
 
 import android.support.v7.widget.RecyclerView
 import android.view.{LayoutInflater, View, ViewGroup}
+import android.widget.TextView
+import com.github.siyamed.shapeimageview.CircularImageView
 import im.tox.toktok.R
 import im.tox.toktok.app.Friend
 
@@ -20,6 +22,7 @@ class NewMessageRecyclerAdapter(list: ListBuffer[Friend]) extends RecyclerView.A
   def onBindViewHolder(viewHolder: NewMessageRecyclerViewHolder, position: Int) = {
     val item: Friend = items(position)
     viewHolder.mUserName.setText(item.getUserName())
+    viewHolder.mUserImage.setImageResource(item.getPhotoReference())
   }
 
   def getItemCount(): Int = {
@@ -29,5 +32,14 @@ class NewMessageRecyclerAdapter(list: ListBuffer[Friend]) extends RecyclerView.A
   def getItemPosition(i: Int): String = {
     return items(i).getUserName()
   }
+
+}
+
+final class NewMessageRecyclerViewHolder(itemView: View) extends RecyclerView.ViewHolder(itemView) {
+
+
+  var mUserName: TextView = itemView.findViewById(R.id.new_message_item_name).asInstanceOf[TextView]
+  var mUserImage : CircularImageView = itemView.findViewById(R.id.new_message_item_img).asInstanceOf[CircularImageView]
+
 
 }

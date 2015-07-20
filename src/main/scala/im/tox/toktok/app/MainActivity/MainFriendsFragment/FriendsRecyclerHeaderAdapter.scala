@@ -22,7 +22,7 @@ class FriendsRecyclerHeaderAdapter(list: ListBuffer[Friend]) extends FriendsRecy
   }
 
   def onBindHeaderViewHolder(holder: RecyclerView.ViewHolder, position: Int) = {
-    holder.itemView.findViewById(R.id.recycler_header_text).asInstanceOf[TextView].setText(String.valueOf(getItemPosition(position).charAt(0)))
+    holder.itemView.findViewById(R.id.recyclerview_header_text).asInstanceOf[TextView].setText(String.valueOf(getItemPosition(position).charAt(0)))
   }
 
 }

@@ -23,7 +23,7 @@ class NewMessageRecyclerHeaderAdapter(list: ListBuffer[Friend]) extends NewMessa
   }
 
   def onBindHeaderViewHolder(holder: RecyclerView.ViewHolder, position: Int) = {
-    holder.itemView.findViewById(R.id.recycler_header_text).asInstanceOf[TextView].setText(String.valueOf(getItemPosition(position).charAt(0)))
+    holder.itemView.findViewById(R.id.recyclerview_header_text).asInstanceOf[TextView].setText(String.valueOf(getItemPosition(position).charAt(0)))
   }
 
 }

@@ -39,4 +39,9 @@
     <string name="contact_popup_edit_alias">Edit alias</string>
     <string name="contact_popup_delete_friend">Delete friend ?</string>
 
+
+    <!-- New Message -->
+
+    <string name="new_message_title">Add friends to conversation</string>
+
 </resources>

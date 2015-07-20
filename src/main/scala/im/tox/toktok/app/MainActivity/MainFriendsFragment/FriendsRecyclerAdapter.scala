@@ -74,7 +74,7 @@ class FriendsRecyclerViewHolder(itemView: View, list: ListBuffer[Friend],active 
 
       v.setVisibility(View.INVISIBLE)
       itemView.setElevation(5)
-      itemView.setBackground(itemView.getResources.getDrawable(R.drawable.cardboard_ripple))
+      itemView.setBackgroundResource(R.drawable.cardboard_ripple)
       itemView.findViewById(R.id.home_friends_expended_area).setVisibility(View.VISIBLE)
 
     }

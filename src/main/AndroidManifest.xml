@@ -20,6 +20,7 @@
         <activity
             android:name=".app.NewMessageActivity.NewMessageActivity"
             android:label="New Message"
+            android:windowSoftInputMode="adjustPan|adjustNothing|stateHidden"
             android:parentActivityName=".app.MainActivityHolder">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

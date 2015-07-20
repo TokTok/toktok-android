@@ -22,15 +22,13 @@
 
     <item name="recyclerViewHeaderBackground" type="color">#E0E0E0</item>
 
-        <item name="textDarkColor" type="color">#212121</item>
+    <item name="textDarkColor" type="color">#212121</item>
     <item name="textLightColor" type="color">#757575</item>
     <item name="textWhiteColor" type="color">#FFFFFF</item>
 
     <item name="dividerColor" type="color">#E0E0E0</item>
 
-    <item name="colorAccent" type="color">#9B9B9B</item>
-
-
+    <item name="colorAccent" type="color">#9E9E9E</item>
 
     <item name="simpleDialogIcon" type="color">#7D7D7D</item>
     <item name="simpleDialogIconButton" type="color">#F5F5F5</item>
