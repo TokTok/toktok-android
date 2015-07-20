@@ -5,23 +5,20 @@
     android:layout_height="wrap_content">
 
     <com.github.siyamed.shapeimageview.CircularImageView
-        app:siBorderAlpha="0.0"
         android:id="@+id/message_header_user_img"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
-        android:src="@drawable/lorem" />
+        app:siBorderAlpha="0.0" />
 
     <TextView
-        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-        android:textColor="#ffffff"
-        android:layout_toRightOf="@id/message_header_user_img"
-        android:textStyle="normal"
-        android:text="Lorem Ipsum"
-        android:layout_marginLeft="16dp"
         android:id="@+id/message_header_title"
-        android:layout_centerVertical="true"
+        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/message_header_user_img"
+        android:textColor="@color/textWhiteColor" />
 
 </RelativeLayout>

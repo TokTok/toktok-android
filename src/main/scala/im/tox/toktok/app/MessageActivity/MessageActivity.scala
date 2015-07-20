@@ -135,9 +135,9 @@ class MessageActivity extends AppCompatActivity {
 
     val mRecycler: RecyclerView = findViewById(R.id.message_recycler).asInstanceOf[RecyclerView]
     val list: ListBuffer[Message] = new ListBuffer[Message]
-    list += new Message(1, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "14:30 Delivered", R.drawable.user)
-    list += new Message(2, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "14:30 Delivered", imgSRC)
-    list += new Message(3, "Lorem ipsum dolor sit amet", "", imgSRC)
+    list += new Message(1, "Welcome to TokTok "+title+", I hope you love it, as much as I do \uD83D\uDE00", "14:30 Delivered", R.drawable.user)
+    list += new Message(2, "Thanks André Almeida, let's hope soo.", "14:30 Delivered", imgSRC)
+    list += new Message(3, "Smiled ", "", imgSRC)
 
 
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
@@ -167,7 +167,7 @@ class MessageActivity extends AppCompatActivity {
     val input: EditText = findViewById(R.id.message_input).asInstanceOf[EditText]
 
     if (typeOfMessage == 0) {
-      input.setHint("Message " + title)
+      input.setHint(getResources.getString(R.string.message_hint_single)+" "+ title)
     }
 
   }

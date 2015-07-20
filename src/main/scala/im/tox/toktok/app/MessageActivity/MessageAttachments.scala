@@ -13,42 +13,9 @@ import im.tox.toktok.app.MainActivity.MainFriendsFragment.FriendsFragment
 class MessageAttachments extends Fragment {
 
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle): View = {
-    val view: View = inflater.inflate(R.layout.fragment_attachments, container, false);
-
-    val mViewPaper: ViewPager = view.findViewById(R.id.fragment_viewpager).asInstanceOf[ViewPager]
-    val mViewPaperAdapter: MessageAttachmentsTabsAdapter = new MessageAttachmentsTabsAdapter(getChildFragmentManager)
-    mViewPaper.setAdapter(mViewPaperAdapter)
-
-    val mTabs: TabLayout = view.findViewById(R.id.fragment_tabs).asInstanceOf[TabLayout]
-    mTabs.setupWithViewPager(mViewPaper)
+    val view: View = inflater.inflate(R.layout.fragment_attachments_options, container, false);
 
     return view
-  }
-
-}
-
-class MessageAttachmentsTabsAdapter(fm: FragmentManager) extends FragmentPagerAdapter(fm) {
-
-  override def getItem(i: Int): Fragment = {
-
-    i match {
-      case 0 => return new MessageFragmentItems
-      case 1 => return new MessageFragmentsAttachmentsList
-    }
-
-    return null
-
-  }
-
-  override def getCount(): Int = {
-    return 2
-  }
-
-  override def getPageTitle(i: Int): CharSequence = {
-    i match {
-      case 1 => return "Attachments"
-      case 0 => return "Add Items"
-    }
   }
 
 }

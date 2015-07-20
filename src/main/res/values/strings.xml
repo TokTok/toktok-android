@@ -43,5 +43,10 @@
     <!-- New Message -->
 
     <string name="new_message_title">Add friends to conversation</string>
+    <string name="new_message_attachments">Add to the conversation</string>
 
+    <!-- Message -->
+
+    <string name="message_hint_group">Message Group</string>
+    <string name="message_hint_single">Message </string>
 </resources>
