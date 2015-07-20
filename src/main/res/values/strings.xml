@@ -49,4 +49,9 @@
 
     <string name="message_hint_group">Message Group</string>
     <string name="message_hint_single">Message </string>
+
+    <!-- Attachments-->
+
+
+
 </resources>

@@ -13,7 +13,7 @@ import im.tox.toktok.app.MainActivity.MainFriendsFragment.FriendsFragment
 class MessageAttachments extends Fragment {
 
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle): View = {
-    val view: View = inflater.inflate(R.layout.fragment_attachments_options, container, false);
+    val view: View = inflater.inflate(R.layout.fragment_attachments, container, false);
 
     return view
   }

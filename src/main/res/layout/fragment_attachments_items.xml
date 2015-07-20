@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout style="@style/MessageAttachmentsItem">
+        <RelativeLayout style="@style/MessageAttachmentsItem">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -18,12 +18,13 @@
                 android:src="@drawable/attachments_photo" />
 
             <TextView
+                android:layout_centerVertical="true"
                 style="@style/MessageAttachmentsItem.text"
                 android:text="Imagem from the gallery" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout style="@style/MessageAttachmentsItem">
+        <RelativeLayout style="@style/MessageAttachmentsItem">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -32,12 +33,13 @@
                 android:src="@drawable/attachments_camara" />
 
             <TextView
+                android:layout_centerVertical="true"
                 style="@style/MessageAttachmentsItem.text"
                 android:text="Take a picture" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout style="@style/MessageAttachmentsItem">
+        <RelativeLayout style="@style/MessageAttachmentsItem">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -46,12 +48,13 @@
                 android:src="@drawable/attachments_cam" />
 
             <TextView
+                android:layout_centerVertical="true"
                 style="@style/MessageAttachmentsItem.text"
                 android:text="Make a movie" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout style="@style/MessageAttachmentsItem">
+        <RelativeLayout style="@style/MessageAttachmentsItem">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -60,12 +63,13 @@
                 android:src="@drawable/attachments_mic" />
 
             <TextView
+                android:layout_centerVertical="true"
                 style="@style/MessageAttachmentsItem.text"
                 android:text="Record a sound"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout style="@style/MessageAttachmentsItem">
+        <RelativeLayout style="@style/MessageAttachmentsItem">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -74,10 +78,11 @@
                 android:src="@drawable/attachments_location" />
 
             <TextView
+                android:layout_centerVertical="true"
                 style="@style/MessageAttachmentsItem.text"
                 android:text="Your Location" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 
