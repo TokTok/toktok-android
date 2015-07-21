@@ -25,22 +25,22 @@
             android:id="@+id/call_ongoing_contact_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:shadowColor="#000000"
+            android:shadowColor="@color/textDarkColor"
             android:shadowDx="0"
             android:shadowDy="2"
             android:shadowRadius="4"
-            android:textColor="#ffffff"
+            android:textColor="@color/textWhiteColor"
             android:textSize="20sp"/>
         <TextView
             android:id="@+id/call_ongoing_contact_calltime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:shadowColor="#000000"
+            android:shadowColor="@color/textDarkColor"
             android:shadowDx="0"
             android:shadowDy="2"
             android:shadowRadius="2"
             android:text="00:01:56"
-            android:textColor="#ffffff"
+            android:textColor="@color/textWhiteColor"
             android:textSize="17sp" />
 
     </LinearLayout>
@@ -56,6 +56,6 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#40ffffff"></View>
+        android:background="@color/callItemDivider"/>
 
 </RelativeLayout>

@@ -15,7 +15,7 @@
 
 
     <RelativeLayout
-        android:background="#4000"
+        android:background="@color/contactsTransparentBar"
         android:padding="16dp"
         android:id="@+id/videocall_bar"
         android:layout_width="match_parent"
@@ -38,14 +38,14 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_communication_call_end"
-            app:backgroundTint="#F6234E"
+            app:backgroundTint="@color/callButtonColor"
             app:borderWidth="0dp" />
 
 
     </RelativeLayout>
 
     <com.github.siyamed.shapeimageview.CircularImageView
-        android:id="@+id/call_img"
+        android:id="@+id/call_ongoing_fab"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"

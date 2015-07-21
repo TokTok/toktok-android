@@ -13,7 +13,9 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.{LinearLayout, TextView, ImageView, RelativeLayout}
 import im.tox.toktok.R
+import im.tox.toktok.app.CallActivity.CallActivity
 import im.tox.toktok.app.SimpleDialogs.{SimpleColorDialogDesign, SimpleDialogDesign, SimpleTextDialogDesign}
+import im.tox.toktok.app.VideoCallActivity.VideoCallActivity
 
 class ContactsActivity extends AppCompatActivity {
 
@@ -54,7 +56,7 @@ class ContactsActivity extends AppCompatActivity {
     mCollapsingToolbar.setContentScrimColor(friendColor)
     mCollapsingToolbar.setStatusBarScrimColor(friendSecondColor)
 
-    getWindow().setStatusBarColor(Color.parseColor("#2b000000"));
+    getWindow().setStatusBarColor(getResources.getColor(R.color.contactsTransparentBar));
 
     for (icon <-friendIcons){
 
@@ -96,9 +98,31 @@ class ContactsActivity extends AppCompatActivity {
 
     mFileSend.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-        startActivity(new Intent(ContactsActivity.this, classOf[FileSendActivity]))
+        val newIntent = new Intent(ContactsActivity.this, classOf[FileSendActivity])
+        newIntent.putExtras(bundle)
+        startActivity(newIntent)
       }
     })
+
+    val mVoiceCall: TextView = findViewById(R.id.contacts_item_voice_call).asInstanceOf[TextView]
+    mVoiceCall.setOnClickListener(new OnClickListener {
+      override def onClick(v: View): Unit = {
+        val newIntent = new Intent(ContactsActivity.this, classOf[CallActivity])
+        newIntent.putExtras(bundle)
+        startActivity(newIntent)
+      }
+    })
+
+
+    val mVideoCall: TextView = findViewById(R.id.contacts_item_video_call).asInstanceOf[TextView]
+    mVideoCall.setOnClickListener(new OnClickListener {
+      override def onClick(v: View): Unit = {
+        val newIntent = new Intent(ContactsActivity.this, classOf[VideoCallActivity])
+        newIntent.putExtras(bundle)
+        startActivity(newIntent)
+      }
+    })
+
 
   }
 

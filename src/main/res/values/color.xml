@@ -28,6 +28,8 @@
 
     <item name="dividerColor" type="color">#E0E0E0</item>
 
+    <item name="contactsTransparentBar" type="color">#40000000</item>
+
     <item name="colorAccent" type="color">#9E9E9E</item>
 
     <item name="simpleDialogIcon" type="color">#7D7D7D</item>
@@ -35,4 +37,9 @@
     <item name="simpleDialogIconButtonBorder" type="color">#C6C6C6</item>
     <item name="simpleDialogIconButtonAssets" type="color">#4A4A4A</item>
     <item name="simpleDialogBackground" type="color">#FAFAFA</item>
+
+    <item name="callTopColor" type="color">#90D8D8D8</item>
+    <item name="callItemDivider" type="color">#40ffffff</item>
+    <item name="callButtonColor" type="color">#F6234E</item>
+
 </resources>

@@ -6,9 +6,9 @@
 
     <TextView
         android:layout_marginLeft="16dp"
-        android:color="#4A4A4A"
+        android:color="@color/textDarkColor"
         android:text="23th of March 2015"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

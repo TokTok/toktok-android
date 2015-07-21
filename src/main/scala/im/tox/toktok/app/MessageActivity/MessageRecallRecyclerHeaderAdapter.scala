@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.{LayoutInflater, View, ViewGroup}
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter
 import im.tox.toktok.R
+import im.tox.toktok.app.Message
 
 import scala.collection.mutable.ListBuffer
 

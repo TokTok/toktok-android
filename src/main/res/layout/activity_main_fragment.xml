@@ -72,8 +72,7 @@
         android:layout_gravity="end|bottom"
         android:src="@drawable/ic_content_add_home"
         android:tint="@color/basicFABTint"
-        app:backgroundTint="@color/basicFABColor"
-        app:borderWidth="0dp" />
+        app:backgroundTint="@color/basicFABColor" />
 
 </android.support.design.widget.CoordinatorLayout>
 

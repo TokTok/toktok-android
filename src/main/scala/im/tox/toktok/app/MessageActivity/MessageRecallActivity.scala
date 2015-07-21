@@ -3,8 +3,10 @@ package im.tox.toktok.app.MessageActivity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
+import android.view.MenuItem
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import im.tox.toktok.R
+import im.tox.toktok.app.Message
 
 import scala.collection.mutable.ListBuffer
 
@@ -32,6 +34,7 @@ class MessageRecallActivity extends AppCompatActivity {
 
     val mRecycler: RecyclerView = findViewById(R.id.recall_recycler).asInstanceOf[RecyclerView]
     val list: ListBuffer[Message] = new ListBuffer[Message]
+
     list += (new Message(1, "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "14:30 Delivered", R.drawable.lorem))
 
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
@@ -41,6 +44,20 @@ class MessageRecallActivity extends AppCompatActivity {
 
     mRecycler.setAdapter(adapter)
     mRecycler.addItemDecoration(new StickyRecyclerHeadersDecoration(adapter))
+
+  }
+
+  override def onOptionsItemSelected(item: MenuItem): Boolean = {
+
+    item.getItemId match {
+
+      case android.R.id.home => {
+        finish()
+        return true
+      }
+    }
+
+    return super.onOptionsItemSelected(item)
 
   }
 

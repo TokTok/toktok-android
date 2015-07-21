@@ -4,15 +4,18 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
+import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
-import android.view.View
+import android.util.Log
+import android.view.{MenuItem, View}
 import android.view.View.OnClickListener
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import im.tox.toktok.R
 import im.tox.toktok.app.Friend
 import im.tox.toktok.app.MainActivity.MainFriendsFragment.FriendsRecyclerHeaderAdapter
 import im.tox.toktok.app.NewMessageActivity.NewMessageActivity
+import im.tox.toktok.app.SimpleDialogs.SimpleAddFriendDialogDesign
 
 import scala.collection.mutable.ListBuffer
 
@@ -47,8 +50,6 @@ class MessageGroupContacts extends AppCompatActivity {
       override def onClick(v: View): Unit = {
 
         val addContactView: Intent = new Intent(MessageGroupContacts.this, classOf[NewMessageActivity])
-        bundle.putInt("colorPrimary", colorPrimary)
-        bundle.putInt("colorPrimaryStatus", colorStatus)
         addContactView.putExtras(bundle)
         startActivity(addContactView)
 
@@ -57,9 +58,7 @@ class MessageGroupContacts extends AppCompatActivity {
 
     val mRecycler: RecyclerView = findViewById(R.id.message_group_members_recycler).asInstanceOf[RecyclerView]
 
-    val list: ListBuffer[Friend] = new ListBuffer[Friend]
-    list += new Friend("Lorem Ipsum", "Trying the TokTok", 0, Color.parseColor("#DC4254"), Color.parseColor("#7D2530"), R.drawable.lorem)
-    list += new Friend("John Doe", "Up!", 0, Color.parseColor("#009688"), Color.parseColor("#00796B"), R.drawable.john)
+    val list: ListBuffer[Friend] = ListBuffer(Friend.lorem,Friend.john)
 
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
     mRecycler.setLayoutManager(mLayoutManager)
@@ -68,6 +67,20 @@ class MessageGroupContacts extends AppCompatActivity {
     mRecycler.setAdapter(adapter)
     mRecycler.addItemDecoration(new StickyRecyclerHeadersDecoration(adapter))
 
+  }
+
+  override def onOptionsItemSelected(item: MenuItem): Boolean = {
+
+    item.getItemId match {
+
+      case android.R.id.home => {
+        finish()
+        return true
+      }
+
+    }
+
+    return super.onOptionsItemSelected(item)
 
   }
 

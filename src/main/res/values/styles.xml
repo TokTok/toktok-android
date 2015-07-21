@@ -39,7 +39,7 @@
         <item name="android:layout_height">50dp</item>
     </style>
 
-    
+
     <style name="ContactsButtonText">
         <item name="android:layout_marginLeft">56dp</item>
         <item name="android:fontFamily">sans-serif-light</item>
@@ -50,10 +50,10 @@
     </style>
 
     <style name="ContactsButtonIcon">
-         <item name="android:padding">16dp</item>
+        <item name="android:padding">16dp</item>
     </style>
-    
-    
+
+
     <style name="MessageAttachmentsItem">
         <item name="android:background">@drawable/cardboard_ripple</item>
         <item name="android:clickable">true</item>
@@ -65,9 +65,9 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    
-    <style name="MessageAttachmentsItem.text">        <item name="android:focusable">false</item>
 
+    <style name="MessageAttachmentsItem.text">
+        <item name="android:clickable">false</item>
         <item name="android:background">@null</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColor">@color/textDarkColor</item>
@@ -76,5 +76,5 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">32dp</item>
     </style>
-    
+
 </resources>

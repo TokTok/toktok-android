@@ -18,9 +18,9 @@
                 android:src="@drawable/attachments_photo" />
 
             <TextView
-                android:layout_centerVertical="true"
                 style="@style/MessageAttachmentsItem.text"
-                android:text="Imagem from the gallery" />
+                android:layout_centerVertical="true"
+                android:text="@string/attachment_image" />
 
         </RelativeLayout>
 
@@ -33,9 +33,9 @@
                 android:src="@drawable/attachments_camara" />
 
             <TextView
-                android:layout_centerVertical="true"
                 style="@style/MessageAttachmentsItem.text"
-                android:text="Take a picture" />
+                android:layout_centerVertical="true"
+                android:text="@string/attachment_camera" />
 
         </RelativeLayout>
 
@@ -48,9 +48,9 @@
                 android:src="@drawable/attachments_cam" />
 
             <TextView
-                android:layout_centerVertical="true"
                 style="@style/MessageAttachmentsItem.text"
-                android:text="Make a movie" />
+                android:layout_centerVertical="true"
+                android:text="@string/attachment_camera_movie" />
 
         </RelativeLayout>
 
@@ -63,9 +63,9 @@
                 android:src="@drawable/attachments_mic" />
 
             <TextView
-                android:layout_centerVertical="true"
                 style="@style/MessageAttachmentsItem.text"
-                android:text="Record a sound"/>
+                android:layout_centerVertical="true"
+                android:text="@string/attachment_record_sound" />
 
         </RelativeLayout>
 
@@ -78,9 +78,9 @@
                 android:src="@drawable/attachments_location" />
 
             <TextView
-                android:layout_centerVertical="true"
                 style="@style/MessageAttachmentsItem.text"
-                android:text="Your Location" />
+                android:layout_centerVertical="true"
+                android:text="@string/attachment_location" />
 
         </RelativeLayout>
 

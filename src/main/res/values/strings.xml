@@ -50,8 +50,25 @@
     <string name="message_hint_group">Message Group</string>
     <string name="message_hint_single">Message </string>
 
+
     <!-- Attachments-->
 
+    <string name="attachment_image">Image from the gallery</string>
+    <string name="attachment_camera">Take a picture</string>
+    <string name="attachment_camera_movie">Make a movie</string>
+    <string name="attachment_record_sound">Record a sound</string>
+    <string name="attachment_location">Your Location</string>
 
+    <!-- Dialog -->
+
+    <string name="dialog_delete_conversion">Delete Conversation?</string>
+
+
+    <!-- Other -->
+
+    <string name="files_send_title">Files send by</string>
+    <string name="call_is_calling">is calling you</string>
+    <string name="call_input_message">Message</string>
+    <string name="call_reject_with_message">Reject with message</string>
 
 </resources>

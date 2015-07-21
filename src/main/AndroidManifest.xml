@@ -57,7 +57,7 @@
             android:parentActivityName=".app.MessageActivity.MessageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".app.MessageActivity.MessageRecallActivity" />
+                android:value=".app.MessageActivity.MessageActivity" />
         </activity>
         <activity
             android:name=".app.MessageActivity.MessageGroupContacts"
@@ -65,7 +65,17 @@
             android:parentActivityName=".app.MessageActivity.MessageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".app.MessageActivity.MessageRecallActivity" />
+                android:value=".app.MessageActivity.MessageActivity" />
+        </activity>
+        <activity
+            android:name=".app.CallActivity.CallActivity"
+            android:label="Voice Call"
+            android:parentActivityName=".app.MessageActivity.MessageActivity">
+        </activity>
+        <activity
+            android:name=".app.VideoCallActivity.VideoCallActivity"
+            android:label="Video Call"
+            android:parentActivityName=".app.MessageActivity.MessageActivity">
         </activity>
     </application>
 

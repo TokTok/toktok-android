@@ -10,6 +10,8 @@ import android.view._
 import android.widget._
 import com.github.siyamed.shapeimageview.CircularImageView
 import im.tox.toktok.R
+import im.tox.toktok.app.Message
+import im.tox.toktok.app.SimpleDialogs.{SimpleDialogDesign, SimpleStatusDialogDesign}
 
 import scala.collection.mutable.ListBuffer
 
@@ -75,6 +77,14 @@ class MessageActivity extends AppCompatActivity {
 
       }
 
+      case R.id.action_delete_conversation =>{
+
+        val dial = new SimpleDialogDesign(this,getResources.getString(R.string.dialog_delete_conversion),R.drawable.ic_delete_black_48dp,null)
+        dial.show()
+        return true
+      }
+
+
 
       case default => {
         return super.onOptionsItemSelected(item);
@@ -135,6 +145,12 @@ class MessageActivity extends AppCompatActivity {
 
     val mRecycler: RecyclerView = findViewById(R.id.message_recycler).asInstanceOf[RecyclerView]
     val list: ListBuffer[Message] = new ListBuffer[Message]
+
+    if(imgSRC == 0){
+      imgSRC = R.drawable.lorem
+      list += new Message(3,"The Amazing Group was created","",R.drawable.user)
+    }
+
     list += new Message(1, "Welcome to TokTok "+title+", I hope you love it, as much as I do \uD83D\uDE00", "14:30 Delivered", R.drawable.user)
     list += new Message(2, "Thanks André Almeida, let's hope soo.", "14:30 Delivered", imgSRC)
     list += new Message(3, "Smiled ", "", imgSRC)

@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.{LayoutInflater, ViewGroup, View}
 import android.widget.{ImageView, TextView}
 import im.tox.toktok.R
-import im.tox.toktok.app.ContactsActivity.File
+import im.tox.toktok.app.File
 
 import scala.collection.mutable.ListBuffer
 

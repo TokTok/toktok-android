@@ -1,5 +1,4 @@
-package im.tox.toktok.app.MessageActivity
-
+package im.tox.toktok.app
 
 class Message(msgType: Int, msgContent: String, msgDetails: String, imageSrc: Int) {
 

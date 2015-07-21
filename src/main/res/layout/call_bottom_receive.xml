@@ -53,11 +53,12 @@
                 android:layout_height="32dp"
                 android:background="#20000000"
                 android:gravity="center"
-                android:text="Reject with message"
-                android:textColor="#ffffff" />
+                android:text="@string/call_reject_with_message"
+                android:textColor="@color/textWhiteColor" />
 
             <android.support.v7.widget.RecyclerView
                 android:paddingTop="32dp"
+                android:overScrollMode="never"
                 android:id="@+id/call_messages_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -70,10 +71,11 @@
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:fontFamily="sans-serif-light"
-                android:hint="Message Lorem Ipsum"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:paddingLeft="30dp"
+                android:maxLines="3"
+                android:paddingRight="30dp"
                 android:textSize="16sp" />
 
         </RelativeLayout>

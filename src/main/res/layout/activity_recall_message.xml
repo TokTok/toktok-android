@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recall_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -25,17 +19,17 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recall_recycler"
+        style="@style/RecyclerView"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/recall_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/BasicFloatingActionButton"
         android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
         android:src="@drawable/ic_navigation_arrow_forward"
-        app:backgroundTint="#fafafa"
-        app:borderWidth="0dp"
-        app:layout_anchor="@id/recall_recycler"
-        app:layout_anchorGravity="bottom|right|end" />
+        android:tint="@color/basicFABTint"
+        app:backgroundTint="@color/basicFABColor" />
 
 </android.support.design.widget.CoordinatorLayout>

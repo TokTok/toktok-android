@@ -19,7 +19,6 @@
             android:columnCount="3"
             android:rowCount="1">
 
-
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -27,10 +26,6 @@
                 android:layout_marginRight="16dp"
                 android:background="@null"
                 android:padding="24dp"
-                android:shadowColor="#000000"
-                android:shadowDx="0"
-                android:shadowDy="2"
-                android:shadowRadius="2"
                 android:src="@drawable/ic_av_volume_up" />
 
             <ImageButton
@@ -69,7 +64,7 @@
             android:layout_centerVertical="true"
             android:layout_margin="16dp"
             android:src="@drawable/ic_communication_call_end"
-            app:backgroundTint="#F6234E"
+            app:backgroundTint="@color/callButtonColor"
             app:borderWidth="0dp" />
 
     </RelativeLayout>

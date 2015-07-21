@@ -1,4 +1,4 @@
-package im.tox.toktok.app.ContactsActivity
+package im.tox.toktok.app
 
 class File(name: String, date: String) {
 
@@ -13,4 +13,8 @@ class File(name: String, date: String) {
     return fileDate
   }
 
+}
+
+object File {
+  val file = new File("Movie_2015-02-01.mp4", "Downloaded 2015-05-21")
 }
