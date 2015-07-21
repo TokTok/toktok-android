@@ -13,4 +13,4 @@ import im.tox.toktok.app.MainActivity.MainActivityFragment
  * -e class im.tox.toktok.MainTest \
  * im.tox.toktok.tests/android.test.InstrumentationTestRunner
  */
-class MainActivityTest extends ActivityInstrumentationTestCase2[MainActivityFragment]("im.tox.toktok", classOf[MainActivityFragment])
+class MainActivityTest extends ActivityInstrumentationTestCase2[MainActivityHolder](classOf[MainActivityHolder])
