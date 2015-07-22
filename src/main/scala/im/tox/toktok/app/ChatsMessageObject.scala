@@ -1,10 +1,5 @@
 package im.tox.toktok.app
 
-import android.graphics.Color
-import im.tox.toktok.R
-
-import scala.collection.mutable.ListBuffer
-
 class ChatsMessageObject() {
 
   var typeMessage: Int = 0
@@ -58,8 +53,8 @@ class ChatsMessageObject() {
 
 }
 
-object ChatsMessageObject{
+object ChatsMessageObject {
   val loremMessage = new ChatsMessageObject(Friend.lorem, "Hello, how are you?")
-  val johnMessage =  new ChatsMessageObject(Friend.john, "Hello, how are you?")
+  val johnMessage = new ChatsMessageObject(Friend.john, "Hello, how are you?")
   val groupMessage = new ChatsMessageObject(Group.group, "Let's Go!")
 }

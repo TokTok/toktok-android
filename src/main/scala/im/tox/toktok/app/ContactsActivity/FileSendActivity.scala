@@ -1,6 +1,5 @@
 package im.tox.toktok.app.ContactsActivity
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
@@ -27,8 +26,8 @@ class FileSendActivity extends AppCompatActivity {
 
     val bundle: Bundle = getIntent.getExtras
 
-    if(bundle == null){
-      Log.d("asd","asda")
+    if (bundle == null) {
+      Log.d("asd", "asda")
     }
 
     colorPrimary = bundle.getInt("contactColorPrimary")
@@ -39,7 +38,7 @@ class FileSendActivity extends AppCompatActivity {
 
     mToolbar = findViewById(R.id.files_send_toolbar).asInstanceOf[Toolbar]
     mToolbar.setBackgroundColor(colorPrimary)
-    mToolbar.setTitle(getResources.getString(R.string.files_send_title)+" "+userName)
+    mToolbar.setTitle(getResources.getString(R.string.files_send_title) + " " + userName)
 
     setSupportActionBar(mToolbar)
     getSupportActionBar.setDisplayHomeAsUpEnabled(true)

@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView.LayoutManager
 import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
 import android.view.{MenuItem, Window, WindowManager}
-import android.widget.LinearLayout
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import im.tox.toktok.R
 import im.tox.toktok.app.Friend
@@ -27,19 +26,19 @@ class NewMessageActivity extends AppCompatActivity {
 
     val bundle: Bundle = getIntent.getExtras
 
-    if(bundle != null) {
+    if (bundle != null) {
 
       colorPrimary = bundle.getInt("colorPrimary")
       colorStatus = bundle.getInt("colorPrimaryStatus")
     }
-    else{
+    else {
 
       colorPrimary = Color.parseColor("#F5A623")
       colorStatus = Color.parseColor("#8C5F14")
 
     }
 
-    initToolbar(colorPrimary,colorStatus)
+    initToolbar(colorPrimary, colorStatus)
     initRecyclerView()
 
 

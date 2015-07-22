@@ -1,10 +1,10 @@
 package im.tox.toktok.app.SimpleDialogs
 
 import android.graphics.Color
-import android.support.v7.widget.{RecyclerView}
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View.OnClickListener
-import android.view.{LayoutInflater, ViewGroup, View}
+import android.view.{LayoutInflater, View, ViewGroup}
 import im.tox.toktok.R
 
 

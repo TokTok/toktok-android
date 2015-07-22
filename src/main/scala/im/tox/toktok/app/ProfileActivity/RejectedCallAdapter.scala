@@ -1,12 +1,13 @@
 package im.tox.toktok.app.ProfileActivity
 
 import android.support.v7.widget.RecyclerView
-import android.view.{LayoutInflater, ViewGroup, View}
+import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.TextView
 import im.tox.toktok.R
+
 import scala.collection.mutable.ListBuffer
 
-class RejectedCallAdapter(list : ListBuffer[String]) extends RecyclerView.Adapter[RejectedCallViewHolder]{
+class RejectedCallAdapter(list: ListBuffer[String]) extends RecyclerView.Adapter[RejectedCallViewHolder] {
 
   private val items: ListBuffer[String] = list
 

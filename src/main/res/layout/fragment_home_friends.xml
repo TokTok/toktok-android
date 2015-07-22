@@ -8,6 +8,6 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/home_friends_recycler"
-        style="@style/RecyclerView"/>
+        style="@style/RecyclerView" />
 
 </LinearLayout>

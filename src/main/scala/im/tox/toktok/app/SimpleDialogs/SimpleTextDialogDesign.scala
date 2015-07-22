@@ -1,15 +1,18 @@
 package im.tox.toktok.app.SimpleDialogs
 
 import android.app.{Activity, Dialog}
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.{Editable, TextWatcher}
 import android.view.View.OnClickListener
 import android.view.{View, Window}
-import android.widget.{EditText, ImageView, RelativeLayout, TextView}
+import android.widget._
 import im.tox.toktok.R
 
 
-class SimpleTextDialogDesign(activity: Activity, title: String, icon: Int, value: String, clickAction: OnClickListener) extends Dialog(activity) {
+class SimpleTextDialogDesign(activity: Activity, title: String, color: Int, icon: Int, value: String, clickAction: OnClickListener) extends Dialog(activity) {
 
   var a: Activity = activity
 
@@ -17,18 +20,23 @@ class SimpleTextDialogDesign(activity: Activity, title: String, icon: Int, value
     super.onCreate(savedInstanceState)
     requestWindowFeature(Window.FEATURE_NO_TITLE)
     setContentView(R.layout.simple_input_dialog_design)
-    findViewById(R.id.simple_dialog_img).asInstanceOf[ImageView].setBackgroundResource(icon)
+    getWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT))
+
+
+    findViewById(R.id.simple_dialog_color).asInstanceOf[LinearLayout].setBackgroundTintList(ColorStateList.valueOf(color))
+    findViewById(R.id.simple_dialog_img).asInstanceOf[ImageView].setImageResource(icon)
     findViewById(R.id.simple_dialog_text).asInstanceOf[TextView].setText(title)
+
 
     val input: EditText = findViewById(R.id.simple_dialog_input).asInstanceOf[EditText]
 
     input.setText(value)
 
 
-    val confirmButton = findViewById(R.id.simple_dialog_confirm).asInstanceOf[RelativeLayout]
+    val confirmButton = findViewById(R.id.simple_dialog_confirm).asInstanceOf[Button]
 
 
-    val cancelButton = findViewById(R.id.simple_dialog_cancel).asInstanceOf[RelativeLayout]
+    val cancelButton = findViewById(R.id.simple_dialog_cancel).asInstanceOf[Button]
     cancelButton.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
         dismiss()
@@ -43,7 +51,9 @@ class SimpleTextDialogDesign(activity: Activity, title: String, icon: Int, value
 
       override def afterTextChanged(s: Editable): Unit = {
 
-        confirmButton.setAlpha(1)
+        confirmButton.setEnabled(true)
+        confirmButton.setTextColor(a.getResources.getColor(R.color.simpleDialogTextButton))
+        confirmButton.setBackgroundTintList(ColorStateList.valueOf(a.getResources.getColor(R.color.simpleDialogIconButton)))
         confirmButton.setOnClickListener(clickAction)
 
       }

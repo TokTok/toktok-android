@@ -1,13 +1,13 @@
 package im.tox.toktok.app.MainActivity.MainChatsFragment
 
-import android.content.{Intent, Context}
+import android.content.{Context, Intent}
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.{LayoutInflater, View, ViewGroup}
-import android.widget.{RelativeLayout, TextView}
+import android.widget.TextView
 import com.github.siyamed.shapeimageview.CircularImageView
 import im.tox.toktok.R
-import im.tox.toktok.app.{ChatsMessageObject, Friend}
+import im.tox.toktok.app.ChatsMessageObject
 import im.tox.toktok.app.MessageActivity.MessageActivity
 
 import scala.collection.mutable.ListBuffer

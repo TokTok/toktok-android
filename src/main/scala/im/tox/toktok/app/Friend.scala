@@ -31,7 +31,7 @@ class Friend(userName: String, userMessage: String, userStatus: Int, color: Int,
 
 }
 
-object Friend{
+object Friend {
 
   val lorem = new Friend("Lorem Ipsum", "Trying to TokTok", 0, Color.parseColor("#E91E63"), Color.parseColor("#C2185B"), R.drawable.lorem)
   val john = new Friend("John Doe", "Up!", 0, Color.parseColor("#3F51B5"), Color.parseColor("#303F9F"), R.drawable.john)

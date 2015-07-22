@@ -26,7 +26,7 @@ class ChatsFragment extends Fragment {
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(activity.getBaseContext)
     mChats_Recycler.setLayoutManager(mLayoutManager)
 
-    val mChats_Recycler_Adapter: ChatsRecyclerAdapter = new ChatsRecyclerAdapter(ListBuffer(ChatsMessageObject.loremMessage,ChatsMessageObject.johnMessage,ChatsMessageObject.groupMessage))
+    val mChats_Recycler_Adapter: ChatsRecyclerAdapter = new ChatsRecyclerAdapter(ListBuffer(ChatsMessageObject.loremMessage, ChatsMessageObject.johnMessage, ChatsMessageObject.groupMessage))
 
     mChats_Recycler.setAdapter(mChats_Recycler_Adapter)
 

@@ -1,7 +1,7 @@
 package im.tox.toktok.app.MessageActivity
 
 import android.support.v7.widget.RecyclerView
-import android.view.{LayoutInflater, ViewGroup, View}
+import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.TextView
 import im.tox.toktok.R
 import im.tox.toktok.app.Message

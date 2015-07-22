@@ -39,7 +39,7 @@ final class NewMessageRecyclerViewHolder(itemView: View) extends RecyclerView.Vi
 
 
   var mUserName: TextView = itemView.findViewById(R.id.new_message_item_name).asInstanceOf[TextView]
-  var mUserImage : CircularImageView = itemView.findViewById(R.id.new_message_item_img).asInstanceOf[CircularImageView]
+  var mUserImage: CircularImageView = itemView.findViewById(R.id.new_message_item_img).asInstanceOf[CircularImageView]
 
 
 }

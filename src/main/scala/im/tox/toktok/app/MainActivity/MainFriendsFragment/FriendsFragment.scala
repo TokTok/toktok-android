@@ -1,6 +1,5 @@
 package im.tox.toktok.app.MainActivity.MainFriendsFragment
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -26,13 +25,7 @@ class FriendsFragment extends Fragment {
     mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL)
     mFriends_Recycler.setLayoutManager(mLayoutManager)
 
-    val a = ListBuffer(Friend.bart,Friend.lorem,Friend.jane, Friend.john)
-
-    val x = 0
-
-    for (x <- 0 to 200){
-      a += new Friend("John Doe", "Up!", 0, Color.parseColor("#3F51B5"), Color.parseColor("#303F9F"), R.drawable.john)
-    }
+    val a = ListBuffer(Friend.bart, Friend.lorem, Friend.jane, Friend.john)
 
     val mFriends_Recycler_Adapter: FriendsRecyclerHeaderAdapter = new FriendsRecyclerHeaderAdapter(a)
 

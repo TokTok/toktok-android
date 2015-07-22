@@ -1,8 +1,8 @@
 package im.tox.toktok.app.MessageActivity
 
-import android.content.{Intent}
+import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.{FragmentTransaction, Fragment}
+import android.support.v4.app.{Fragment, FragmentTransaction}
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
 import android.view.View.OnClickListener
@@ -11,7 +11,7 @@ import android.widget._
 import com.github.siyamed.shapeimageview.CircularImageView
 import im.tox.toktok.R
 import im.tox.toktok.app.Message
-import im.tox.toktok.app.SimpleDialogs.{SimpleDialogDesign, SimpleStatusDialogDesign}
+import im.tox.toktok.app.SimpleDialogs.SimpleDialogDesign
 
 import scala.collection.mutable.ListBuffer
 
@@ -77,13 +77,12 @@ class MessageActivity extends AppCompatActivity {
 
       }
 
-      case R.id.action_delete_conversation =>{
+      case R.id.action_delete_conversation => {
 
-        val dial = new SimpleDialogDesign(this,getResources.getString(R.string.dialog_delete_conversion),R.drawable.ic_delete_black_48dp,null)
+        val dial = new SimpleDialogDesign(this, getResources.getString(R.string.dialog_delete_conversion),contactColorPrimary, R.drawable.ic_delete_black_48dp, null)
         dial.show()
         return true
       }
-
 
 
       case default => {
@@ -146,12 +145,12 @@ class MessageActivity extends AppCompatActivity {
     val mRecycler: RecyclerView = findViewById(R.id.message_recycler).asInstanceOf[RecyclerView]
     val list: ListBuffer[Message] = new ListBuffer[Message]
 
-    if(imgSRC == 0){
+    if (imgSRC == 0) {
       imgSRC = R.drawable.lorem
-      list += new Message(3,"The Amazing Group was created","",R.drawable.user)
+      list += new Message(3, "The Amazing Group was created", "", R.drawable.user)
     }
 
-    list += new Message(1, "Welcome to TokTok "+title+", I hope you love it, as much as I do \uD83D\uDE00", "14:30 Delivered", R.drawable.user)
+    list += new Message(1, "Welcome to TokTok " + title + ", I hope you love it, as much as I do \uD83D\uDE00", "14:30 Delivered", R.drawable.user)
     list += new Message(2, "Thanks André Almeida, let's hope soo.", "14:30 Delivered", imgSRC)
     list += new Message(3, "Smiled ", "", imgSRC)
 
@@ -183,7 +182,7 @@ class MessageActivity extends AppCompatActivity {
     val input: EditText = findViewById(R.id.message_input).asInstanceOf[EditText]
 
     if (typeOfMessage == 0) {
-      input.setHint(getResources.getString(R.string.message_hint_single)+" "+ title)
+      input.setHint(getResources.getString(R.string.message_hint_single) + " " + title)
     }
 
   }

@@ -1,6 +1,5 @@
 package im.tox.toktok.app.VideoCallActivity
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
@@ -9,7 +8,7 @@ import android.view.View.OnClickListener
 import im.tox.toktok.R
 
 
-class VideoCallActivity extends AppCompatActivity{
+class VideoCallActivity extends AppCompatActivity {
 
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
@@ -28,7 +27,7 @@ class VideoCallActivity extends AppCompatActivity{
 
   }
 
-  override def onBackPressed(): Unit ={
+  override def onBackPressed(): Unit = {
 
   }
 

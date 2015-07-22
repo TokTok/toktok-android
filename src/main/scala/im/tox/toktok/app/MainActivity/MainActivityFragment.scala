@@ -7,9 +7,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.support.v4.view.{GravityCompat, ViewPager}
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.{ AppCompatActivity}
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{CardView, Toolbar}
-import android.view.View.{OnClickListener}
+import android.view.View.OnClickListener
 import android.view._
 import android.widget.TextView
 import im.tox.toktok.R
@@ -25,8 +25,8 @@ class MainActivityFragment extends Fragment {
   var mFab: FloatingActionButton = null
   var mPagerAdapter: MainTabsAdapter = null
   var mDrawer: DrawerLayout = null
-  var mFriendsRequest : CardView = null
-  var mFriendsRequestText : TextView = null
+  var mFriendsRequest: CardView = null
+  var mFriendsRequestText: TextView = null
 
 
   override def onCreate(savedState: Bundle): Unit = {
@@ -58,10 +58,10 @@ class MainActivityFragment extends Fragment {
   def initViewPaper(view: View): Unit = {
 
     mViewPaper = view.findViewById(R.id.home_tab_holder).asInstanceOf[ViewPager]
-    mPagerAdapter = new MainTabsAdapter(getChildFragmentManager,getActivity);
+    mPagerAdapter = new MainTabsAdapter(getChildFragmentManager, getActivity);
     mViewPaper.setAdapter(mPagerAdapter)
 
-    mViewPaper.setOnPageChangeListener(new OnPageChangeListener {
+    mViewPaper.addOnPageChangeListener(new OnPageChangeListener {
 
       override def onPageScrollStateChanged(state: Int): Unit = {}
 
@@ -69,10 +69,10 @@ class MainActivityFragment extends Fragment {
 
       override def onPageSelected(position: Int): Unit = {
 
-        if(position == 0){
+        if (position == 0) {
           mFriendsRequest.setVisibility(View.VISIBLE)
         }
-        else{
+        else {
           mFriendsRequest.setVisibility(View.GONE)
         }
       }
@@ -111,7 +111,7 @@ class MainActivityFragment extends Fragment {
     mFriendsRequest.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
         mFriendsRequest.removeView(mFriendsRequestText)
-        val view = getActivity.getLayoutInflater.inflate(R.layout.fragment_home_friends_request,mFriendsRequest,false)
+        val view = getActivity.getLayoutInflater.inflate(R.layout.fragment_home_friends_request, mFriendsRequest, false)
         mFriendsRequest.addView(view)
       }
     })
@@ -138,7 +138,7 @@ class MainActivityFragment extends Fragment {
       }
 
       case action_add_friend => {
-        val dial = new SimpleAddFriendDialogDesign(getActivity,null)
+        val dial = new SimpleAddFriendDialogDesign(getActivity, null)
         dial.show()
         return true
       }

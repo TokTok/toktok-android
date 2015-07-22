@@ -1,12 +1,13 @@
 package im.tox.toktok.app.CallActivity
 
 import android.support.v7.widget.RecyclerView
-import android.view.{LayoutInflater, ViewGroup, View}
+import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.TextView
 import im.tox.toktok.R
+
 import scala.collection.mutable.ListBuffer
 
-class CallMessageAdapter (list: ListBuffer[String]) extends RecyclerView.Adapter[CallMessageViewHolder] {
+class CallMessageAdapter(list: ListBuffer[String]) extends RecyclerView.Adapter[CallMessageViewHolder] {
 
   val items: ListBuffer[String] = list
 
@@ -29,6 +30,6 @@ class CallMessageAdapter (list: ListBuffer[String]) extends RecyclerView.Adapter
 
 final class CallMessageViewHolder(itemView: View) extends RecyclerView.ViewHolder(itemView) {
 
-  var mMessage : TextView = itemView.findViewById(R.id.call_item_message).asInstanceOf[TextView]
+  var mMessage: TextView = itemView.findViewById(R.id.call_item_message).asInstanceOf[TextView]
 
 }

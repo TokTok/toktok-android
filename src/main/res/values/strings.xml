@@ -61,7 +61,17 @@
 
     <!-- Dialog -->
 
+    <string name="dialog_adding_new_friends">Adding a new friend</string>
+    <string name="dialog_edit_user_status">Edit your status</string>
+    <string name="dialog_share">Share your Tox ID</string>
     <string name="dialog_delete_conversion">Delete Conversation?</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_confirm">Confirm</string>
+    <string name="dialog_qrcode">QrCode</string>
+    <string name="dialog_android_share">Android Share</string>
+    <string name="dialog_status_online">Online</string>
+    <string name="dialog_status_away">Invisible</string>
+    <string name="dialog_status_busy">Busy</string>
 
 
     <!-- Other -->

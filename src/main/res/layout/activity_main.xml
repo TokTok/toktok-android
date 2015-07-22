@@ -118,7 +118,7 @@
 
                 <ImageView
                     android:layout_gravity="center"
-                    style="@style/CircleUserStatus"/>
+                    style="@style/CircleUserStatus" />
 
                 <TextView
                     android:textColor="@color/drawerTextColor"

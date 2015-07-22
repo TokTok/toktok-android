@@ -2,16 +2,13 @@ package im.tox.toktok.app.ContactsActivity
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.{CollapsingToolbarLayout, FloatingActionButton}
-import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.{LinearLayout, TextView, ImageView, RelativeLayout}
+import android.widget.{ImageView, RelativeLayout, TextView}
 import im.tox.toktok.R
 import im.tox.toktok.app.CallActivity.CallActivity
 import im.tox.toktok.app.SimpleDialogs.{SimpleColorDialogDesign, SimpleDialogDesign, SimpleTextDialogDesign}
@@ -19,7 +16,7 @@ import im.tox.toktok.app.VideoCallActivity.VideoCallActivity
 
 class ContactsActivity extends AppCompatActivity {
 
-  final val friendIcons = List(R.id.contacts_icon_call, R.id.contacts_icon_message, R.id.contacts_icon_image, R.id.contacts_icon_download, R.id.contacts_icon_palette, R.id.contacts_icon_edit, R.id.contacts_icon_trash,R.id.contacts_icon_lock)
+  final val friendIcons = List(R.id.contacts_icon_call, R.id.contacts_icon_message, R.id.contacts_icon_image, R.id.contacts_icon_download, R.id.contacts_icon_palette, R.id.contacts_icon_edit, R.id.contacts_icon_trash, R.id.contacts_icon_lock)
   var friendTitle: String = ""
   var friendMessage: String = ""
   var friendImgSRC: Int = 0
@@ -58,7 +55,7 @@ class ContactsActivity extends AppCompatActivity {
 
     getWindow().setStatusBarColor(getResources.getColor(R.color.contactsTransparentBar));
 
-    for (icon <-friendIcons){
+    for (icon <- friendIcons) {
 
       val obj = findViewById(icon).asInstanceOf[ImageView]
       obj.setImageTintList(ColorStateList.valueOf(friendColor))
@@ -71,7 +68,7 @@ class ContactsActivity extends AppCompatActivity {
     val mDeleteLayout: RelativeLayout = findViewById(R.id.contacts_delete).asInstanceOf[RelativeLayout]
     mDeleteLayout.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-        val dial: SimpleDialogDesign = new SimpleDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_delete_friend), R.drawable.ic_delete_black_48dp, null)
+        val dial: SimpleDialogDesign = new SimpleDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_delete_friend),friendColor, R.drawable.ic_delete_black_48dp, null)
         dial.show()
       }
     })
@@ -80,7 +77,7 @@ class ContactsActivity extends AppCompatActivity {
 
     mEditName.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-        val dial: SimpleTextDialogDesign = new SimpleTextDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_edit_alias), R.drawable.ic_person_black_48dp, friendTitle, null)
+        val dial: SimpleTextDialogDesign = new SimpleTextDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_edit_alias), friendColor ,R.drawable.ic_person_black_48dp, friendTitle, null)
         dial.show()
       }
     })
@@ -89,7 +86,7 @@ class ContactsActivity extends AppCompatActivity {
 
     mColorContact.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-        val dial: SimpleColorDialogDesign = new SimpleColorDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_edit_contact_color), R.drawable.ic_image_color_lens, 0, null)
+        val dial: SimpleColorDialogDesign = new SimpleColorDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_edit_contact_color),friendColor, R.drawable.ic_image_color_lens, 0, null)
         dial.show()
       }
     })

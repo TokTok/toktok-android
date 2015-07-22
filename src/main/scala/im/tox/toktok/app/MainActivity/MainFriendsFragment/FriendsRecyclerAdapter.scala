@@ -1,9 +1,9 @@
 package im.tox.toktok.app.MainActivity.MainFriendsFragment
 
-import android.content.{Intent, Context}
+import android.content.{Context, Intent}
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
-import android.util.{Log}
+import android.util.Log
 import android.view.View.OnClickListener
 import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.{ImageButton, LinearLayout, TextView}
@@ -17,11 +17,11 @@ import scala.collection.mutable.ListBuffer
 class FriendsRecyclerAdapter(list: ListBuffer[Friend]) extends RecyclerView.Adapter[FriendsRecyclerViewHolder] {
 
   private val items: ListBuffer[Friend] = list
-  private var active : View = null;
+  private var active: View = null;
 
   def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): FriendsRecyclerViewHolder = {
     val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.fragment_home_friends_item, viewGroup, false)
-    return new FriendsRecyclerViewHolder(itemView,list,active)
+    return new FriendsRecyclerViewHolder(itemView, list, active)
   }
 
   def onBindViewHolder(viewHolder: FriendsRecyclerViewHolder, position: Int) = {
@@ -41,7 +41,7 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend]) extends RecyclerView.Adap
 
 }
 
-class FriendsRecyclerViewHolder(itemView: View, list: ListBuffer[Friend],active : View) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener {
+class FriendsRecyclerViewHolder(itemView: View, list: ListBuffer[Friend], active: View) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener {
 
   var context: Context = itemView.getContext
 
@@ -50,27 +50,27 @@ class FriendsRecyclerViewHolder(itemView: View, list: ListBuffer[Friend],active 
   var mLayout: LinearLayout = itemView.findViewById(R.id.home_friends_layout).asInstanceOf[LinearLayout]
   //var mUserStatus: TextView = itemView.findViewById(R.id.home_friends_status).asInstanceOf[TextView]
   var mUserImage: CircularImageView = itemView.findViewById(R.id.home_friends_img).asInstanceOf[CircularImageView]
-  var mExpandButton : ImageButton = itemView.findViewById(R.id.home_friends_expend).asInstanceOf[ImageButton]
+  var mExpandButton: ImageButton = itemView.findViewById(R.id.home_friends_expend).asInstanceOf[ImageButton]
   var mCallButton = itemView.findViewById(R.id.home_friends_call)
   var mMessageButton = itemView.findViewById(R.id.home_friends_message)
 
 
   mCallButton.setOnClickListener(new OnClickListener {
     override def onClick(v: View): Unit = {
-      Log.d("Tox","Call")
+      Log.d("Tox", "Call")
     }
   })
 
 
   mMessageButton.setOnClickListener(new OnClickListener {
     override def onClick(v: View): Unit = {
-      Log.d("Tox","Message")
+      Log.d("Tox", "Message")
     }
   })
 
 
   mExpandButton.setOnClickListener(new OnClickListener {
-    override def onClick(v: View): Unit ={
+    override def onClick(v: View): Unit = {
 
       v.setVisibility(View.INVISIBLE)
       itemView.setElevation(5)
@@ -89,11 +89,11 @@ class FriendsRecyclerViewHolder(itemView: View, list: ListBuffer[Friend],active 
 
     val bundle: Bundle = new Bundle()
 
-    bundle.putInt("contactColorPrimary",friend.getColor())
-    bundle.putInt("contactColorSecondary",friend.getSecondColor())
-    bundle.putInt("contactPhotoReference",friend.getPhotoReference())
-    bundle.putString("contactName",friend.getUserName())
-    bundle.putString("contactStatusMessage",friend.getUserMessage())
+    bundle.putInt("contactColorPrimary", friend.getColor())
+    bundle.putInt("contactColorSecondary", friend.getSecondColor())
+    bundle.putInt("contactPhotoReference", friend.getPhotoReference())
+    bundle.putString("contactName", friend.getUserName())
+    bundle.putString("contactStatusMessage", friend.getUserMessage())
 
     val contactIntent: Intent = new Intent(context, classOf[ContactsActivity])
     contactIntent.putExtras(bundle)

@@ -1,21 +1,17 @@
 package im.tox.toktok.app.MessageActivity
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
-import android.util.Log
-import android.view.{MenuItem, View}
 import android.view.View.OnClickListener
+import android.view.{MenuItem, View}
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import im.tox.toktok.R
 import im.tox.toktok.app.Friend
 import im.tox.toktok.app.MainActivity.MainFriendsFragment.FriendsRecyclerHeaderAdapter
 import im.tox.toktok.app.NewMessageActivity.NewMessageActivity
-import im.tox.toktok.app.SimpleDialogs.SimpleAddFriendDialogDesign
 
 import scala.collection.mutable.ListBuffer
 
@@ -58,7 +54,7 @@ class MessageGroupContacts extends AppCompatActivity {
 
     val mRecycler: RecyclerView = findViewById(R.id.message_group_members_recycler).asInstanceOf[RecyclerView]
 
-    val list: ListBuffer[Friend] = ListBuffer(Friend.lorem,Friend.john)
+    val list: ListBuffer[Friend] = ListBuffer(Friend.lorem, Friend.john)
 
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
     mRecycler.setLayoutManager(mLayoutManager)

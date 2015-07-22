@@ -13,13 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
             <com.github.siyamed.shapeimageview.CircularImageView
                 app:siBorderAlpha="0.0"
@@ -49,10 +49,10 @@
                 android:layout_centerVertical="true"
                 android:padding="8dp" />
 
-    </RelativeLayout>
+        </RelativeLayout>
 
 
-        <include layout="@layout/new_message_toolbar_friend_mini"/>
+        <include layout="@layout/new_message_toolbar_friend_mini" />
 
     </LinearLayout>
 

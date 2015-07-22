@@ -30,7 +30,8 @@
             android:shadowDy="2"
             android:shadowRadius="4"
             android:textColor="@color/textWhiteColor"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/call_ongoing_contact_calltime"
             android:layout_width="wrap_content"
@@ -56,6 +57,6 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/callItemDivider"/>
+        android:background="@color/callItemDivider" />
 
 </RelativeLayout>

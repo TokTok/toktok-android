@@ -1,6 +1,7 @@
 package im.tox.toktok.app
 
 import android.graphics.Color
+
 import scala.collection.mutable.ListBuffer
 
 class Group(name: String, list: ListBuffer[Friend], color: Int, statusColor: Int) {
@@ -23,6 +24,6 @@ class Group(name: String, list: ListBuffer[Friend], color: Int, statusColor: Int
 
 }
 
-object Group{
-  val group = new Group("The Amazing Group", ListBuffer(Friend.lorem,Friend.john) , Color.parseColor("#9B9B9B"), Color.parseColor("#5A5A5A"))
+object Group {
+  val group = new Group("The Amazing Group", ListBuffer(Friend.lorem, Friend.john), Color.parseColor("#9B9B9B"), Color.parseColor("#5A5A5A"))
 }

@@ -33,13 +33,16 @@
     <item name="colorAccent" type="color">#9E9E9E</item>
 
     <item name="simpleDialogIcon" type="color">#7D7D7D</item>
-    <item name="simpleDialogIconButton" type="color">#F5F5F5</item>
-    <item name="simpleDialogIconButtonBorder" type="color">#C6C6C6</item>
-    <item name="simpleDialogIconButtonAssets" type="color">#4A4A4A</item>
-    <item name="simpleDialogBackground" type="color">#FAFAFA</item>
+    <item name="simpleDialogIconButton" type="color">#546E7A</item>
+    <item name="simpleDialogIconButtonDisable" type="color">#78909C</item>
+    <item name="simpleDialogTextButton" type="color">#ECEFF1</item>
+    <item name="simpleDialogTextButtonDisable" type="color">#B0BEC5</item>
+    <item name="simpleDialogBackground" type="color">#3E4651</item>
+
+    <item name="simpleDialogIconButtonAssets" type="color">#ffffff</item>
 
     <item name="callTopColor" type="color">#90D8D8D8</item>
-    <item name="callItemDivider" type="color">#40ffffff</item>
+    <item name="callItemDivider" type="color">#40FFFFFF</item>
     <item name="callButtonColor" type="color">#F6234E</item>
 
 </resources>

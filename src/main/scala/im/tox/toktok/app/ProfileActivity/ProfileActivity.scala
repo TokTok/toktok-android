@@ -9,10 +9,10 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View.OnClickListener
-import android.view.{View, ViewGroup, LayoutInflater}
-import android.widget.LinearLayout
+import android.view.{LayoutInflater, View, ViewGroup}
+import android.widget.{TextView, RelativeLayout}
 import im.tox.toktok.R
-import im.tox.toktok.app.SimpleDialogs.{SimpleStatusDialogDesign, SimpleTextDialogDesign, SimpleShareDialogDesign}
+import im.tox.toktok.app.SimpleDialogs.{SimpleShareDialogDesign, SimpleStatusDialogDesign, SimpleTextDialogDesign}
 
 class ProfileActivity extends Fragment {
 
@@ -33,9 +33,9 @@ class ProfileActivity extends Fragment {
 
     mDrawer = getActivity.findViewById(R.id.home_layout).asInstanceOf[DrawerLayout]
 
-    val shareIDButton = view.findViewById(R.id.profile_share_id).asInstanceOf[LinearLayout]
+    val mShareIDButton = view.findViewById(R.id.profile_share_id).asInstanceOf[RelativeLayout]
 
-    shareIDButton.setOnClickListener(new OnClickListener {
+    mShareIDButton.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
 
         val dial: SimpleShareDialogDesign = new SimpleShareDialogDesign(getActivity)
@@ -44,34 +44,32 @@ class ProfileActivity extends Fragment {
       }
     })
 
-    val changeNickname = view.findViewById(R.id.profile_change_status_text).asInstanceOf[LinearLayout]
+    val mChangeNickname = view.findViewById(R.id.profile_change_nickname).asInstanceOf[TextView]
 
-    changeNickname.setOnClickListener(new OnClickListener {
+    mChangeNickname.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-
-        val dial: SimpleTextDialogDesign = new SimpleTextDialogDesign(getActivity, "Edit your status message", R.drawable.ic_person_black_48dp, "Trying out the new Tox Android Clientww", null)
+        val dial: SimpleTextDialogDesign = new SimpleTextDialogDesign(getActivity, "Edit your nickname", getResources.getColor(R.color.homeColorToolbar), R.drawable.ic_person_black_48dp, "André Almeida", null)
         dial.show()
 
       }
     })
 
-    val changeStatusMessage = view.findViewById(R.id.profile_change_nickname).asInstanceOf[LinearLayout]
+    val mChangeStatusMessage = view.findViewById(R.id.profile_change_status_text).asInstanceOf[TextView]
 
-    changeStatusMessage.setOnClickListener(new OnClickListener {
+    mChangeStatusMessage.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-
-        val dial: SimpleTextDialogDesign = new SimpleTextDialogDesign(getActivity, "Edit your nickname", R.drawable.ic_person_black_48dp, "André Almeida", null)
+        val dial: SimpleTextDialogDesign = new SimpleTextDialogDesign(getActivity, "Edit your status message", getResources.getColor(R.color.homeColorToolbar), R.drawable.ic_person_black_48dp, "Trying out the new Tox Android Clientww", null)
         dial.show()
 
       }
     })
 
-    val changeStatus = view.findViewById(R.id.profile_change_status).asInstanceOf[LinearLayout]
+    val mChangeStatus = view.findViewById(R.id.profile_change_status).asInstanceOf[TextView]
 
-    changeStatus.setOnClickListener(new OnClickListener {
+    mChangeStatus.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
 
-        val dial : SimpleStatusDialogDesign =  new SimpleStatusDialogDesign(getActivity)
+        val dial: SimpleStatusDialogDesign = new SimpleStatusDialogDesign(getActivity)
         dial.show()
 
       }
