@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View.OnClickListener
 import android.view.{LayoutInflater, View, ViewGroup}
-import android.widget.{TextView, RelativeLayout}
+import android.widget.{RelativeLayout, TextView}
 import im.tox.toktok.R
 import im.tox.toktok.app.SimpleDialogs.{SimpleShareDialogDesign, SimpleStatusDialogDesign, SimpleTextDialogDesign}
 

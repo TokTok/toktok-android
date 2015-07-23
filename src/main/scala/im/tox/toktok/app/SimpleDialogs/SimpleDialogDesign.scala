@@ -7,7 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View.OnClickListener
 import android.view.{View, Window}
-import android.widget.{LinearLayout, Button, ImageView, TextView}
+import android.widget.{Button, ImageView, LinearLayout, TextView}
 import im.tox.toktok.R
 
 class SimpleDialogDesign(activity: Activity, question: String, color: Int, icon: Int, clickAction: OnClickListener) extends Dialog(activity) {

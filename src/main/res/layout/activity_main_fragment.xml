@@ -14,6 +14,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/home_toolbar"
             android:layout_width="match_parent"
+            android:minHeight="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/homeColorToolbar"
             app:layout_scrollFlags="scroll|enterAlways"
@@ -45,9 +46,11 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:animateLayoutChanges="true"
+            android:foreground="?android:attr/selectableItemBackground">
 
-            <TextView
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/home_frieds_requests_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -69,10 +72,11 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/home_fab"
         style="@style/BasicFloatingActionButton"
-        android:layout_gravity="end|bottom"
         android:src="@drawable/ic_content_add_home"
         android:tint="@color/basicFABTint"
-        app:backgroundTint="@color/basicFABColor" />
+        app:backgroundTint="@color/basicFABColor"
+        app:layout_anchor="@id/home_tab_holder"
+        app:layout_anchorGravity="bottom|right|end" />
 
 </android.support.design.widget.CoordinatorLayout>
 

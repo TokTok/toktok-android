@@ -68,7 +68,7 @@ class ContactsActivity extends AppCompatActivity {
     val mDeleteLayout: RelativeLayout = findViewById(R.id.contacts_delete).asInstanceOf[RelativeLayout]
     mDeleteLayout.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-        val dial: SimpleDialogDesign = new SimpleDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_delete_friend),friendColor, R.drawable.ic_delete_black_48dp, null)
+        val dial: SimpleDialogDesign = new SimpleDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_delete_friend), friendColor, R.drawable.ic_delete_black_48dp, null)
         dial.show()
       }
     })
@@ -77,7 +77,7 @@ class ContactsActivity extends AppCompatActivity {
 
     mEditName.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-        val dial: SimpleTextDialogDesign = new SimpleTextDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_edit_alias), friendColor ,R.drawable.ic_person_black_48dp, friendTitle, null)
+        val dial: SimpleTextDialogDesign = new SimpleTextDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_edit_alias), friendColor, R.drawable.ic_person_black_48dp, friendTitle, null)
         dial.show()
       }
     })
@@ -86,7 +86,7 @@ class ContactsActivity extends AppCompatActivity {
 
     mColorContact.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
-        val dial: SimpleColorDialogDesign = new SimpleColorDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_edit_contact_color),friendColor, R.drawable.ic_image_color_lens, 0, null)
+        val dial: SimpleColorDialogDesign = new SimpleColorDialogDesign(ContactsActivity.this, getResources.getString(R.string.contact_popup_edit_contact_color), friendColor, R.drawable.ic_image_color_lens, 0, null)
         dial.show()
       }
     })

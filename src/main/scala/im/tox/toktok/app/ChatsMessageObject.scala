@@ -8,6 +8,7 @@ class ChatsMessageObject() {
   var group: Group = null
   var color: Int = 0
   var colorStatus: Int = 0
+  var active: Boolean = false
 
   def getUser(): Friend = {
     return user
@@ -31,6 +32,14 @@ class ChatsMessageObject() {
 
   def getStatusColor(): Int = {
     return colorStatus
+  }
+
+  def isActive(): Boolean = {
+    return active
+  }
+
+  def setActive(state: Boolean): Unit = {
+    active = state
   }
 
   def this(group: Group, lastMessage: String) {

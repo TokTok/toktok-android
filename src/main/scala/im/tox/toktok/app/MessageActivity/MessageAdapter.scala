@@ -68,7 +68,7 @@ class MessageAdapter(list: ListBuffer[Message]) extends RecyclerView.Adapter[Rec
 
 }
 
-final class MessageViewHolderSimple(itemView: View) extends RecyclerView.ViewHolder(itemView) {
+class MessageViewHolderSimple(itemView: View) extends RecyclerView.ViewHolder(itemView) {
 
   var mUserText: TextView = itemView.findViewById(R.id.message_item_text).asInstanceOf[TextView]
   var mUserDetais: TextView = itemView.findViewById(R.id.message_item_details).asInstanceOf[TextView]
@@ -77,7 +77,7 @@ final class MessageViewHolderSimple(itemView: View) extends RecyclerView.ViewHol
 }
 
 
-final class MessageViewHolderAction(itemView: View) extends RecyclerView.ViewHolder(itemView) {
+class MessageViewHolderAction(itemView: View) extends RecyclerView.ViewHolder(itemView) {
 
   var mUserText: TextView = itemView.findViewById(R.id.message_item_text).asInstanceOf[TextView]
   var mUserImg: CircularImageView = itemView.findViewById(R.id.message_item_img).asInstanceOf[CircularImageView]

@@ -1,12 +1,12 @@
 package im.tox.toktok.app.MainActivity
 
 import android.content.Context
-import android.support.v4.app.{Fragment, FragmentManager, FragmentPagerAdapter}
+import android.support.v4.app.{Fragment, FragmentManager, FragmentStatePagerAdapter}
 import im.tox.toktok.R
 import im.tox.toktok.app.MainActivity.MainChatsFragment.ChatsFragment
 import im.tox.toktok.app.MainActivity.MainFriendsFragment.FriendsFragment
 
-class MainTabsAdapter(fm: FragmentManager, context: Context) extends FragmentPagerAdapter(fm) {
+class MainTabsAdapter(fm: FragmentManager, context: Context) extends FragmentStatePagerAdapter(fm) {
 
   var this.context = context
 

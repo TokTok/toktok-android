@@ -6,7 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View.OnClickListener
 import android.view.{View, Window}
-import android.widget.{Button, RelativeLayout}
+import android.widget.Button
 import im.tox.toktok.R
 
 

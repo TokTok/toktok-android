@@ -15,6 +15,13 @@
         android:layout_height="match_parent">
 
         <View
+            android:visibility="gone"
+            android:id="@+id/home_item_selected"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff00ff"></View>
+
+        <View
             android:id="@+id/home_item_color"
             android:layout_width="5dp"
             android:layout_height="match_parent"

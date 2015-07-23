@@ -79,7 +79,7 @@ class MessageActivity extends AppCompatActivity {
 
       case R.id.action_delete_conversation => {
 
-        val dial = new SimpleDialogDesign(this, getResources.getString(R.string.dialog_delete_conversion),contactColorPrimary, R.drawable.ic_delete_black_48dp, null)
+        val dial = new SimpleDialogDesign(this, getResources.getString(R.string.dialog_delete_conversion), contactColorPrimary, R.drawable.ic_delete_black_48dp, null)
         dial.show()
         return true
       }

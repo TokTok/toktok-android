@@ -13,17 +13,18 @@ import im.tox.toktok.app.ProfileActivity.ProfileActivity
 
 class MainActivityHolder extends AppCompatActivity {
 
-  var activeTab: LinearLayout = null;
+  var activeTab: LinearLayout = null
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
 
+
     super.onCreate(savedInstanceState)
+
     setContentView(R.layout.activity_main)
 
     val attachFragment: Fragment = new MainActivityFragment
-    val trans: FragmentTransaction = getSupportFragmentManager.beginTransaction()
-    trans.add(R.id.home_frame, attachFragment)
-    trans.commit()
+
+    getSupportFragmentManager.beginTransaction().add(R.id.home_frame, attachFragment).commit()
 
     val chatsTabButton: LinearLayout = findViewById(R.id.home_drawer_chats).asInstanceOf[LinearLayout]
     val peopleTabButton: LinearLayout = findViewById(R.id.home_drawer_profile).asInstanceOf[LinearLayout]
@@ -32,6 +33,8 @@ class MainActivityHolder extends AppCompatActivity {
     activeTab = chatsTabButton
 
     activeTab.setBackgroundResource(R.color.drawerBackgroundSelected)
+
+
 
     peopleTabButton.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {

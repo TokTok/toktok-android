@@ -25,15 +25,17 @@ class FriendsFragment extends Fragment {
     mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL)
     mFriends_Recycler.setLayoutManager(mLayoutManager)
 
-    val a = ListBuffer(Friend.bart, Friend.lorem, Friend.jane, Friend.john)
+    val a = ListBuffer(Friend.bart, Friend.lorem, Friend.jane, Friend.john, Friend.bart, Friend.lorem, Friend.jane, Friend.john, Friend.bart, Friend.lorem, Friend.jane, Friend.john, Friend.bart, Friend.lorem, Friend.jane, Friend.john, Friend.bart, Friend.lorem, Friend.jane, Friend.john)
 
     val mFriends_Recycler_Adapter: FriendsRecyclerHeaderAdapter = new FriendsRecyclerHeaderAdapter(a)
 
     mFriends_Recycler.setAdapter(mFriends_Recycler_Adapter)
+    mFriends_Recycler.setHasFixedSize(true)
     mFriends_Recycler.addItemDecoration(new StickyRecyclerHeadersDecoration(mFriends_Recycler_Adapter))
 
 
     return view
   }
+
 
 }

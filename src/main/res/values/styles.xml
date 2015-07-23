@@ -7,10 +7,25 @@
         <item name="colorPrimaryDark">@color/homeColorStatusBar</item>
         <item name="android:windowBackground">@color/backgroundColor</item>
         <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="windowActionModeOverlay">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="actionModeStyle">@style/ActionMode</item>
+        <item name="android:actionModeStyle">@style/ActionMode</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_action_navigation_arrow_back
+        </item>
     </style>
+
+    <style name="ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="android:background">@color/backgroundColor</item>
+        <item name="background">@color/backgroundColor</item>
+        <item name="android:titleTextStyle">@style/TitleTextStyle</item>
+        <item name="titleTextStyle">@style/TitleTextStyle</item>
+    </style>
+
+    <style name="TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/textDarkColor</item>
+    </style>
+
 
     <style name="BasicFloatingActionButton">
         <item name="android:layout_width">wrap_content</item>
