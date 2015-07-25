@@ -157,7 +157,6 @@ class MessageActivity extends AppCompatActivity {
 
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
     mRecycler.setLayoutManager(mLayoutManager)
-
     mRecycler.setAdapter(new MessageAdapter(list))
 
 

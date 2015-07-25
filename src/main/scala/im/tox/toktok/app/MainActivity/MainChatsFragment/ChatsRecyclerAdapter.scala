@@ -2,37 +2,37 @@ package im.tox.toktok.app.MainActivity.MainChatsFragment
 
 import android.content.{Context, Intent}
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
-import android.util.{Log, SparseBooleanArray}
+import android.support.v7.widget.{CardView, RecyclerView}
+import android.util.SparseBooleanArray
 import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.TextView
-import com.github.siyamed.shapeimageview.CircularImageView
+import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
 import im.tox.toktok.app.ChatsMessageObject
 import im.tox.toktok.app.MessageActivity.MessageActivity
 
 import scala.collection.mutable.ListBuffer
 
-class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject], chatItemOnLongClick: ChatItemClick) extends RecyclerView.Adapter[RecyclerView.ViewHolder] {
+class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject], chatItemClick: ChatItemClick) extends RecyclerView.Adapter[RecyclerView.ViewHolder] {
 
   private val items: ListBuffer[ChatsMessageObject] = list
   private val selectedItems: SparseBooleanArray = new SparseBooleanArray()
+  private val chatItemClickListener: ChatItemClick = chatItemClick
 
   def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder = {
 
     if (viewType == 0) {
 
       val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.fragment_home_chats_item_user, viewGroup, false)
-      return new ChatsRecyclerViewHolderUser(itemView, items, chatItemOnLongClick)
+      return new ChatsRecyclerViewHolderUser(itemView, items, chatItemClickListener)
 
     }
     else {
 
       val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.fragment_home_chats_item_group, viewGroup, false)
-      return new ChatsRecyclerViewHolderGroup(itemView, items, chatItemOnLongClick)
+      return new ChatsRecyclerViewHolderGroup(itemView, items, chatItemClickListener)
 
     }
-
 
   }
 
@@ -46,12 +46,17 @@ class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject], chatItemOnLongC
       view.mUserName.setText(item.getUser().getUserName())
       view.mUserStatus.setText(item.getUser().getUserMessage())
       view.mLastMessage.setText(item.getLastMessage())
-      view.mUserImage.setImageResource(item.getUser().getPhotoReference())
+
       view.mColor.setBackgroundColor(item.getUser().getColor())
 
-      if (item.isActive()) {
-        view.mSelectedBackground.setVisibility(View.VISIBLE)
+
+      if (isSelected(position)) {
+        view.mSelectedBackground.setVisibility(View.VISIBLE);
       }
+      else {
+        view.mSelectedBackground.setVisibility(View.INVISIBLE);
+      }
+
 
     }
     else {
@@ -82,14 +87,10 @@ class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject], chatItemOnLongC
   def toggleSelection(i: Int): Unit = {
 
     if (selectedItems.get(i, false)) {
-      selectedItems.put(i, true)
-      items(i).setActive(true)
-      Log.d("asd", "toggleTrue" + i)
+      selectedItems.delete(i)
     }
     else {
-      selectedItems.delete(i)
-      items(i).setActive(false)
-      Log.d("asd", "togglefalse")
+      selectedItems.put(i, true)
     }
     notifyItemChanged(i)
 
@@ -104,15 +105,19 @@ class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject], chatItemOnLongC
     return selectedItems.size()
   }
 
-  def getSelectedItems(): Array[Int] = {
+  def isSelected(position: Int): Boolean = {
+    return selectedItems.get(position, false)
+  }
 
-    val selectedList = new Array[Int](selectedItems.size())
+  def getSelectedItems(): ListBuffer[Int] = {
+
+    val selectedList = ListBuffer[Int](selectedItems.size)
 
     var i = 0
 
     for (i <- 0 to selectedItems.size()) {
 
-      selectedList(0) = selectedItems.keyAt(i)
+      selectedList += selectedItems.keyAt(i)
 
     }
 
@@ -128,16 +133,19 @@ class ChatsRecyclerViewHolderUser(itemView: View, list: ListBuffer[ChatsMessageO
   itemView.setOnClickListener(this)
   itemView.setOnLongClickListener(this)
 
+  var mBase = itemView.findViewById(R.id.home_item_view)
   var mSelectedBackground = itemView.findViewById(R.id.home_item_selected)
   var mUserName: TextView = itemView.findViewById(R.id.home_item_name).asInstanceOf[TextView]
   var mUserStatus: TextView = itemView.findViewById(R.id.home_item_status).asInstanceOf[TextView]
   var mLastMessage: TextView = itemView.findViewById(R.id.home_item_last_message).asInstanceOf[TextView]
-  var mUserImage: CircularImageView = itemView.findViewById(R.id.home_item_img).asInstanceOf[CircularImageView]
+  var mUserImage: CircleImageView = itemView.findViewById(R.id.home_item_img).asInstanceOf[CircleImageView]
   var mColor: View = itemView.findViewById(R.id.home_item_color)
+  var itemClickListener: ChatItemClick = clickListener
+
 
   def onClick(view: View) = {
 
-    if (!clickListener.onClick(getLayoutPosition)) {
+    if (!itemClickListener.onClick(getLayoutPosition)) {
 
       val item: ChatsMessageObject = list(getLayoutPosition)
 
@@ -156,12 +164,13 @@ class ChatsRecyclerViewHolderUser(itemView: View, list: ListBuffer[ChatsMessageO
 
     }
 
+
   }
 
   def onLongClick(v: View): Boolean = {
 
 
-    return clickListener.onLongClick(getLayoutPosition)
+    return itemClickListener.onLongClick(getLayoutPosition)
 
   }
 
@@ -173,14 +182,17 @@ class ChatsRecyclerViewHolderGroup(itemView: View, list: ListBuffer[ChatsMessage
   itemView.setOnClickListener(this)
   itemView.setOnLongClickListener(this)
 
+  var mBase: CardView = itemView.findViewById(R.id.home_item_view).asInstanceOf[CardView]
   var mSelectedBackground = itemView.findViewById(R.id.home_item_selected)
   var mUserName: TextView = itemView.findViewById(R.id.home_item_name).asInstanceOf[TextView]
   var mLastMessage: TextView = itemView.findViewById(R.id.home_item_last_message).asInstanceOf[TextView]
   var mColor: View = itemView.findViewById(R.id.home_item_color)
+  var itemClickListener: ChatItemClick = clickListener
+
 
   def onClick(view: View) = {
 
-    if (!clickListener.onClick(getLayoutPosition)) {
+    if (!itemClickListener.onClick(getLayoutPosition)) {
 
       val item: ChatsMessageObject = list(getLayoutPosition)
 
@@ -202,7 +214,7 @@ class ChatsRecyclerViewHolderGroup(itemView: View, list: ListBuffer[ChatsMessage
 
   def onLongClick(v: View): Boolean = {
 
-    return clickListener.onLongClick(getLayoutPosition)
+    return itemClickListener.onLongClick(getLayoutPosition)
 
   }
 

@@ -11,10 +11,10 @@ import im.tox.toktok.app.Friend
 import scala.collection.mutable.ListBuffer
 
 
-class NewMessageRecyclerHeaderAdapter(list: ListBuffer[Friend]) extends NewMessageRecyclerAdapter(list) with StickyRecyclerHeadersAdapter[RecyclerView.ViewHolder] {
+class NewMessageRecyclerHeaderAdapter(list: ListBuffer[Friend], clickListener: FriendAddOnClick) extends NewMessageRecyclerAdapter(list, clickListener) with StickyRecyclerHeadersAdapter[RecyclerView.ViewHolder] {
 
   def getHeaderId(position: Int): Long = {
-    return getItemPosition(position).charAt(0);
+    return getItem(position).getUserName().charAt(0);
   }
 
   def onCreateHeaderViewHolder(parent: ViewGroup): RecyclerView.ViewHolder = {
@@ -23,7 +23,7 @@ class NewMessageRecyclerHeaderAdapter(list: ListBuffer[Friend]) extends NewMessa
   }
 
   def onBindHeaderViewHolder(holder: RecyclerView.ViewHolder, position: Int) = {
-    holder.itemView.findViewById(R.id.recyclerview_header_text).asInstanceOf[TextView].setText(String.valueOf(getItemPosition(position).charAt(0)))
+    holder.itemView.findViewById(R.id.recyclerview_header_text).asInstanceOf[TextView].setText(String.valueOf(getItem(position).getUserName().charAt(0)))
   }
 
 }

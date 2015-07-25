@@ -1,24 +1,41 @@
 package im.tox.toktok.app.NewMessageActivity
 
-import android.graphics.Color
+
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.{Bitmap, Canvas, Color}
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
+import android.support.design.widget.{AppBarLayout, FloatingActionButton}
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView.LayoutManager
-import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
-import android.view.{MenuItem, Window, WindowManager}
+import android.support.v7.widget.{CardView, LinearLayoutManager, RecyclerView, Toolbar}
+import android.text.style.ImageSpan
+import android.text.{SpannableStringBuilder, Spanned, TextUtils}
+import android.view.View.{MeasureSpec, OnClickListener}
+import android.view.animation.Animation.AnimationListener
+import android.view.animation.{AccelerateInterpolator, Animation, DecelerateInterpolator}
+import android.view.{MenuItem, View, Window, WindowManager}
+import android.widget.{ImageButton, TextView}
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
+import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
-import im.tox.toktok.app.Friend
+import im.tox.toktok.app.{Friend, MyRecyclerScroll}
 
 import scala.collection.mutable.ListBuffer
 
 class NewMessageActivity extends AppCompatActivity {
 
-  var mToolbar: Toolbar = null
-  var mRecycler: RecyclerView = null
-  var colorPrimary: Int = 0
-  var colorStatus: Int = 0
+  private var mToolbar: Toolbar = null
+  private var mRecycler: RecyclerView = null
+  private var mSelectedFriends: CardView = null
+  private var mFab: FloatingActionButton = null
+  private var colorPrimary: Int = 0
+  private var colorStatus: Int = 0
+  private var mSelectedFriendsText: TextView = null
+  private var mSelectedFriendsImg: CircleImageView = null
+  private var mSelectedFriendsCounter: TextView = null
+  private var mSelectedFriendsButton: ImageButton = null
+  private var mSelectedMini: TextView = null
+  private var mSelectedMiniExtended: Boolean = false
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -30,6 +47,7 @@ class NewMessageActivity extends AppCompatActivity {
 
       colorPrimary = bundle.getInt("colorPrimary")
       colorStatus = bundle.getInt("colorPrimaryStatus")
+
     }
     else {
 
@@ -37,6 +55,8 @@ class NewMessageActivity extends AppCompatActivity {
       colorStatus = Color.parseColor("#8C5F14")
 
     }
+
+    mFab = findViewById(R.id.new_message_fab).asInstanceOf[FloatingActionButton]
 
     initToolbar(colorPrimary, colorStatus)
     initRecyclerView()
@@ -52,11 +72,68 @@ class NewMessageActivity extends AppCompatActivity {
 
     val a = ListBuffer(Friend.bart, Friend.jane, Friend.john, Friend.lorem)
 
-    val mFriends_Recycler_Adapter: NewMessageRecyclerHeaderAdapter = new NewMessageRecyclerHeaderAdapter(a)
+    val mFriends_Recycler_Adapter: NewMessageRecyclerHeaderAdapter = new NewMessageRecyclerHeaderAdapter(a, null)
+
+    mFriends_Recycler_Adapter.setlistener(new FriendAddOnClick {
+      override def onClickListener(position: Int): Unit = {
+
+        mFriends_Recycler_Adapter.selectItem(position)
+
+        if (mSelectedFriends == null) {
+
+          initFirstSelectedContacts(mFriends_Recycler_Adapter)
+
+        }
+        else {
+
+          val selectedFriends = mFriends_Recycler_Adapter.countSelected()
+
+          if (selectedFriends == 0) {
+
+            destroySelectedContacts()
+
+          }
+          else if (selectedFriends == 1) {
+
+            mSelectedFriendsCounter.setText("")
+            mSelectedFriendsCounter = null
+
+            setOneSelectedContact(mFriends_Recycler_Adapter)
+
+          }
+          else {
+
+            setMultiSelectedContact(mFriends_Recycler_Adapter, selectedFriends)
+            mSelectedMini = findViewById(R.id.new_message_toolbar_mini).asInstanceOf[TextView]
+
+            val friend = mFriends_Recycler_Adapter.getItem(position)
+
+            if (mSelectedMiniExtended) {
+
+              createMiniContact(mFriends_Recycler_Adapter)
+
+            }
+          }
+        }
+      }
+    })
 
     mRecycler.setAdapter(mFriends_Recycler_Adapter)
     mRecycler.setLayoutManager(mLayoutManager)
     mRecycler.addItemDecoration(new StickyRecyclerHeadersDecoration(mFriends_Recycler_Adapter))
+
+    mRecycler.addOnScrollListener(new MyRecyclerScroll {
+
+      override def hide(): Unit = {
+        mFab.animate().translationY(mFab.getHeight() + mFab.getBottom).setInterpolator(new AccelerateInterpolator(2)).start();
+
+      }
+
+      override def show(): Unit = {
+        mFab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+      }
+    })
+
   }
 
   def initToolbar(colour: Int, secondColour: Int): Unit = {
@@ -90,6 +167,156 @@ class NewMessageActivity extends AppCompatActivity {
 
     return super.onOptionsItemSelected(item)
 
+  }
+
+  def initFirstSelectedContacts(adapter: NewMessageRecyclerAdapter): Unit = {
+
+    mSelectedFriends = findViewById(R.id.new_message_selected_list).asInstanceOf[CardView]
+    val layout = getLayoutInflater.inflate(R.layout.new_message_toolbar_friend, null)
+    mSelectedFriends.addView(layout)
+
+    mSelectedFriendsImg = findViewById(R.id.new_message_selected_img).asInstanceOf[CircleImageView]
+    mSelectedFriendsText = findViewById(R.id.new_message_toolbar_selected_text).asInstanceOf[TextView]
+    mSelectedFriendsButton = findViewById(R.id.new_message_toolbar_selected_button).asInstanceOf[ImageButton]
+
+    setOneSelectedContact(adapter)
+
+    mSelectedFriends.setVisibility(View.VISIBLE)
+    mFab.show()
+
+  }
+
+  def destroySelectedContacts(): Unit = {
+
+    mSelectedFriends.setVisibility(View.GONE)
+
+    mSelectedFriends.setLayoutAnimationListener(new AnimationListener {
+
+      override def onAnimationEnd(animation: Animation): Unit = {
+        mSelectedFriends.removeAllViews()
+      }
+
+      override def onAnimationStart(animation: Animation): Unit = {}
+
+      override def onAnimationRepeat(animation: Animation): Unit = {}
+    })
+
+    mSelectedFriends = null
+    mSelectedFriendsImg = null
+    mSelectedFriendsText = null
+    mSelectedFriendsButton = null
+
+    mFab.hide()
+
+  }
+
+  def destroySelectedContactsMini(): Unit = {
+    mSelectedMini.setVisibility(View.GONE)
+    mSelectedMini.setText("")
+    mSelectedMini = null
+    mSelectedMiniExtended = false
+  }
+
+  def setOneSelectedContact(adapter: NewMessageRecyclerAdapter): Unit = {
+
+    val first = adapter.getFirstSelected()
+
+    if (mSelectedMiniExtended) {
+      destroySelectedContactsMini()
+    }
+
+    mSelectedFriendsImg.setImageResource(first.getPhotoReference())
+    mSelectedFriendsText.setText(first.getUserName())
+    mSelectedFriendsButton.setImageResource(R.drawable.ic_content_clear)
+    mSelectedFriendsButton.setOnClickListener(new OnClickListener {
+      override def onClick(v: View): Unit = {
+
+        adapter.clearSelectedList()
+        destroySelectedContacts()
+
+      }
+    })
+
+  }
+
+  def setMultiSelectedContact(adapter: NewMessageRecyclerAdapter, selectedFriends: Int): Unit = {
+
+    mSelectedFriendsCounter = findViewById(R.id.new_message_selected_counter).asInstanceOf[TextView]
+    mSelectedFriendsCounter.setText(selectedFriends + "")
+
+    mSelectedFriendsText.setText(getResources.getString(R.string.new_message_selected_friends))
+    mSelectedFriendsImg.setImageResource(R.color.backgroundColor)
+
+    mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_down)
+    mSelectedFriendsButton.setOnClickListener(new OnClickListener {
+      override def onClick(v: View): Unit = {
+
+        if (mSelectedMiniExtended) {
+          destroySelectedContactsMini()
+          mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_down)
+
+        }
+        else {
+          mSelectedMini.setVisibility(View.VISIBLE)
+          mSelectedMiniExtended = true
+          mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_up)
+          createMiniContact(adapter)
+        }
+
+      }
+    })
+  }
+
+  def createMiniContact(adapter: NewMessageRecyclerAdapter): Unit = {
+
+    var friendsList: CharSequence = ""
+
+    for (friend <- adapter.getSelectedFriends()) {
+
+      val sb = new SpannableStringBuilder();
+      val miniContact = createContactTextView(friend.getUserName());
+      val bd = convertViewToDrawable(miniContact).asInstanceOf[BitmapDrawable]
+      bd.setBounds(0, 0, bd.getIntrinsicWidth() * 3, bd.getIntrinsicHeight() * 3);
+
+      sb.append(friend.getUserName() + " ");
+      sb.setSpan(new ImageSpan(bd), sb.length() - (friend.getUserName().length() + 1), sb.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+      friendsList = TextUtils.concat(friendsList, sb)
+
+    }
+
+
+    mSelectedMini.setText(friendsList);
+
+  }
+
+  def convertViewToDrawable(view: View): Object = {
+    val spec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+
+    view.measure(spec, spec);
+    view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+
+    val bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+    val canvas = new Canvas(bitmap);
+    canvas.translate(-view.getScrollX(), -view.getScrollY());
+    view.draw(canvas);
+
+    view.setDrawingCacheEnabled(true);
+
+    val cacheBmp = view.getDrawingCache();
+    val viewBmp = cacheBmp.copy(Bitmap.Config.ARGB_8888, true);
+
+    view.destroyDrawingCache();
+    return new BitmapDrawable(viewBmp);
+
+  }
+
+  def createContactTextView(text: String): TextView = {
+    val tv = getLayoutInflater.inflate(R.layout.new_message_toolbar_friend_mini, null).asInstanceOf[TextView]
+    tv.setText(text);
+
+    return tv;
   }
 
 }

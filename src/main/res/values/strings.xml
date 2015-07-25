@@ -41,7 +41,7 @@
 
 
     <!-- New Message -->
-
+    <string name="new_message_selected_friends">Selected Friends</string>
     <string name="new_message_title">Add friends to conversation</string>
     <string name="new_message_attachments">Add to the conversation</string>
 

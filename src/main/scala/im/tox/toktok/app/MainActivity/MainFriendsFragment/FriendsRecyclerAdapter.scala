@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.util.Log
-import android.view.View.{OnClickListener, OnLongClickListener}
+import android.view.View.OnClickListener
 import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget._
 import com.github.siyamed.shapeimageview.CircularImageView
@@ -124,7 +124,7 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend]) extends RecyclerView.Adap
 
 }
 
-class FriendsRecyclerViewHolder(itemView: View, itemOnClick: FriendItemOnClick) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener with OnLongClickListener {
+class FriendsRecyclerViewHolder(itemView: View, itemOnClick: FriendItemOnClick) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener {
 
   var mBase: RelativeLayout = itemView.findViewById(R.id.home_friends_base).asInstanceOf[RelativeLayout]
   var mUserInfo: RelativeLayout = itemView.findViewById(R.id.home_item_info).asInstanceOf[RelativeLayout]
@@ -137,20 +137,10 @@ class FriendsRecyclerViewHolder(itemView: View, itemOnClick: FriendItemOnClick) 
 
   mBase.setTag(this)
   itemView.setOnClickListener(this)
-  itemView.setOnLongClickListener(this)
 
   def onClick(view: View): Unit = {
 
     onClickListener.onClick()
-
-  }
-
-  def onLongClick(view: View): Boolean = {
-
-    val holder = itemView.getTag().asInstanceOf[ViewHolder]
-    Log.d("asd", "ad")
-
-    return true
 
   }
 

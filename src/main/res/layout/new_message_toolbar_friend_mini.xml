@@ -1,35 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+<TextView
+    android:textSize="14sp"
+    android:background="@drawable/rectangle_corners"
+    android:id="@+id/new_message_friends_mini_text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/rectangle_corners">
+    android:layout_centerVertical="true"
+    android:layout_marginRight="10dp"
+    android:fontFamily="sans-serif-light"
+    android:textColor="@color/textDarkColor"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
 
-    <com.github.siyamed.shapeimageview.CircularImageView
-        android:id="@+id/new_message_friends_mini_img"
-        app:siBorderAlpha="0.0"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="10dp" />
 
-    <TextView
-        android:id="@+id/new_message_friends_mini_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:layout_toRightOf="@id/new_message_friends_mini_img"
-        android:fontFamily="sans-serif-light"
-        android:textColor="@color/textDarkColor" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:layout_toRightOf="@id/new_message_friends_mini_text"
-        android:background="@null"
-        android:src="@drawable/ic_content_clear_mini" />
-
-</RelativeLayout>

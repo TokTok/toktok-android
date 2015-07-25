@@ -33,15 +33,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <com.github.siyamed.shapeimageview.CircularImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/home_item_img"
                 style="@style/SmallUserImage"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/lorem"
-                app:siBorderAlpha="0.0" />
-
+                android:layout_marginRight="20dp" />
 
             <TextView
                 android:id="@+id/home_item_name"
