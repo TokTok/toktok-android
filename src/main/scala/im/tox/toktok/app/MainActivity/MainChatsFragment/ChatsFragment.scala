@@ -2,7 +2,7 @@ package im.tox.toktok.app.MainActivity.MainChatsFragment
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.support.design.widget.{AppBarLayout, FloatingActionButton}
+import android.support.design.widget.{TabLayout, AppBarLayout, FloatingActionButton}
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.ActionMode
@@ -10,7 +10,7 @@ import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
 import android.view._
 import android.view.animation.{AccelerateInterpolator, DecelerateInterpolator}
 import im.tox.toktok.R
-import im.tox.toktok.app.{ChatsMessageObject, Friend, MyRecyclerScroll}
+import im.tox.toktok.app.{CustomViewPager, ChatsMessageObject, Friend, MyRecyclerScroll}
 
 import scala.collection.mutable.ListBuffer
 
@@ -18,8 +18,8 @@ class ChatsFragment extends Fragment with ChatItemClick {
 
   private var mChats_Recycler: RecyclerView = null
   private var mChats_Recycler_Adapter: ChatsRecyclerAdapter = null
-  private var actionMode: ActionMode = null
-  private var actionModeCallback = new ChatsActionModeCallback
+  private var mActionMode: ActionMode = null
+  private val actionModeCallback = new ChatsActionModeCallback
 
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedState: Bundle): View = {
 
@@ -45,7 +45,6 @@ class ChatsFragment extends Fragment with ChatItemClick {
 
     mChats_Recycler_Adapter = new ChatsRecyclerAdapter(a, this)
 
-
     mChats_Recycler.setAdapter(mChats_Recycler_Adapter)
 
     mChats_Recycler.addOnScrollListener(new MyRecyclerScroll {
@@ -67,11 +66,23 @@ class ChatsFragment extends Fragment with ChatItemClick {
 
   def onClick(i: Int): Boolean = {
 
-    if (actionMode == null) {
+    if (mActionMode == null) {
       return false
     }
-
     mChats_Recycler_Adapter.toggleSelection(i)
+
+    val count = mChats_Recycler_Adapter.getSelectedItemCount()
+
+    if (count == 0){
+      mActionMode.finish()
+    }
+    else if(count == 1){
+      mActionMode.setTitle(count+" "+getResources.getString(R.string.action_mode_selected_single))
+    }
+    else{
+      mActionMode.setTitle(count+" "+getResources.getString(R.string.action_mode_selected_multi))
+    }
+
     return true
 
   }
@@ -79,61 +90,66 @@ class ChatsFragment extends Fragment with ChatItemClick {
 
   def onLongClick(i: Int): Boolean = {
 
-    if (actionMode == null) {
-      actionMode = getActivity.asInstanceOf[AppCompatActivity].startSupportActionMode(actionModeCallback)
+    if (mActionMode == null) {
+      mActionMode = getActivity.asInstanceOf[AppCompatActivity].startSupportActionMode(actionModeCallback)
     }
 
     mChats_Recycler_Adapter.toggleSelection(i)
+
+    val count = mChats_Recycler_Adapter.getSelectedItemCount()
+
+    if (count == 0){
+      mActionMode.finish()
+    }
+    else if(count == 1){
+      mActionMode.setTitle(count+" "+getResources.getString(R.string.action_mode_selected_single))
+    }
+    else{
+      mActionMode.setTitle(count+" "+getResources.getString(R.string.action_mode_selected_multi))
+    }
+
+
     return true
 
   }
 
   class ChatsActionModeCallback() extends ActionMode.Callback {
 
-    private var appLayoutElevation: Float = 0
-    private var appLayout: AppBarLayout = null
-    private var toolbar: Toolbar = null
-    private var appBarParams: AppBarLayout.LayoutParams = null
-    private var appFlags: Int = 0
-    private var fab: FloatingActionButton = null;
+    private var mAppLayout: AppBarLayout = null
+    private var mFab: FloatingActionButton = null
+    private var mTabs :TabLayout = null
+    private var mCustomViewPager : CustomViewPager = null
 
     override def onDestroyActionMode(mode: ActionMode): Unit = {
 
-      appLayout.setBackgroundColor(getResources.getColor(R.color.homeColorToolbar))
-      appLayout.setElevation(appLayoutElevation)
+      mAppLayout.setBackgroundColor(getResources.getColor(R.color.homeColorToolbar))
 
-      appBarParams.setScrollFlags(appFlags)
+      mFab.setImageResource(R.drawable.ic_content_add_home)
+      mFab.setBackgroundTintList(ColorStateList.valueOf(getResources.getColor(R.color.basicFABColor)))
+      mFab.setImageTintList(ColorStateList.valueOf(getResources.getColor(R.color.basicFABTint)))
 
-      toolbar.setLayoutParams(appBarParams)
-
-      fab.setImageResource(R.drawable.ic_content_add_home)
-      fab.setBackgroundTintList(ColorStateList.valueOf(getResources.getColor(R.color.basicFABColor)))
-      fab.setImageTintList(ColorStateList.valueOf(getResources.getColor(R.color.basicFABTint)))
+      mCustomViewPager.setSwipingEnabled(true)
 
       mChats_Recycler_Adapter.clearSelections()
-      actionMode = null
+      mActionMode = null
+      mAppLayout = null
+      mFab = null
+      mCustomViewPager = null
 
     }
 
     override def onCreateActionMode(mode: ActionMode, menu: Menu): Boolean = {
 
-      appLayout = getActivity.findViewById(R.id.appBarLayout).asInstanceOf[AppBarLayout]
+      mAppLayout = getActivity.findViewById(R.id.appBarLayout).asInstanceOf[AppBarLayout]
+      mAppLayout.setBackgroundColor(getResources.getColor(R.color.backgroundColor))
 
-      appLayout.setBackgroundColor(getResources.getColor(R.color.backgroundColor))
-      appLayoutElevation = appLayout.getElevation
-      appLayout.setElevation(0)
+      mFab = getActivity.findViewById(R.id.home_fab).asInstanceOf[FloatingActionButton]
+      mFab.setBackgroundTintList(ColorStateList.valueOf(getResources.getColor(R.color.textDarkColor)))
+      mFab.setImageResource(R.drawable.ic_action_delete)
+      mFab.setImageTintList(ColorStateList.valueOf(getResources.getColor(R.color.textWhiteColor)))
 
-      toolbar = getActivity.findViewById(R.id.home_toolbar).asInstanceOf[Toolbar]
-
-      appBarParams = toolbar.getLayoutParams.asInstanceOf[AppBarLayout.LayoutParams]
-      appFlags = appBarParams.getScrollFlags
-      appBarParams.setScrollFlags(0)
-      toolbar.setLayoutParams(appBarParams)
-
-      fab = getActivity.findViewById(R.id.home_fab).asInstanceOf[FloatingActionButton]
-      fab.setBackgroundTintList(ColorStateList.valueOf(getResources.getColor(R.color.textDarkColor)))
-      fab.setImageResource(R.drawable.ic_action_delete)
-      fab.setImageTintList(ColorStateList.valueOf(getResources.getColor(R.color.textWhiteColor)))
+      mCustomViewPager = getActivity.findViewById(R.id.home_tab_holder).asInstanceOf[CustomViewPager]
+      mCustomViewPager.setSwipingEnabled(false)
 
       return true
 

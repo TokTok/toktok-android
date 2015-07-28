@@ -8,7 +8,7 @@ import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
 import android.view.View.OnClickListener
 import android.view._
 import android.widget._
-import com.github.siyamed.shapeimageview.CircularImageView
+import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
 import im.tox.toktok.app.Message
 import im.tox.toktok.app.SimpleDialogs.SimpleDialogDesign
@@ -125,7 +125,7 @@ class MessageActivity extends AppCompatActivity {
     if (typeOfMessage == 0) {
 
       header.addView(getLayoutInflater.inflate(R.layout.message_header_user, null, true), params)
-      header.findViewById(R.id.message_header_user_img).asInstanceOf[CircularImageView].setImageResource(imgSRC)
+      header.findViewById(R.id.message_header_user_img).asInstanceOf[CircleImageView].setImageResource(imgSRC)
 
     }
 

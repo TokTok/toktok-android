@@ -75,10 +75,14 @@
 
 
     <!-- Other -->
-
+    <string name="action_mode_selected_single">Selected Conversation</string>
+    <string name="action_mode_selected_multi">Selected Conversations</string>
     <string name="files_send_title">Files send by</string>
     <string name="call_is_calling">is calling you</string>
     <string name="call_input_message">Message</string>
     <string name="call_reject_with_message">Reject with message</string>
+
+
+
 
 </resources>

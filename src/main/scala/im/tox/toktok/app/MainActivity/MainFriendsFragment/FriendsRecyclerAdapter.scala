@@ -8,7 +8,7 @@ import android.util.Log
 import android.view.View.OnClickListener
 import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget._
-import com.github.siyamed.shapeimageview.CircularImageView
+import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
 import im.tox.toktok.app.ContactsActivity.ContactsActivity
 import im.tox.toktok.app.Friend
@@ -129,7 +129,7 @@ class FriendsRecyclerViewHolder(itemView: View, itemOnClick: FriendItemOnClick) 
   var mBase: RelativeLayout = itemView.findViewById(R.id.home_friends_base).asInstanceOf[RelativeLayout]
   var mUserInfo: RelativeLayout = itemView.findViewById(R.id.home_item_info).asInstanceOf[RelativeLayout]
   var mUserName: TextView = itemView.findViewById(R.id.home_friends_name).asInstanceOf[TextView]
-  var mUserImage: CircularImageView = itemView.findViewById(R.id.home_friends_img).asInstanceOf[CircularImageView]
+  var mUserImage: CircleImageView = itemView.findViewById(R.id.home_friends_img).asInstanceOf[CircleImageView]
   var mExpandedArea: LinearLayout = itemView.findViewById(R.id.home_friends_expanded_area).asInstanceOf[LinearLayout]
   var mCallButton = itemView.findViewById(R.id.home_friends_call)
   var mMessageButton = itemView.findViewById(R.id.home_friends_message)

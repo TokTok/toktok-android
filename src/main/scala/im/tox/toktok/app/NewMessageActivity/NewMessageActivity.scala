@@ -9,12 +9,12 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView.LayoutManager
 import android.support.v7.widget.{CardView, LinearLayoutManager, RecyclerView, Toolbar}
 import android.text.style.ImageSpan
-import android.text.{SpannableStringBuilder, Spanned, TextUtils}
+import android.text._
 import android.view.View.{MeasureSpec, OnClickListener}
 import android.view.animation.Animation.AnimationListener
 import android.view.animation.{AccelerateInterpolator, Animation, DecelerateInterpolator}
 import android.view.{MenuItem, View, Window, WindowManager}
-import android.widget.{ImageButton, TextView}
+import android.widget.{EditText, ImageButton, TextView}
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
@@ -27,9 +27,11 @@ class NewMessageActivity extends AppCompatActivity {
   private var mToolbar: Toolbar = null
   private var mRecycler: RecyclerView = null
   private var mSelectedFriends: CardView = null
+  private var mFriends_Recycler_Adapter: NewMessageRecyclerHeaderAdapter = null
   private var mFab: FloatingActionButton = null
   private var colorPrimary: Int = 0
   private var colorStatus: Int = 0
+  private var mSearchField : EditText = null
   private var mSelectedFriendsText: TextView = null
   private var mSelectedFriendsImg: CircleImageView = null
   private var mSelectedFriendsCounter: TextView = null
@@ -72,7 +74,7 @@ class NewMessageActivity extends AppCompatActivity {
 
     val a = ListBuffer(Friend.bart, Friend.jane, Friend.john, Friend.lorem)
 
-    val mFriends_Recycler_Adapter: NewMessageRecyclerHeaderAdapter = new NewMessageRecyclerHeaderAdapter(a, null)
+    mFriends_Recycler_Adapter = new NewMessageRecyclerHeaderAdapter(a, null)
 
     mFriends_Recycler_Adapter.setlistener(new FriendAddOnClick {
       override def onClickListener(position: Int): Unit = {
@@ -134,6 +136,8 @@ class NewMessageActivity extends AppCompatActivity {
       }
     })
 
+
+
   }
 
   def initToolbar(colour: Int, secondColour: Int): Unit = {
@@ -151,6 +155,21 @@ class NewMessageActivity extends AppCompatActivity {
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     window.setStatusBarColor(secondColour);
+
+    mSearchField = findViewById(R.id.new_message_search_field).asInstanceOf[EditText]
+
+    mSearchField.addTextChangedListener(new TextWatcher {
+
+      override def beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int): Unit = {}
+
+      override def onTextChanged(s: CharSequence, start: Int, before: Int, count: Int): Unit = {
+
+        mFriends_Recycler_Adapter.getFilter.filter(s)
+
+      }
+
+      override def afterTextChanged(s: Editable): Unit = {}
+    })
 
 
   }

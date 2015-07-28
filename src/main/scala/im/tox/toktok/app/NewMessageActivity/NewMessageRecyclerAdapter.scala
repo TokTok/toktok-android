@@ -1,10 +1,12 @@
 package im.tox.toktok.app.NewMessageActivity
 
+
 import android.support.v7.widget.RecyclerView
-import android.util.SparseBooleanArray
+import android.util.{Log, SparseBooleanArray}
 import android.view.animation.AlphaAnimation
 import android.view.{LayoutInflater, View, ViewGroup}
-import android.widget.{RelativeLayout, TextView}
+import android.widget.Filter.FilterResults
+import android.widget.{Filterable, Filter, RelativeLayout, TextView}
 import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
 import im.tox.toktok.app.Friend
@@ -12,11 +14,12 @@ import im.tox.toktok.app.Friend
 import scala.collection.mutable.ListBuffer
 
 
-class NewMessageRecyclerAdapter(list: ListBuffer[Friend], clickListener: FriendAddOnClick) extends RecyclerView.Adapter[NewMessageRecyclerViewHolder] {
+class NewMessageRecyclerAdapter(list: ListBuffer[Friend], clickListener: FriendAddOnClick) extends RecyclerView.Adapter[NewMessageRecyclerViewHolder] with Filterable{
 
   private val selectedItems: SparseBooleanArray = new SparseBooleanArray()
-  private val items: ListBuffer[Friend] = list
+  var friends: ListBuffer[Friend] = list
   private val selectedContacts = new ListBuffer[Friend]
+  var savedContacts = list.clone()
   private var listener = clickListener
 
   def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): NewMessageRecyclerViewHolder = {
@@ -25,7 +28,7 @@ class NewMessageRecyclerAdapter(list: ListBuffer[Friend], clickListener: FriendA
   }
 
   def onBindViewHolder(viewHolder: NewMessageRecyclerViewHolder, position: Int) = {
-    val item: Friend = items(position)
+    val item: Friend = friends(position)
     viewHolder.mUserName.setText(item.getUserName())
     viewHolder.mUserImage.setImageResource(item.getPhotoReference())
 
@@ -47,11 +50,15 @@ class NewMessageRecyclerAdapter(list: ListBuffer[Friend], clickListener: FriendA
   }
 
   def getItemCount(): Int = {
-    return items.length
+    return friends.length
   }
 
   def getItem(i: Int): Friend = {
-    return items(i)
+    return friends(i)
+  }
+
+  def getFilter(): Filter ={
+    return new FriendFilter(this, savedContacts)
   }
 
   def setlistener(click: FriendAddOnClick): Unit = {
@@ -62,11 +69,11 @@ class NewMessageRecyclerAdapter(list: ListBuffer[Friend], clickListener: FriendA
 
     if (selectedItems.get(position, false)) {
       selectedItems.delete(position)
-      selectedContacts -= items(position)
+      selectedContacts -= friends(position)
     }
     else {
       selectedItems.put(position, true)
-      selectedContacts += items(position)
+      selectedContacts += friends(position)
     }
 
     notifyItemChanged(position)
@@ -114,4 +121,45 @@ final class NewMessageRecyclerViewHolder(itemView: View, clickListener: FriendAd
 
 trait FriendAddOnClick {
   def onClickListener(position: Int)
+}
+
+class FriendFilter(adapter: NewMessageRecyclerAdapter, friendsList: ListBuffer[Friend]) extends Filter {
+
+  private val original = friendsList
+  private var filteredResults = new ListBuffer[Friend]
+  private val recyclerAdapter = adapter
+
+  override protected def performFiltering(constraint: CharSequence): FilterResults = {
+
+    filteredResults.clear()
+    val results = new FilterResults
+
+    if (constraint.length() == 0) {
+      filteredResults = original.clone
+    }
+    else {
+      val trimmedString = constraint.toString.toLowerCase.trim
+
+      for (a <- original) {
+        Log.d("asdasd","asdasd"+trimmedString)
+        if (a.getUserName().toLowerCase.trim.contains(trimmedString)) {
+          Log.d("asdasd","found")
+          filteredResults += a
+        }
+      }
+    }
+
+    results.values = filteredResults
+    results.count = filteredResults.size
+
+    return results
+
+  }
+
+  override protected def publishResults(constraint: CharSequence, results: FilterResults): Unit = {
+    recyclerAdapter.friends.clear
+    recyclerAdapter.friends = results.values.asInstanceOf[ListBuffer[Friend]]
+    recyclerAdapter.notifyDataSetChanged()
+  }
+
 }

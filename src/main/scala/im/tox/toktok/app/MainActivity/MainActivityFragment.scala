@@ -12,12 +12,13 @@ import android.support.v7.widget.Toolbar
 import android.view.View.OnClickListener
 import android.view._
 import im.tox.toktok.R
+import im.tox.toktok.app.CustomViewPager
 import im.tox.toktok.app.NewMessageActivity.NewMessageActivity
 import im.tox.toktok.app.SimpleDialogs.SimpleAddFriendDialogDesign
 
 class MainActivityFragment extends Fragment {
 
-  var mViewPaper: ViewPager = null
+  var mViewPaper: CustomViewPager = null
   var mMenu: Menu = null
   var mToolbar: Toolbar = null
   var mTabs: TabLayout = null
@@ -56,7 +57,7 @@ class MainActivityFragment extends Fragment {
 
   def initViewPaper(view: View): Unit = {
 
-    mViewPaper = view.findViewById(R.id.home_tab_holder).asInstanceOf[ViewPager]
+    mViewPaper = view.findViewById(R.id.home_tab_holder).asInstanceOf[CustomViewPager]
     mPagerAdapter = new MainTabsAdapter(getChildFragmentManager, getActivity);
     mViewPaper.setAdapter(mPagerAdapter)
 

@@ -11,7 +11,7 @@ import android.view.ViewGroup.LayoutParams
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.{Display, View}
 import android.widget._
-import com.github.siyamed.shapeimageview.CircularImageView
+import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
 import im.tox.toktok.app.Friend
 
@@ -89,7 +89,7 @@ class CallActivity extends AppCompatActivity {
     topPainel.addView(getLayoutInflater.inflate(R.layout.call_top_receive, null))
     bottomPainel.addView(getLayoutInflater.inflate(R.layout.call_bottom_receive, null))
 
-    findViewById(R.id.call_img).asInstanceOf[CircularImageView].setImageResource(friendImgSRC)
+    findViewById(R.id.call_img).asInstanceOf[CircleImageView].setImageResource(friendImgSRC)
     findViewById(R.id.call_friend).asInstanceOf[TextView].setText(friendTitle)
     findViewById(R.id.call_message_input).asInstanceOf[EditText].setHint(getResources.getString(R.string.call_input_message) + " " + friendTitle)
 

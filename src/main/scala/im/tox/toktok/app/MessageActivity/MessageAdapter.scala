@@ -3,7 +3,7 @@ package im.tox.toktok.app.MessageActivity
 import android.support.v7.widget.RecyclerView
 import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.TextView
-import com.github.siyamed.shapeimageview.CircularImageView
+import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
 import im.tox.toktok.app.Message
 
@@ -72,7 +72,7 @@ class MessageViewHolderSimple(itemView: View) extends RecyclerView.ViewHolder(it
 
   var mUserText: TextView = itemView.findViewById(R.id.message_item_text).asInstanceOf[TextView]
   var mUserDetais: TextView = itemView.findViewById(R.id.message_item_details).asInstanceOf[TextView]
-  var mUserImg: CircularImageView = itemView.findViewById(R.id.message_item_img).asInstanceOf[CircularImageView]
+  var mUserImg: CircleImageView = itemView.findViewById(R.id.message_item_img).asInstanceOf[CircleImageView]
 
 }
 
@@ -80,7 +80,7 @@ class MessageViewHolderSimple(itemView: View) extends RecyclerView.ViewHolder(it
 class MessageViewHolderAction(itemView: View) extends RecyclerView.ViewHolder(itemView) {
 
   var mUserText: TextView = itemView.findViewById(R.id.message_item_text).asInstanceOf[TextView]
-  var mUserImg: CircularImageView = itemView.findViewById(R.id.message_item_img).asInstanceOf[CircularImageView]
+  var mUserImg: CircleImageView = itemView.findViewById(R.id.message_item_img).asInstanceOf[CircleImageView]
 
 
 }

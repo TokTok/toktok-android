@@ -33,9 +33,7 @@ class FriendsFragment extends Fragment {
     mFriends_Recycler.setHasFixedSize(true)
     mFriends_Recycler.addItemDecoration(new StickyRecyclerHeadersDecoration(mFriends_Recycler_Adapter))
 
-
     return view
   }
-
 
 }
