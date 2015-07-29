@@ -10,7 +10,7 @@ libraryDependencies ++= Seq(
   "com.android.support" % "cardview-v7" % "22.2.1",
   "com.android.support" % "palette-v7" % "22.2.1",
   "com.android.support" % "design" % "22.2.1",
-  "com.github.siyamed" % "android-shape-imageview" % "0.9.+",
+  "de.hdodenhof" % "circleimageview" % "1.3.0",
   "com.timehop.stickyheadersrecyclerview" % "library" % "0.4.1",
   "com.sothree.slidinguppanel" % "library" % "3.0.0"
 

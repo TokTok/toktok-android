@@ -10,7 +10,7 @@ import im.tox.toktok.app.Friend
 
 import scala.collection.mutable.ListBuffer
 
-class FriendsRecyclerHeaderAdapter(list: ListBuffer[Friend]) extends FriendsRecyclerAdapter(list) with StickyRecyclerHeadersAdapter[RecyclerView.ViewHolder] {
+class FriendsRecyclerHeaderAdapter(list: ListBuffer[Friend],friendPhotoOnClick: FriendPhotoOnClick) extends FriendsRecyclerAdapter(list,friendPhotoOnClick) with StickyRecyclerHeadersAdapter[RecyclerView.ViewHolder] {
 
   def getHeaderId(position: Int): Long = {
     return getItemPosition(position).charAt(0);

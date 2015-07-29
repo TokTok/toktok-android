@@ -15,13 +15,14 @@ import im.tox.toktok.app.Friend
 
 import scala.collection.mutable.ListBuffer
 
-class FriendsRecyclerAdapter(list: ListBuffer[Friend]) extends RecyclerView.Adapter[FriendsRecyclerViewHolder] {
+class FriendsRecyclerAdapter(list: ListBuffer[Friend],photoOnClick: FriendPhotoOnClick) extends RecyclerView.Adapter[FriendsRecyclerViewHolder] {
 
   private val items: ListBuffer[Friend] = list
   private var expandedItem: Int = -1;
 
   def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): FriendsRecyclerViewHolder = {
     val itemView: View = LayoutInflater.from(viewGroup.getContext).inflate(R.layout.fragment_home_friends_item, viewGroup, false)
+
     return new FriendsRecyclerViewHolder(itemView, new FriendItemOnClick {
       override def onClick(): Unit = {
 
@@ -44,7 +45,7 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend]) extends RecyclerView.Adap
 
         }
       }
-    })
+    },photoOnClick)
   }
 
   def onBindViewHolder(viewHolder: FriendsRecyclerViewHolder, position: Int) = {
@@ -69,28 +70,6 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend]) extends RecyclerView.Adap
       viewHolder.mMessageButton.setOnClickListener(new OnClickListener {
         override def onClick(v: View): Unit = {
           Log.d("TokTok", "Message")
-        }
-      })
-
-      viewHolder.mUserImage.setOnClickListener(new OnClickListener {
-        override def onClick(v: View): Unit = {
-          val friendInfo = items(position)
-
-          val bundle: Bundle = new Bundle()
-
-          bundle.putInt("contactColorPrimary", friendInfo.getColor())
-          bundle.putInt("contactColorSecondary", friendInfo.getSecondColor())
-          bundle.putInt("contactPhotoReference", friendInfo.getPhotoReference())
-          bundle.putString("contactName", friendInfo.getUserName())
-          bundle.putString("contactStatusMessage", friendInfo.getUserMessage())
-
-          val context = v.getContext
-
-          val contactIntent: Intent = new Intent(context, classOf[ContactsActivity])
-          contactIntent.putExtras(bundle)
-
-          context.startActivity(contactIntent)
-
         }
       })
 
@@ -124,7 +103,7 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend]) extends RecyclerView.Adap
 
 }
 
-class FriendsRecyclerViewHolder(itemView: View, itemOnClick: FriendItemOnClick) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener {
+class FriendsRecyclerViewHolder(itemView: View, itemOnClick: FriendItemOnClick, photoOnClick: FriendPhotoOnClick) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener {
 
   var mBase: RelativeLayout = itemView.findViewById(R.id.home_friends_base).asInstanceOf[RelativeLayout]
   var mUserInfo: RelativeLayout = itemView.findViewById(R.id.home_item_info).asInstanceOf[RelativeLayout]
@@ -144,10 +123,41 @@ class FriendsRecyclerViewHolder(itemView: View, itemOnClick: FriendItemOnClick) 
 
   }
 
+  mUserImage.setOnClickListener(new OnClickListener {
+    override def onClick(v: View): Unit = {
+      /*
+      val friendInfo = items(position)
+
+      val bundle: Bundle = new Bundle()
+
+      bundle.putInt("contactColorPrimary", friendInfo.getColor())
+      bundle.putInt("contactColorSecondary", friendInfo.getSecondColor())
+      bundle.putInt("contactPhotoReference", friendInfo.getPhotoReference())
+      bundle.putString("contactName", friendInfo.getUserName())
+      bundle.putString("contactStatusMessage", friendInfo.getUserMessage())
+
+      val context = v.getContext
+
+      val contactIntent: Intent = new Intent(context, classOf[ContactsActivity])
+      contactIntent.putExtras(bundle)
+
+      context.startActivity(contactIntent)
+
+      */
+
+      photoOnClick.startFragment()
+
+    }
+  })
+
 }
 
 trait FriendItemOnClick {
   def onClick()
+}
+
+trait FriendPhotoOnClick{
+  def startFragment()
 }
 
 

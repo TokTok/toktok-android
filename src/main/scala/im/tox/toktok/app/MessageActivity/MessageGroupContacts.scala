@@ -59,7 +59,7 @@ class MessageGroupContacts extends AppCompatActivity {
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
     mRecycler.setLayoutManager(mLayoutManager)
 
-    val adapter: FriendsRecyclerHeaderAdapter = new FriendsRecyclerHeaderAdapter(list)
+    val adapter: FriendsRecyclerHeaderAdapter = new FriendsRecyclerHeaderAdapter(list,null)
     mRecycler.setAdapter(adapter)
     mRecycler.addItemDecoration(new StickyRecyclerHeadersDecoration(adapter))
 
