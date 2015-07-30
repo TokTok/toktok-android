@@ -16,8 +16,6 @@ class MainActivityHolder extends AppCompatActivity {
   var activeTab: LinearLayout = null
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
-
-
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_main)

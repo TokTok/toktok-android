@@ -1,7 +1,5 @@
 package im.tox.toktok.app.MainActivity.MainFriendsFragment
 
-import android.content.Intent
-import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.util.Log
@@ -10,12 +8,11 @@ import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget._
 import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
-import im.tox.toktok.app.ContactsActivity.ContactsActivity
 import im.tox.toktok.app.Friend
 
 import scala.collection.mutable.ListBuffer
 
-class FriendsRecyclerAdapter(list: ListBuffer[Friend],photoOnClick: FriendPhotoOnClick) extends RecyclerView.Adapter[FriendsRecyclerViewHolder] {
+class FriendsRecyclerAdapter(list: ListBuffer[Friend], photoOnClick: FriendPhotoOnClick) extends RecyclerView.Adapter[FriendsRecyclerViewHolder] {
 
   private val items: ListBuffer[Friend] = list
   private var expandedItem: Int = -1;
@@ -45,7 +42,7 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend],photoOnClick: FriendPhotoO
 
         }
       }
-    },photoOnClick)
+    }, photoOnClick)
   }
 
   def onBindViewHolder(viewHolder: FriendsRecyclerViewHolder, position: Int) = {
@@ -100,6 +97,10 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend],photoOnClick: FriendPhotoO
     return items(i).getUserName()
   }
 
+  def getItem(i: Int): Friend = {
+    return items(i)
+  }
+
 
 }
 
@@ -125,27 +126,8 @@ class FriendsRecyclerViewHolder(itemView: View, itemOnClick: FriendItemOnClick, 
 
   mUserImage.setOnClickListener(new OnClickListener {
     override def onClick(v: View): Unit = {
-      /*
-      val friendInfo = items(position)
 
-      val bundle: Bundle = new Bundle()
-
-      bundle.putInt("contactColorPrimary", friendInfo.getColor())
-      bundle.putInt("contactColorSecondary", friendInfo.getSecondColor())
-      bundle.putInt("contactPhotoReference", friendInfo.getPhotoReference())
-      bundle.putString("contactName", friendInfo.getUserName())
-      bundle.putString("contactStatusMessage", friendInfo.getUserMessage())
-
-      val context = v.getContext
-
-      val contactIntent: Intent = new Intent(context, classOf[ContactsActivity])
-      contactIntent.putExtras(bundle)
-
-      context.startActivity(contactIntent)
-
-      */
-
-      photoOnClick.startFragment()
+      photoOnClick.startOverLayFriend(getLayoutPosition)
 
     }
   })
@@ -156,8 +138,8 @@ trait FriendItemOnClick {
   def onClick()
 }
 
-trait FriendPhotoOnClick{
-  def startFragment()
+trait FriendPhotoOnClick {
+  def startOverLayFriend(layoutPosition: Int)
 }
 
 

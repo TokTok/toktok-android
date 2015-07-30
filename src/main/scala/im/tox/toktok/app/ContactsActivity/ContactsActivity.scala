@@ -25,7 +25,7 @@ class ContactsActivity extends AppCompatActivity {
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_contacts)
+    setContentView(R.layout.overlay_contacts)
 
     val bundle: Bundle = getIntent.getExtras
 
@@ -44,8 +44,6 @@ class ContactsActivity extends AppCompatActivity {
     val mImage: ImageView = findViewById(R.id.contact_image).asInstanceOf[ImageView]
     mImage.setImageResource(friendImgSRC)
 
-    val mMessage: TextView = findViewById(R.id.contact_message_status).asInstanceOf[TextView]
-    mMessage.setText(friendMessage)
 
     val mCollapsingToolbar: CollapsingToolbarLayout = findViewById(R.id.contacts_collapsing_toolbar).asInstanceOf[CollapsingToolbarLayout]
     mCollapsingToolbar.setTitle(friendTitle)

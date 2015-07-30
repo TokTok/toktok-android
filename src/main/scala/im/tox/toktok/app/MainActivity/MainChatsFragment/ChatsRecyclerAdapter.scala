@@ -46,7 +46,7 @@ class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject], chatItemClick: 
       view.mUserName.setText(item.getUser().getUserName())
       view.mUserStatus.setText(item.getUser().getUserMessage())
       view.mLastMessage.setText(item.getLastMessage())
-
+      view.mUserImage.setImageResource(item.getUser().getPhotoReference())
       view.mColor.setBackgroundColor(item.getUser().getColor())
 
 

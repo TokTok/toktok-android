@@ -100,8 +100,6 @@ class MainActivityFragment extends Fragment {
 
   def initToolbar(view: View): Unit = {
 
-    getActivity.getWindow.setStatusBarColor(getResources.getColor(R.color.homeColorStatusBar))
-
     mToolbar = view.findViewById(R.id.home_toolbar).asInstanceOf[Toolbar]
 
     mToolbar.setNavigationOnClickListener(new OnClickListener {
