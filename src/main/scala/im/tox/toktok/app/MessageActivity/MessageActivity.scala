@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{CardView, LinearLayoutManager, RecyclerView, Toolbar}
 import android.text.{Editable, TextWatcher}
+import android.util.Log
 import android.view.View.OnClickListener
 import android.view._
 import android.view.animation.Animation.AnimationListener
@@ -186,7 +187,8 @@ class MessageActivity extends AppCompatActivity {
         trans.commit()
         */
 
-        mRecyclerAdapter.addItem(new Message(2, "Thanks André Almeida, let's hope soo.", "14:30 Delivered", imgSRC))
+
+
         mRecycler.smoothScrollToPosition(0)
 
       }
@@ -207,7 +209,6 @@ class MessageActivity extends AppCompatActivity {
 
         mRecyclerAdapter.addItem(new Message(1, input.getText.toString, "14:30 Delivered", R.drawable.user))
         mRecycler.smoothScrollToPosition(0)
-
         input.setText("")
 
       }
@@ -220,16 +221,19 @@ class MessageActivity extends AppCompatActivity {
 
     input.addTextChangedListener(new TextWatcher {
 
-      override def beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int): Unit = {}
+      override def beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int): Unit = {
+      }
 
       override def onTextChanged(s: CharSequence, start: Int, before: Int, count: Int): Unit = {
 
-        if (count > 0 && !mSendButtonActive) {
+        val countVal = input.getText.length()
+
+        if (countVal > 0 && !mSendButtonActive) {
 
           shrinkInputBar()
 
         }
-        else if (count == 0 && mSendButtonActive) {
+        else if (countVal == 0 && mSendButtonActive) {
 
           expandInputBar()
 
@@ -238,7 +242,6 @@ class MessageActivity extends AppCompatActivity {
       }
 
       override def afterTextChanged(s: Editable): Unit = {
-
       }
 
     })
@@ -291,7 +294,6 @@ class MessageActivity extends AppCompatActivity {
     mFab.startAnimation(animationButton)
 
     mSendButtonActive = false
-
 
   }
 

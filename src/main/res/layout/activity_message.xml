@@ -92,7 +92,7 @@
                         android:background="@null"
                         android:fontFamily="sans-serif-light"
                         android:hint="@string/message_hint_group"
-                        android:maxLines="16"
+                        android:maxLines="8"
                         android:padding="10dp"
                         android:textSize="16sp" />
 
@@ -114,10 +114,14 @@
         </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
 
-    <FrameLayout
-        android:id="@+id/message_frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+    <im.tox.toktok.app.MessageActivity.SlideInAttachmentsLayout
+        android:visibility="gone"
+        android:layout_height="250dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent">
+
+        <include layout="@layout/fragment_attachments"></include>
+
+    </im.tox.toktok.app.MessageActivity.SlideInAttachmentsLayout>
 
 </RelativeLayout>

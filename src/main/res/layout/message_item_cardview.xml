@@ -4,35 +4,33 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:minWidth="120dp"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/message_item_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
             android:maxWidth="220dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
             android:textColor="@color/textDarkColor"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/message_item_details"
-            android:gravity="right"
-            android:layout_width="match_parent"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="4dp"
             android:text="14:30 Delivered"
             android:textColor="@color/colorAccent"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 

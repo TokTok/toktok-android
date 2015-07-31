@@ -67,7 +67,6 @@
                 android:layout_below="@id/home_item_status"
                 android:layout_marginBottom="8dp"
                 android:layout_toRightOf="@id/home_item_img"
-                android:fontFamily="sans-serif-light"
                 android:textColor="@color/textLightColor"
                 android:textSize="12sp" />
 

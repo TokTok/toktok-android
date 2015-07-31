@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/fragment_attachments"
     android:layout_marginTop="5dp"
     android:paddingTop="24dp"
     android:paddingLeft="24dp"
