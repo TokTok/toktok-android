@@ -1,17 +1,21 @@
 package im.tox.toktok.app.MessageActivity
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
-import android.support.v4.app.{Fragment, FragmentTransaction}
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
+import android.support.v7.widget.{CardView, LinearLayoutManager, RecyclerView, Toolbar}
+import android.text.{Editable, TextWatcher}
 import android.view.View.OnClickListener
 import android.view._
+import android.view.animation.Animation.AnimationListener
+import android.view.animation.{Animation, AnimationUtils}
 import android.widget._
 import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
-import im.tox.toktok.app.Message
 import im.tox.toktok.app.SimpleDialogs.SimpleDialogDesign
+import im.tox.toktok.app.{Message, SizeAnimation}
 
 import scala.collection.mutable.ListBuffer
 
@@ -25,9 +29,14 @@ class MessageActivity extends AppCompatActivity {
   var contactColorStatus: Int = 0
   var typeOfMessage: Int = 0
   var header: RelativeLayout = null
+  var mFab: FloatingActionButton = null
+  var mSendButtonActive: Boolean = false
   var title: String = ""
   var imgSRC: Int = 0
+  var mInputLayout: CardView = null
 
+  var mRecyclerAdapter: MessageAdapter = null
+  var mRecycler : RecyclerView = null
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
 
@@ -142,7 +151,7 @@ class MessageActivity extends AppCompatActivity {
 
   def initRecyclerView(): Unit = {
 
-    val mRecycler: RecyclerView = findViewById(R.id.message_recycler).asInstanceOf[RecyclerView]
+    mRecycler = findViewById(R.id.message_recycler).asInstanceOf[RecyclerView]
     val list: ListBuffer[Message] = new ListBuffer[Message]
 
     if (imgSRC == 0) {
@@ -150,14 +159,20 @@ class MessageActivity extends AppCompatActivity {
       list += new Message(3, "The Amazing Group was created", "", R.drawable.user)
     }
 
-    list += new Message(1, "Welcome to TokTok " + title + ", I hope you love it, as much as I do \uD83D\uDE00", "14:30 Delivered", R.drawable.user)
-    list += new Message(2, "Thanks André Almeida, let's hope soo.", "14:30 Delivered", imgSRC)
     list += new Message(3, "Smiled ", "", imgSRC)
+    list += new Message(2, "Thanks André Almeida, let's hope soo.", "14:30 Delivered", imgSRC)
+    list += new Message(1, "Welcome to TokTok " + title + ", I hope you love it, as much as I do \uD83D\uDE00", "14:30 Delivered", R.drawable.user)
 
 
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
+    mLayoutManager.setReverseLayout(true)
+    mRecycler.setHasFixedSize(true)
+    mRecyclerAdapter = new MessageAdapter(list)
+
+    mRecycler.setAdapter(mRecyclerAdapter)
     mRecycler.setLayoutManager(mLayoutManager)
-    mRecycler.setAdapter(new MessageAdapter(list))
+
+    mRecycler.setItemAnimator(new MessageItemAnimator)
 
 
     val attachButton: ImageButton = findViewById(R.id.message_attachments_button).asInstanceOf[ImageButton]
@@ -165,10 +180,14 @@ class MessageActivity extends AppCompatActivity {
     attachButton.setOnClickListener(new OnClickListener {
 
       override def onClick(v: View): Unit = {
-        val attachFragment: Fragment = new MessageAttachments
+        /*val attachFragment: Fragment = new MessageAttachments
         val trans: FragmentTransaction = getSupportFragmentManager.beginTransaction()
         trans.add(R.id.message_frame, attachFragment)
         trans.commit()
+        */
+
+        mRecyclerAdapter.addItem(new Message(2, "Thanks André Almeida, let's hope soo.", "14:30 Delivered", imgSRC))
+        mRecycler.smoothScrollToPosition(0)
 
       }
 
@@ -179,10 +198,100 @@ class MessageActivity extends AppCompatActivity {
   def initInput(): Unit = {
 
     val input: EditText = findViewById(R.id.message_input).asInstanceOf[EditText]
+    mInputLayout = findViewById(R.id.message_input_cardview).asInstanceOf[CardView]
+    mFab = findViewById(R.id.message_fab).asInstanceOf[FloatingActionButton]
+    mFab.setBackgroundTintList(ColorStateList.valueOf(contactColorPrimary))
+
+    mFab.setOnClickListener(new OnClickListener {
+      override def onClick(v: View): Unit = {
+
+        mRecyclerAdapter.addItem(new Message(1, input.getText.toString, "14:30 Delivered", R.drawable.user))
+        mRecycler.smoothScrollToPosition(0)
+
+        input.setText("")
+
+      }
+    })
+
 
     if (typeOfMessage == 0) {
       input.setHint(getResources.getString(R.string.message_hint_single) + " " + title)
     }
+
+    input.addTextChangedListener(new TextWatcher {
+
+      override def beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int): Unit = {}
+
+      override def onTextChanged(s: CharSequence, start: Int, before: Int, count: Int): Unit = {
+
+        if (count > 0 && !mSendButtonActive) {
+
+          shrinkInputBar()
+
+        }
+        else if (count == 0 && mSendButtonActive) {
+
+          expandInputBar()
+
+        }
+
+      }
+
+      override def afterTextChanged(s: Editable): Unit = {
+
+      }
+
+    })
+
+  }
+
+  def shrinkInputBar(): Unit = {
+    val animationInput = new SizeAnimation(mInputLayout, mInputLayout.getWidth - mFab.getWidth - mFab.getPaddingRight, 0)
+    animationInput.setDuration(250)
+    mInputLayout.startAnimation(animationInput)
+
+    val animationButton = AnimationUtils.loadAnimation(this, R.anim.fab_from_right)
+    animationButton.setDuration(250)
+
+    animationButton.setAnimationListener(new AnimationListener {
+      override def onAnimationEnd(animation: Animation): Unit = {}
+
+      override def onAnimationStart(animation: Animation): Unit = {
+        mFab.setVisibility(View.VISIBLE)
+      }
+
+      override def onAnimationRepeat(animation: Animation): Unit = {}
+    })
+
+    mFab.startAnimation(animationButton)
+
+    mSendButtonActive = true
+
+
+  }
+
+  def expandInputBar(): Unit = {
+    val animationInput = new SizeAnimation(mInputLayout, mInputLayout.getWidth + mFab.getWidth + mFab.getPaddingRight, 0)
+    animationInput.setDuration(250)
+    mInputLayout.startAnimation(animationInput)
+
+    val animationButton = AnimationUtils.loadAnimation(this, R.anim.fab_to_right)
+    animationButton.setDuration(250)
+
+    animationButton.setAnimationListener(new AnimationListener {
+      override def onAnimationEnd(animation: Animation): Unit = {
+        mFab.setVisibility(View.INVISIBLE)
+      }
+
+      override def onAnimationStart(animation: Animation): Unit = {}
+
+      override def onAnimationRepeat(animation: Animation): Unit = {}
+    })
+
+    mFab.startAnimation(animationButton)
+
+    mSendButtonActive = false
+
 
   }
 

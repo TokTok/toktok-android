@@ -156,10 +156,11 @@ public class SlideInContactsLayout extends ViewGroup {
 
         if (scrollActive) {
             mDragHelper.cancel();
+            Log.d("asd","Scrolling");
             return false;
         }
 
-        Log.d("asdasd", mDragOffset + "");
+        Log.d("asdasd", scrollActive + "");
 
 
         final int action = MotionEventCompat.getActionMasked(ev);
@@ -218,30 +219,39 @@ public class SlideInContactsLayout extends ViewGroup {
                 Log.d("asdasd","scrollActivated");
             }
 
-            else{
-                scrollActive = false;
-                Log.d("asdasd","scrollDeactivated");
-            }
+            else if(mTop == 0 && scrollActive){
 
-
-        } else if (action == MotionEvent.ACTION_UP) {
-            Log.d("asdasd", "UP - " + y);
-
-            if (!scrollActive) {
-
-                if (mDragOffset > 0.5f) {
-                    smoothSlideTo(1f);
-                    finish();
-                } else {
-
-                    if (y - mInitialMotionY > 0) {
-                        smoothSlideTo(0.5f);
-                    } else {
-                        smoothSlideTo(0f);
-                    }
+                if(mCoordinator.getScrollY() == 0 && (y - mInitialMotionY) < 0 ){
+                    scrollActive = false;
+                    Log.d("asdasd","scrollDeactivated");
                 }
 
             }
+
+
+        }else if (action == MotionEvent.ACTION_UP && !scrollActive) {
+
+            Log.d("asdasd", "UP - " + y);
+
+            if (mDragOffset > 0.5f) {
+                smoothSlideTo(1f);
+                finish();
+            } else {
+
+                if (y - mInitialMotionY > 0) {
+                    smoothSlideTo(0.5f);
+                } else {
+                    smoothSlideTo(0f);
+                }
+            }
+
+        }
+
+
+        else if (action == MotionEvent.ACTION_UP && scrollActive) {
+
+            mDragHelper.shouldInterceptTouchEvent(ev);
+
         }
 
         return super.dispatchTouchEvent(ev);

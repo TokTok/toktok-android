@@ -1,6 +1,7 @@
 package im.tox.toktok.app.MessageActivity
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.TextView
 import de.hdodenhof.circleimageview.CircleImageView
@@ -64,6 +65,12 @@ class MessageAdapter(list: ListBuffer[Message]) extends RecyclerView.Adapter[Rec
 
   def getItemCount(): Int = {
     return items.length
+  }
+
+
+  def addItem(newMsg: Message): Unit = {
+    items.insert(0,newMsg)
+    notifyItemInserted(0)
   }
 
 }

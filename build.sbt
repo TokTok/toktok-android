@@ -18,8 +18,7 @@ libraryDependencies ++= Seq(
 )
 
 proguardOptions in Android ++= Seq(
-  "-keepattributes Signature",
-  "-keep class com.melnykov.fab.ObservableScrollView$*",
+  "-keep class * extends android.support.design.widget.CoordinatorLayout$Behavior { <init>(...); }",
 
   "-optimizationpasses 5",
   "-allowaccessmodification",
