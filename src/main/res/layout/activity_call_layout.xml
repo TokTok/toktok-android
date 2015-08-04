@@ -17,6 +17,7 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:elevation="10dp"
             android:gravity="center"
             android:id="@+id/call_top_painel"
             android:layout_width="fill_parent"

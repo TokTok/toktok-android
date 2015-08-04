@@ -6,13 +6,15 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View.OnClickListener
+import android.view.animation.AnimationUtils
 import android.view.{View, Window}
-import android.widget.{Button, ImageView, LinearLayout, TextView}
+import android.widget._
 import im.tox.toktok.R
 
 class SimpleDialogDesign(activity: Activity, question: String, color: Int, icon: Int, clickAction: OnClickListener) extends Dialog(activity) {
 
   var a: Activity = activity
+  var mBase : RelativeLayout = null
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -22,8 +24,10 @@ class SimpleDialogDesign(activity: Activity, question: String, color: Int, icon:
 
     findViewById(R.id.simple_dialog_color).asInstanceOf[LinearLayout].setBackgroundTintList(ColorStateList.valueOf(color))
     findViewById(R.id.simple_dialog_img).asInstanceOf[ImageView].setImageResource(icon)
+
     findViewById(R.id.simple_dialog_text).asInstanceOf[TextView].setText(question)
 
+    mBase = findViewById(R.id.simple_dialog_base).asInstanceOf[RelativeLayout]
 
     val confirmButton = findViewById(R.id.simple_dialog_confirm).asInstanceOf[Button]
     confirmButton.setOnClickListener(clickAction)
@@ -35,5 +39,12 @@ class SimpleDialogDesign(activity: Activity, question: String, color: Int, icon:
         dismiss()
       }
     })
+
+    val baseAnimation = AnimationUtils.loadAnimation(getContext, R.anim.slide_in_bottom)
+    mBase.startAnimation(baseAnimation)
+
+
+
   }
+
 }

@@ -1,6 +1,6 @@
 package im.tox.toktok.app.MainActivity.MainFriendsFragment
 
-import android.content.Context
+import android.content.{Intent, Context}
 import android.graphics.PixelFormat
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,13 +9,15 @@ import android.support.v7.widget.{LinearLayoutManager, RecyclerView}
 import android.util.TypedValue
 import android.view.ViewGroup.LayoutParams
 import android.view.{LayoutInflater, View, ViewGroup, WindowManager}
+import android.widget.FrameLayout
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import im.tox.toktok.R
-import im.tox.toktok.app.Friend
+import im.tox.toktok.app.CallActivity.CallActivity
+import im.tox.toktok.app.{MainActivityHolder, Friend}
 
 import scala.collection.mutable.ListBuffer
 
-class FriendsFragment extends Fragment with FriendPhotoOnClick {
+class FriendsFragment extends Fragment with FriendItemClicks {
 
   var mFriends_Recycler_Adapter: FriendsRecyclerHeaderAdapter = null
 
@@ -49,6 +51,9 @@ class FriendsFragment extends Fragment with FriendPhotoOnClick {
     val layout = getActivity.getLayoutInflater.inflate(R.layout.overlay_contacts, null).asInstanceOf[SlideInContactsLayout]
     val params = new WindowManager.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, PixelFormat.TRANSLUCENT)
     val window = getActivity.getSystemService(Context.WINDOW_SERVICE).asInstanceOf[WindowManager]
+
+    getActivity.asInstanceOf[MainActivityHolder].setActiveActivity(layout)
+
     window.addView(layout, params)
 
     var actionBarHeight = 0;
@@ -58,9 +63,23 @@ class FriendsFragment extends Fragment with FriendPhotoOnClick {
       actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
     }
 
+    layout.start(getActivity,mFriends_Recycler_Adapter.getItem(friendPosition), actionBarHeight)
 
-    layout.start(mFriends_Recycler_Adapter.getItem(friendPosition), actionBarHeight)
+  }
 
+  def startCall(friendPosition: Int): Unit = {
+
+    val friend  = mFriends_Recycler_Adapter.getItem(friendPosition)
+
+    val bundle = new Bundle
+    bundle.putString("contactName", friend.getUserName)
+    bundle.putInt("contactColorPrimary", friend.getColor)
+    bundle.putInt("contactPhotoReference", friend.getPhotoReference)
+
+
+    val newIntent: Intent = new Intent(getActivity, classOf[CallActivity])
+    newIntent.putExtras(bundle)
+    getActivity.startActivity(newIntent)
 
   }
 

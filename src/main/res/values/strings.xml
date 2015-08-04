@@ -81,6 +81,8 @@
     <string name="call_is_calling">is calling you</string>
     <string name="call_input_message">Message</string>
     <string name="call_reject_with_message">Reject with message</string>
+    <string name="call_answer">ANSWER</string>
+    <string name="call_decline">DECLINE</string>
 
 
 

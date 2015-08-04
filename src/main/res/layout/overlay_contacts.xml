@@ -1,3 +1,4 @@
+
 <im.tox.toktok.app.MainActivity.MainFriendsFragment.SlideInContactsLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/temp"
     android:layout_width="fill_parent"
@@ -41,6 +42,7 @@
 
                     <ImageView
                         android:id="@+id/contact_image"
+                        android:transitionName="profilePhoto"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop" />

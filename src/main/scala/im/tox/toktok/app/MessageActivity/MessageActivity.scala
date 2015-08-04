@@ -1,6 +1,6 @@
 package im.tox.toktok.app.MessageActivity
 
-import android.content.Intent
+import android.content.{Context, Intent}
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -12,6 +12,7 @@ import android.view.View.OnClickListener
 import android.view._
 import android.view.animation.Animation.AnimationListener
 import android.view.animation.{Animation, AnimationUtils}
+import android.view.inputmethod.InputMethodManager
 import android.widget._
 import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
@@ -35,7 +36,7 @@ class MessageActivity extends AppCompatActivity {
   var title: String = ""
   var imgSRC: Int = 0
   var mInputLayout: CardView = null
-
+  var mInput : EditText = null
   var mRecyclerAdapter: MessageAdapter = null
   var mRecycler : RecyclerView = null
 
@@ -181,15 +182,13 @@ class MessageActivity extends AppCompatActivity {
     attachButton.setOnClickListener(new OnClickListener {
 
       override def onClick(v: View): Unit = {
-        /*val attachFragment: Fragment = new MessageAttachments
-        val trans: FragmentTransaction = getSupportFragmentManager.beginTransaction()
-        trans.add(R.id.message_frame, attachFragment)
-        trans.commit()
-        */
 
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE).asInstanceOf[InputMethodManager]
+        imm.hideSoftInputFromWindow(mInput.getApplicationWindowToken,0)
 
-
-        mRecycler.smoothScrollToPosition(0)
+        val overlay_attachments = findViewById(R.id.fragment_attachments_slide).asInstanceOf[SlideInAttachmentsLayout]
+        overlay_attachments.setVisibility(View.VISIBLE)
+        overlay_attachments.smoothSlideTo(0)
 
       }
 
@@ -199,7 +198,7 @@ class MessageActivity extends AppCompatActivity {
 
   def initInput(): Unit = {
 
-    val input: EditText = findViewById(R.id.message_input).asInstanceOf[EditText]
+    mInput = findViewById(R.id.message_input).asInstanceOf[EditText]
     mInputLayout = findViewById(R.id.message_input_cardview).asInstanceOf[CardView]
     mFab = findViewById(R.id.message_fab).asInstanceOf[FloatingActionButton]
     mFab.setBackgroundTintList(ColorStateList.valueOf(contactColorPrimary))
@@ -207,26 +206,26 @@ class MessageActivity extends AppCompatActivity {
     mFab.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
 
-        mRecyclerAdapter.addItem(new Message(1, input.getText.toString, "14:30 Delivered", R.drawable.user))
+        mRecyclerAdapter.addItem(new Message(1, mInput.getText.toString, "14:30 Delivered", R.drawable.user))
         mRecycler.smoothScrollToPosition(0)
-        input.setText("")
+        mInput.setText("")
 
       }
     })
 
 
     if (typeOfMessage == 0) {
-      input.setHint(getResources.getString(R.string.message_hint_single) + " " + title)
+      mInput.setHint(getResources.getString(R.string.message_hint_single) + " " + title)
     }
 
-    input.addTextChangedListener(new TextWatcher {
+    mInput.addTextChangedListener(new TextWatcher {
 
       override def beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int): Unit = {
       }
 
       override def onTextChanged(s: CharSequence, start: Int, before: Int, count: Int): Unit = {
 
-        val countVal = input.getText.length()
+        val countVal = mInput.getText.length()
 
         if (countVal > 0 && !mSendButtonActive) {
 

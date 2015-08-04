@@ -18,6 +18,7 @@ public class SlideInAttachmentsLayout extends ViewGroup {
 
     private final ViewDragHelper mDragHelper;
     private View mChild;
+    private View mNested;
 
     private float mInitialMotionY;
     private int mDragRange;
@@ -45,7 +46,7 @@ public class SlideInAttachmentsLayout extends ViewGroup {
     protected void onFinishInflate() {
 
         mChild = findViewById(R.id.fragment_attachments);
-
+        mNested = findViewById(R.id.fragment_attachments_nested);
 
         super.onFinishInflate();
     }
@@ -77,9 +78,6 @@ public class SlideInAttachmentsLayout extends ViewGroup {
             Log.d("asd", "Scrolling");
             return false;
         }
-
-        Log.d("asdasd", scrollActive + "");
-
 
         final int action = MotionEventCompat.getActionMasked(ev);
 
@@ -129,21 +127,31 @@ public class SlideInAttachmentsLayout extends ViewGroup {
             mInitialMotionY = y;
 
         } else if (action == MotionEvent.ACTION_MOVE) {
-            Log.d("asdasd", "MOVE - " + y+" - "+ mTop);
+            Log.d("asdasd", "MOVE - " + y+" - "+ mInitialMotionY+" - "+scrollActive);
 
 
-            if(mTop == 0 && (y - mInitialMotionY) > 0){
+            if(mTop == 0 && (y - mInitialMotionY) < 0){
                 scrollActive = true;
-                Log.d("asdasd","scrollActivated");
+                Log.d("asdsd","SCROLL ACTIVE");
+
             }
 
             else if(mTop == 0 && scrollActive){
 
-                if(mChild.getScrollY() == 0 && (y - mInitialMotionY) < 0 ){
+                if(mNested.getScrollY() == 0 && (y - mInitialMotionY) > 0 ){
                     scrollActive = false;
-                    Log.d("asdasd","scrollDeactivated");
+                    Log.d("asdsd","SCROLL NOT ACTIVE");
                 }
 
+            }
+
+            else if(mTop != 0 && scrollActive){
+                if (mDragOffset > 0.5f) {
+                    smoothSlideTo(1f);
+                    setVisibility(View.INVISIBLE);
+                } else {
+                    smoothSlideTo(0f);
+                }
             }
 
 
@@ -153,6 +161,7 @@ public class SlideInAttachmentsLayout extends ViewGroup {
 
             if (mDragOffset > 0.5f) {
                 smoothSlideTo(1f);
+                setVisibility(View.INVISIBLE);
             } else {
                 smoothSlideTo(0f);
             }

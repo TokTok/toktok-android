@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.{Editable, TextWatcher}
 import android.view.View.OnClickListener
+import android.view.animation.AnimationUtils
 import android.view.{View, Window}
 import android.widget._
 import im.tox.toktok.R
@@ -15,6 +16,8 @@ import im.tox.toktok.R
 class SimpleAddFriendDialogDesign(activity: Activity, clickAction: OnClickListener) extends Dialog(activity) {
 
   var a: Activity = activity
+  var mBase : RelativeLayout = null
+
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -26,6 +29,7 @@ class SimpleAddFriendDialogDesign(activity: Activity, clickAction: OnClickListen
 
     val confirmButton = findViewById(R.id.simple_dialog_confirm).asInstanceOf[Button]
 
+    mBase = findViewById(R.id.simple_dialog_base).asInstanceOf[RelativeLayout]
 
     val cancelButton = findViewById(R.id.simple_dialog_cancel).asInstanceOf[Button]
     cancelButton.setOnClickListener(new OnClickListener {
@@ -50,6 +54,8 @@ class SimpleAddFriendDialogDesign(activity: Activity, clickAction: OnClickListen
       }
     })
 
+    val baseAnimation = AnimationUtils.loadAnimation(getContext, R.anim.slide_in_bottom)
+    mBase.startAnimation(baseAnimation)
 
   }
 }

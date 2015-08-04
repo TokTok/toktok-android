@@ -1,8 +1,11 @@
 package im.tox.toktok.app.MainActivity.MainFriendsFragment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.TransitionDrawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -20,9 +23,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import im.tox.toktok.R;
+import im.tox.toktok.app.CallActivity.CallActivity;
 import im.tox.toktok.app.Friend;
+import im.tox.toktok.app.SimpleDialogs.SimpleTextDialogDesign;
 
 
 public class SlideInContactsLayout extends ViewGroup {
@@ -41,14 +45,22 @@ public class SlideInContactsLayout extends ViewGroup {
 
     private RelativeLayout mEditNameButton;
 
+    private Activity activity;
+
+    private Friend friend;
+
     private float mInitialMotionY;
     private int mDragRange;
     private int mTop;
     private boolean scrollActive = false;
     private float mDragOffset;
     private TransitionDrawable backgroundTransition;
+    private TextView mVoiceCall;
+    private TextView mVideoCall;
 
-    private final int [] icons = {R.id.contacts_icon_call, R.id.contacts_icon_message, R.id.contacts_icon_image, R.id.contacts_icon_download, R.id.contacts_icon_palette, R.id.contacts_icon_edit, R.id.contacts_icon_trash, R.id.contacts_icon_lock};
+    private Bundle bundle;
+
+    private final int[] icons = {R.id.contacts_icon_call, R.id.contacts_icon_message, R.id.contacts_icon_image, R.id.contacts_icon_download, R.id.contacts_icon_palette, R.id.contacts_icon_edit, R.id.contacts_icon_trash, R.id.contacts_icon_lock};
 
 
     public SlideInContactsLayout(Context context) {
@@ -75,12 +87,16 @@ public class SlideInContactsLayout extends ViewGroup {
         mSubtitle = (TextView) findViewById(R.id.contact_subtitle);
         mSettingsTitle = (TextView) findViewById(R.id.contacts_other_title);
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.contacts_toolbar);
-
+        mVoiceCall = (TextView) findViewById(R.id.contacts_item_voice_call);
+        mVideoCall = (TextView) findViewById(R.id.contacts_item_video_call);
+        mEditNameButton = (RelativeLayout) findViewById(R.id.contacts_edit_alias);
 
         super.onFinishInflate();
     }
 
-    public void start(Friend friend,int actionBarHeight) {
+    public void start(Activity activity, final Friend friend, int actionBarHeight) {
+
+        this.activity = activity;
 
         mTitle.setText(friend.getUserName());
         mCollapsingToolbarLayout.setBackgroundColor(friend.getColor());
@@ -94,16 +110,17 @@ public class SlideInContactsLayout extends ViewGroup {
         CollapsingToolbarLayout.LayoutParams b = (CollapsingToolbarLayout.LayoutParams) mToolbar.getLayoutParams();
         b.height = actionBarHeight + getStatusBarHeight();
         mToolbar.setLayoutParams(b);
-        mToolbar.setPadding(0,getStatusBarHeight(),0,0);
+        mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
 
 
-        for(int i = 0; i < icons.length; i++){
+        for (int i = 0; i < icons.length; i++) {
             ImageView icon = (ImageView) findViewById(icons[i]);
             icon.setImageTintList(ColorStateList.valueOf(friend.getColor()));
         }
 
         initListeners(friend);
 
+        this.friend = friend;
 
         setVisibility(View.VISIBLE);
 
@@ -156,7 +173,7 @@ public class SlideInContactsLayout extends ViewGroup {
 
         if (scrollActive) {
             mDragHelper.cancel();
-            Log.d("asd","Scrolling");
+            Log.d("asd", "Scrolling");
             return false;
         }
 
@@ -211,30 +228,27 @@ public class SlideInContactsLayout extends ViewGroup {
             mInitialMotionY = y;
 
         } else if (action == MotionEvent.ACTION_MOVE) {
-            Log.d("asdasd", "MOVE - " + y+" - "+ mTop);
+            Log.d("asdasd", "MOVE - " + y + " - " + mTop);
 
 
-            if(mTop == 0 && (y - mInitialMotionY) > 0){
+            if (mTop == 0 && (y - mInitialMotionY) > 0) {
                 scrollActive = true;
-                Log.d("asdasd","scrollActivated");
-            }
+                Log.d("asdasd", "scrollActivated");
+            } else if (mTop == 0 && scrollActive) {
 
-            else if(mTop == 0 && scrollActive){
-
-                if(mCoordinator.getScrollY() == 0 && (y - mInitialMotionY) < 0 ){
+                if (mCoordinator.getScrollY() == 0 && (y - mInitialMotionY) < 0) {
                     scrollActive = false;
-                    Log.d("asdasd","scrollDeactivated");
+                    Log.d("asdasd", "scrollDeactivated");
                 }
 
             }
 
 
-        }else if (action == MotionEvent.ACTION_UP && !scrollActive) {
+        } else if (action == MotionEvent.ACTION_UP && !scrollActive) {
 
             Log.d("asdasd", "UP - " + y);
 
             if (mDragOffset > 0.5f) {
-                smoothSlideTo(1f);
                 finish();
             } else {
 
@@ -245,10 +259,7 @@ public class SlideInContactsLayout extends ViewGroup {
                 }
             }
 
-        }
-
-
-        else if (action == MotionEvent.ACTION_UP && scrollActive) {
+        } else if (action == MotionEvent.ACTION_UP && scrollActive) {
 
             mDragHelper.shouldInterceptTouchEvent(ev);
 
@@ -283,9 +294,9 @@ public class SlideInContactsLayout extends ViewGroup {
 
     }
 
-    private void finish() {
+    public void finish() {
 
-        mCoordinator.setVisibility(View.INVISIBLE);
+        smoothSlideTo(1f);
         backgroundTransition.reverseTransition(500);
 
         final Handler handler = new Handler();
@@ -293,8 +304,8 @@ public class SlideInContactsLayout extends ViewGroup {
             @Override
             public void run() {
 
+                mCoordinator.setVisibility(View.INVISIBLE);
                 setVisibility(View.GONE);
-                smoothSlideTo(0.5f);
 
             }
         }, 500);
@@ -339,18 +350,35 @@ public class SlideInContactsLayout extends ViewGroup {
 
     }
 
-    private void initListeners(final Friend friend){
+    private void initListeners(final Friend friend) {
 
-        mEditNameButton = (RelativeLayout) findViewById(R.id.contacts_edit_alias);
 
         mEditNameButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("asd","asd");
+                SimpleTextDialogDesign dial = new SimpleTextDialogDesign(activity, getResources().getString(R.string.contact_popup_edit_alias), friend.getColor(), R.drawable.ic_person_black_48dp, friend.getUserName(), null);
+                dial.show();
             }
         });
 
 
+        mVoiceCall.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                bundle = new Bundle();
+
+                bundle.putString("contactName", friend.getUserName());
+                bundle.putInt("contactColorPrimary", friend.getColor());
+                bundle.putInt("contactPhotoReference", friend.getPhotoReference());
+
+
+                Intent newIntent = new Intent(activity, CallActivity.class);
+                newIntent.putExtras(bundle);
+                activity.startActivity(newIntent);
+
+            }
+        });
     }
 
     public int getStatusBarHeight() {

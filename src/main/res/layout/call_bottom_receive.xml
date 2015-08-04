@@ -17,30 +17,21 @@
             android:layout_height="match_parent">
 
 
-            <SeekBar
+            <im.tox.toktok.app.CallActivity.CallSliderAnswer
                 android:id="@+id/call_answer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:paddingLeft="28dp"
-                android:paddingRight="0dp"
-                android:progressDrawable="@drawable/call_rect_lines"
-                android:thumb="@drawable/call_answer_button" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-
-            <SeekBar
+            <im.tox.toktok.app.CallActivity.CallSliderDecline
                 android:id="@+id/call_decline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="100dp"
-                android:layout_marginRight="40dp"
-                android:paddingLeft="28dp"
-                android:paddingRight="0dp"
-                android:progressDrawable="@drawable/call_rect_lines"
-                android:thumb="@drawable/call_decline_button" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 

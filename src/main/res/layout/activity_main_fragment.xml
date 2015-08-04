@@ -87,6 +87,13 @@
             app:layout_anchor="@id/home_tab_holder"
             app:layout_anchorGravity="bottom|right|end" />
 
+
     </android.support.design.widget.CoordinatorLayout>
+
+    <View
+        android:visibility="invisible"
+        android:background="#00ff00"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

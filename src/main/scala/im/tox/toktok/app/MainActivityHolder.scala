@@ -9,11 +9,13 @@ import android.view.View.OnClickListener
 import android.widget.LinearLayout
 import im.tox.toktok.R
 import im.tox.toktok.app.MainActivity.MainActivityFragment
+import im.tox.toktok.app.MainActivity.MainFriendsFragment.SlideInContactsLayout
 import im.tox.toktok.app.ProfileActivity.ProfileActivity
 
 class MainActivityHolder extends AppCompatActivity {
 
   var activeTab: LinearLayout = null
+  var activeContacts : SlideInContactsLayout = null
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -80,4 +82,15 @@ class MainActivityHolder extends AppCompatActivity {
 
   }
 
+  def setActiveActivity(contact : SlideInContactsLayout): Unit ={
+    activeContacts = contact
+  }
+
+  override def onBackPressed(): Unit ={
+    if(activeContacts!= null){
+      activeContacts.finish()
+      activeContacts = null
+    }
+
+  }
 }

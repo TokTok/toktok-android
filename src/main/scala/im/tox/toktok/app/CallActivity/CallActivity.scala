@@ -9,6 +9,8 @@ import android.support.v7.widget.{LinearLayoutManager, RecyclerView}
 import android.view.View.OnClickListener
 import android.view.ViewGroup.LayoutParams
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.view.animation.Animation.AnimationListener
+import android.view.animation.{Animation, AnimationUtils}
 import android.view.{Display, View}
 import android.widget._
 import de.hdodenhof.circleimageview.CircleImageView
@@ -20,13 +22,17 @@ import scala.collection.mutable.ListBuffer
 
 class CallActivity extends AppCompatActivity {
 
-  var topPainel: RelativeLayout = null
-  var bottomPainel: FrameLayout = null
-  var viewType: Int = 1
+  var mTopPainel: RelativeLayout = null
+  var mBottomPainel: FrameLayout = null
+  var viewType: Int = 0
   var midHeight: Double = 0
   var friendTitle: String = ""
   var friendColor: Int = 0
   var friendImgSRC: Int = 0
+  var firstTime: Boolean = true
+  var mFriendPhotoBig : CircleImageView = null
+  var mCallAnswer : CallSliderAnswer = null
+  var mCallDecline : CallSliderDecline = null
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
 
@@ -42,9 +48,9 @@ class CallActivity extends AppCompatActivity {
     getWindow.getDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     getWindow.setStatusBarColor(getResources.getColor(R.color.contactsTransparentBar))
 
-    topPainel = findViewById(R.id.call_top_painel).asInstanceOf[RelativeLayout]
-    bottomPainel = findViewById(R.id.call_bottom_painel).asInstanceOf[FrameLayout]
-    bottomPainel.setBackgroundColor(Color.argb(165, Color.red(friendColor), Color.green(friendColor), Color.blue(friendColor)))
+    mTopPainel = findViewById(R.id.call_top_painel).asInstanceOf[RelativeLayout]
+    mBottomPainel = findViewById(R.id.call_bottom_painel).asInstanceOf[FrameLayout]
+    mBottomPainel.setBackgroundColor(Color.argb(165, Color.red(friendColor), Color.green(friendColor), Color.blue(friendColor)))
 
 
     initBackground(friendImgSRC)
@@ -60,9 +66,9 @@ class CallActivity extends AppCompatActivity {
 
 
   def initOnGoingCall: Unit = {
-    topPainel.setBackgroundColor(getResources.getColor(R.color.callTopColor))
-    topPainel.addView(getLayoutInflater.inflate(R.layout.call_top_on_going, null))
-    bottomPainel.addView(getLayoutInflater.inflate(R.layout.call_bottom_on_going, null))
+    mTopPainel.setBackgroundColor(getResources.getColor(R.color.callTopColor))
+    mTopPainel.addView(getLayoutInflater.inflate(R.layout.call_top_on_going, null))
+    mBottomPainel.addView(getLayoutInflater.inflate(R.layout.call_bottom_on_going, null))
 
 
     val mRecycler: RecyclerView = findViewById(R.id.call_ongoing_contacts).asInstanceOf[RecyclerView]
@@ -86,10 +92,12 @@ class CallActivity extends AppCompatActivity {
 
   def initReceiveCall(): Unit = {
 
-    topPainel.addView(getLayoutInflater.inflate(R.layout.call_top_receive, null))
-    bottomPainel.addView(getLayoutInflater.inflate(R.layout.call_bottom_receive, null))
+    mTopPainel.addView(getLayoutInflater.inflate(R.layout.call_top_receive, null))
+    mBottomPainel.addView(getLayoutInflater.inflate(R.layout.call_bottom_receive, null))
 
-    findViewById(R.id.call_img).asInstanceOf[CircleImageView].setImageResource(friendImgSRC)
+    mFriendPhotoBig = findViewById(R.id.call_img).asInstanceOf[CircleImageView]
+    mFriendPhotoBig.setImageResource(friendImgSRC)
+
     findViewById(R.id.call_friend).asInstanceOf[TextView].setText(friendTitle)
     findViewById(R.id.call_message_input).asInstanceOf[EditText].setHint(getResources.getString(R.string.call_input_message) + " " + friendTitle)
 
@@ -107,9 +115,119 @@ class CallActivity extends AppCompatActivity {
 
     mRecycler.setAdapter(new CallMessageAdapter(list))
 
-    val declineSeekbar: SeekBar = findViewById(R.id.call_decline).asInstanceOf[SeekBar]
-    declineSeekbar.setRotation(180);
+    mCallAnswer = findViewById(R.id.call_answer).asInstanceOf[CallSliderAnswer]
+    mCallDecline = findViewById(R.id.call_decline).asInstanceOf[CallSliderDecline]
 
+    mCallAnswer.setOnCallListener(new CallListener {
+      override def onCompleted: Unit = {
+
+        val fadeOutAnimationBottom = AnimationUtils.loadAnimation(mBottomPainel.getContext, R.anim.abc_fade_out)
+        fadeOutAnimationBottom.setDuration(250)
+        fadeOutAnimationBottom.setAnimationListener(new AnimationListener {
+
+          override def onAnimationEnd(animation: Animation): Unit = {
+            mBottomPainel.removeAllViews()
+          }
+
+          override def onAnimationStart(animation: Animation): Unit = {
+
+          }
+
+          override def onAnimationRepeat(animation: Animation): Unit = {}
+
+        }) 
+        
+        mBottomPainel.getChildAt(0).startAnimation(fadeOutAnimationBottom)
+
+        val fadeOutAnimationTop = AnimationUtils.loadAnimation(mBottomPainel.getContext, R.anim.abc_fade_out)
+        fadeOutAnimationTop.setDuration(250)
+        fadeOutAnimationTop.setAnimationListener(new AnimationListener {
+
+          override def onAnimationEnd(animation: Animation): Unit = {
+            mTopPainel.removeAllViews()
+            initOnGoingCall
+          }
+
+          override def onAnimationStart(animation: Animation): Unit = {
+
+          }
+
+          override def onAnimationRepeat(animation: Animation): Unit = {}
+
+        })
+
+        mTopPainel.getChildAt(0).startAnimation(fadeOutAnimationTop)
+
+      }
+
+      override def onStart(): Unit ={
+        val animation = AnimationUtils.loadAnimation(mCallDecline.getContext,R.anim.abc_fade_out)
+        animation.setDuration(250)
+        animation.setAnimationListener(new AnimationListener {
+          override def onAnimationEnd(animation: Animation): Unit = {
+            mCallDecline.setVisibility(View.INVISIBLE)
+          }
+
+          override def onAnimationStart(animation: Animation): Unit = {}
+
+          override def onAnimationRepeat(animation: Animation): Unit = {}
+        })
+        mCallDecline.startAnimation(animation)
+      }
+
+      override def onReleased(): Unit ={
+        val animation = AnimationUtils.loadAnimation(mCallDecline.getContext,R.anim.abc_fade_in)
+        animation.setDuration(250)
+        animation.setAnimationListener(new AnimationListener {
+          override def onAnimationEnd(animation: Animation): Unit = {
+            mCallDecline.setVisibility(View.VISIBLE)
+          }
+
+          override def onAnimationStart(animation: Animation): Unit = {}
+
+          override def onAnimationRepeat(animation: Animation): Unit = {}
+        })
+        mCallDecline.startAnimation(animation)
+      }
+
+    })
+
+    mCallDecline.setOnCallListener(new CallListener {
+
+      override def onCompleted: Unit = {
+        finish()
+      }
+
+      override def onReleased: Unit = {
+        val animation = AnimationUtils.loadAnimation(mCallAnswer.getContext,R.anim.abc_fade_in)
+        animation.setDuration(250)
+        animation.setAnimationListener(new AnimationListener {
+          override def onAnimationEnd(animation: Animation): Unit = {
+            mCallAnswer.setVisibility(View.VISIBLE)
+          }
+
+          override def onAnimationStart(animation: Animation): Unit = {}
+
+          override def onAnimationRepeat(animation: Animation): Unit = {}
+        })
+        mCallAnswer.startAnimation(animation)
+      }
+
+      override def onStart: Unit = {
+        val animation = AnimationUtils.loadAnimation(mCallAnswer.getContext,R.anim.abc_fade_out)
+        animation.setDuration(250)
+        animation.setAnimationListener(new AnimationListener {
+          override def onAnimationEnd(animation: Animation): Unit = {
+            mCallAnswer.setVisibility(View.INVISIBLE)
+          }
+
+          override def onAnimationStart(animation: Animation): Unit = {}
+
+          override def onAnimationRepeat(animation: Animation): Unit = {}
+        })
+        mCallAnswer.startAnimation(animation)
+      }
+    })
 
   }
 
@@ -124,19 +242,31 @@ class CallActivity extends AppCompatActivity {
 
     val content: View = findViewById(android.R.id.content).getRootView
 
-    content.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener {
-      override def onGlobalLayout(): Unit = {
-        val picture = BlurBuilder.blur(background)
-        background.setImageDrawable(new BitmapDrawable(getResources, picture))
+    val thread = new Thread() {
+      override def run(): Unit = {
+
+        content.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener {
+          override def onGlobalLayout(): Unit = {
+            if (firstTime) {
+              val picture = BlurBuilder.blur(background)
+              background.setImageDrawable(new BitmapDrawable(getResources, picture))
+              firstTime = false
+            }
+          }
+        })
 
       }
-    })
+    }
+
+
+    thread.start()
+
     midHeight = screenSize.y * 0.5
 
     val params: RelativeLayout.LayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, midHeight.toInt)
     params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-    bottomPainel.setLayoutParams(params)
-    topPainel.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, midHeight.toInt))
+    mBottomPainel.setLayoutParams(params)
+    mTopPainel.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, midHeight.toInt))
 
   }
 
@@ -144,4 +274,10 @@ class CallActivity extends AppCompatActivity {
 
   }
 
+}
+
+trait CallListener {
+  def onCompleted
+  def onStart
+  def onReleased
 }

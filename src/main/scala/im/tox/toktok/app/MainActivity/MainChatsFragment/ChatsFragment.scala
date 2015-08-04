@@ -34,14 +34,7 @@ class ChatsFragment extends Fragment with ChatItemClick {
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(activity.getBaseContext)
     mChats_Recycler.setLayoutManager(mLayoutManager)
 
-    var a = new ListBuffer[ChatsMessageObject]()
-    var i = 0
-
-    for (i <- 0 to 100) {
-
-      a += new ChatsMessageObject(Friend.lorem, "Hello, how are you?")
-
-    }
+    val a = ListBuffer(ChatsMessageObject.loremMessage,ChatsMessageObject.johnMessage,ChatsMessageObject.groupMessage)
 
     mChats_Recycler_Adapter = new ChatsRecyclerAdapter(a, this)
 
@@ -67,6 +60,7 @@ class ChatsFragment extends Fragment with ChatItemClick {
   def onClick(i: Int): Boolean = {
 
     if (mActionMode == null) {
+
       return false
     }
     mChats_Recycler_Adapter.toggleSelection(i)

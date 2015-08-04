@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.{Editable, TextWatcher}
 import android.view.View.OnClickListener
+import android.view.animation.AnimationUtils
 import android.view.{View, Window}
 import android.widget._
 import im.tox.toktok.R
@@ -15,6 +16,8 @@ import im.tox.toktok.R
 class SimpleTextDialogDesign(activity: Activity, title: String, color: Int, icon: Int, value: String, clickAction: OnClickListener) extends Dialog(activity) {
 
   var a: Activity = activity
+  var mBase : RelativeLayout = null
+
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -27,6 +30,7 @@ class SimpleTextDialogDesign(activity: Activity, title: String, color: Int, icon
     findViewById(R.id.simple_dialog_img).asInstanceOf[ImageView].setImageResource(icon)
     findViewById(R.id.simple_dialog_text).asInstanceOf[TextView].setText(title)
 
+    mBase = findViewById(R.id.simple_dialog_base).asInstanceOf[RelativeLayout]
 
     val input: EditText = findViewById(R.id.simple_dialog_input).asInstanceOf[EditText]
 
@@ -58,6 +62,9 @@ class SimpleTextDialogDesign(activity: Activity, title: String, color: Int, icon
 
       }
     })
+
+    val baseAnimation = AnimationUtils.loadAnimation(getContext, R.anim.slide_in_bottom)
+    mBase.startAnimation(baseAnimation)
 
 
   }
