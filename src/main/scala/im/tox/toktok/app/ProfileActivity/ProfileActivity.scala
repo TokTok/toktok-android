@@ -1,5 +1,6 @@
 package im.tox.toktok.app.ProfileActivity
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.CollapsingToolbarLayout
@@ -9,6 +10,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View.OnClickListener
+import android.view.ViewGroup.LayoutParams
 import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.{RelativeLayout, TextView}
 import im.tox.toktok.R
@@ -26,10 +28,11 @@ class ProfileActivity extends Fragment {
 
     getActivity.getWindow().setStatusBarColor(Color.parseColor("#2b000000"));
 
+    view.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT))
+
     initToolbar(view)
 
     val mCollapsingToolbar: CollapsingToolbarLayout = view.findViewById(R.id.profile_collapsing_toolbar).asInstanceOf[CollapsingToolbarLayout]
-    mCollapsingToolbar.setTitle("André Almeida")
 
     mDrawer = getActivity.findViewById(R.id.home_layout).asInstanceOf[DrawerLayout]
 
@@ -75,16 +78,23 @@ class ProfileActivity extends Fragment {
       }
     })
 
-    return view
 
+    val mChangeReject = view.findViewById(R.id.profile_change_reject_call).asInstanceOf[TextView]
+
+    mChangeReject.setOnClickListener(new OnClickListener {
+      override def onClick(v: View): Unit = {
+        val rejectIntent = new Intent(getActivity,classOf[RejectedCallMessages])
+        startActivity(rejectIntent)
+      }
+    })
+
+    return view
 
   }
 
   def initToolbar(view: View): Unit = {
 
     mToolbar = view.findViewById(R.id.profile_toolbar).asInstanceOf[Toolbar]
-    mToolbar.setTitle("André Almeida")
-
     getActivity.asInstanceOf[AppCompatActivity].setSupportActionBar(mToolbar)
     getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar.setHomeAsUpIndicator(R.drawable.ic_navigation_menu)
     getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar.setDisplayHomeAsUpEnabled(true);

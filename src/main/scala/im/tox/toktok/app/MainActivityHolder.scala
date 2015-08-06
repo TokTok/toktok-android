@@ -39,6 +39,7 @@ class MainActivityHolder extends AppCompatActivity {
     peopleTabButton.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
         if (v != activeTab) {
+
           val profileFragment: ProfileActivity = new ProfileActivity
 
           val trans: FragmentTransaction = getSupportFragmentManager.beginTransaction()

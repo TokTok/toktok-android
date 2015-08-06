@@ -1,5 +1,6 @@
 package im.tox.toktok.app.CallActivity
 
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.{Color, Point}
 import android.os.Bundle
@@ -16,6 +17,7 @@ import android.widget._
 import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
 import im.tox.toktok.app.Friend
+import im.tox.toktok.app.VideoCallActivity.VideoCallActivity
 
 import scala.collection.mutable.ListBuffer
 
@@ -24,7 +26,8 @@ class CallActivity extends AppCompatActivity {
 
   var mTopPainel: RelativeLayout = null
   var mBottomPainel: FrameLayout = null
-  var viewType: Int = 0
+  var viewType: Int = 2
+  var bundle : Bundle = null
   var midHeight: Double = 0
   var friendTitle: String = ""
   var friendColor: Int = 0
@@ -39,7 +42,7 @@ class CallActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_call_layout)
 
-    val bundle: Bundle = getIntent.getExtras
+    bundle = getIntent.getExtras
 
     friendTitle = bundle.getString("contactName")
     friendColor = bundle.getInt("contactColorPrimary")
@@ -52,10 +55,9 @@ class CallActivity extends AppCompatActivity {
     mBottomPainel = findViewById(R.id.call_bottom_painel).asInstanceOf[FrameLayout]
     mBottomPainel.setBackgroundColor(Color.argb(165, Color.red(friendColor), Color.green(friendColor), Color.blue(friendColor)))
 
-
     initBackground(friendImgSRC)
 
-    if (viewType == 0) {
+    if (viewType == 0 || viewType == 2) {
       initReceiveCall()
     }
     else if (viewType == 1) {
@@ -121,43 +123,55 @@ class CallActivity extends AppCompatActivity {
     mCallAnswer.setOnCallListener(new CallListener {
       override def onCompleted: Unit = {
 
-        val fadeOutAnimationBottom = AnimationUtils.loadAnimation(mBottomPainel.getContext, R.anim.abc_fade_out)
-        fadeOutAnimationBottom.setDuration(250)
-        fadeOutAnimationBottom.setAnimationListener(new AnimationListener {
+        if(viewType == 0) {
 
-          override def onAnimationEnd(animation: Animation): Unit = {
-            mBottomPainel.removeAllViews()
-          }
+          val fadeOutAnimationBottom = AnimationUtils.loadAnimation(mBottomPainel.getContext, R.anim.abc_fade_out)
+          fadeOutAnimationBottom.setDuration(250)
+          fadeOutAnimationBottom.setAnimationListener(new AnimationListener {
 
-          override def onAnimationStart(animation: Animation): Unit = {
+            override def onAnimationEnd(animation: Animation): Unit = {
+              mBottomPainel.removeAllViews()
+            }
 
-          }
+            override def onAnimationStart(animation: Animation): Unit = {
 
-          override def onAnimationRepeat(animation: Animation): Unit = {}
+            }
 
-        }) 
-        
-        mBottomPainel.getChildAt(0).startAnimation(fadeOutAnimationBottom)
+            override def onAnimationRepeat(animation: Animation): Unit = {}
 
-        val fadeOutAnimationTop = AnimationUtils.loadAnimation(mBottomPainel.getContext, R.anim.abc_fade_out)
-        fadeOutAnimationTop.setDuration(250)
-        fadeOutAnimationTop.setAnimationListener(new AnimationListener {
+          })
 
-          override def onAnimationEnd(animation: Animation): Unit = {
-            mTopPainel.removeAllViews()
-            initOnGoingCall
-          }
+          mBottomPainel.getChildAt(0).startAnimation(fadeOutAnimationBottom)
 
-          override def onAnimationStart(animation: Animation): Unit = {
+          val fadeOutAnimationTop = AnimationUtils.loadAnimation(mBottomPainel.getContext, R.anim.abc_fade_out)
+          fadeOutAnimationTop.setDuration(250)
+          fadeOutAnimationTop.setAnimationListener(new AnimationListener {
 
-          }
+            override def onAnimationEnd(animation: Animation): Unit = {
+              mTopPainel.removeAllViews()
+              initOnGoingCall
+            }
 
-          override def onAnimationRepeat(animation: Animation): Unit = {}
+            override def onAnimationStart(animation: Animation): Unit = {
 
-        })
+            }
 
-        mTopPainel.getChildAt(0).startAnimation(fadeOutAnimationTop)
+            override def onAnimationRepeat(animation: Animation): Unit = {}
 
+          })
+
+          mTopPainel.getChildAt(0).startAnimation(fadeOutAnimationTop)
+
+        }
+        else if(viewType == 2){
+
+          val videoIntent = new Intent(CallActivity.this, classOf[VideoCallActivity])
+          videoIntent.putExtras(bundle)
+          startActivity(videoIntent)
+          overridePendingTransition(R.anim.activity_fade_in,R.anim.activity_fade_out)
+          finish
+
+        }
       }
 
       override def onStart(): Unit ={

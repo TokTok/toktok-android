@@ -26,10 +26,6 @@ class FileSendActivity extends AppCompatActivity {
 
     val bundle: Bundle = getIntent.getExtras
 
-    if (bundle == null) {
-      Log.d("asd", "asda")
-    }
-
     colorPrimary = bundle.getInt("contactColorPrimary")
     colorStatus = bundle.getInt("contactColorSecondary")
     userName = bundle.getString("contactName")

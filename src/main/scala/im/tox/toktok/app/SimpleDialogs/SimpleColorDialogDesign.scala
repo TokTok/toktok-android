@@ -12,7 +12,7 @@ import android.widget._
 import im.tox.toktok.R
 import im.tox.toktok.app.materialColors
 
-class SimpleColorDialogDesign(activity: Activity, title: String, contact_color: Int, icon: Int, color: Int, clickAction: OnClickListener) extends Dialog(activity) {
+class SimpleColorDialogDesign(activity: Activity, title: String, contact_color: Int, icon: Int, color: Int, clickAction: OnClickListener) extends Dialog(activity, R.style.DialogSlideAnimation) {
 
   var a: Activity = activity
 

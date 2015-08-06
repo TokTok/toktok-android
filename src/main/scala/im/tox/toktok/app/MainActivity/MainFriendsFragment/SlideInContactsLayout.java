@@ -27,6 +27,7 @@ import im.tox.toktok.R;
 import im.tox.toktok.app.CallActivity.CallActivity;
 import im.tox.toktok.app.Friend;
 import im.tox.toktok.app.SimpleDialogs.SimpleTextDialogDesign;
+import im.tox.toktok.app.VideoCallActivity.VideoCallActivity;
 
 
 public class SlideInContactsLayout extends ViewGroup {
@@ -379,6 +380,22 @@ public class SlideInContactsLayout extends ViewGroup {
 
             }
         });
+
+
+        mVideoCall.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bundle = new Bundle();
+
+                bundle.putInt("contactPhotoReference", friend.getPhotoReference());
+
+
+                Intent newIntent = new Intent(activity, VideoCallActivity.class);
+                newIntent.putExtras(bundle);
+                activity.startActivity(newIntent);
+            }
+        });
+
     }
 
     public int getStatusBarHeight() {

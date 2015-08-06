@@ -13,7 +13,7 @@ import android.widget._
 import im.tox.toktok.R
 
 
-class SimpleTextDialogDesign(activity: Activity, title: String, color: Int, icon: Int, value: String, clickAction: OnClickListener) extends Dialog(activity) {
+class SimpleTextDialogDesign(activity: Activity, title: String, color: Int, icon: Int, value: String, clickAction: OnClickListener) extends Dialog(activity, R.style.DialogSlideAnimation) {
 
   var a: Activity = activity
   var mBase : RelativeLayout = null
@@ -62,10 +62,6 @@ class SimpleTextDialogDesign(activity: Activity, title: String, color: Int, icon
 
       }
     })
-
-    val baseAnimation = AnimationUtils.loadAnimation(getContext, R.anim.slide_in_bottom)
-    mBase.startAnimation(baseAnimation)
-
 
   }
 }

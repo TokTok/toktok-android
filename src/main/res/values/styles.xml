@@ -26,6 +26,14 @@
         <item name="android:textColor">@color/textDarkColor</item>
     </style>
 
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/abc_slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/abc_slide_out_bottom</item>
+    </style>
+
+    <style name="DialogSlideAnimation" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+    </style>
 
     <style name="BasicFloatingActionButton">
         <item name="android:layout_width">wrap_content</item>

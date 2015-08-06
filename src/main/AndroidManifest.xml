@@ -68,12 +68,15 @@
         </activity>
         <activity
             android:name=".app.CallActivity.CallActivity"
-            android:label="Voice Call"
-            android:parentActivityName=".app.MessageActivity.MessageActivity"></activity>
+            android:label="Voice Call"></activity>
         <activity
             android:name=".app.VideoCallActivity.VideoCallActivity"
-            android:label="Video Call"
-            android:parentActivityName=".app.MessageActivity.MessageActivity"></activity>
+            android:label="Video Call"></activity>
+
+        <activity
+            android:name=".app.ProfileActivity.RejectedCallMessages"
+            android:label="RejectedMessages"></activity>
+
     </application>
 
 </manifest>

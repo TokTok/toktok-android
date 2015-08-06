@@ -33,7 +33,7 @@
             <TextView
                 android:id="@+id/profile_change_nickname"
                 style="@style/ContactsButtonText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cardboard_ripple"
                 android:text="Change your Nickname" />
@@ -48,7 +48,7 @@
             <TextView
                 android:id="@+id/profile_change_status_text"
                 style="@style/ContactsButtonText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cardboard_ripple"
                 android:text="Change your status" />
@@ -63,7 +63,7 @@
             <TextView
                 android:id="@+id/profile_change_status"
                 style="@style/ContactsButtonText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cardboard_ripple"
                 android:text="Change your message status" />
@@ -77,8 +77,9 @@
 
 
             <TextView
+                android:id="@+id/profile_change_reject_call"
                 style="@style/ContactsButtonText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cardboard_ripple"
                 android:text="Change reject with call messages" />

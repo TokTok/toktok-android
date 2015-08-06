@@ -40,33 +40,6 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/gradient_contacts" />
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="56dp">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="16dp"
-                        android:background="@drawable/status_circle"
-                        android:tint="#2ECC71" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="16dp"
-                        android:paddingBottom="32dp"
-                        android:text="Trying out the new Tox Android Client"
-                        android:textColor="#ffffff" />
-                </RelativeLayout>
             </FrameLayout>
 
             <android.support.v7.widget.Toolbar
@@ -74,7 +47,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="bottom"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="36dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginBottom="5dp"
+                            android:id="@+id/contact_status"
+                            style="@style/CircleUserStatus"
+                            android:layout_marginRight="8dp"
+                            android:layout_alignBottom="@+id/contact_title"
+                            android:src="@drawable/status_circle"
+                            android:tint="@color/statusOnline" />
+
+                        <TextView
+                            android:id="@id/contact_title"
+                            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                            android:layout_width="wrap_content"
+                            android:text="André Almeida"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/contact_status"/>
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:id="@+id/contact_subtitle"
+                        android:layout_marginLeft="20dp"
+                        android:text="Trying out the new Tox Android"
+                        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -123,6 +146,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:background="@drawable/cardboard_ripple"
                         android:padding="16dp">
 
                         <TextView

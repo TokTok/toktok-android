@@ -7,13 +7,12 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.{Editable, TextWatcher}
 import android.view.View.OnClickListener
-import android.view.animation.AnimationUtils
 import android.view.{View, Window}
 import android.widget._
 import im.tox.toktok.R
 
 
-class SimpleAddFriendDialogDesign(activity: Activity, clickAction: OnClickListener) extends Dialog(activity) {
+class SimpleAddFriendDialogDesign(activity: Activity, clickAction: OnClickListener) extends Dialog(activity, R.style.DialogSlideAnimation) {
 
   var a: Activity = activity
   var mBase : RelativeLayout = null
@@ -22,6 +21,8 @@ class SimpleAddFriendDialogDesign(activity: Activity, clickAction: OnClickListen
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
     requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+
     setContentView(R.layout.simple_addfriend_dialog_design)
     getWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT))
 
@@ -53,9 +54,6 @@ class SimpleAddFriendDialogDesign(activity: Activity, clickAction: OnClickListen
 
       }
     })
-
-    val baseAnimation = AnimationUtils.loadAnimation(getContext, R.anim.slide_in_bottom)
-    mBase.startAnimation(baseAnimation)
 
   }
 }

@@ -10,7 +10,7 @@ import android.widget.Button
 import im.tox.toktok.R
 
 
-class SimpleShareDialogDesign(activity: Activity) extends Dialog(activity) {
+class SimpleShareDialogDesign(activity: Activity) extends Dialog(activity, R.style.DialogSlideAnimation) {
 
   var a: Activity = activity
 

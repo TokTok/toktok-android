@@ -16,6 +16,8 @@
     <RelativeLayout
         android:background="@color/contactsTransparentBar"
         android:padding="16dp"
+        android:visibility="invisible"
+        android:clipToPadding="false"
         android:id="@+id/videocall_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,6 +49,7 @@
         android:id="@+id/call_ongoing_friend"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:src="@drawable/user"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
