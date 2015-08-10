@@ -2,13 +2,15 @@ package im.tox.toktok.app.MessageActivity
 
 import android.content.{Context, Intent}
 import android.content.res.ColorStateList
+import android.graphics.PixelFormat
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{CardView, LinearLayoutManager, RecyclerView, Toolbar}
 import android.text.{Editable, TextWatcher}
-import android.util.Log
+import android.util.TypedValue
 import android.view.View.OnClickListener
+import android.view.ViewGroup.LayoutParams
 import android.view._
 import android.view.animation.Animation.AnimationListener
 import android.view.animation.{Animation, AnimationUtils}
@@ -16,8 +18,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget._
 import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
+import im.tox.toktok.app.MainActivity.MainFriendsFragment.SlideInContactsLayout
 import im.tox.toktok.app.SimpleDialogs.SimpleDialogDesign
-import im.tox.toktok.app.{Message, SizeAnimation}
+import im.tox.toktok.app.{Friend, MainActivityHolder, Message, SizeAnimation}
 
 import scala.collection.mutable.ListBuffer
 
@@ -39,6 +42,8 @@ class MessageActivity extends AppCompatActivity {
   var mInput : EditText = null
   var mRecyclerAdapter: MessageAdapter = null
   var mRecycler : RecyclerView = null
+  var overlayContactsLayout : SlideInContactsLayout = null
+  var overlay_attachments : SlideInAttachmentsLayout = null
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
 
@@ -127,7 +132,7 @@ class MessageActivity extends AppCompatActivity {
 
     getWindow.setStatusBarColor(contactColorStatus)
 
-
+    overlay_attachments = findViewById(R.id.fragment_attachments_slide).asInstanceOf[SlideInAttachmentsLayout]
     header = findViewById(R.id.message_header).asInstanceOf[RelativeLayout]
 
     val params: RelativeLayout.LayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -137,6 +142,11 @@ class MessageActivity extends AppCompatActivity {
 
       header.addView(getLayoutInflater.inflate(R.layout.message_header_user, null, true), params)
       header.findViewById(R.id.message_header_user_img).asInstanceOf[CircleImageView].setImageResource(imgSRC)
+      header.setOnClickListener(new OnClickListener {
+        override def onClick(v: View): Unit = {
+          startOverLayFriend()
+        }
+      })
 
     }
 
@@ -156,14 +166,16 @@ class MessageActivity extends AppCompatActivity {
     mRecycler = findViewById(R.id.message_recycler).asInstanceOf[RecyclerView]
     val list: ListBuffer[Message] = new ListBuffer[Message]
 
-    if (imgSRC == 0) {
-      imgSRC = R.drawable.lorem
-      list += new Message(3, "The Amazing Group was created", "", R.drawable.user)
-    }
+
 
     list += new Message(3, "Smiled ", "", imgSRC)
     list += new Message(2, "Thanks André Almeida, let's hope soo.", "14:30 Delivered", imgSRC)
     list += new Message(1, "Welcome to TokTok " + title + ", I hope you love it, as much as I do \uD83D\uDE00", "14:30 Delivered", R.drawable.user)
+
+    if (imgSRC == 0) {
+      imgSRC = R.drawable.lorem
+      list += new Message(3, "The Amazing Group was created", "", R.drawable.user)
+    }
 
 
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
@@ -186,9 +198,7 @@ class MessageActivity extends AppCompatActivity {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE).asInstanceOf[InputMethodManager]
         imm.hideSoftInputFromWindow(mInput.getApplicationWindowToken,0)
 
-        val overlay_attachments = findViewById(R.id.fragment_attachments_slide).asInstanceOf[SlideInAttachmentsLayout]
-        overlay_attachments.setVisibility(View.VISIBLE)
-        overlay_attachments.smoothSlideTo(0)
+        overlay_attachments.start()
 
       }
 
@@ -295,5 +305,35 @@ class MessageActivity extends AppCompatActivity {
     mSendButtonActive = false
 
   }
+
+  def startOverLayFriend(): Unit = {
+
+
+    overlayContactsLayout = getLayoutInflater.inflate(R.layout.overlay_contacts, null).asInstanceOf[SlideInContactsLayout]
+    val params = new WindowManager.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS , PixelFormat.TRANSLUCENT)
+    val window = getSystemService(Context.WINDOW_SERVICE).asInstanceOf[WindowManager]
+
+    window.addView(overlayContactsLayout, params)
+
+    var actionBarHeight = 0;
+
+    val tv = new TypedValue();
+    if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+      actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+    }
+
+    overlayContactsLayout.start(this,Friend.lorem, actionBarHeight)
+
+  }
+
+  override def onBackPressed(): Unit ={
+    if(overlay_attachments.getVisibility == View.INVISIBLE){
+      finish()
+    }
+    else{
+      overlay_attachments.finish()
+    }
+  }
+
 
 }

@@ -2,17 +2,18 @@ package im.tox.toktok.app.ProfileActivity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView.{ViewHolder, LayoutManager}
+import android.support.v7.widget.RecyclerView.{LayoutManager, ViewHolder}
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
+import android.view.MenuItem
 import im.tox.toktok.R
 
 import scala.collection.mutable.ListBuffer
 
 
-class RejectedCallMessages extends AppCompatActivity with DragStart{
+class RejectedCallMessages extends AppCompatActivity with DragStart {
 
-  var itemDrag : ItemTouchHelper = null
+  var itemDrag: ItemTouchHelper = null
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
 
@@ -21,8 +22,9 @@ class RejectedCallMessages extends AppCompatActivity with DragStart{
 
     val mToolbar = findViewById(R.id.reject_call_toolbar).asInstanceOf[Toolbar]
     mToolbar.setTitle("Reject call messages")
+    mToolbar.setNavigationIcon(R.drawable.ic_navigation_arrow_back_white)
     setSupportActionBar(mToolbar)
-    getSupportActionBar.setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar.setDisplayHomeAsUpEnabled(true)
 
     val mRecycler: RecyclerView = findViewById(R.id.reject_recycler).asInstanceOf[RecyclerView];
     val mLayoutManager: LayoutManager = new LinearLayoutManager(this)
@@ -39,7 +41,7 @@ class RejectedCallMessages extends AppCompatActivity with DragStart{
     a += "Sorry I’m In Class, Call you later"
     a += "I’m at a metting, can’t talk"
 
-    val mAdapter: RejectedCallAdapter = new RejectedCallAdapter(a,this)
+    val mAdapter: RejectedCallAdapter = new RejectedCallAdapter(a, this)
     mRecycler.setAdapter(mAdapter)
 
     val itemDragCallback = new DragHelperCallback(mAdapter)
@@ -48,8 +50,17 @@ class RejectedCallMessages extends AppCompatActivity with DragStart{
     itemDrag.attachToRecyclerView(mRecycler)
   }
 
-  def onDragStart(viewHolder : ViewHolder): Unit ={
+  def onDragStart(viewHolder: ViewHolder): Unit = {
     itemDrag.startDrag(viewHolder)
+  }
+
+  override def onOptionsItemSelected(item: MenuItem): Boolean = {
+    item.getItemId match {
+      case android.R.id.home => {
+        finish()
+        return true
+      }
+    }
   }
 
 }

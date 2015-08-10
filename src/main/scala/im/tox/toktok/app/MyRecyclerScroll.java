@@ -1,8 +1,6 @@
 package im.tox.toktok.app;
 
-/**
- * Created by andre on 7/22/15.
- */
+
 
 import android.support.v7.widget.RecyclerView;
 

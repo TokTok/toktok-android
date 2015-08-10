@@ -76,7 +76,7 @@ class CallActivity extends AppCompatActivity {
     val mRecycler: RecyclerView = findViewById(R.id.call_ongoing_contacts).asInstanceOf[RecyclerView]
 
     val list: ListBuffer[Friend] = new ListBuffer[Friend]
-    list += new Friend(friendTitle, "Trying the TokTok", 0, Color.parseColor("#DC4254"), Color.parseColor("#7D2530"), friendImgSRC)
+    list += new Friend(-1,friendTitle, "Trying the TokTok", 0, Color.parseColor("#DC4254"), Color.parseColor("#7D2530"), friendImgSRC)
 
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
     mRecycler.setLayoutManager(mLayoutManager)

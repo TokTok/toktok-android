@@ -29,7 +29,7 @@
         style="@style/BasicFloatingActionButton"
         android:layout_gravity="end|bottom"
         android:src="@drawable/ic_navigation_arrow_forward"
-        android:tint="@color/basicFABTint"
+        android:tint="@color/textDarkColor"
         app:backgroundTint="@color/basicFABColor" />
 
 </android.support.design.widget.CoordinatorLayout>

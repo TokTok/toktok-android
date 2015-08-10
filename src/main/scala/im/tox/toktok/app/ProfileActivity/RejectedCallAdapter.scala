@@ -44,7 +44,6 @@ class RejectedCallAdapter(list: ListBuffer[String],dragStart: DragStart) extends
   }
 
   def onItemMove(originalPosition: Int, newPosition: Int) {
-    Log.d("asd","asd")
     val originalItem = items(originalPosition)
     items(originalPosition) = items(newPosition)
     items(newPosition) = originalItem
@@ -79,7 +78,6 @@ class DragHelperCallback(adapter: RejectedCallAdapter) extends ItemTouchHelper.C
   }
 
   override def onMove(recyclerView: RecyclerView, viewHolder: ViewHolder, target: ViewHolder): Boolean = {
-    Log.d("asd","asdasd")
     adapter.onItemMove(viewHolder.getAdapterPosition, target.getAdapterPosition)
     return true
   }

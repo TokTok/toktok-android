@@ -2,41 +2,49 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     android:orientation="horizontal"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp">
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
 
     <ImageView
-        android:layout_centerVertical="true"
         android:id="@+id/reject_item_move"
-        android:layout_alignParentLeft="true"
-        android:backgroundTint="#7D7D7D"
-        android:background="@drawable/ic_navigation_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_centerVertical="true"
-        android:id="@+id/reject_item_message"
-        android:ellipsize="end"
-        android:layout_toRightOf="@id/reject_item_move"
-        android:lines="1"
-        android:textSize="16sp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:layout_alignParentLeft="true"
+        android:padding="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_centerVertical="true"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:src="@drawable/ic_navigation_menu"
+        android:tint="#7D7D7D" />
+
+    <TextView
+        android:id="@+id/reject_item_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="50dp"
+        android:layout_toRightOf="@id/reject_item_move"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="1"
+        android:textColor="@color/textDarkColor"
+        android:textSize="16sp" />
 
     <ImageView
-        android:layout_centerVertical="true"
         android:id="@+id/reject_item_message_delete"
-        android:backgroundTint="#7D7D7D"
+        android:layout_width="wrap_content"
+        android:padding="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:background="@drawable/ic_action_delete"
-        android:layout_width="24dp"
-        android:layout_height="24dp" />
+        android:layout_centerVertical="true"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:src="@drawable/ic_action_delete"
+        android:tint="#7D7D7D" />
 
 </RelativeLayout>

@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -43,6 +44,7 @@ public class SlideInContactsLayout extends ViewGroup {
     private TextView mTitle;
     private TextView mSettingsTitle;
     private android.support.v7.widget.Toolbar mToolbar;
+    private View mStatusBar;
 
     private RelativeLayout mEditNameButton;
 
@@ -58,6 +60,8 @@ public class SlideInContactsLayout extends ViewGroup {
     private TransitionDrawable backgroundTransition;
     private TextView mVoiceCall;
     private TextView mVideoCall;
+
+    private float scrollTop = 0;
 
     private Bundle bundle;
 
@@ -91,6 +95,8 @@ public class SlideInContactsLayout extends ViewGroup {
         mVoiceCall = (TextView) findViewById(R.id.contacts_item_voice_call);
         mVideoCall = (TextView) findViewById(R.id.contacts_item_video_call);
         mEditNameButton = (RelativeLayout) findViewById(R.id.contacts_edit_alias);
+        mStatusBar = findViewById(R.id.contacts_status_bar_color);
+        mStatusBar.getLayoutParams().height = getStatusBarHeight();
 
         super.onFinishInflate();
     }
@@ -171,34 +177,28 @@ public class SlideInContactsLayout extends ViewGroup {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
 
-
         if (scrollActive) {
             mDragHelper.cancel();
-            Log.d("asd", "Scrolling");
             return false;
         }
 
-        Log.d("asdasd", scrollActive + "");
-
-
-        final int action = MotionEventCompat.getActionMasked(ev);
-
-        final float y = ev.getY();
+        int action = MotionEventCompat.getActionMasked(ev);
+        float y = ev.getY();
 
         switch (action) {
             case MotionEvent.ACTION_DOWN: {
-                Log.d("asdasd", "DOWN");
-                mInitialMotionY = y;
-
+                Log.d("Asda", "Intercept Touch DOWN");
                 break;
             }
 
+            case MotionEvent.ACTION_MOVE: {
+                Log.d("Asda", "Intercept Touch MOVE");
+                break;
+            }
+            case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP: {
-                Log.d("asdasd", "UP");
-
-                return true;
-
-
+                Log.d("Asda", "Intercept Touch UP");
+                break;
             }
         }
 
@@ -219,54 +219,58 @@ public class SlideInContactsLayout extends ViewGroup {
 
     public boolean dispatchTouchEvent(MotionEvent ev) {
 
-        final int action = MotionEventCompat.getActionMasked(ev);
-
-        final float y = ev.getY();
-
-        if (action == MotionEvent.ACTION_DOWN) {
-            Log.d("asdasd", "DOWN - " + y);
-
-            mInitialMotionY = y;
-
-        } else if (action == MotionEvent.ACTION_MOVE) {
-            Log.d("asdasd", "MOVE - " + y + " - " + mTop);
+        int action = ev.getAction();
+        float y = ev.getY();
+        View v = findViewById(R.id.contacts_nested);
 
 
-            if (mTop == 0 && (y - mInitialMotionY) > 0) {
-                scrollActive = true;
-                Log.d("asdasd", "scrollActivated");
-            } else if (mTop == 0 && scrollActive) {
+        switch (action) {
 
-                if (mCoordinator.getScrollY() == 0 && (y - mInitialMotionY) < 0) {
-                    scrollActive = false;
-                    Log.d("asdasd", "scrollDeactivated");
-                }
-
+            case MotionEvent.ACTION_DOWN: {
+                mInitialMotionY = y;
+                break;
             }
 
+            case MotionEvent.ACTION_MOVE: {
 
-        } else if (action == MotionEvent.ACTION_UP && !scrollActive) {
+                float dy = mInitialMotionY - y;
 
-            Log.d("asdasd", "UP - " + y);
-
-            if (mDragOffset > 0.5f) {
-                finish();
-            } else {
-
-                if (y - mInitialMotionY > 0) {
-                    smoothSlideTo(0.5f);
+                break;
+            }
+            case MotionEvent.ACTION_UP: {
+                float dy = mInitialMotionY - y;
+                if (dy > 0) {
+                    if (mDragOffset < 0.5 && !scrollActive) {
+                        smoothSlideTo(0);
+                        scrollActive = true;
+                        mStatusBar.setVisibility(View.VISIBLE);
+                        mStatusBar.bringToFront();
+                        scrollTop = v.getBottom();
+                    }
                 } else {
-                    smoothSlideTo(0f);
+
+                    if (!scrollActive && Math.abs(dy) > 20 ) {
+
+                        if (mDragOffset > 0.5f) {
+                            finish();
+                        } else {
+                            smoothSlideTo(0.5f);
+                            mStatusBar.setVisibility(View.INVISIBLE);
+                        }
+
+                    }
+                    else{
+                        if(v.getBottom() >= (int)scrollTop){
+                            scrollActive = false;
+                        }
+                    }
                 }
             }
-
-        } else if (action == MotionEvent.ACTION_UP && scrollActive) {
-
-            mDragHelper.shouldInterceptTouchEvent(ev);
-
         }
 
+
         return super.dispatchTouchEvent(ev);
+
 
     }
 
@@ -312,7 +316,6 @@ public class SlideInContactsLayout extends ViewGroup {
         }, 500);
 
     }
-
 
     private class DragHelperCallback extends ViewDragHelper.Callback {
 
@@ -392,6 +395,7 @@ public class SlideInContactsLayout extends ViewGroup {
 
                 Intent newIntent = new Intent(activity, VideoCallActivity.class);
                 newIntent.putExtras(bundle);
+                activity.overridePendingTransition(R.anim.activity_fade_in,R.anim.activity_fade_out);
                 activity.startActivity(newIntent);
             }
         });

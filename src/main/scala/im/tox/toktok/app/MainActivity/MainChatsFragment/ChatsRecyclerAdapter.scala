@@ -67,8 +67,11 @@ class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject], chatItemClick: 
       view.mLastMessage.setText(item.getLastMessage())
       view.mColor.setBackgroundColor(item.getPrimaryColor())
 
-      if (item.isActive()) {
-        view.mSelectedBackground.setVisibility(View.VISIBLE)
+      if (isSelected(position)) {
+        view.mSelectedBackground.setVisibility(View.VISIBLE);
+      }
+      else {
+        view.mSelectedBackground.setVisibility(View.INVISIBLE);
       }
 
     }
@@ -223,6 +226,5 @@ class ChatsRecyclerViewHolderGroup(itemView: View, list: ListBuffer[ChatsMessage
 
 trait ChatItemClick {
   def onLongClick(i: Int): Boolean
-
   def onClick(i: Int): Boolean
 }

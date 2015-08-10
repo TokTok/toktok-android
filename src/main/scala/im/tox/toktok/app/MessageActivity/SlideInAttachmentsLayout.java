@@ -1,6 +1,8 @@
 package im.tox.toktok.app.MessageActivity;
 
 import android.content.Context;
+import android.graphics.drawable.TransitionDrawable;
+import android.os.Handler;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
@@ -18,16 +20,11 @@ public class SlideInAttachmentsLayout extends ViewGroup {
 
     private final ViewDragHelper mDragHelper;
     private View mChild;
-    private View mNested;
 
     private float mInitialMotionY;
     private int mDragRange;
     private int mTop;
-    private boolean scrollActive = false;
     private float mDragOffset;
-
-    private final int [] icons = {R.id.contacts_icon_call, R.id.contacts_icon_message, R.id.contacts_icon_image, R.id.contacts_icon_download, R.id.contacts_icon_palette, R.id.contacts_icon_edit, R.id.contacts_icon_trash, R.id.contacts_icon_lock};
-
 
     public SlideInAttachmentsLayout(Context context) {
         this(context, null);
@@ -46,13 +43,12 @@ public class SlideInAttachmentsLayout extends ViewGroup {
     protected void onFinishInflate() {
 
         mChild = findViewById(R.id.fragment_attachments);
-        mNested = findViewById(R.id.fragment_attachments_nested);
 
         super.onFinishInflate();
     }
 
     boolean smoothSlideTo(float slideOffset) {
-        final int topBound = getPaddingTop();
+        final int topBound = getHeight() - mChild.getHeight();
         int y = (int) (topBound + slideOffset * mDragRange);
 
         if (mDragHelper.smoothSlideViewTo(mChild, mChild.getLeft(), y)) {
@@ -71,13 +67,6 @@ public class SlideInAttachmentsLayout extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-
-
-        if (scrollActive) {
-            mDragHelper.cancel();
-            Log.d("asd", "Scrolling");
-            return false;
-        }
 
         final int action = MotionEventCompat.getActionMasked(ev);
 
@@ -115,6 +104,25 @@ public class SlideInAttachmentsLayout extends ViewGroup {
 
     }
 
+    public void start(){
+        setVisibility(View.VISIBLE);
+        smoothSlideTo(0f);
+    }
+
+    public void finish(){
+        smoothSlideTo(1f);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setVisibility(View.INVISIBLE);
+
+            }
+        }, 500);
+
+    }
+
+
     public boolean dispatchTouchEvent(MotionEvent ev) {
 
         final int action = MotionEventCompat.getActionMasked(ev);
@@ -122,57 +130,22 @@ public class SlideInAttachmentsLayout extends ViewGroup {
         final float y = ev.getY();
 
         if (action == MotionEvent.ACTION_DOWN) {
-            Log.d("asdasd", "DOWN - " + y);
-
             mInitialMotionY = y;
 
-        } else if (action == MotionEvent.ACTION_MOVE) {
-            Log.d("asdasd", "MOVE - " + y+" - "+ mInitialMotionY+" - "+scrollActive);
-
-
-            if(mTop == 0 && (y - mInitialMotionY) < 0){
-                scrollActive = true;
-                Log.d("asdsd","SCROLL ACTIVE");
-
+            if(y < getHeight()-mChild.getHeight()){
+                finish();
             }
 
-            else if(mTop == 0 && scrollActive){
+        } else if (action == MotionEvent.ACTION_UP) {
+            float dy = y - mInitialMotionY;
 
-                if(mNested.getScrollY() == 0 && (y - mInitialMotionY) > 0 ){
-                    scrollActive = false;
-                    Log.d("asdsd","SCROLL NOT ACTIVE");
-                }
-
+            if( dy > 0 && (dy/mChild.getHeight()) > 0.3){
+                finish();
             }
 
-            else if(mTop != 0 && scrollActive){
-                if (mDragOffset > 0.5f) {
-                    smoothSlideTo(1f);
-                    setVisibility(View.INVISIBLE);
-                } else {
-                    smoothSlideTo(0f);
-                }
-            }
-
-
-        }else if (action == MotionEvent.ACTION_UP && !scrollActive) {
-
-            Log.d("asdasd", "UP - " + y);
-
-            if (mDragOffset > 0.5f) {
-                smoothSlideTo(1f);
-                setVisibility(View.INVISIBLE);
-            } else {
+            else{
                 smoothSlideTo(0f);
             }
-
-        }
-
-
-        else if (action == MotionEvent.ACTION_UP && scrollActive) {
-
-            mDragHelper.shouldInterceptTouchEvent(ev);
-
         }
 
         return super.dispatchTouchEvent(ev);
@@ -193,15 +166,14 @@ public class SlideInAttachmentsLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        mDragRange = getHeight();
+        mDragRange = mChild.getHeight();
 
         if (changed) {
-            mTop = getHeight();
-            mChild.layout(0, getHeight(), r, mTop + mChild.getMeasuredHeight());
+            mTop = getHeight()-mChild.getHeight();
+            mChild.layout(0, getHeight()-mChild.getHeight(), r, getHeight());
         } else {
             mChild.layout(0, mTop, r, mTop + mChild.getMeasuredHeight());
         }
-
     }
 
 
@@ -235,8 +207,8 @@ public class SlideInAttachmentsLayout extends ViewGroup {
 
         @Override
         public int clampViewPositionVertical(View child, int top, int dy) {
-            final int topBound = getHeight()-mChild.getHeight();
-            final int bottomBound = getHeight();
+            final int topBound = getHeight() - mChild.getHeight();
+            final int bottomBound = getHeight()+mChild.getPaddingTop();
             return Math.min(Math.max(top, topBound), bottomBound);
         }
 

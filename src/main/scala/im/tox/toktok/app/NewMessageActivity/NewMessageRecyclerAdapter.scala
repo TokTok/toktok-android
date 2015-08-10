@@ -32,7 +32,7 @@ class NewMessageRecyclerAdapter(list: ListBuffer[Friend], clickListener: FriendA
     viewHolder.mUserName.setText(item.getUserName())
     viewHolder.mUserImage.setImageResource(item.getPhotoReference())
 
-    if (selectedItems.get(position, false) == true) {
+    if (selectedItems.get(item.getID(), false) == true) {
       val animation = new AlphaAnimation(1, 0.3F)
       animation.setDuration(0)
       animation.setFillAfter(true)
@@ -67,12 +67,12 @@ class NewMessageRecyclerAdapter(list: ListBuffer[Friend], clickListener: FriendA
 
   def selectItem(position: Int): Unit = {
 
-    if (selectedItems.get(position, false)) {
-      selectedItems.delete(position)
+    if (selectedItems.get(friends(position).getID(), false)) {
+      selectedItems.delete(friends(position).getID())
       selectedContacts -= friends(position)
     }
     else {
-      selectedItems.put(position, true)
+      selectedItems.put(friends(position).getID(), true)
       selectedContacts += friends(position)
     }
 
@@ -141,9 +141,7 @@ class FriendFilter(adapter: NewMessageRecyclerAdapter, friendsList: ListBuffer[F
       val trimmedString = constraint.toString.toLowerCase.trim
 
       for (a <- original) {
-        Log.d("asdasd","asdasd"+trimmedString)
         if (a.getUserName().toLowerCase.trim.contains(trimmedString)) {
-          Log.d("asdasd","found")
           filteredResults += a
         }
       }

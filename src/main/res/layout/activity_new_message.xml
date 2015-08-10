@@ -8,8 +8,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/new_message_app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/newMessage_toolbar"
@@ -21,15 +20,7 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/new_message_selected_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:animateLayoutChanges="true"
-            android:visibility="gone" />
+        <include layout="@layout/new_message_toolbar_friend"></include>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -41,11 +32,11 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true"
                 android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:descendantFocusability="beforeDescendants"
-                android:focusableInTouchMode="true"
                 android:paddingTop="10dp">
 
                 <ImageView
@@ -55,11 +46,10 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_action_search"
-                    android:tint="@color/textDarkColor" />
+                    android:tint="@color/textLightColor" />
 
                 <EditText
                     android:id="@+id/new_message_search_field"
-                    style="@style/Widget.AppCompat.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -84,7 +74,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-
         android:paddingTop="16dp"
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
@@ -94,10 +83,11 @@
         style="@style/BasicFloatingActionButton"
         android:layout_gravity="end|bottom"
         android:src="@drawable/ic_navigation_arrow_forward"
+        android:tint="@color/textDarkColor"
         android:visibility="gone"
-        app:layout_anchor="@id/new_message_recycler"
         app:backgroundTint="@color/basicFABColor"
-        app:layout_anchorGravity="bottom|right|end"
-        app:borderWidth="0dp" />
+        app:borderWidth="0dp"
+        app:layout_anchor="@id/new_message_recycler"
+        app:layout_anchorGravity="bottom|right|end" />
 
 </android.support.design.widget.CoordinatorLayout>

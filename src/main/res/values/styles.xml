@@ -13,6 +13,7 @@
         <item name="android:actionModeStyle">@style/ActionMode</item>
         <item name="android:actionModeCloseDrawable">@drawable/ic_action_navigation_arrow_back</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="android:colorEdgeEffect">@color/colorAccent</item>
     </style>
 
     <style name="ActionMode" parent="Widget.AppCompat.ActionMode">

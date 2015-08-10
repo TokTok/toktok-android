@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
+        android:tint="@color/textDarkColor"
         android:src="@drawable/ic_content_add_home"
         app:backgroundTint="#fafafa" />
 
