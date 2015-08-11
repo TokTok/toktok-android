@@ -9,6 +9,7 @@ import android.support.v4.view.{GravityCompat}
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.View.OnClickListener
 import android.view._
 import im.tox.toktok.R
@@ -93,6 +94,7 @@ class MainActivityFragment extends Fragment {
     mTabs = view.findViewById(R.id.home_tabs).asInstanceOf[TabLayout]
 
     mTabs.setupWithViewPager(mViewPaper)
+    Log.d("asdasd","asdasda")
 
     mViewPaper.setCurrentItem(1)
 

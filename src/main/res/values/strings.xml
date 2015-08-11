@@ -70,7 +70,7 @@
     <string name="dialog_qrcode">QrCode</string>
     <string name="dialog_android_share">Android Share</string>
     <string name="dialog_status_online">Online</string>
-    <string name="dialog_status_away">Invisible</string>
+    <string name="dialog_status_away">Away</string>
     <string name="dialog_status_busy">Busy</string>
 
 

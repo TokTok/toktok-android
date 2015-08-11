@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cardboard_ripple"
-                android:text="Change your status" />
+                android:text="Change your status message" />
 
 
             <View
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/cardboard_ripple"
-                android:text="Change your message status" />
+                android:text="Change your status"/>
 
 
             <View

@@ -26,8 +26,6 @@ class ProfileActivity extends Fragment {
     super.onCreate(savedState)
     val view: View = inflater.inflate(R.layout.activity_profile, container, false)
 
-    getActivity.getWindow().setStatusBarColor(Color.parseColor("#2b000000"));
-
     view.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT))
 
     initToolbar(view)
