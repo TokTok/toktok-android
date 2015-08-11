@@ -31,7 +31,8 @@
                 android:layout_marginBottom="24dp"
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/textWhiteColor"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:gravity="center" />
 
             <EditText
                 android:textSize="18dp"

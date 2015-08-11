@@ -90,8 +90,10 @@ class NewMessageRecyclerAdapter(list: ListBuffer[Friend], clickListener: FriendA
 
   def clearSelectedList(): Unit = {
 
-    selectItem(selectedItems.keyAt(0))
     selectedItems.clear()
+    selectedContacts.clear()
+
+    notifyDataSetChanged()
 
   }
 

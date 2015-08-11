@@ -11,10 +11,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View.OnClickListener
 import android.view.ViewGroup.LayoutParams
-import android.view.{LayoutInflater, View, ViewGroup}
+import android.view.{MenuItem, LayoutInflater, View, ViewGroup}
 import android.widget.{RelativeLayout, TextView}
 import im.tox.toktok.R
-import im.tox.toktok.app.SimpleDialogs.{SimpleShareDialogDesign, SimpleStatusDialogDesign, SimpleTextDialogDesign}
+import im.tox.toktok.app.SimpleDialogs.{SimpleAddFriendDialogDesign, SimpleShareDialogDesign, SimpleStatusDialogDesign, SimpleTextDialogDesign}
 
 class ProfileActivity extends Fragment {
 

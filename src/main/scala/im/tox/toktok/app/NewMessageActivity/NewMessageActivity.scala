@@ -96,6 +96,7 @@ class NewMessageActivity extends AppCompatActivity {
           }
           else if (selectedFriends == 1) {
 
+            mSelectedMini = null
             mSelectedFriendsCounter.setText("")
             mSelectedFriendsCounter = null
 
@@ -262,7 +263,6 @@ class NewMessageActivity extends AppCompatActivity {
   def destroySelectedContactsMini(): Unit = {
     mSelectedMini.setVisibility(View.GONE)
     mSelectedMini.setText("")
-    mSelectedMini = null
     mSelectedMiniExtended = false
   }
 

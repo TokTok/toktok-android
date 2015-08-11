@@ -30,6 +30,7 @@
                 android:layout_marginBottom="32dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/dialog_share"
+                android:gravity="center"
                 android:textColor="@color/textWhiteColor"
                 android:textSize="20sp" />
 
