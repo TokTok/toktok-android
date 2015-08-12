@@ -1,6 +1,7 @@
 package im.tox.toktok.app.MainActivity
 
-import android.content.Intent
+import android.content.{Context, Intent}
+import android.graphics.{PixelFormat, Color}
 import android.os.Bundle
 import android.support.design.widget.{FloatingActionButton, TabLayout}
 import android.support.v4.app.Fragment
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View.OnClickListener
+import android.view.ViewGroup.LayoutParams
 import android.view._
 import im.tox.toktok.R
 import im.tox.toktok.app.CustomViewPager
@@ -94,15 +96,17 @@ class MainActivityFragment extends Fragment {
     mTabs = view.findViewById(R.id.home_tabs).asInstanceOf[TabLayout]
 
     mTabs.setupWithViewPager(mViewPaper)
-    Log.d("asdasd","asdasda")
-
     mViewPaper.setCurrentItem(1)
 
   }
 
+
   def initToolbar(view: View): Unit = {
 
     mToolbar = view.findViewById(R.id.home_toolbar).asInstanceOf[Toolbar]
+
+    getActivity.getWindow().setStatusBarColor(getResources.getColor(R.color.homeColorStatusBar));
+
 
     mToolbar.setNavigationOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
@@ -140,9 +144,19 @@ class MainActivityFragment extends Fragment {
         return true
       }
 
-      case action_add_friend => {
+      case R.id.action_add_friend => {
         val dial = new SimpleAddFriendDialogDesign(getActivity, null)
         dial.show()
+        return true
+      }
+
+      case R.id.action_search => {
+        val searchLayout = getActivity.getLayoutInflater.inflate(R.layout.home_search, null)
+        val params = new WindowManager.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS , PixelFormat.TRANSLUCENT)
+        val window = getActivity.getSystemService(Context.WINDOW_SERVICE).asInstanceOf[WindowManager]
+
+        window.addView(searchLayout, params)
+
         return true
       }
 

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{LinearLayoutManager, RecyclerView}
+import android.util.Log
 import android.view.View.OnClickListener
 import android.view.ViewGroup.LayoutParams
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
@@ -14,6 +15,7 @@ import android.view.animation.Animation.AnimationListener
 import android.view.animation.{Animation, AnimationUtils}
 import android.view.{Display, View}
 import android.widget._
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
 import im.tox.toktok.app.Friend
@@ -240,6 +242,15 @@ class CallActivity extends AppCompatActivity {
           override def onAnimationRepeat(animation: Animation): Unit = {}
         })
         mCallAnswer.startAnimation(animation)
+      }
+    })
+
+
+    val bottomTextBar = findViewById(R.id.call_message_bottom_bar).asInstanceOf[TextView]
+
+    bottomTextBar.setOnClickListener(new OnClickListener {
+      override def onClick(v: View): Unit = {
+        Log.d("asdasd","asda")
       }
     })
 

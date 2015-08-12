@@ -9,12 +9,14 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView.LayoutManager
 import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
 import android.text._
-import android.text.style.ImageSpan
+import android.text.method.LinkMovementMethod
+import android.text.style.{ClickableSpan, ImageSpan}
+import android.util.Log
 import android.view.View.{MeasureSpec, OnClickListener}
 import android.view.ViewGroup.LayoutParams
 import android.view._
 import android.view.animation.{AccelerateInterpolator, Animation, DecelerateInterpolator, Transformation}
-import android.widget.{LinearLayout, EditText, ImageButton, TextView}
+import android.widget.{EditText, ImageButton, LinearLayout, TextView}
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
@@ -81,42 +83,8 @@ class NewMessageActivity extends AppCompatActivity {
       override def onClickListener(position: Int): Unit = {
 
         mFriends_Recycler_Adapter.selectItem(position)
+        selectItem(position)
 
-        if (mSelectedFriends.getVisibility == View.GONE) {
-          initFirstSelectedContacts(mFriends_Recycler_Adapter)
-        }
-        else {
-
-          val selectedFriends = mFriends_Recycler_Adapter.countSelected()
-
-          if (selectedFriends == 0) {
-
-            destroySelectedContacts()
-
-          }
-          else if (selectedFriends == 1) {
-
-            mSelectedMini = null
-            mSelectedFriendsCounter.setText("")
-            mSelectedFriendsCounter = null
-
-            setOneSelectedContact(mFriends_Recycler_Adapter)
-
-          }
-          else {
-
-            setMultiSelectedContact(mFriends_Recycler_Adapter, selectedFriends)
-            mSelectedMini = findViewById(R.id.new_message_toolbar_mini).asInstanceOf[TextView]
-
-            val friend = mFriends_Recycler_Adapter.getItem(position)
-
-            if (mSelectedMiniExtended) {
-
-              createMiniContact(mFriends_Recycler_Adapter)
-
-            }
-          }
-        }
       }
     })
 
@@ -207,7 +175,7 @@ class NewMessageActivity extends AppCompatActivity {
         if (time == 1) {
           mSelectedFriends.getLayoutParams.height = LayoutParams.MATCH_PARENT
         }
-        else{
+        else {
           mSelectedFriends.getLayoutParams.height = (time * height).toInt
         }
         mSelectedFriends.requestLayout()
@@ -225,7 +193,7 @@ class NewMessageActivity extends AppCompatActivity {
 
     mFab.show()
 
-    inAnimation.setDuration(4*(height/mSelectedFriends.getContext.getResources.getDisplayMetrics.density).toInt)
+    inAnimation.setDuration(4 * (height / mSelectedFriends.getContext.getResources.getDisplayMetrics.density).toInt)
     mSelectedFriends.startAnimation(inAnimation)
 
   }
@@ -239,7 +207,7 @@ class NewMessageActivity extends AppCompatActivity {
         if (time == 1) {
           mSelectedFriends.setVisibility(View.GONE)
         }
-        else{
+        else {
           mSelectedFriends.getLayoutParams.height = height - (time * height).toInt
           mSelectedFriends.requestLayout()
         }
@@ -251,11 +219,10 @@ class NewMessageActivity extends AppCompatActivity {
 
     }
 
-    outAnimation.setDuration(4*(height/mSelectedFriends.getContext.getResources.getDisplayMetrics.density).toInt)
+    outAnimation.setDuration(4 * (height / mSelectedFriends.getContext.getResources.getDisplayMetrics.density).toInt)
     mSelectedFriends.startAnimation(outAnimation)
 
     mFab.hide()
-
 
 
   }
@@ -328,6 +295,25 @@ class NewMessageActivity extends AppCompatActivity {
 
       sb.append(friend.getUserName() + " ");
       sb.setSpan(new ImageSpan(bd), sb.length() - (friend.getUserName().length() + 1), sb.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      mSelectedMini.setMovementMethod(LinkMovementMethod.getInstance())
+      sb.setSpan(new ClickableSpan {
+        override def onClick(widget: View): Unit = {
+
+          val items = adapter.getItems()
+
+          var item : Friend = null;
+          var i : Int = 0
+
+          for(item <- items){
+            if(item.getID() == friend.getID()){
+              adapter.selectItem(i)
+              selectItem(i)
+            }
+            i += 1
+          }
+
+        }
+      }, sb.length() - (friend.getUserName().length() + 1), sb.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
       friendsList = TextUtils.concat(friendsList, sb)
 
@@ -359,11 +345,49 @@ class NewMessageActivity extends AppCompatActivity {
 
   }
 
-  def createContactTextView(text: String): TextView = {
-    val tv = getLayoutInflater.inflate(R.layout.new_message_toolbar_friend_mini, null).asInstanceOf[TextView]
-    tv.setText(text);
+  def createContactTextView(text: String): LinearLayout = {
+    val tv = getLayoutInflater.inflate(R.layout.new_message_toolbar_friend_mini, null).asInstanceOf[LinearLayout]
+    tv.getChildAt(0).asInstanceOf[TextView].setText(text);
 
     return tv;
+  }
+
+  def selectItem(position : Int): Unit ={
+    if (mSelectedFriends.getVisibility == View.GONE) {
+      initFirstSelectedContacts(mFriends_Recycler_Adapter)
+    }
+    else {
+
+      val selectedFriends = mFriends_Recycler_Adapter.countSelected()
+
+      if (selectedFriends == 0) {
+
+        destroySelectedContacts()
+
+      }
+      else if (selectedFriends == 1) {
+
+
+        mSelectedFriendsCounter.setText("")
+        mSelectedFriendsCounter = null
+
+        setOneSelectedContact(mFriends_Recycler_Adapter)
+
+      }
+      else {
+
+        setMultiSelectedContact(mFriends_Recycler_Adapter, selectedFriends)
+        mSelectedMini = findViewById(R.id.new_message_toolbar_mini).asInstanceOf[TextView]
+
+        val friend = mFriends_Recycler_Adapter.getItem(position)
+
+        if (mSelectedMiniExtended) {
+
+          createMiniContact(mFriends_Recycler_Adapter)
+
+        }
+      }
+    }
   }
 
 }

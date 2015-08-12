@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{LinearLayoutManager, RecyclerView}
-import android.util.TypedValue
+import android.util.{Log, TypedValue}
 import android.view.ViewGroup.LayoutParams
 import android.view.{LayoutInflater, View, ViewGroup, WindowManager}
 import android.widget.FrameLayout
@@ -46,7 +46,6 @@ class FriendsFragment extends Fragment with FriendItemClicks {
 
 
   def startOverLayFriend(friendPosition: Int): Unit = {
-
 
     val layout = getActivity.getLayoutInflater.inflate(R.layout.overlay_contacts, null).asInstanceOf[SlideInContactsLayout]
     val params = new WindowManager.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS , PixelFormat.TRANSLUCENT)

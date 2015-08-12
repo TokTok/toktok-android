@@ -26,6 +26,8 @@ class ProfileActivity extends Fragment {
     super.onCreate(savedState)
     val view: View = inflater.inflate(R.layout.activity_profile, container, false)
 
+    getActivity.getWindow().setStatusBarColor(Color.parseColor("#2b000000"));
+
     view.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT))
 
     initToolbar(view)
@@ -70,7 +72,7 @@ class ProfileActivity extends Fragment {
     mChangeStatus.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
 
-        val dial: SimpleStatusDialogDesign = new SimpleStatusDialogDesign(getActivity)
+        val dial: SimpleStatusDialogDesign = new SimpleStatusDialogDesign(getActivity,0)
         dial.show()
 
       }

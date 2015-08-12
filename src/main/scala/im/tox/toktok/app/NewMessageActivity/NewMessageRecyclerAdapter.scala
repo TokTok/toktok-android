@@ -97,6 +97,13 @@ class NewMessageRecyclerAdapter(list: ListBuffer[Friend], clickListener: FriendA
 
   }
 
+
+  def getItems():ListBuffer[Friend] ={
+    return friends
+
+  }
+
+
   def getSelectedFriends(): ListBuffer[Friend] = {
     return selectedContacts
   }

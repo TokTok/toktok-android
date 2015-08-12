@@ -137,11 +137,14 @@ public class SlideInAttachmentsLayout extends ViewGroup {
             }
 
         } else if (action == MotionEvent.ACTION_UP) {
+
+
             float dy = y - mInitialMotionY;
 
-            if( dy > 0 && (dy/mChild.getHeight()) > 0.3){
+            if( (dy > 0 && (dy/mChild.getHeight()) > 0.3) || dy == 0){
                 finish();
             }
+
 
             else{
                 smoothSlideTo(0f);

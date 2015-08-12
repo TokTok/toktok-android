@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:sothree="http://schemas.android.com/apk/res-auto"
         android:id="@+id/sliding_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
+        sothree:umanoDragView="@+id/top"
         sothree:umanoPanelHeight="32dp"
         sothree:umanoShadowHeight="0dp">
 
@@ -19,28 +20,31 @@
 
             <im.tox.toktok.app.CallActivity.CallSliderAnswer
                 android:id="@+id/call_answer"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:layout_centerVertical="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp" />
 
             <im.tox.toktok.app.CallActivity.CallSliderDecline
                 android:id="@+id/call_decline"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:layout_centerVertical="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp" />
 
         </RelativeLayout>
 
 
         <RelativeLayout
+            android:id="@id/top"
             android:layout_width="match_parent"
+            android:clickable="true"
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/call_message_bottom_bar"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:background="#20000000"
@@ -49,25 +53,25 @@
                 android:textColor="@color/textWhiteColor" />
 
             <android.support.v7.widget.RecyclerView
-                android:paddingTop="32dp"
-                android:overScrollMode="never"
                 android:id="@+id/call_messages_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="48dp" />
+                android:overScrollMode="never"
+                android:paddingBottom="48dp"
+                android:paddingTop="32dp" />
 
             <EditText
-                android:layout_alignParentBottom="true"
                 android:id="@+id/call_message_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:background="#ffffff"
                 android:fontFamily="sans-serif-light"
-                android:paddingTop="10dp"
+                android:maxLines="3"
                 android:paddingBottom="10dp"
                 android:paddingLeft="30dp"
-                android:maxLines="3"
                 android:paddingRight="30dp"
+                android:paddingTop="10dp"
                 android:textSize="16sp" />
 
         </RelativeLayout>

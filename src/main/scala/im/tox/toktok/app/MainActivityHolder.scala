@@ -1,7 +1,7 @@
 package im.tox.toktok.app
 
 import android.os.Bundle
-import android.support.v4.app.{Fragment, FragmentTransaction}
+import android.support.v4.app.{FragmentManager, Fragment, FragmentTransaction}
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -43,8 +43,8 @@ class MainActivityHolder extends AppCompatActivity {
           val profileFragment: ProfileActivity = new ProfileActivity
 
           val trans: FragmentTransaction = getSupportFragmentManager.beginTransaction()
-          trans.replace(R.id.home_frame, profileFragment)
-          trans.addToBackStack(null)
+          trans.replace(R.id.home_frame, profileFragment,"Profile")
+          trans.addToBackStack("Activity")
           trans.commit()
           changeTab(v)
         }
@@ -58,10 +58,9 @@ class MainActivityHolder extends AppCompatActivity {
       override def onClick(v: View): Unit = {
         if (v != activeTab) {
           val fragment: Fragment = new MainActivityFragment
-
           val trans: FragmentTransaction = getSupportFragmentManager.beginTransaction()
-          trans.replace(R.id.home_frame, fragment)
-          trans.addToBackStack(null)
+          trans.replace(R.id.home_frame, fragment,"Chats")
+          trans.addToBackStack("")
           trans.commit()
           changeTab(v)
         }
@@ -78,9 +77,7 @@ class MainActivityHolder extends AppCompatActivity {
       activeTab.setBackgroundResource(R.color.drawerBackgroundSelected)
       findViewById(R.id.home_layout).asInstanceOf[DrawerLayout].closeDrawers()
 
-
     }
-
   }
 
   def setActiveActivity(contact : SlideInContactsLayout): Unit ={
@@ -93,5 +90,10 @@ class MainActivityHolder extends AppCompatActivity {
       activeContacts = null
     }
 
+    if(getSupportFragmentManager.findFragmentByTag("Profile") != null){
+      getSupportFragmentManager.popBackStack("Activity",FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
+
   }
+
 }

@@ -1,16 +1,16 @@
 package im.tox.toktok.app.MessageActivity
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
+import android.view.View.OnClickListener
 import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.TextView
 import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
-import im.tox.toktok.app.Message
+import im.tox.toktok.app.{Friend, Message}
 
 import scala.collection.mutable.ListBuffer
 
-class MessageAdapter(list: ListBuffer[Message]) extends RecyclerView.Adapter[RecyclerView.ViewHolder] {
+class MessageAdapter(list: ListBuffer[Message], messageClick: MessageClick) extends RecyclerView.Adapter[RecyclerView.ViewHolder] {
 
   val items: ListBuffer[Message] = list
 
@@ -50,6 +50,21 @@ class MessageAdapter(list: ListBuffer[Message]) extends RecyclerView.Adapter[Rec
       view.mUserText.setText(item.getMsgContent())
       view.mUserDetais.setText(item.getMsgDetails())
       view.mUserImg.setImageResource(item.getImageSrc())
+      view.mUserImg.setOnClickListener(new OnClickListener {
+        override def onClick(v: View): Unit = {
+          messageClick.onImgClick()
+        }
+      })
+
+    }
+
+    else if (getItemViewType(position) == 2) {
+
+      val view: MessageViewHolderSimple = viewHolder.asInstanceOf[MessageViewHolderSimple]
+
+      view.mUserText.setText(item.getMsgContent())
+      view.mUserDetais.setText(item.getMsgDetails())
+      view.mUserImg.setImageResource(item.getImageSrc())
 
     }
 
@@ -58,6 +73,11 @@ class MessageAdapter(list: ListBuffer[Message]) extends RecyclerView.Adapter[Rec
       val view: MessageViewHolderAction = viewHolder.asInstanceOf[MessageViewHolderAction]
       view.mUserText.setText(item.getMsgContent())
       view.mUserImg.setImageResource(item.getImageSrc())
+      view.mUserImg.setOnClickListener(new OnClickListener {
+        override def onClick(v: View): Unit = {
+          messageClick.onImgClick()
+        }
+      })
 
     }
 
@@ -69,7 +89,7 @@ class MessageAdapter(list: ListBuffer[Message]) extends RecyclerView.Adapter[Rec
 
 
   def addItem(newMsg: Message): Unit = {
-    items.insert(0,newMsg)
+    items.insert(0, newMsg)
     notifyItemInserted(0)
   }
 
@@ -89,5 +109,8 @@ class MessageViewHolderAction(itemView: View) extends RecyclerView.ViewHolder(it
   var mUserText: TextView = itemView.findViewById(R.id.message_item_text).asInstanceOf[TextView]
   var mUserImg: CircleImageView = itemView.findViewById(R.id.message_item_img).asInstanceOf[CircleImageView]
 
+}
 
+trait MessageClick {
+  def onImgClick()
 }

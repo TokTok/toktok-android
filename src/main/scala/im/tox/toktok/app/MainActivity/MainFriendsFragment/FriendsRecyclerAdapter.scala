@@ -12,7 +12,7 @@ import im.tox.toktok.app.Friend
 
 import scala.collection.mutable.ListBuffer
 
-class FriendsRecyclerAdapter(list: ListBuffer[Friend], photoOnClick: FriendItemClicks) extends RecyclerView.Adapter[FriendsRecyclerViewHolder] {
+class FriendsRecyclerAdapter(list: ListBuffer[Friend], expandOnClick: FriendItemClicks) extends RecyclerView.Adapter[FriendsRecyclerViewHolder] {
 
   private val items: ListBuffer[Friend] = list
   private var expandedItem: Int = -1;
@@ -42,7 +42,7 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend], photoOnClick: FriendItemC
 
         }
       }
-    }, photoOnClick)
+    })
   }
 
   def onBindViewHolder(viewHolder: FriendsRecyclerViewHolder, position: Int) = {
@@ -57,6 +57,17 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend], photoOnClick: FriendItemC
       viewHolder.mBase.setBackgroundResource(R.drawable.cardboard_ripple)
       viewHolder.mUserImage.setClickable(true)
 
+      viewHolder.mUserImage.setOnClickListener(new OnClickListener {
+        override def onClick(v: View): Unit = {
+          expandOnClick.startOverLayFriend(position)
+        }
+      })
+
+      viewHolder.mCallButton.setOnClickListener(new OnClickListener {
+        override def onClick(v: View): Unit = {
+          expandOnClick.startCall(position)
+        }
+      })
 
       viewHolder.mMessageButton.setOnClickListener(new OnClickListener {
         override def onClick(v: View): Unit = {
@@ -70,9 +81,6 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend], photoOnClick: FriendItemC
       viewHolder.mExpandedArea.setVisibility(View.GONE)
       viewHolder.mBase.setElevation(0)
       viewHolder.mBase.setBackgroundResource(R.drawable.background_ripple)
-
-      viewHolder.mCallButton.setOnClickListener(null)
-      viewHolder.mMessageButton.setOnClickListener(null)
 
       viewHolder.mCallButton.setOnClickListener(null)
       viewHolder.mMessageButton.setOnClickListener(null)
@@ -98,7 +106,7 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend], photoOnClick: FriendItemC
 
 }
 
-class FriendsRecyclerViewHolder(itemView: View, itemOnClick: FriendItemExpand, friendItemClick: FriendItemClicks) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener {
+class FriendsRecyclerViewHolder(itemView: View, itemOnClick: FriendItemExpand) extends RecyclerView.ViewHolder(itemView) with View.OnClickListener {
 
   var mBase: RelativeLayout = itemView.findViewById(R.id.home_friends_base).asInstanceOf[RelativeLayout]
   var mUserInfo: RelativeLayout = itemView.findViewById(R.id.home_item_info).asInstanceOf[RelativeLayout]
@@ -117,21 +125,6 @@ class FriendsRecyclerViewHolder(itemView: View, itemOnClick: FriendItemExpand, f
     onClickListener.onClick()
 
   }
-
-  mUserImage.setOnClickListener(new OnClickListener {
-    override def onClick(v: View): Unit = {
-
-      friendItemClick.startOverLayFriend(getLayoutPosition)
-
-    }
-  })
-
-  mCallButton.setOnClickListener(new OnClickListener {
-    override def onClick(v: View): Unit = {
-      friendItemClick.startCall(getLayoutPosition)
-    }
-  })
-  
 }
 
 trait FriendItemExpand{

@@ -3,7 +3,7 @@ package im.tox.toktok.app.MainActivity.MainChatsFragment
 import android.content.{Context, Intent}
 import android.os.Bundle
 import android.support.v7.widget.{CardView, RecyclerView}
-import android.util.SparseBooleanArray
+import android.util.{Log, SparseBooleanArray}
 import android.view.{LayoutInflater, View, ViewGroup}
 import android.widget.TextView
 import de.hdodenhof.circleimageview.CircleImageView
@@ -125,6 +125,21 @@ class ChatsRecyclerAdapter(list: ListBuffer[ChatsMessageObject], chatItemClick: 
     }
 
     return selectedList
+
+  }
+
+  def deleteSelected(): Unit ={
+
+    var a : Int = 0
+
+    for ( a <- (items.size-1) to 0 by -1){
+      if(selectedItems.get(a)){
+        items.remove(a)
+        notifyItemRemoved(a)
+      }
+    }
+
+    selectedItems.clear()
 
   }
 

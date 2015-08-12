@@ -36,7 +36,7 @@ class MessageGroupContacts extends AppCompatActivity with FriendItemClicks {
     colorStatus = bundle.getInt("colorPrimaryStatus")
 
     val mToolbar: Toolbar = findViewById(R.id.message_group_members_toolbar).asInstanceOf[Toolbar]
-    mToolbar.setTitle("Contacts list")
+    mToolbar.setTitle(getResources.getString(R.string.message_group_contacts))
     mToolbar.setBackgroundColor(colorPrimary)
     getWindow.setStatusBarColor(colorStatus)
 

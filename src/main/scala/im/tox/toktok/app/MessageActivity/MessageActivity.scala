@@ -24,7 +24,7 @@ import im.tox.toktok.app.{Friend, MainActivityHolder, Message, SizeAnimation}
 
 import scala.collection.mutable.ListBuffer
 
-class MessageActivity extends AppCompatActivity {
+class MessageActivity extends AppCompatActivity with MessageClick {
 
   var mMenu: Menu = null
   var mToolbar: Toolbar = null
@@ -153,6 +153,18 @@ class MessageActivity extends AppCompatActivity {
     else {
 
       header.addView(getLayoutInflater.inflate(R.layout.message_header_group, null, true), params)
+      header.setOnClickListener(new OnClickListener {
+        override def onClick(v: View): Unit = {
+
+          val contactListIntent: Intent = new Intent(MessageActivity.this, classOf[MessageGroupContacts])
+          val bundle: Bundle = new Bundle()
+          bundle.putInt("colorPrimary", contactColorPrimary)
+          bundle.putInt("colorPrimaryStatus", contactColorStatus)
+          contactListIntent.putExtras(bundle)
+          startActivity(contactListIntent)
+
+        }
+      })
 
     }
 
@@ -181,7 +193,7 @@ class MessageActivity extends AppCompatActivity {
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
     mLayoutManager.setReverseLayout(true)
     mRecycler.setHasFixedSize(true)
-    mRecyclerAdapter = new MessageAdapter(list)
+    mRecyclerAdapter = new MessageAdapter(list,this)
 
     mRecycler.setAdapter(mRecyclerAdapter)
     mRecycler.setLayoutManager(mLayoutManager)
@@ -305,6 +317,11 @@ class MessageActivity extends AppCompatActivity {
     mSendButtonActive = false
 
   }
+
+  def onImgClick(): Unit ={
+    startOverLayFriend()
+  }
+
 
   def startOverLayFriend(): Unit = {
 

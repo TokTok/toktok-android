@@ -1,15 +1,18 @@
 package im.tox.toktok.app.MainActivity.MainChatsFragment
 
+import android.content.Intent
 import android.content.res.ColorStateList
-import android.os.Bundle
+import android.os.{Handler, Bundle}
 import android.support.design.widget.{TabLayout, AppBarLayout, FloatingActionButton}
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.ActionMode
-import android.support.v7.widget.{LinearLayoutManager, RecyclerView, Toolbar}
+import android.support.v7.widget.{DefaultItemAnimator, LinearLayoutManager, RecyclerView, Toolbar}
+import android.view.View.OnClickListener
 import android.view._
 import android.view.animation.{AccelerateInterpolator, DecelerateInterpolator}
 import im.tox.toktok.R
+import im.tox.toktok.app.NewMessageActivity.NewMessageActivity
 import im.tox.toktok.app.{CustomViewPager, ChatsMessageObject, Friend, MyRecyclerScroll}
 
 import scala.collection.mutable.ListBuffer
@@ -39,7 +42,7 @@ class ChatsFragment extends Fragment with ChatItemClick {
     mChats_Recycler_Adapter = new ChatsRecyclerAdapter(a, this)
 
     mChats_Recycler.setAdapter(mChats_Recycler_Adapter)
-
+    mChats_Recycler.setItemAnimator(new DefaultItemAnimator)
     mChats_Recycler.addOnScrollListener(new MyRecyclerScroll {
 
       override def hide(): Unit = {
@@ -122,6 +125,12 @@ class ChatsFragment extends Fragment with ChatItemClick {
       mFab.setBackgroundTintList(ColorStateList.valueOf(getResources.getColor(R.color.basicFABColor)))
       mFab.setImageTintList(ColorStateList.valueOf(getResources.getColor(R.color.basicFABTint)))
 
+      mFab.setOnClickListener(new OnClickListener {
+        override def onClick(view: View): Unit = {
+          startActivity(new Intent(getActivity, classOf[NewMessageActivity]))
+        }
+      })
+
       mCustomViewPager.setSwipingEnabled(true)
 
       mChats_Recycler_Adapter.clearSelections()
@@ -144,6 +153,20 @@ class ChatsFragment extends Fragment with ChatItemClick {
 
       mCustomViewPager = getActivity.findViewById(R.id.home_tab_holder).asInstanceOf[CustomViewPager]
       mCustomViewPager.setSwipingEnabled(false)
+
+
+      mFab.setOnClickListener(new OnClickListener {
+        override def onClick(v: View): Unit = {
+          mChats_Recycler_Adapter.deleteSelected()
+
+          new Handler().postDelayed(new Runnable {
+            override def run(): Unit = {
+              mode.finish()
+            }
+          },500)
+
+        }
+      })
 
       return true
 

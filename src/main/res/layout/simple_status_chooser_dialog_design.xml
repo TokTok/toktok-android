@@ -36,14 +36,19 @@
 
 
             <LinearLayout
+                android:id="@+id/simple_dialog_status_online"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:paddingBottom="@dimen/abc_button_padding_vertical_material"
-                android:paddingLeft="24dp"
-                android:paddingTop="@dimen/abc_button_padding_vertical_material">
+                android:clickable="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/status_background"
+                android:backgroundTint="@color/contactsTransparentBar"
+                android:layout_marginTop="4dp"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                >
 
                 <ImageView
                     style="@style/CircleUserStatus"
@@ -64,42 +69,18 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/simple_dialog_status_away"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:paddingBottom="@dimen/abc_button_padding_vertical_material"
-                android:paddingLeft="24dp"
-                android:paddingTop="@dimen/abc_button_padding_vertical_material">
-
-                <ImageView
-                    style="@style/CircleUserStatus"
-                    android:layout_gravity="center"
-                    android:src="@drawable/status_circle"
-                    android:tint="@color/statusBusy" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="sans-serif-light"
-                    android:text="@string/dialog_status_busy"
-                    android:textColor="@color/textWhiteColor"
-                    android:textSize="16sp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:paddingBottom="@dimen/abc_button_padding_vertical_material"
-                android:paddingLeft="24dp"
-                android:paddingTop="@dimen/abc_button_padding_vertical_material">
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:clickable="true"
+                android:background="@drawable/status_background"
+                android:backgroundTint="@color/contactsTransparentBar"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp">
 
                 <ImageView
                     style="@style/CircleUserStatus"
@@ -113,6 +94,38 @@
                     android:layout_gravity="center"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/dialog_status_away"
+                    android:textColor="@color/textWhiteColor"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/simple_dialog_status_busy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:clickable="true"
+                android:background="@drawable/status_background"
+                android:backgroundTint="@color/contactsTransparentBar"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp">
+
+                <ImageView
+                    style="@style/CircleUserStatus"
+                    android:layout_gravity="center"
+                    android:src="@drawable/status_circle"
+                    android:tint="@color/statusBusy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/dialog_status_busy"
                     android:textColor="@color/textWhiteColor"
                     android:textSize="16sp" />
 
