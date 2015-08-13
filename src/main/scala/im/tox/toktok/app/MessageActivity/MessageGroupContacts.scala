@@ -121,4 +121,21 @@ class MessageGroupContacts extends AppCompatActivity with FriendItemClicks {
 
   }
 
+  def startMessage(friendPosition: Int): Unit = {
+
+    val friend  = adapter.getItem(friendPosition)
+
+    val bundle = new Bundle
+    bundle.putString("messageTitle", friend.getUserName)
+    bundle.putInt("contactColorPrimary", friend.getColor)
+    bundle.putInt("contactColorStatus", friend.getSecondColor)
+    bundle.putInt("imgResource", friend.getPhotoReference)
+    bundle.putInt("messageType", 0)
+
+
+    val newIntent: Intent = new Intent(this, classOf[MessageActivity])
+    newIntent.putExtras(bundle)
+    startActivity(newIntent)
+  }
+
 }

@@ -1,14 +1,15 @@
 package im.tox.toktok.app
 
-import android.os.Bundle
+import android.os.{Handler, Bundle}
 import android.support.v4.app.{FragmentManager, Fragment, FragmentTransaction}
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.LinearLayout
 import im.tox.toktok.R
-import im.tox.toktok.app.MainActivity.MainActivityFragment
+import im.tox.toktok.app.MainActivity.{HomeSearch, MainActivityFragment}
 import im.tox.toktok.app.MainActivity.MainFriendsFragment.SlideInContactsLayout
 import im.tox.toktok.app.ProfileActivity.ProfileActivity
 
@@ -16,6 +17,7 @@ class MainActivityHolder extends AppCompatActivity {
 
   var activeTab: LinearLayout = null
   var activeContacts : SlideInContactsLayout = null
+  var activeSearch : HomeSearch = null
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -84,7 +86,14 @@ class MainActivityHolder extends AppCompatActivity {
     activeContacts = contact
   }
 
+  def setSearch(homeSearch: HomeSearch): Unit ={
+    activeSearch = homeSearch
+  }
+
   override def onBackPressed(): Unit ={
+
+    Log.d("asdasd","asdasda")
+
     if(activeContacts!= null){
       activeContacts.finish()
       activeContacts = null
@@ -92,6 +101,20 @@ class MainActivityHolder extends AppCompatActivity {
 
     if(getSupportFragmentManager.findFragmentByTag("Profile") != null){
       getSupportFragmentManager.popBackStack("Activity",FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
+
+    if(activeSearch != null){
+      activeSearch.finish()
+
+      new Handler().postDelayed(new Runnable() {
+        def run {
+          activeSearch.setVisibility(View.GONE)
+          getWindowManager.removeView(activeSearch)
+          activeSearch = null
+        }
+      }, 500)
+
+
     }
 
   }

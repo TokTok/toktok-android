@@ -27,7 +27,7 @@ class FileSendActivity extends AppCompatActivity {
     val bundle: Bundle = getIntent.getExtras
 
     colorPrimary = bundle.getInt("contactColorPrimary")
-    colorStatus = bundle.getInt("contactColorSecondary")
+    colorStatus = bundle.getInt("contactColorStatus")
     userName = bundle.getString("contactName")
 
     getWindow.setStatusBarColor(colorStatus)

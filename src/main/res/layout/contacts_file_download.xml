@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
+    android:id="@+id/contacts_file_download"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
@@ -8,7 +9,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
-        android:id="@+id/contacts_file_download"
         android:layout_width="match_parent"
         android:background="@drawable/cardboard_ripple"
         android:layout_height="match_parent">

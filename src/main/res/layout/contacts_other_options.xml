@@ -26,7 +26,7 @@
             android:background="@color/dividerColor" />
 
         <RelativeLayout
-            android:id="@+id/contact_edit_color"
+            android:id="@+id/contacts_edit_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/cardboard_ripple">
@@ -114,6 +114,7 @@
             android:background="@color/dividerColor" />
 
         <RelativeLayout
+            android:id="@+id/contacts_block_friend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/cardboard_ripple">

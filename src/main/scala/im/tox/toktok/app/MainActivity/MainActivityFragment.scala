@@ -1,21 +1,21 @@
 package im.tox.toktok.app.MainActivity
 
 import android.content.{Context, Intent}
-import android.graphics.{PixelFormat, Color}
+import android.graphics.PixelFormat
 import android.os.Bundle
 import android.support.design.widget.{FloatingActionButton, TabLayout}
 import android.support.v4.app.Fragment
+import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager.OnPageChangeListener
-import android.support.v4.view.{GravityCompat}
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
-import android.view.View.OnClickListener
+import android.view.View.{OnLayoutChangeListener, OnClickListener}
 import android.view.ViewGroup.LayoutParams
 import android.view._
 import im.tox.toktok.R
-import im.tox.toktok.app.CustomViewPager
+import im.tox.toktok.app.{MainActivityHolder, CustomViewPager}
 import im.tox.toktok.app.NewMessageActivity.NewMessageActivity
 import im.tox.toktok.app.SimpleDialogs.SimpleAddFriendDialogDesign
 
@@ -56,7 +56,6 @@ class MainActivityFragment extends Fragment {
     inflater.inflate(R.menu.menu_main, menu)
     super.onCreateOptionsMenu(menu, inflater)
   }
-
 
   def initViewPaper(view: View): Unit = {
 
@@ -151,11 +150,14 @@ class MainActivityFragment extends Fragment {
       }
 
       case R.id.action_search => {
-        val searchLayout = getActivity.getLayoutInflater.inflate(R.layout.home_search, null)
-        val params = new WindowManager.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS , PixelFormat.TRANSLUCENT)
+
+        val searchLayout = getActivity.getLayoutInflater.inflate(R.layout.home_search, null).asInstanceOf[HomeSearch]
+        val params = new WindowManager.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_APPLICATION, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, PixelFormat.TRANSLUCENT)
         val window = getActivity.getSystemService(Context.WINDOW_SERVICE).asInstanceOf[WindowManager]
 
         window.addView(searchLayout, params)
+
+        getActivity.asInstanceOf[MainActivityHolder].setSearch(searchLayout)
 
         return true
       }

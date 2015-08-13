@@ -8,7 +8,7 @@
         android:title="See files list" />
 
     <item
-        android:id="@+id/action_mute_conversation"
+        android:id="@+id/action_mute_conversation_single"
         android:title="Mute Conversation" />
 
     <item

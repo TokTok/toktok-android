@@ -6,7 +6,7 @@
         android:title="See files list" />
 
     <item
-        android:id="@+id/action_remame_conversation"
+        android:id="@+id/action_rename_conversation"
         android:title="Rename Group" />
 
     <item
@@ -14,7 +14,7 @@
         android:title="Leave Group" />
 
     <item
-        android:id="@+id/action_mute_conversation"
+        android:id="@+id/action_mute_conversation_group"
         android:title="Mute Group" />
 
     <item

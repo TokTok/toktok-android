@@ -3,6 +3,8 @@
     package="im.tox.toktok">
     <uses-sdk android:minSdkVersion="21" />
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,30 +28,13 @@
                 android:value=".app.MainActivityHolder" />
         </activity>
         <activity
-            android:name=".app.ContactsActivity.ContactsActivity"
-            android:label="Contact"
-            android:parentActivityName=".app.MainActivityHolder">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".app.MainActivityHolder" />
-        </activity>
-        <activity
             android:name=".app.ContactsActivity.FileSendActivity"
-            android:label="File Send"
-            android:parentActivityName=".app.ContactsActivity.ContactsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".app.ContactsActivity.ContactsActivity" />
+            android:label="File Send">
         </activity>
         <activity
             android:name=".app.MessageActivity.MessageActivity"
-            android:label="Message"
-            android:parentActivityName=".app.MainActivityHolder"
-            android:windowSoftInputMode="adjustResize">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".app.MainActivityHolder" />
-        </activity>
+            android:windowSoftInputMode="adjustResize"
+            android:label="Message"></activity>
         <activity
             android:name=".app.MessageActivity.MessageRecallActivity"
             android:label="Recall Messages"

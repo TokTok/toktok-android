@@ -51,6 +51,7 @@
         <RelativeLayout
             android:id="@+id/message_input_layout"
             android:layout_gravity="center|bottom"
+            app:layout_behavior="im.tox.toktok.app.MessageActivity.MessageInputBarBehavior"
             android:layout_width="match_parent"
             android:animateLayoutChanges="true"
             android:layout_height="wrap_content">

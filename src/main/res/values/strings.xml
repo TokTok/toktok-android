@@ -38,6 +38,8 @@
     <string name="contact_popup_edit_contact_color">Edit friend color</string>
     <string name="contact_popup_edit_alias">Edit alias</string>
     <string name="contact_popup_delete_friend">Delete friend ?</string>
+    <string name="contact_save_photo_snackbar">Profile photo saved</string>
+    <string name="contact_blocked">Friend Blocked</string>
 
 
     <!-- New Message -->
@@ -50,7 +52,8 @@
     <string name="message_hint_group">Message Group</string>
     <string name="message_hint_single">Message </string>
     <string name="message_group_contacts">Group Members</string>
-
+    <string name="message_snackbar_friend_muted">Friend Muted</string>
+    <string name="message_snackbar_group_muted">Group Muted</string>
 
     <!-- Attachments-->
 
@@ -73,6 +76,12 @@
     <string name="dialog_status_online">Online</string>
     <string name="dialog_status_away">Away</string>
     <string name="dialog_status_busy">Busy</string>
+    <string name="dialog_delete_friend">Remove </string>
+    <string name="dialog_delete_friend_end">from your friends list? </string>
+    <string name="dialog_change_color">Change </string>
+    <string name="dialog_change_color_end">color</string>
+    <string name="dialog_leave_group">Leave the group</string>
+    <string name="dialog_edit_group_name">Edit the group name</string>
 
 
     <!-- Other -->
@@ -85,7 +94,7 @@
     <string name="call_answer">ANSWER</string>
     <string name="call_decline">DECLINE</string>
 
-
+    <string name="home_search">Search for something</string>
 
 
 </resources>

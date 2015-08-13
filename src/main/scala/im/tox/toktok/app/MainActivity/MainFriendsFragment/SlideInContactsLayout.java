@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
+import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -26,7 +28,12 @@ import android.widget.TextView;
 
 import im.tox.toktok.R;
 import im.tox.toktok.app.CallActivity.CallActivity;
+import im.tox.toktok.app.ContactsActivity.FileSendActivity;
 import im.tox.toktok.app.Friend;
+import im.tox.toktok.app.Message;
+import im.tox.toktok.app.MessageActivity.MessageActivity;
+import im.tox.toktok.app.SimpleDialogs.SimpleColorDialogDesign;
+import im.tox.toktok.app.SimpleDialogs.SimpleDialogDesign;
 import im.tox.toktok.app.SimpleDialogs.SimpleTextDialogDesign;
 import im.tox.toktok.app.VideoCallActivity.VideoCallActivity;
 
@@ -60,6 +67,12 @@ public class SlideInContactsLayout extends ViewGroup {
     private TransitionDrawable backgroundTransition;
     private TextView mVoiceCall;
     private TextView mVideoCall;
+    private CardView mMessage;
+    private CardView mSaveProfile;
+    private CardView mFilesSend;
+    private RelativeLayout mDeleteFriend;
+    private RelativeLayout mBlockFriend;
+    private RelativeLayout mChangeColor;
 
     private float scrollTop = 0;
 
@@ -97,6 +110,12 @@ public class SlideInContactsLayout extends ViewGroup {
         mEditNameButton = (RelativeLayout) findViewById(R.id.contacts_edit_alias);
         mStatusBar = findViewById(R.id.contacts_status_bar_color);
         mStatusBar.getLayoutParams().height = getStatusBarHeight();
+        mMessage = (CardView) findViewById(R.id.contacts_message);
+        mSaveProfile = (CardView) findViewById(R.id.contacts_save_photo);
+        mFilesSend = (CardView) findViewById(R.id.contacts_file_download);
+        mDeleteFriend = (RelativeLayout) findViewById(R.id.contacts_delete);
+        mBlockFriend = (RelativeLayout) findViewById(R.id.contacts_block_friend);
+        mChangeColor = (RelativeLayout) findViewById(R.id.contacts_edit_color);
 
         super.onFinishInflate();
     }
@@ -395,8 +414,85 @@ public class SlideInContactsLayout extends ViewGroup {
 
                 Intent newIntent = new Intent(activity, VideoCallActivity.class);
                 newIntent.putExtras(bundle);
-                activity.overridePendingTransition(R.anim.activity_fade_in,R.anim.activity_fade_out);
+                activity.overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out);
                 activity.startActivity(newIntent);
+            }
+        });
+
+        mMessage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                bundle = new Bundle();
+
+                bundle.putString("messageTitle", friend.getUserName());
+                bundle.putInt("contactColorPrimary", friend.getColor());
+                bundle.putInt("contactColorStatus",friend.getSecondColor());
+                bundle.putInt("imgResource", friend.getPhotoReference());
+                bundle.putInt("messageType", 0);
+
+
+                Intent newIntent = new Intent(activity, MessageActivity.class);
+                newIntent.putExtras(bundle);
+                activity.startActivity(newIntent);
+
+            }
+        });
+
+        mSaveProfile.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Snackbar snack = Snackbar.make(mCoordinator, getResources().getString(R.string.contact_save_photo_snackbar), Snackbar.LENGTH_LONG);
+                View snackView  =snack.getView();
+                snackView.setBackgroundResource(R.color.snackBarColor);
+                TextView snackText = (TextView) snackView.findViewById(android.support.design.R.id.snackbar_text);
+                snackText.setTextColor(getResources().getColor(R.color.textDarkColor));
+                snack.show();
+            }
+        });
+
+        mFilesSend.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                bundle = new Bundle();
+
+                bundle.putString("contactName", friend.getUserName());
+                bundle.putInt("contactColorPrimary", friend.getColor());
+                bundle.putInt("contactColorStatus", friend.getSecondColor());
+
+                Intent newIntent = new Intent(activity, FileSendActivity.class);
+                newIntent.putExtras(bundle);
+                activity.startActivity(newIntent);
+
+            }
+        });
+
+        mDeleteFriend.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleDialogDesign dial = new SimpleDialogDesign(activity,getResources().getString(R.string.dialog_delete_friend)+" "+friend.getUserName()+" "+getResources().getString(R.string.dialog_delete_friend_end),friend.getColor(),R.drawable.ic_person_black_48dp,null);
+                dial.show();
+            }
+        });
+
+        mBlockFriend.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar snack = Snackbar.make(mCoordinator, getResources().getString(R.string.contact_blocked), Snackbar.LENGTH_LONG);
+                View snackView  =snack.getView();
+                snackView.setBackgroundResource(R.color.snackBarColor);
+                TextView snackText = (TextView) snackView.findViewById(android.support.design.R.id.snackbar_text);
+                snackText.setTextColor(getResources().getColor(R.color.textDarkColor));
+                snack.show();
+            }
+        });
+
+        mChangeColor.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleColorDialogDesign dial = new SimpleColorDialogDesign(activity,getResources().getString(R.string.dialog_change_color)+" "+friend.getUserName()+" "+getResources().getString(R.string.dialog_change_color_end),friend.getColor(), R.drawable.ic_image_color_lens,0,null);
+                dial.show();
             }
         });
 

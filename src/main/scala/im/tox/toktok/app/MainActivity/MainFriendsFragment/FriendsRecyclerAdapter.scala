@@ -71,7 +71,7 @@ class FriendsRecyclerAdapter(list: ListBuffer[Friend], expandOnClick: FriendItem
 
       viewHolder.mMessageButton.setOnClickListener(new OnClickListener {
         override def onClick(v: View): Unit = {
-          Log.d("TokTok", "Message")
+          expandOnClick.startMessage(position)
         }
       })
 
@@ -134,6 +134,7 @@ trait FriendItemExpand{
 trait FriendItemClicks {
   def startOverLayFriend(layoutPosition: Int)
   def startCall(layoutPosition: Int)
+  def startMessage(layoutPosition: Int)
 }
 
 

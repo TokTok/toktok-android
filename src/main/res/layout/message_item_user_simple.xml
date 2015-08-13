@@ -9,12 +9,12 @@
     android:padding="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_alignParentRight="true"
         android:id="@+id/message_item_img"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="8dp" />
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp" />
 
     <include
         layout="@layout/message_item_cardview"

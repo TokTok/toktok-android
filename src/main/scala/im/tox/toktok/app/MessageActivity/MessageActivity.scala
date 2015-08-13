@@ -1,14 +1,15 @@
 package im.tox.toktok.app.MessageActivity
 
-import android.content.{Context, Intent}
 import android.content.res.ColorStateList
+import android.content.{Context, Intent}
 import android.graphics.PixelFormat
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.{FloatingActionButton, Snackbar}
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.view.ActionMode
 import android.support.v7.widget.{CardView, LinearLayoutManager, RecyclerView, Toolbar}
 import android.text.{Editable, TextWatcher}
-import android.util.TypedValue
+import android.util.{Log, TypedValue}
 import android.view.View.OnClickListener
 import android.view.ViewGroup.LayoutParams
 import android.view._
@@ -18,13 +19,14 @@ import android.view.inputmethod.InputMethodManager
 import android.widget._
 import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.R
+import im.tox.toktok.app.ContactsActivity.FileSendActivity
 import im.tox.toktok.app.MainActivity.MainFriendsFragment.SlideInContactsLayout
-import im.tox.toktok.app.SimpleDialogs.SimpleDialogDesign
-import im.tox.toktok.app.{Friend, MainActivityHolder, Message, SizeAnimation}
+import im.tox.toktok.app.SimpleDialogs.{SimpleDialogDesign, SimpleTextDialogDesign}
+import im.tox.toktok.app.{Friend, Message, SizeAnimation}
 
 import scala.collection.mutable.ListBuffer
 
-class MessageActivity extends AppCompatActivity with MessageClick {
+class MessageActivity extends AppCompatActivity with MessageClick with MessageActionMode {
 
   var mMenu: Menu = null
   var mToolbar: Toolbar = null
@@ -39,11 +41,13 @@ class MessageActivity extends AppCompatActivity with MessageClick {
   var title: String = ""
   var imgSRC: Int = 0
   var mInputLayout: CardView = null
-  var mInput : EditText = null
+  var mInput: EditText = null
   var mRecyclerAdapter: MessageAdapter = null
-  var mRecycler : RecyclerView = null
-  var overlayContactsLayout : SlideInContactsLayout = null
-  var overlay_attachments : SlideInAttachmentsLayout = null
+  var mRecycler: RecyclerView = null
+  var overlayContactsLayout: SlideInContactsLayout = null
+  var overlay_attachments: SlideInAttachmentsLayout = null
+  var mActionMode: ActionMode = null
+  var actionModeCallback = new MessageActionModeCallback
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
 
@@ -70,6 +74,11 @@ class MessageActivity extends AppCompatActivity with MessageClick {
 
     item.getItemId() match {
 
+      case android.R.id.home => {
+        finish()
+        return true
+      }
+
       case R.id.action_recall_message => {
 
         val recallMessageIntent: Intent = new Intent(this, classOf[MessageRecallActivity])
@@ -93,10 +102,75 @@ class MessageActivity extends AppCompatActivity with MessageClick {
 
       }
 
+      case R.id.action_see_files_list => {
+
+        val bundle = new Bundle
+
+        bundle.putString("contactName", title)
+        bundle.putInt("contactColorPrimary", contactColorPrimary)
+        bundle.putInt("contactColorStatus", contactColorStatus)
+
+        val newIntent: Intent = new Intent(this, classOf[FileSendActivity])
+        newIntent.putExtras(bundle)
+        startActivity(newIntent)
+
+        return true
+
+      }
+
+      case R.id.action_leave_conversation => {
+        val dial = new SimpleDialogDesign(this, getResources.getString(R.string.dialog_leave_group), contactColorPrimary, R.drawable.ic_delete_black_48dp, null)
+        dial.show()
+        return true
+      }
+
+      case R.id.action_rename_conversation => {
+        val dial = new SimpleTextDialogDesign(this, getResources.getString(R.string.dialog_edit_group_name), contactColorPrimary, R.drawable.ic_editor_mode_edit_48, title, null)
+        dial.show()
+        return true
+      }
+
+      case R.id.action_mute_conversation_group => {
+
+        val snack: Snackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), getResources.getString(R.string.message_snackbar_group_muted), Snackbar.LENGTH_LONG)
+        snack.setAction("Undo", new OnClickListener {
+          override def onClick(v: View): Unit = {
+            Log.d("asdasd", "asdsad")
+          }
+        })
+        snack.setActionTextColor(contactColorPrimary)
+        val snackView: View = snack.getView
+        snackView.setBackgroundResource(R.color.snackBarColor)
+        snackView.setElevation(10)
+        val snackText: TextView = snackView.findViewById(android.support.design.R.id.snackbar_text).asInstanceOf[TextView]
+        snackText.setTextColor(getResources.getColor(R.color.textDarkColor))
+        snack.show()
+        return true
+
+      }
+
       case R.id.action_delete_conversation => {
 
         val dial = new SimpleDialogDesign(this, getResources.getString(R.string.dialog_delete_conversion), contactColorPrimary, R.drawable.ic_delete_black_48dp, null)
         dial.show()
+        return true
+      }
+
+      case R.id.action_mute_conversation_single => {
+
+        val snack: Snackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), getResources.getString(R.string.message_snackbar_friend_muted), Snackbar.LENGTH_LONG)
+        snack.setAction("Undo", new OnClickListener {
+          override def onClick(v: View): Unit = {
+            Log.d("asdasd", "asdsad")
+          }
+        })
+        snack.setActionTextColor(contactColorPrimary)
+        val snackView: View = snack.getView
+        snackView.setBackgroundResource(R.color.snackBarColor)
+        snackView.setElevation(10)
+        val snackText: TextView = snackView.findViewById(android.support.design.R.id.snackbar_text).asInstanceOf[TextView]
+        snackText.setTextColor(getResources.getColor(R.color.textDarkColor))
+        snack.show()
         return true
       }
 
@@ -193,7 +267,7 @@ class MessageActivity extends AppCompatActivity with MessageClick {
     val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
     mLayoutManager.setReverseLayout(true)
     mRecycler.setHasFixedSize(true)
-    mRecyclerAdapter = new MessageAdapter(list,this)
+    mRecyclerAdapter = new MessageAdapter(list, this, this)
 
     mRecycler.setAdapter(mRecyclerAdapter)
     mRecycler.setLayoutManager(mLayoutManager)
@@ -208,7 +282,7 @@ class MessageActivity extends AppCompatActivity with MessageClick {
       override def onClick(v: View): Unit = {
 
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE).asInstanceOf[InputMethodManager]
-        imm.hideSoftInputFromWindow(mInput.getApplicationWindowToken,0)
+        imm.hideSoftInputFromWindow(mInput.getApplicationWindowToken, 0)
 
         overlay_attachments.start()
 
@@ -318,7 +392,7 @@ class MessageActivity extends AppCompatActivity with MessageClick {
 
   }
 
-  def onImgClick(): Unit ={
+  def onImgClick(): Unit = {
     startOverLayFriend()
   }
 
@@ -327,7 +401,7 @@ class MessageActivity extends AppCompatActivity with MessageClick {
 
 
     overlayContactsLayout = getLayoutInflater.inflate(R.layout.overlay_contacts, null).asInstanceOf[SlideInContactsLayout]
-    val params = new WindowManager.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS , PixelFormat.TRANSLUCENT)
+    val params = new WindowManager.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, PixelFormat.TRANSLUCENT)
     val window = getSystemService(Context.WINDOW_SERVICE).asInstanceOf[WindowManager]
 
     window.addView(overlayContactsLayout, params)
@@ -339,18 +413,104 @@ class MessageActivity extends AppCompatActivity with MessageClick {
       actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
     }
 
-    overlayContactsLayout.start(this,Friend.lorem, actionBarHeight)
+    overlayContactsLayout.start(this, Friend.lorem, actionBarHeight)
 
   }
 
-  override def onBackPressed(): Unit ={
-    if(overlay_attachments.getVisibility == View.INVISIBLE){
+  override def onBackPressed(): Unit = {
+    if (overlay_attachments.getVisibility == View.INVISIBLE) {
       finish()
     }
-    else{
+    else {
       overlay_attachments.finish()
     }
   }
 
+  def onClick(i: Int) = {
+    if (mActionMode != null) {
+
+      mRecyclerAdapter.toggleSelection(i)
+
+      val count = mRecyclerAdapter.getSelectedItemCount()
+
+      if (count == 0) {
+        mActionMode.finish()
+      }
+      else if (count == 1) {
+        mActionMode.setTitle(count + " " + getResources.getString(R.string.action_mode_selected_single))
+      }
+      else {
+        mActionMode.setTitle(count + " " + getResources.getString(R.string.action_mode_selected_multi))
+      }
+
+    }
+
+  }
+
+  def onLongClick(i: Int): Boolean = {
+    if (mActionMode == null) {
+      mActionMode = startSupportActionMode(actionModeCallback)
+    }
+
+    mRecyclerAdapter.toggleSelection(i)
+
+    val count = mRecyclerAdapter.getSelectedItemCount()
+
+    if (count == 0) {
+      mActionMode.finish()
+    }
+    else if (count == 1) {
+      mActionMode.setTitle(count + " " + getResources.getString(R.string.action_mode_selected_single))
+    }
+    else {
+      mActionMode.setTitle(count + " " + getResources.getString(R.string.action_mode_selected_multi))
+    }
+
+    return true
+  }
+
+  class MessageActionModeCallback() extends ActionMode.Callback {
+
+    override def onDestroyActionMode(mode: ActionMode): Unit = {
+      mActionMode = null
+      mRecyclerAdapter.setActionModeActive(false)
+      mRecyclerAdapter.clearSelections()
+      val animationIn = AnimationUtils.loadAnimation(mInputLayout.getContext, R.anim.abc_fade_in)
+      mInputLayout.setVisibility(View.VISIBLE)
+      mInputLayout.startAnimation(animationIn)
+    }
+
+    override def onCreateActionMode(mode: ActionMode, menu: Menu): Boolean = {
+      val menuInflater = mode.getMenuInflater
+      menuInflater.inflate(R.menu.message_action_mode, menu)
+
+      mRecyclerAdapter.setActionModeActive(true)
+      mRecyclerAdapter.notifyDataSetChanged()
+
+      val animationOut = AnimationUtils.loadAnimation(mInputLayout.getContext, R.anim.abc_slide_out_bottom)
+      mInputLayout.startAnimation(animationOut)
+      mInputLayout.setVisibility(View.GONE)
+
+      return true
+    }
+
+    override def onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean = {
+      item.getItemId match {
+
+        case R.id.action_message_delete => {
+          mRecyclerAdapter.deleteSelected()
+          mode.finish()
+        }
+
+      }
+
+      return true
+    }
+
+    override def onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean = {
+      return false
+    }
+
+  }
 
 }

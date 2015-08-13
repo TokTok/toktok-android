@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import im.tox.toktok.R
 import im.tox.toktok.app.CallActivity.CallActivity
+import im.tox.toktok.app.MessageActivity.MessageActivity
 import im.tox.toktok.app.{MainActivityHolder, Friend}
 
 import scala.collection.mutable.ListBuffer
@@ -80,6 +81,23 @@ class FriendsFragment extends Fragment with FriendItemClicks {
     newIntent.putExtras(bundle)
     getActivity.startActivity(newIntent)
 
+  }
+
+  def startMessage(friendPosition: Int): Unit = {
+
+    val friend  = mFriends_Recycler_Adapter.getItem(friendPosition)
+
+    val bundle = new Bundle
+    bundle.putString("messageTitle", friend.getUserName)
+    bundle.putInt("contactColorPrimary", friend.getColor)
+    bundle.putInt("contactColorStatus", friend.getSecondColor)
+    bundle.putInt("imgResource", friend.getPhotoReference)
+    bundle.putInt("messageType", 0)
+
+
+    val newIntent: Intent = new Intent(getActivity, classOf[MessageActivity])
+    newIntent.putExtras(bundle)
+    getActivity.startActivity(newIntent)
   }
 
 }
