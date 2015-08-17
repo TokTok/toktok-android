@@ -3,7 +3,9 @@ package im.tox.toktok.app.MainActivity;
 import android.content.Context;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Handler;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import im.tox.toktok.R;
@@ -19,9 +22,10 @@ import im.tox.toktok.R;
 public class HomeSearch extends ViewGroup {
 
     private TransitionDrawable background = null;
-    private RelativeLayout mBase = null;
+    private LinearLayout mBase = null;
     private EditText mInput = null;
     private CardView mCardView = null;
+    private NestedScrollView mRecycler = null;
 
     public HomeSearch(Context context) {
         this(context, null);
@@ -40,9 +44,10 @@ public class HomeSearch extends ViewGroup {
 
         background = (TransitionDrawable) getBackground();
         background.startTransition(500);
-        mBase = (RelativeLayout) findViewById(R.id.home_search_layout);
+        mBase = (LinearLayout) findViewById(R.id.home_search_layout);
 
         mCardView = (CardView) findViewById(R.id.home_search_bar);
+        mRecycler = (NestedScrollView) findViewById(R.id.home_search_bar_recycler);
 
         int cx = mCardView.getMeasuredWidth();
         int cy = mCardView.getMeasuredHeight() / 2;

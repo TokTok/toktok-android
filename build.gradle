@@ -15,7 +15,7 @@ repositories {
 
     mavenCentral()
     mavenLocal()
-
+    
 }
 
 android {
@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    compile 'com.tonicartos:superslim:0.4.13'
     compile 'org.scala-lang:scala-library:2.11.7'
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:recyclerview-v7:22.2.1'

@@ -27,6 +27,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/recall_fab"
         style="@style/BasicFloatingActionButton"
+        android:visibility="invisible"
         android:layout_gravity="end|bottom"
         android:src="@drawable/ic_navigation_arrow_forward"
         android:tint="@color/textDarkColor"

@@ -8,6 +8,7 @@
         <item name="android:windowBackground">@color/backgroundColor</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionModeOverlay">true</item>
+        <item name="android:navigationBarColor">@color/contactsTransparentBar</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="actionModeStyle">@style/ActionMode</item>
         <item name="android:actionModeStyle">@style/ActionMode</item>
