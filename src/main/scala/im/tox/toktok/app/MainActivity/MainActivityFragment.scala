@@ -152,7 +152,7 @@ class MainActivityFragment extends Fragment {
       case R.id.action_search => {
 
         val searchLayout = getActivity.getLayoutInflater.inflate(R.layout.home_search, null).asInstanceOf[HomeSearch]
-        val params = new WindowManager.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_APPLICATION, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, PixelFormat.TRANSLUCENT)
+        val params = new WindowManager.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.TYPE_INPUT_METHOD, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, PixelFormat.TRANSLUCENT)
         val window = getActivity.getSystemService(Context.WINDOW_SERVICE).asInstanceOf[WindowManager]
 
         window.addView(searchLayout, params)

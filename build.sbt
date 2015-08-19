@@ -3,8 +3,14 @@ organization := "im.tox"
 name := "toktok"
 scalaVersion := "2.11.7"
 
+import sbt.tox4j.lint._
+
+Scalastyle.moduleSettings
+
+
 // Dependencies.
 libraryDependencies ++= Seq(
+  "com.tonicartos" % "superslim"%"0.4.13",
   "com.android.support" % "appcompat-v7" % "22.2.1",
   "com.android.support" % "recyclerview-v7" % "22.2.1",
   "com.android.support" % "cardview-v7" % "22.2.1",
