@@ -8,7 +8,6 @@ class SizeAnimation(view: View, newSize: Int, sizeChange: Int) extends Animation
 
   private var oldSize = 0;
 
-
   if (sizeChange == 0) {
     oldSize = view.getWidth
   }
