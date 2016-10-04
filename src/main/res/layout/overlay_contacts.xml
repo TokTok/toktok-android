@@ -1,5 +1,5 @@
-
-<im.tox.toktok.app.MainActivity.MainFriendsFragment.SlideInContactsLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<im.tox.toktok.app.main.friends.SlideInContactsLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/temp"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:visibility="invisible">
-
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
@@ -83,7 +82,7 @@
                                 android:layout_marginBottom="5dp"
                                 android:id="@+id/contact_status"
                                 style="@style/CircleUserStatus"
-                                android:layout_marginRight="8dp"
+                                android:layout_marginEnd="8dp"
                                 android:layout_alignBottom="@+id/contact_title"
                                 android:src="@drawable/status_circle"
                                 android:tint="@color/statusOnline" />
@@ -94,7 +93,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:layout_toRightOf="@id/contact_status"/>
+                                android:layout_toEndOf="@id/contact_status"/>
 
                         </RelativeLayout>
 
@@ -125,17 +124,12 @@
                 android:id="@+id/contacts_nested_scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:orientation="vertical">
 
                 <include layout="@layout/contacts_call" />
-
                 <include layout="@layout/contacts_new_message" />
-
                 <include layout="@layout/contacts_save_profile_photo" />
-
                 <include layout="@layout/contacts_file_download" />
-
                 <include layout="@layout/contacts_other_options" />
 
             </LinearLayout>
@@ -154,4 +148,4 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-</im.tox.toktok.app.MainActivity.MainFriendsFragment.SlideInContactsLayout>
+</im.tox.toktok.app.main.friends.SlideInContactsLayout>

@@ -10,8 +10,8 @@
 
     <RelativeLayout
         android:id="@+id/home_item_info"
-        android:paddingLeft="56dp"
-        android:paddingRight="16dp"
+        android:paddingStart="56dp"
+        android:paddingEnd="16dp"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
         android:layout_width="match_parent"
@@ -20,13 +20,13 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/home_friends_img"
             style="@style/SmallUserImage"
-            android:layout_marginRight="20dp" />
+            android:layout_marginEnd="20dp" />
 
         <ImageView
             android:id="@+id/home_friends_status"
             style="@style/CircleUserStatus"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/home_friends_img"
+            android:layout_toEndOf="@id/home_friends_img"
             android:src="@drawable/status_circle"
             android:tint="@color/statusOnline" />
 
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/home_friends_status"
+            android:layout_toEndOf="@id/home_friends_status"
             android:fontFamily="sans-serif-light"
             android:textColor="@color/textDarkColor"
             android:textSize="18sp" />
@@ -46,9 +46,9 @@
         android:id="@+id/home_friends_expanded_area"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_below="@id/home_item_info"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:visibility="gone">
 
         <TextView
@@ -64,7 +64,7 @@
             android:id="@+id/home_friends_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:background="?android:attr/selectableItemBackground"
             android:padding="8dp"
             android:text="Message"

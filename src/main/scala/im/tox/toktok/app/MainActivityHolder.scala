@@ -1,122 +1,114 @@
 package im.tox.toktok.app
 
-import android.os.{Handler, Bundle}
-import android.support.v4.app.{FragmentManager, Fragment, FragmentTransaction}
-import android.support.v4.widget.DrawerLayout
+import android.os.{ Bundle, Handler }
+import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.LinearLayout
-import im.tox.toktok.R
-import im.tox.toktok.app.MainActivity.{HomeSearch, MainActivityFragment}
-import im.tox.toktok.app.MainActivity.MainFriendsFragment.SlideInContactsLayout
-import im.tox.toktok.app.ProfileActivity.ProfileActivity
+import com.typesafe.scalalogging.Logger
+import im.tox.toktok.TypedResource._
+import im.tox.toktok.app.main.friends.SlideInContactsLayout
+import im.tox.toktok.app.main.{ HomeSearch, MainFragment }
+import im.tox.toktok.app.profile.ProfileFragment
+import im.tox.toktok.{ R, TR }
+import org.slf4j.LoggerFactory
 
-class MainActivityHolder extends AppCompatActivity {
+final class MainActivityHolder extends AppCompatActivity {
 
-  var activeTab: LinearLayout = null
-  var activeContacts : SlideInContactsLayout = null
-  var activeSearch : HomeSearch = null
+  private val logger = Logger(LoggerFactory.getLogger(getClass))
+
+  private var activeTab: LinearLayout = null
+  private var activeContacts: SlideInContactsLayout = null
+  private var activeSearch: HomeSearch = null
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
-
     setContentView(R.layout.activity_main)
 
-    val attachFragment: Fragment = new MainActivityFragment
+    getSupportFragmentManager
+      .beginTransaction()
+      .replace(R.id.home_frame, new MainFragment, "Chats")
+      .commit()
 
-    getSupportFragmentManager.beginTransaction().add(R.id.home_frame, attachFragment).commit()
+    val chatsDrawerItem = this.findView(TR.home_drawer_chats)
+    val profileDrawerItem = this.findView(TR.home_drawer_profile)
+    val settingsDrawerItem = this.findView(TR.home_drawer_settings)
 
-    val chatsTabButton: LinearLayout = findViewById(R.id.home_drawer_chats).asInstanceOf[LinearLayout]
-    val peopleTabButton: LinearLayout = findViewById(R.id.home_drawer_profile).asInstanceOf[LinearLayout]
-    val settingsTabButton: LinearLayout = findViewById(R.id.home_drawer_settings).asInstanceOf[LinearLayout]
-
-    activeTab = chatsTabButton
+    activeTab = chatsDrawerItem
 
     activeTab.setBackgroundResource(R.color.drawerBackgroundSelected)
 
-
-
-    peopleTabButton.setOnClickListener(new OnClickListener {
+    chatsDrawerItem.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
         if (v != activeTab) {
-
-          val profileFragment: ProfileActivity = new ProfileActivity
-
-          val trans: FragmentTransaction = getSupportFragmentManager.beginTransaction()
-          trans.replace(R.id.home_frame, profileFragment,"Profile")
-          trans.addToBackStack("Activity")
-          trans.commit()
+          getSupportFragmentManager
+            .beginTransaction()
+            .replace(R.id.home_frame, new MainFragment, "Chats")
+            .addToBackStack("")
+            .commit()
           changeTab(v)
-        }
-        else {
-          findViewById(R.id.home_layout).asInstanceOf[DrawerLayout].closeDrawers()
+        } else {
+          MainActivityHolder.this.findView(TR.home_layout).closeDrawers()
         }
       }
     })
 
-    chatsTabButton.setOnClickListener(new OnClickListener {
+    profileDrawerItem.setOnClickListener(new OnClickListener {
       override def onClick(v: View): Unit = {
         if (v != activeTab) {
-          val fragment: Fragment = new MainActivityFragment
-          val trans: FragmentTransaction = getSupportFragmentManager.beginTransaction()
-          trans.replace(R.id.home_frame, fragment,"Chats")
-          trans.addToBackStack("")
-          trans.commit()
+          getSupportFragmentManager
+            .beginTransaction()
+            .replace(R.id.home_frame, new ProfileFragment, "Profile")
+            .addToBackStack("Activity")
+            .commit()
           changeTab(v)
-        }
-        else {
-          findViewById(R.id.home_layout).asInstanceOf[DrawerLayout].closeDrawers()
+        } else {
+          MainActivityHolder.this.findView(TR.home_layout).closeDrawers()
         }
       }
     })
 
-    def changeTab(v: View): Unit = {
-
-      activeTab.setBackgroundResource(R.drawable.background_ripple)
-      activeTab = v.asInstanceOf[LinearLayout]
-      activeTab.setBackgroundResource(R.color.drawerBackgroundSelected)
-      findViewById(R.id.home_layout).asInstanceOf[DrawerLayout].closeDrawers()
-
-    }
   }
 
-  def setActiveActivity(contact : SlideInContactsLayout): Unit ={
+  private def changeTab(v: View): Unit = {
+    activeTab.setBackgroundResource(R.drawable.background_ripple)
+    activeTab = v.asInstanceOf[LinearLayout]
+    activeTab.setBackgroundResource(R.color.drawerBackgroundSelected)
+    this.findView(TR.home_layout).closeDrawers()
+  }
+
+  def setAddContactPopup(contact: SlideInContactsLayout): Unit = {
     activeContacts = contact
   }
 
-  def setSearch(homeSearch: HomeSearch): Unit ={
+  def setSearch(homeSearch: HomeSearch): Unit = {
     activeSearch = homeSearch
   }
 
-  override def onBackPressed(): Unit ={
+  override def onBackPressed(): Unit = {
+    logger.debug("asdasda")
 
-    Log.d("asdasd","asdasda")
-
-    if(activeContacts!= null){
+    if (activeContacts != null) {
       activeContacts.finish()
       activeContacts = null
     }
 
-    if(getSupportFragmentManager.findFragmentByTag("Profile") != null){
-      getSupportFragmentManager.popBackStack("Activity",FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    if (getSupportFragmentManager.findFragmentByTag("Profile") != null) {
+      getSupportFragmentManager.popBackStack("Activity", FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
-    if(activeSearch != null){
+    if (activeSearch != null) {
       activeSearch.finish()
 
       new Handler().postDelayed(new Runnable() {
-        def run {
+        def run(): Unit = {
           activeSearch.setVisibility(View.GONE)
           getWindowManager.removeView(activeSearch)
           activeSearch = null
         }
       }, 500)
-
-
     }
-
   }
 
 }

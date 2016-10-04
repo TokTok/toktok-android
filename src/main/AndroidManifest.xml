@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="im.tox.toktok">
-    <uses-sdk android:minSdkVersion="21" />
+    <uses-sdk android:minSdkVersion="23" />
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.NewMessageActivity.NewMessageActivity"
+            android:name=".app.new_message.NewMessageActivity"
             android:label="New Message"
             android:windowSoftInputMode="adjustPan|adjustNothing|stateHidden"
             android:parentActivityName=".app.MainActivityHolder">
@@ -29,38 +29,38 @@
                 android:value=".app.MainActivityHolder" />
         </activity>
         <activity
-            android:name=".app.ContactsActivity.FileSendActivity"
+            android:name=".app.contacts.FileSendActivity"
             android:label="File Send">
         </activity>
         <activity
-            android:name=".app.MessageActivity.MessageActivity"
+            android:name=".app.message_activity.MessageActivity"
             android:windowSoftInputMode="adjustResize"
             android:label="Message"></activity>
         <activity
-            android:name=".app.MessageActivity.MessageRecallActivity"
+            android:name=".app.message_activity.MessageRecallActivity"
             android:label="Recall Messages"
-            android:parentActivityName=".app.MessageActivity.MessageActivity">
+            android:parentActivityName=".app.message_activity.MessageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".app.MessageActivity.MessageActivity" />
+                android:value=".app.message_activity.MessageActivity" />
         </activity>
         <activity
-            android:name=".app.MessageActivity.MessageGroupContacts"
+            android:name=".app.message_activity.MessageGroupContacts"
             android:label="Contacts List"
-            android:parentActivityName=".app.MessageActivity.MessageActivity">
+            android:parentActivityName=".app.message_activity.MessageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".app.MessageActivity.MessageActivity" />
+                android:value=".app.message_activity.MessageActivity" />
         </activity>
         <activity
-            android:name=".app.CallActivity.CallActivity"
+            android:name=".app.call.CallActivity"
             android:label="Voice Call"></activity>
         <activity
-            android:name=".app.VideoCallActivity.VideoCallActivity"
+            android:name=".app.video_call.VideoCallActivity"
             android:label="Video Call"></activity>
 
         <activity
-            android:name=".app.ProfileActivity.RejectedCallMessages"
+            android:name=".app.profile.RejectedCallMessages"
             android:label="RejectedMessages"></activity>
 
     </application>

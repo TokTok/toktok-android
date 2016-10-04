@@ -22,7 +22,6 @@
             android:src="@drawable/ic_communication_message" />
 
         <TextView
-
             android:id="@+id/contacts_item_voice_call"
             android:text="@string/contact_message"
             style="@style/ContactsButtonText"

@@ -10,7 +10,6 @@
         <scale
             android:drawable="@drawable/call_line"
             android:scaleWidth="100%" />
-
     </item>
 
 </layer-list>

@@ -19,10 +19,9 @@
             android:layout_height="wrap_content"
             style="@style/ContactsButtonIcon"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_file_download_black_24dp" />
+            android:src="@drawable/ic_file_download_black_24dp"/>
 
         <TextView
-
             android:id="@+id/contacts_item_voice_call"
             android:text="@string/contact_files"
             style="@style/ContactsButtonText"
@@ -30,4 +29,5 @@
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
+
 </android.support.v7.widget.CardView>

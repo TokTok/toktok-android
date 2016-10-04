@@ -1,0 +1,45 @@
+language: android
+sudo: false
+jdk: oraclejdk8
+
+android:
+  components:
+    # We need to install tools first, and twice, because it needs to be updated
+    # so android-24 can be found.
+    # See https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943
+    - tools
+    - tools
+    # Actual dependencies:
+    - android-24
+    - build-tools-24.0.3
+    - extra-android-m2repository
+    - extra-android-support
+    - platform-tools
+
+cache:
+  directories:
+    - $HOME/.ivy2
+    - $HOME/.m2
+    - $HOME/.sbt
+
+install:
+  # Download sbt launcher.
+  - wget http://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.8/sbt-launch.jar
+  # Tidy up joda-convert jar
+  - zip -d $HOME/.ivy2/cache/org.joda/joda-convert/jars/joda-convert-1.2.jar META-INF/LICENSE.txt || true
+  - zip -d $HOME/.ivy2/cache/org.joda/joda-convert/jars/joda-convert-1.2.jar META-INF/NOTICE.txt  || true
+  # Install latest gradle android scala plugin, which supports recent android
+  # gradle plugins.
+#  - git clone --depth=1 https://github.com/saturday06/gradle-android-scala-plugin ../gradle-android-scala-plugin
+#  - (cd ../gradle-android-scala-plugin && ./gradlew install)
+
+script:
+  # Build APK.
+  - SBT_OPTS="-Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"
+  - java $SBT_OPTS -jar sbt-launch.jar -batch android:package
+#  - ./gradlew packageDebug
+
+before_cache:
+  # Clean up cache.
+  - find $HOME/.ivy2 -type f -name "ivydata-*.properties" -delete
+  - find $HOME/.sbt/boot -name "sbt.*.lock" -delete

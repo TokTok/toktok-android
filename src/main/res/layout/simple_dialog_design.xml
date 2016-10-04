@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/simple_dialog_base"
     android:layout_width="270dp"
@@ -23,7 +22,6 @@
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
             android:paddingTop="80dp">
-
 
             <TextView
                 android:id="@+id/simple_dialog_text"
@@ -54,8 +52,8 @@
                 android:text="@string/dialog_cancel"
                 android:textColor="@color/simpleDialogTextButton" />
 
-
         </LinearLayout>
+
     </android.support.v7.widget.CardView>
 
     <LinearLayout
@@ -74,7 +72,6 @@
             android:tint="@color/textWhiteColor" />
 
     </LinearLayout>
-
 
 </RelativeLayout>
 

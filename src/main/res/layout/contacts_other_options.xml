@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/contacts_icon_palette"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:src="@drawable/ic_image_color_lens_24" />
 
             <TextView
@@ -45,14 +45,13 @@
                 style="@style/ContactsButtonText"
                 android:text="@string/contact_choose_color" />
 
-
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="56dp"
+            android:layout_marginStart="56dp"
             android:background="@color/dividerColor" />
 
         <RelativeLayout
@@ -66,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/contacts_icon_edit"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:src="@drawable/ic_editor_mode_edit" />
 
             <TextView
@@ -75,13 +74,12 @@
                 style="@style/ContactsButtonText"
                 android:text="@string/contact_edit_alias" />
 
-
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="56dp"
+            android:layout_marginStart="56dp"
             android:background="@color/dividerColor" />
 
         <RelativeLayout
@@ -95,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/contacts_icon_trash"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:src="@drawable/ic_action_delete" />
 
             <TextView
@@ -104,13 +102,12 @@
                 style="@style/ContactsButtonText"
                 android:text="@string/contact_delete" />
 
-
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="56dp"
+            android:layout_marginStart="56dp"
             android:background="@color/dividerColor" />
 
         <RelativeLayout
@@ -124,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/contacts_icon_lock"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:src="@drawable/ic_action_lock" />
 
             <TextView
@@ -132,7 +129,6 @@
                 android:layout_height="wrap_content"
                 style="@style/ContactsButtonText"
                 android:text="@string/contact_block" />
-
 
         </RelativeLayout>
     </LinearLayout>

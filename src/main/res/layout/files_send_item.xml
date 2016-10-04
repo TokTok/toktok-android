@@ -17,8 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@id/files_send_item_icon"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/files_send_item_icon"
         android:orientation="vertical">
 
         <TextView

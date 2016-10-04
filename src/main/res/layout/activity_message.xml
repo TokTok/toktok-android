@@ -15,22 +15,23 @@
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/message_toolbar"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/message_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <RelativeLayout
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:id="@+id/message_header"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                    android:layout_height="?attr/actionBarSize"/>
 
-                    <RelativeLayout
-                        android:paddingLeft="8dp"
-                        android:clickable="true"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        android:id="@+id/message_header"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"/>
-
-                    </android.support.v7.widget.Toolbar>
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
 
@@ -51,7 +52,7 @@
         <RelativeLayout
             android:id="@+id/message_input_layout"
             android:layout_gravity="center|bottom"
-            app:layout_behavior="im.tox.toktok.app.MessageActivity.MessageInputBarBehavior"
+            app:layout_behavior="im.tox.toktok.app.message_activity.MessageInputBarBehavior"
             android:layout_width="match_parent"
             android:animateLayoutChanges="true"
             android:layout_height="wrap_content">
@@ -83,7 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/message_attachments_button"
+                        android:layout_toEndOf="@id/message_attachments_button"
                         android:background="@null"
                         android:fontFamily="sans-serif-light"
                         android:hint="@string/message_hint_group"
@@ -94,7 +95,6 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
 
-
             <android.support.design.widget.FloatingActionButton
                 android:visibility="invisible"
                 android:layout_centerVertical="true"
@@ -103,21 +103,21 @@
                 app:fabSize="mini"
                 android:src="@drawable/ic_content_send"
                 app:backgroundTint="@color/basicFABColor"
-                android:layout_alignParentRight="true"
-                 />
+                android:layout_alignParentEnd="true"
+                />
 
         </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
 
-    <im.tox.toktok.app.MessageActivity.SlideInAttachmentsLayout
+    <im.tox.toktok.app.message_activity.SlideInAttachmentsLayout
         android:id="@+id/fragment_attachments_slide"
         android:visibility="invisible"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent">
 
-        <include layout="@layout/overlay_attachments"></include>
+        <include layout="@layout/overlay_attachments"/>
 
-    </im.tox.toktok.app.MessageActivity.SlideInAttachmentsLayout>
+    </im.tox.toktok.app.message_activity.SlideInAttachmentsLayout>
 
 </RelativeLayout>

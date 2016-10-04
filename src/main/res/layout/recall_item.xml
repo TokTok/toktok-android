@@ -38,7 +38,7 @@
                 android:layout_marginTop="10dp"
                 android:textSize="10sp"
                 android:textColor="@color/colorAccent"
-                android:layout_alignRight="@id/message_item_text"
+                android:layout_alignEnd="@id/message_item_text"
                 android:layout_below="@id/message_item_text"
                 android:id="@+id/message_item_details"
                 android:layout_width="wrap_content"
@@ -47,4 +47,5 @@
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
+
 </LinearLayout>

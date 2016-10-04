@@ -17,8 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <im.tox.toktok.app.CallActivity.CallSliderAnswer
+            <im.tox.toktok.app.call.CallSliderAnswer
                 android:id="@+id/call_answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -26,7 +25,7 @@
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp" />
 
-            <im.tox.toktok.app.CallActivity.CallSliderDecline
+            <im.tox.toktok.app.call.CallSliderDecline
                 android:id="@+id/call_decline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -9,14 +9,14 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
-        android:layout_marginRight="20dp" />
+        android:layout_marginEnd="20dp" />
 
     <LinearLayout
         android:layout_marginBottom="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/call_ongoing_contact_img"
+        android:layout_toEndOf="@id/call_ongoing_contact_img"
         android:orientation="vertical">
 
         <TextView
@@ -46,10 +46,10 @@
 
     <ImageView
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:src="@drawable/ic_device_network_cell"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <View
         android:layout_alignParentBottom="true"

@@ -22,7 +22,6 @@
             android:paddingRight="25dp"
             android:paddingTop="80dp">
 
-
             <TextView
                 android:id="@+id/simple_dialog_text"
                 android:layout_width="wrap_content"
@@ -43,7 +42,7 @@
                 android:fontFamily="sans-serif-light"
                 android:singleLine="true"
                 android:textColor="@color/textWhiteColor"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/simple_dialog_qrcode"
@@ -52,7 +51,7 @@
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/simpleDialogIconButton"
                 android:fontFamily="sans-serif-light"
-                android:text="@string/dialog_qrcode"
+                android:text="@string/dialog_qr_code"
                 android:textColor="@color/simpleDialogTextButton" />
 
             <Button

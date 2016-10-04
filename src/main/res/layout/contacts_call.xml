@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             style="@style/ContactsButtonIcon"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_communication_call" />
+            android:src="@drawable/ic_communication_call"/>
 
         <TextView
             android:background="@drawable/cardboard_ripple"
@@ -34,7 +34,7 @@
             android:background="@color/dividerColor"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="56dp" />
+            android:layout_marginStart="56dp" />
 
         <TextView
             android:background="@drawable/cardboard_ripple"

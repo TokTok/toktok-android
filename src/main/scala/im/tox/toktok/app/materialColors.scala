@@ -1,8 +1,8 @@
 package im.tox.toktok.app
 
-class materialColors {
+object MaterialColors {
 
-  final val color: List[String] = List(
+  val colors = Seq(
     "#fde0dc",
     "#f9bdbb",
     "#f69988",
@@ -19,11 +19,7 @@ class materialColors {
     "#e00032",
     "#fce4ec",
     "#f8bbd0",
-    "#f48fb1")
-
-
-  def getColors(): List[String] = {
-    return color
-  }
+    "#f48fb1"
+  )
 
 }

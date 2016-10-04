@@ -21,7 +21,6 @@
             android:paddingRight="25dp"
             android:paddingTop="80dp">
 
-
             <TextView
                 android:id="@+id/simple_dialog_text"
                 android:layout_width="wrap_content"
@@ -34,7 +33,6 @@
                 android:textColor="@color/textWhiteColor"
                 android:textSize="20sp" />
 
-
             <LinearLayout
                 android:id="@+id/simple_dialog_status_online"
                 android:layout_width="match_parent"
@@ -46,7 +44,8 @@
                 android:backgroundTint="@color/contactsTransparentBar"
                 android:layout_marginTop="4dp"
                 android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:paddingTop="8dp"
                 >
 

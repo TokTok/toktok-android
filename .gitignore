@@ -6,6 +6,7 @@
 /project/project
 /project/target
 /target
+/proguard-sbt.txt
 *.iml
 *.swp
 *.ipr

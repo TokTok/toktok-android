@@ -20,7 +20,7 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <include layout="@layout/new_message_toolbar_friend"></include>
+        <include layout="@layout/new_message_toolbar_friend"/>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -43,17 +43,17 @@
                     android:id="@+id/new_message_search_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_action_search"
-                    android:tint="@color/textLightColor" />
+                    android:tint="@color/textLightColor"/>
 
                 <EditText
                     android:id="@+id/new_message_search_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="30dp"
                     android:background="@null"
                     android:fontFamily="sans-serif-light"
                     android:hint="@string/search_hint"
