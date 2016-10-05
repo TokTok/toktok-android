@@ -47,10 +47,10 @@ final class ProfileFragment extends Fragment {
       override def onClick(v: View): Unit = {
         val dial = new SimpleTextDialogDesign(
           getActivity,
-          "Edit your nickname",
+          getResources.getString(R.string.profile_nickname),
           getResources.getColor(R.color.homeColorToolbar, null),
           R.drawable.ic_person_black_48dp,
-          "André Almeida",
+          getResources.getString(R.string.sample_user_name),
           null
         )
         dial.show()
@@ -63,10 +63,10 @@ final class ProfileFragment extends Fragment {
       override def onClick(v: View): Unit = {
         val dial = new SimpleTextDialogDesign(
           getActivity,
-          "Edit your status message",
+          getResources.getString(R.string.profile_status_message),
           getResources.getColor(R.color.homeColorToolbar, null),
           R.drawable.ic_person_black_48dp,
-          "Trying out the new Tox Android Client",
+          getResources.getString(R.string.sample_status_message),
           null
         )
         dial.show()

@@ -66,10 +66,10 @@ final class ChatsFragment extends Fragment with ChatItemClick {
     mChatsRecyclerAdapter.getSelectedItemCount match {
       case 0 =>
         mActionMode.finish()
-      case count @ 1 =>
-        mActionMode.setTitle(count + " " + getResources.getString(R.string.action_mode_selected_single))
+      case 1 =>
+        mActionMode.setTitle(getResources.getString(R.string.action_mode_selected_single))
       case count =>
-        mActionMode.setTitle(count + " " + getResources.getString(R.string.action_mode_selected_multi))
+        mActionMode.setTitle(s"$count " + getResources.getString(R.string.action_mode_selected_multi))
     }
   }
 

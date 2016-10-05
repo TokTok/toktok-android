@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/action_see_files_list"
-        android:title="See files list" />
+        android:title="@string/action_file_list" />
 
     <item
         android:id="@+id/action_rename_conversation"
-        android:title="Rename Group" />
+        android:title="@string/action_rename_group" />
 
     <item
         android:id="@+id/action_leave_conversation"
-        android:title="Leave Group" />
+        android:title="@string/action_leave_group" />
 
     <item
         android:id="@+id/action_mute_conversation_group"
-        android:title="Mute Group" />
+        android:title="@string/action_mute_conversation" />
 
     <item
         android:id="@+id/action_group_members"
-        android:title="See Group Members" />
+        android:title="@string/action_group_members" />
 
 </menu>

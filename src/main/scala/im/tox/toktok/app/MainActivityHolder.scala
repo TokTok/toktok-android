@@ -3,6 +3,7 @@ package im.tox.toktok.app
 import android.os.{ Bundle, Handler }
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.LinearLayout
@@ -71,6 +72,20 @@ final class MainActivityHolder extends AppCompatActivity {
 
   }
 
+  override def onDestroy(): Unit = {
+    if (activeSearch != null) {
+      getWindowManager.removeView(activeSearch)
+      activeSearch = null
+    }
+
+    if (activeContacts != null) {
+      getWindowManager.removeView(activeContacts)
+      activeContacts = null
+    }
+
+    super.onDestroy()
+  }
+
   private def changeTab(v: View): Unit = {
     activeTab.setBackgroundResource(R.drawable.background_ripple)
     activeTab = v.asInstanceOf[LinearLayout]
@@ -87,27 +102,22 @@ final class MainActivityHolder extends AppCompatActivity {
   }
 
   override def onBackPressed(): Unit = {
-    logger.debug("asdasda")
-
-    if (activeContacts != null) {
-      activeContacts.finish()
-      activeContacts = null
-    }
-
     if (getSupportFragmentManager.findFragmentByTag("Profile") != null) {
       getSupportFragmentManager.popBackStack("Activity", FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
-    if (activeSearch != null) {
-      activeSearch.finish()
+    if (activeContacts != null) {
+      activeContacts.finish {
+        getWindowManager.removeView(activeContacts)
+        activeContacts = null
+      }
+    }
 
-      new Handler().postDelayed(new Runnable() {
-        def run(): Unit = {
-          activeSearch.setVisibility(View.GONE)
-          getWindowManager.removeView(activeSearch)
-          activeSearch = null
-        }
-      }, 500)
+    if (activeSearch != null) {
+      activeSearch.finish {
+        getWindowManager.removeView(activeSearch)
+        activeSearch = null
+      }
     }
   }
 

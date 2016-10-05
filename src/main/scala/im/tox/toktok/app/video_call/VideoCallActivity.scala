@@ -6,8 +6,9 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.view.animation.Animation.AnimationListener
 import android.view.animation.{ Animation, AnimationUtils }
+import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.TypedResource._
-import im.tox.toktok.{ R, TR }
+import im.tox.toktok.{ BundleKey, R, TR }
 
 final class VideoCallActivity extends AppCompatActivity {
 
@@ -17,7 +18,7 @@ final class VideoCallActivity extends AppCompatActivity {
 
     val bundle = getIntent.getExtras
 
-    val contactColor = bundle.getInt("contactPhotoReference")
+    val contactColor = bundle(BundleKey.contactPhotoReference)
 
     this.findView(TR.call_background).setImageResource(contactColor)
 

@@ -6,9 +6,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import com.tonicartos.superslim.LayoutManager
+import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.TypedResource._
-import im.tox.toktok.app.domain.{ MessageType, Message }
-import im.tox.toktok.{ R, TR }
+import im.tox.toktok.app.domain.{ Message, MessageType }
+import im.tox.toktok.{ BundleKey, R, TR }
 
 final class MessageRecallActivity extends AppCompatActivity with RecallMessageListener {
 
@@ -24,8 +25,8 @@ final class MessageRecallActivity extends AppCompatActivity with RecallMessageLi
 
     val bundle = getIntent.getExtras
 
-    colorPrimary = bundle.getInt("colorPrimary")
-    colorStatus = bundle.getInt("colorPrimaryStatus")
+    colorPrimary = bundle(BundleKey.colorPrimary)
+    colorStatus = bundle(BundleKey.colorPrimaryStatus)
 
     mToolbar = this.findView(TR.recall_toolbar)
     mToolbar.setBackgroundColor(colorPrimary)

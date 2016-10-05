@@ -11,11 +11,12 @@ import android.view.ViewGroup.LayoutParams
 import android.view.{ MenuItem, View, WindowManager }
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import im.tox.toktok.TypedResource._
+import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.app.call.CallActivity
 import im.tox.toktok.app.main.friends.{ FriendItemClicks, FriendsRecyclerHeaderAdapter }
 import im.tox.toktok.app.domain.Friend
 import im.tox.toktok.app.new_message.NewMessageActivity
-import im.tox.toktok.{ R, TContext, TR }
+import im.tox.toktok.{ BundleKey, R, TContext, TR }
 
 import scala.collection.mutable.ListBuffer
 
@@ -31,8 +32,8 @@ final class MessageGroupContacts extends AppCompatActivity with FriendItemClicks
 
     val bundle = getIntent.getExtras
 
-    colorPrimary = bundle.getInt("colorPrimary")
-    colorStatus = bundle.getInt("colorPrimaryStatus")
+    colorPrimary = bundle(BundleKey.colorPrimary)
+    colorStatus = bundle(BundleKey.colorPrimaryStatus)
 
     val mToolbar = this.findView(TR.message_group_members_toolbar)
     mToolbar.setTitle(getResources.getString(R.string.message_group_contacts))
@@ -89,17 +90,16 @@ final class MessageGroupContacts extends AppCompatActivity with FriendItemClicks
         WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
       PixelFormat.TRANSLUCENT
     )
-    val window = this.getSystemService(TContext.WINDOW_SERVICE)
+    getWindowManager.addView(layout, params)
 
-    window.addView(layout, params)
-
-    val tv = new TypedValue()
-    val actionBarHeight =
+    val actionBarHeight = {
+      val tv = new TypedValue
       if (getTheme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
         TypedValue.complexToDimensionPixelSize(tv.data, getResources.getDisplayMetrics)
       } else {
         0
       }
+    }
 
     layout.start(this, adapter.getItem(friendPosition), actionBarHeight)
   }
@@ -108,9 +108,9 @@ final class MessageGroupContacts extends AppCompatActivity with FriendItemClicks
     val friend = adapter.getItem(friendPosition)
 
     val bundle = new Bundle
-    bundle.putString("contactName", friend.userName)
-    bundle.putInt("contactColorPrimary", friend.color)
-    bundle.putInt("contactPhotoReference", friend.photoReference)
+    bundle(BundleKey.contactName) = friend.userName
+    bundle(BundleKey.contactColorPrimary) = friend.color
+    bundle(BundleKey.contactPhotoReference) = friend.photoReference
 
     val newIntent = new Intent(this, classOf[CallActivity])
     newIntent.putExtras(bundle)
@@ -121,11 +121,11 @@ final class MessageGroupContacts extends AppCompatActivity with FriendItemClicks
     val friend = adapter.getItem(friendPosition)
 
     val bundle = new Bundle
-    bundle.putString("messageTitle", friend.userName)
-    bundle.putInt("contactColorPrimary", friend.color)
-    bundle.putInt("contactColorStatus", friend.secondColor)
-    bundle.putInt("imgResource", friend.photoReference)
-    bundle.putInt("messageType", 0)
+    bundle(BundleKey.messageTitle) = friend.userName
+    bundle(BundleKey.contactColorPrimary) = friend.color
+    bundle(BundleKey.contactColorStatus) = friend.secondColor
+    bundle(BundleKey.imgResource) = friend.photoReference
+    bundle(BundleKey.messageType) = 0
 
     val newIntent = new Intent(this, classOf[MessageActivity])
     newIntent.putExtras(bundle)

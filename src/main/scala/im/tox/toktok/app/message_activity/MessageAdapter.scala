@@ -1,15 +1,15 @@
 package im.tox.toktok.app.message_activity
 
-import android.support.v7.widget.{ CardView, RecyclerView }
+import android.support.v7.widget.RecyclerView
 import android.util.SparseBooleanArray
 import android.view.View.OnClickListener
 import android.view.{ LayoutInflater, View, ViewGroup }
 import android.widget.RelativeLayout
 import com.typesafe.scalalogging.Logger
 import im.tox.toktok.TypedResource._
+import im.tox.toktok.app.domain.{ Message, MessageType }
 import im.tox.toktok.app.message_activity.MessageAdapter.inflate
-import im.tox.toktok.app.domain.{ MessageType, Message }
-import im.tox.toktok.{ TR, TypedLayout, TypedResource }
+import im.tox.toktok.{ TR, TypedLayout }
 import org.slf4j.LoggerFactory
 
 import scala.collection.mutable.ListBuffer
@@ -45,7 +45,7 @@ final class MessageAdapter(
         new MessageViewHolderDetailed(itemView, messageActionMode)
       case MessageType.Action.viewType =>
         val itemView = inflate(TR.layout.message_item_action, viewGroup)
-        new MessageViewHolder(itemView, messageActionMode, TR.message_item_action_cardview)
+        new MessageViewHolder(itemView, messageActionMode, itemView.findView(TR.message_item_action))
     }
   }
 
@@ -73,9 +73,9 @@ final class MessageAdapter(
     viewHolder.mUserImg.setImageResource(message.imageSrc)
 
     if (actionModeActive && !isSelected(position)) {
-      viewHolder.mBase.setAlpha(0.5f)
+      viewHolder.base.setAlpha(0.5f)
     } else {
-      viewHolder.mBase.setAlpha(1)
+      viewHolder.base.setAlpha(1)
     }
 
     getItemViewType(position) match {
@@ -137,12 +137,11 @@ final class MessageAdapter(
 sealed class MessageViewHolder(
   itemView: RelativeLayout,
   messageActionMode: MessageActionMode,
-  base: TypedResource[CardView]
+  final val base: View
 ) extends RecyclerView.ViewHolder(itemView)
     with View.OnLongClickListener
     with View.OnClickListener {
 
-  final val mBase = itemView.findView(base)
   final val mUserText = itemView.findView(TR.message_item_text)
   final val mUserImg = itemView.findView(TR.message_item_img)
 
@@ -160,9 +159,13 @@ sealed class MessageViewHolder(
 }
 
 final class MessageViewHolderDetailed(
-    itemView: RelativeLayout,
-    messageActionMode: MessageActionMode
-) extends MessageViewHolder(itemView, messageActionMode, TR.message_item_base) {
+  itemView: RelativeLayout,
+  messageActionMode: MessageActionMode
+) extends MessageViewHolder(
+  itemView,
+  messageActionMode,
+  itemView.findView(TR.message_item_base)
+) {
   val mUserDetails = itemView.findView(TR.message_item_details)
 }
 

@@ -5,18 +5,18 @@
 
     <item
         android:id="@+id/action_see_files_list"
-        android:title="See files list" />
+        android:title="@string/action_file_list" />
 
     <item
         android:id="@+id/action_mute_conversation_single"
-        android:title="Mute Conversation" />
+        android:title="@string/action_mute_conversation" />
 
     <item
         android:id="@+id/action_delete_conversation"
-        android:title="Delete Conversation" />
+        android:title="@string/action_delete_conversation" />
 
     <item
         android:id="@+id/action_recall_message"
-        android:title="Recall a message" />
+        android:title="@string/action_recall_message" />
 
 </menu>

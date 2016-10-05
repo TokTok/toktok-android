@@ -18,19 +18,19 @@ final class SlideInAttachmentsLayout(
     defStyle: Int
 ) extends ViewGroup(context, attrs, defStyle) {
 
-  val logger = Logger(LoggerFactory.getLogger(getClass))
+  private val logger = Logger(LoggerFactory.getLogger(getClass))
 
   private val mDragHelper = ViewDragHelper.create(this, 1f, new DragHelperCallback)
   private var mChild: View = null
-  private var mInitialMotionY: Float = 0
-  private var mDragRange: Int = 0
-  private var mTop: Int = 0
-  private var mDragOffset: Float = 0
+  private var mInitialMotionY = 0.0f
+  private var mDragRange = 0
+  private var mTop = 0
+  private var mDragOffset = 0.0f
 
   def this(context: Context, attrs: AttributeSet) { this(context, attrs, 0) }
   def this(context: Context) { this(context, null) }
 
-  protected override def onFinishInflate() {
+  protected override def onFinishInflate(): Unit = {
     mChild = this.findView(TR.fragment_attachments)
     super.onFinishInflate()
   }
@@ -46,7 +46,7 @@ final class SlideInAttachmentsLayout(
     }
   }
 
-  override def computeScroll() {
+  override def computeScroll(): Unit = {
     if (mDragHelper.continueSettling(true)) {
       ViewCompat.postInvalidateOnAnimation(this)
     }
@@ -80,15 +80,15 @@ final class SlideInAttachmentsLayout(
     }
   }
 
-  def start() {
+  def start(): Unit = {
     setVisibility(View.VISIBLE)
     smoothSlideTo(0f)
   }
 
-  def finish() {
+  def finish(): Unit = {
     smoothSlideTo(1f)
     new Handler().postDelayed(new Runnable() {
-      def run() {
+      def run(): Unit = {
         setVisibility(View.INVISIBLE)
       }
     }, 500)
@@ -118,14 +118,14 @@ final class SlideInAttachmentsLayout(
     super.dispatchTouchEvent(ev)
   }
 
-  protected override def onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+  protected override def onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int): Unit = {
     measureChildren(widthMeasureSpec, heightMeasureSpec)
     val maxWidth = MeasureSpec.getSize(widthMeasureSpec)
     val maxHeight = MeasureSpec.getSize(heightMeasureSpec)
     setMeasuredDimension(View.resolveSizeAndState(maxWidth, widthMeasureSpec, 0), View.resolveSizeAndState(maxHeight, heightMeasureSpec, 0))
   }
 
-  protected override def onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+  protected override def onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int): Unit = {
     mDragRange = mChild.getHeight
     if (changed) {
       mTop = getHeight - mChild.getHeight
@@ -136,17 +136,18 @@ final class SlideInAttachmentsLayout(
   }
 
   private final class DragHelperCallback extends ViewDragHelper.Callback {
-    def tryCaptureView(child: View, pointerId: Int): Boolean = {
+
+    override def tryCaptureView(child: View, pointerId: Int): Boolean = {
       child == mChild
     }
 
-    override def onViewPositionChanged(changedView: View, left: Int, top: Int, dx: Int, dy: Int) {
+    override def onViewPositionChanged(changedView: View, left: Int, top: Int, dx: Int, dy: Int): Unit = {
       mTop = top
       mDragOffset = top.toFloat / mDragRange
       requestLayout()
     }
 
-    override def onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
+    override def onViewReleased(releasedChild: View, xvel: Float, yvel: Float): Unit = {
       var top = getPaddingTop
       if (yvel > 0 || (yvel == 0 && mDragOffset > 0.5f)) {
         top += mDragRange
@@ -162,6 +163,7 @@ final class SlideInAttachmentsLayout(
       val bottomBound = getHeight + mChild.getPaddingTop
       Math.min(Math.max(top, topBound), bottomBound)
     }
+
   }
 
 }

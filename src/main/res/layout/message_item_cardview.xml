@@ -18,7 +18,8 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
             android:textColor="@color/textDarkColor"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:textIsSelectable="false" />
 
         <TextView
             android:id="@+id/message_item_details"
@@ -29,7 +30,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="4dp"
-            android:text="14:30 Delivered"
+            android:text="0:00 Delivered"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
 

@@ -11,21 +11,19 @@ import im.tox.toktok.{ R, TR }
 
 final class SimpleStatusDialogDesign(activity: Activity, statusActive: Int) extends Dialog(activity, R.style.DialogSlideAnimation) {
 
-  private var activeBackgroundTransition: TransitionDrawable = null
-
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
     requestWindowFeature(Window.FEATURE_NO_TITLE)
     setContentView(R.layout.simple_status_chooser_dialog_design)
     getWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT))
 
-    statusActive match {
+    var activeBackgroundTransition = statusActive match {
       case 0 =>
-        activeBackgroundTransition = this.findView(TR.simple_dialog_status_online).getBackground.asInstanceOf[TransitionDrawable]
+        this.findView(TR.simple_dialog_status_online).getBackground.asInstanceOf[TransitionDrawable]
       case 1 =>
-        activeBackgroundTransition = this.findView(TR.simple_dialog_status_away).getBackground.asInstanceOf[TransitionDrawable]
+        this.findView(TR.simple_dialog_status_away).getBackground.asInstanceOf[TransitionDrawable]
       case 2 =>
-        activeBackgroundTransition = this.findView(TR.simple_dialog_status_busy).getBackground.asInstanceOf[TransitionDrawable]
+        this.findView(TR.simple_dialog_status_busy).getBackground.asInstanceOf[TransitionDrawable]
     }
 
     activeBackgroundTransition.startTransition(250)

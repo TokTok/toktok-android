@@ -11,16 +11,17 @@ import android.view.ViewGroup.LayoutParams
 import android.view.{ LayoutInflater, ViewGroup, WindowManager }
 import android.widget.LinearLayout
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
+import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.TypedResource._
-import im.tox.toktok.app.call.CallActivity
-import im.tox.toktok.app.message_activity.MessageActivity
 import im.tox.toktok.app.MainActivityHolder
+import im.tox.toktok.app.call.CallActivity
 import im.tox.toktok.app.domain.Friend
-import im.tox.toktok.{ TContext, TR }
+import im.tox.toktok.app.message_activity.MessageActivity
+import im.tox.toktok.{ BundleKey, TR }
 
 final class FriendsFragment extends Fragment with FriendItemClicks {
 
-  private var mFriends_Recycler_Adapter: FriendsRecyclerHeaderAdapter = null
+  private var mFriendsRecyclerAdapter: FriendsRecyclerHeaderAdapter = null
 
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedState: Bundle): LinearLayout = {
     val view = inflater.inflate(TR.layout.fragment_home_friends, container, false)
@@ -46,11 +47,11 @@ final class FriendsFragment extends Fragment with FriendItemClicks {
       friend
     }
 
-    mFriends_Recycler_Adapter = new FriendsRecyclerHeaderAdapter(friends, this)
+    mFriendsRecyclerAdapter = new FriendsRecyclerHeaderAdapter(friends, this)
 
-    friendsRecycler.setAdapter(mFriends_Recycler_Adapter)
+    friendsRecycler.setAdapter(mFriendsRecyclerAdapter)
     friendsRecycler.setHasFixedSize(true)
-    friendsRecycler.addItemDecoration(new StickyRecyclerHeadersDecoration(mFriends_Recycler_Adapter))
+    friendsRecycler.addItemDecoration(new StickyRecyclerHeadersDecoration(mFriendsRecyclerAdapter))
 
     view
   }
@@ -68,7 +69,6 @@ final class FriendsFragment extends Fragment with FriendItemClicks {
       PixelFormat.TRANSLUCENT
     )
     getActivity.getWindowManager.addView(layout, params)
-
     getActivity.asInstanceOf[MainActivityHolder].setAddContactPopup(layout)
 
     var actionBarHeight = 0
@@ -78,16 +78,16 @@ final class FriendsFragment extends Fragment with FriendItemClicks {
       actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources.getDisplayMetrics)
     }
 
-    layout.start(getActivity, mFriends_Recycler_Adapter.getItem(friendPosition), actionBarHeight)
+    layout.start(getActivity, mFriendsRecyclerAdapter.getItem(friendPosition), actionBarHeight)
   }
 
   override def startCall(friendPosition: Int): Unit = {
-    val friend = mFriends_Recycler_Adapter.getItem(friendPosition)
+    val friend = mFriendsRecyclerAdapter.getItem(friendPosition)
 
     val bundle = new Bundle
-    bundle.putString("contactName", friend.userName)
-    bundle.putInt("contactColorPrimary", friend.color)
-    bundle.putInt("contactPhotoReference", friend.photoReference)
+    bundle(BundleKey.contactName) = friend.userName
+    bundle(BundleKey.contactColorPrimary) = friend.color
+    bundle(BundleKey.contactPhotoReference) = friend.photoReference
 
     val newIntent = new Intent(getActivity, classOf[CallActivity])
     newIntent.putExtras(bundle)
@@ -95,14 +95,14 @@ final class FriendsFragment extends Fragment with FriendItemClicks {
   }
 
   override def startMessage(friendPosition: Int): Unit = {
-    val friend = mFriends_Recycler_Adapter.getItem(friendPosition)
+    val friend = mFriendsRecyclerAdapter.getItem(friendPosition)
 
     val bundle = new Bundle
-    bundle.putString("messageTitle", friend.userName)
-    bundle.putInt("contactColorPrimary", friend.color)
-    bundle.putInt("contactColorStatus", friend.secondColor)
-    bundle.putInt("imgResource", friend.photoReference)
-    bundle.putInt("messageType", 0)
+    bundle(BundleKey.messageTitle) = friend.userName
+    bundle(BundleKey.contactColorPrimary) = friend.color
+    bundle(BundleKey.contactColorStatus) = friend.secondColor
+    bundle(BundleKey.imgResource) = friend.photoReference
+    bundle(BundleKey.messageType) = 0
 
     val newIntent = new Intent(getActivity, classOf[MessageActivity])
     newIntent.putExtras(bundle)

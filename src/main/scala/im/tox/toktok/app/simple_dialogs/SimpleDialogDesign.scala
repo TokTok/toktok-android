@@ -26,7 +26,6 @@ final class SimpleDialogDesign(
 
     this.findView(TR.simple_dialog_color).setBackgroundTintList(ColorStateList.valueOf(color))
     this.findView(TR.simple_dialog_img).setImageResource(icon)
-
     this.findView(TR.simple_dialog_text).setText(question)
 
     val confirmButton = this.findView(TR.simple_dialog_confirm)

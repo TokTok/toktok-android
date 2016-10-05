@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <im.tox.toktok.app.main.HomeSearch xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/transition_background">
 
     <LinearLayout
@@ -42,8 +42,8 @@
                         android:fontFamily="sans-serif-light"
                         android:hint="@string/home_search"
                         android:text="Lorem"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="36dp"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="20dp"
                         android:singleLine="true" />
 
                     <ImageButton
@@ -53,7 +53,7 @@
                         android:layout_centerVertical="true"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:paddingBottom="20dp"
-                        android:paddingStart="20dp"
+                        android:paddingStart="10dp"
                         android:paddingEnd="4dp"
                         android:paddingTop="20dp"
                         android:src="@drawable/ic_action_search"

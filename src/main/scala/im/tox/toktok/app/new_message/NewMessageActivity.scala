@@ -16,10 +16,11 @@ import android.view.animation.{ AccelerateInterpolator, Animation, DecelerateInt
 import android.widget.{ EditText, ImageButton, LinearLayout, TextView }
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import de.hdodenhof.circleimageview.CircleImageView
+import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.MyRecyclerScroll
 import im.tox.toktok.app.domain.Friend
-import im.tox.toktok.{ R, TR }
+import im.tox.toktok.{ BundleKey, R, TR }
 
 import scala.collection.mutable.ListBuffer
 
@@ -48,8 +49,8 @@ final class NewMessageActivity extends AppCompatActivity {
     val bundle: Bundle = getIntent.getExtras
 
     if (bundle != null) {
-      colorPrimary = bundle.getInt("colorPrimary")
-      colorStatus = bundle.getInt("colorPrimaryStatus")
+      colorPrimary = bundle(BundleKey.colorPrimary)
+      colorStatus = bundle(BundleKey.colorPrimaryStatus)
     } else {
       colorPrimary = Color.parseColor("#F5A623")
       colorStatus = Color.parseColor("#8C5F14")

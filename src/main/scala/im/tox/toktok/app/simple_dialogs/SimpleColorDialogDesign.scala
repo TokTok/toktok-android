@@ -15,7 +15,7 @@ import im.tox.toktok.{ R, TR }
 final class SimpleColorDialogDesign(
     activity: Activity,
     title: String,
-    contact_color: Int,
+    contactColor: Int,
     icon: Int,
     color: Int,
     clickAction: OnClickListener
@@ -27,7 +27,7 @@ final class SimpleColorDialogDesign(
     setContentView(R.layout.simple_color_dialog_design)
     getWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT))
 
-    this.findView(TR.simple_dialog_color).setBackgroundTintList(ColorStateList.valueOf(contact_color))
+    this.findView(TR.simple_dialog_color).setBackgroundTintList(ColorStateList.valueOf(contactColor))
     this.findView(TR.simple_dialog_img).setImageResource(icon)
     this.findView(TR.simple_dialog_text).setText(title)
 

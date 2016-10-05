@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.support.v7.widget.{ CardView, RecyclerView }
 import android.util.SparseBooleanArray
 import android.view.{ LayoutInflater, View, ViewGroup }
-import im.tox.toktok.TR
+import im.tox.toktok.{ BundleKey, TR }
 import im.tox.toktok.TypedResource._
+import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.app.domain.{ ChatMessage, FriendMessage, GroupMessage }
 import im.tox.toktok.app.message_activity.MessageActivity
 
@@ -139,11 +140,11 @@ final class ChatsRecyclerViewHolderUser(
 
       chatMessages(getLayoutPosition) match {
         case FriendMessage(friend, lastMessage) =>
-          bundle.putInt("messageType", 0)
-          bundle.putInt("contactColorPrimary", friend.color)
-          bundle.putInt("contactColorStatus", friend.secondColor)
-          bundle.putString("messageTitle", friend.userName)
-          bundle.putInt("imgResource", friend.photoReference)
+          bundle(BundleKey.messageType) = 0
+          bundle(BundleKey.contactColorPrimary) = friend.color
+          bundle(BundleKey.contactColorStatus) = friend.secondColor
+          bundle(BundleKey.messageTitle) = friend.userName
+          bundle(BundleKey.imgResource) = friend.photoReference
 
         case GroupMessage(_, _) =>
           throw new RuntimeException("Got group message but expected friend message")
@@ -184,10 +185,10 @@ final class ChatsRecyclerViewHolderGroup(
 
       chatMessages(getLayoutPosition) match {
         case GroupMessage(group, lastMessage) =>
-          bundle.putInt("messageType", 1)
-          bundle.putInt("contactColorPrimary", group.primaryColor)
-          bundle.putInt("contactColorStatus", group.statusColor)
-          bundle.putString("messageTitle", group.groupName)
+          bundle(BundleKey.messageType) = 1
+          bundle(BundleKey.contactColorPrimary) = group.primaryColor
+          bundle(BundleKey.contactColorStatus) = group.statusColor
+          bundle(BundleKey.messageTitle) = group.groupName
 
         case FriendMessage(_, _) =>
           throw new RuntimeException("Got friend message but expected group message")

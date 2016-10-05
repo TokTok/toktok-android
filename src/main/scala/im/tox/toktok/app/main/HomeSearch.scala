@@ -6,11 +6,11 @@ import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import android.view.View.MeasureSpec
-import android.view.animation.{Animation, AnimationUtils}
-import android.view.{View, ViewGroup}
-import android.widget.{EditText, LinearLayout}
+import android.view.animation.{ Animation, AnimationUtils }
+import android.view.{ View, ViewGroup }
+import android.widget.{ EditText, LinearLayout }
 import im.tox.toktok.TypedResource._
-import im.tox.toktok.{R, TR}
+import im.tox.toktok.{ R, TR }
 
 final class HomeSearch(
     context: Context,
@@ -18,7 +18,7 @@ final class HomeSearch(
     defStyle: Int
 ) extends ViewGroup(context, attrs, defStyle) {
 
-  private var background: TransitionDrawable = null
+  private var mBackground: TransitionDrawable = null
   private var mBase: LinearLayout = null
   private var mInput: EditText = null
   private var mCardView: CardView = null
@@ -28,14 +28,18 @@ final class HomeSearch(
   def this(context: Context) { this(context, null) }
 
   protected override def onFinishInflate(): Unit = {
-    background = getBackground.asInstanceOf[TransitionDrawable]
-    background.startTransition(500)
+    mBackground = getBackground.asInstanceOf[TransitionDrawable]
+    mBackground.startTransition(500)
+
     mBase = this.findView(TR.home_search_layout)
     mCardView = this.findView(TR.home_search_bar)
     mRecycler = this.findView(TR.home_search_bar_recycler)
+
     val searchBarAnimation = AnimationUtils.loadAnimation(mCardView.getContext, R.anim.abc_fade_in)
     mCardView.startAnimation(searchBarAnimation)
+
     mInput = this.findView(TR.home_search_input)
+
     super.onFinishInflate()
   }
 
@@ -59,22 +63,24 @@ final class HomeSearch(
     setMeasuredDimension(View.resolveSizeAndState(maxWidth, widthMeasureSpec, 0), View.resolveSizeAndState(maxHeight, heightMeasureSpec, 0))
   }
 
-  def finish(): Unit = {
+  def finish(after: => Unit): Unit = {
     if (mInput.isFocusable) {
       mInput.clearFocus()
     }
-    val searchBarAnimation: Animation = AnimationUtils.loadAnimation(mCardView.getContext, R.anim.abc_fade_out)
+
+    val searchBarAnimation = AnimationUtils.loadAnimation(mCardView.getContext, R.anim.abc_fade_out)
+
     searchBarAnimation.setAnimationListener(new Animation.AnimationListener() {
-      def onAnimationStart(animation: Animation) {
-      }
+      def onAnimationStart(animation: Animation): Unit = {}
 
-      def onAnimationEnd(animation: Animation) {
+      def onAnimationEnd(animation: Animation): Unit = {
         mCardView.setVisibility(View.INVISIBLE)
-        background.reverseTransition(500)
+        setVisibility(View.GONE)
+        mBackground.reverseTransition(500)
+        after
       }
 
-      def onAnimationRepeat(animation: Animation) {
-      }
+      def onAnimationRepeat(animation: Animation): Unit = {}
     })
     mCardView.startAnimation(searchBarAnimation)
   }

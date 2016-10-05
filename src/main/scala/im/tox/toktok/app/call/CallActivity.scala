@@ -12,11 +12,12 @@ import android.view.animation.Animation.AnimationListener
 import android.view.animation.{ Animation, AnimationUtils }
 import android.widget._
 import com.typesafe.scalalogging.Logger
+import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.Friend
 import im.tox.toktok.app.util.ActivityAdapter
 import im.tox.toktok.app.video_call.VideoCallActivity
-import im.tox.toktok.{ R, TR }
+import im.tox.toktok.{ BundleKey, R, TR }
 import org.slf4j.LoggerFactory
 
 final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layout.activity_call_layout) {
@@ -272,9 +273,9 @@ final class CallActivityViewHolder(activity: CallActivity) {
   val bottomPanel = activity.findView(TR.call_bottom_panel)
 
   val bundle = activity.getIntent.getExtras
-  val friendTitle = bundle.getString("contactName")
-  val friendColor = bundle.getInt("contactColorPrimary")
-  val friendImgSrc = bundle.getInt("contactPhotoReference")
+  val friendTitle = bundle(BundleKey.contactName)
+  val friendColor = bundle(BundleKey.contactColorPrimary)
+  val friendImgSrc = bundle(BundleKey.contactPhotoReference)
 }
 
 trait CallListener {

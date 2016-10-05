@@ -76,13 +76,13 @@
                             android:tint="@color/statusOnline" />
 
                         <TextView
-                            android:id="@id/contact_title"
+                            android:id="@+id/contact_title"
                             style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_toEndOf="@id/contact_status"
-                            android:text="André Almeida" />
+                            android:text="@string/sample_user_name" />
 
                     </RelativeLayout>
 
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="Trying out the new Tox Android" />
+                        android:text="@string/sample_status_message" />
 
                 </LinearLayout>
 
@@ -162,7 +162,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/profile_share_id_title"
-                            android:text="FD99AB34C5E84E611A1727863C3144..."
+                            android:text="@string/sample_tox_id"
                             android:textColor="#CFCFCF"
                             android:textSize="14sp" />
 

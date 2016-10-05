@@ -135,8 +135,11 @@ final class MainFragment extends Fragment {
         val params = new WindowManager.LayoutParams(
           LayoutParams.MATCH_PARENT,
           LayoutParams.MATCH_PARENT,
-          WindowManager.LayoutParams.TYPE_INPUT_METHOD,
-          WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+          WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL,
+          WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
+            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
+            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
           PixelFormat.TRANSLUCENT
         )
         try {

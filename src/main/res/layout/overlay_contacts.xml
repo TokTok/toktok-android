@@ -71,8 +71,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="6dp">
+                        android:orientation="vertical">
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
@@ -88,7 +87,7 @@
                                 android:tint="@color/statusOnline" />
 
                             <TextView
-                                android:id="@id/contact_title"
+                                android:id="@+id/contact_title"
                                 style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -96,7 +95,6 @@
                                 android:layout_toEndOf="@id/contact_status"/>
 
                         </RelativeLayout>
-
 
                         <TextView
                             android:id="@+id/contact_subtitle"
@@ -111,7 +109,6 @@
             </android.support.design.widget.CollapsingToolbarLayout>
 
         </android.support.design.widget.AppBarLayout>
-
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/contacts_nested"

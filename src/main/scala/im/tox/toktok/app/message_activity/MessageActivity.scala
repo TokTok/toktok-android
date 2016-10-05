@@ -17,13 +17,14 @@ import android.view.animation.Animation.AnimationListener
 import android.view.animation.{ Animation, AnimationUtils }
 import android.widget._
 import com.typesafe.scalalogging.Logger
+import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.TypedResource._
-import im.tox.toktok.app.contacts.FileSendActivity
-import im.tox.toktok.app.main.friends.SlideInContactsLayout
-import im.tox.toktok.app.domain.{ MessageType, Message, Friend }
-import im.tox.toktok.app.simple_dialogs.{ SimpleDialogDesign, SimpleTextDialogDesign }
 import im.tox.toktok.app.SizeAnimation
-import im.tox.toktok.{ R, TContext, TR }
+import im.tox.toktok.app.contacts.FileSendActivity
+import im.tox.toktok.app.domain.{ Friend, Message, MessageType }
+import im.tox.toktok.app.main.friends.SlideInContactsLayout
+import im.tox.toktok.app.simple_dialogs.{ SimpleDialogDesign, SimpleTextDialogDesign }
+import im.tox.toktok.{ BundleKey, R, TContext, TR }
 import org.slf4j.LoggerFactory
 
 final class MessageActivity extends AppCompatActivity with MessageClick with MessageActionMode {
@@ -46,7 +47,7 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
   private var mRecyclerAdapter: MessageAdapter = null
   private var mRecycler: RecyclerView = null
   private var overlayContactsLayout: SlideInContactsLayout = null
-  private var overlay_attachments: SlideInAttachmentsLayout = null
+  private var overlayAttachments: SlideInAttachmentsLayout = null
   private var mActionMode: ActionMode = null
   private val actionModeCallback = new MessageActionModeCallback
 
@@ -55,12 +56,11 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
     setContentView(R.layout.activity_message)
 
     val bundle = getIntent.getExtras
-
-    contactColorPrimary = bundle.getInt("contactColorPrimary")
-    contactColorStatus = bundle.getInt("contactColorStatus")
-    typeOfMessage = bundle.getInt("messageType")
-    title = bundle.getString("messageTitle")
-    imgSRC = bundle.getInt("imgResource")
+    contactColorPrimary = bundle(BundleKey.contactColorPrimary)
+    contactColorStatus = bundle(BundleKey.contactColorStatus)
+    typeOfMessage = bundle(BundleKey.messageType)
+    title = bundle(BundleKey.messageTitle)
+    imgSRC = bundle(BundleKey.imgResource)
 
     initToolbar()
     initRecyclerView()
@@ -76,8 +76,8 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
       case R.id.action_recall_message =>
         val recallMessageIntent = new Intent(this, classOf[MessageRecallActivity])
         val bundle = new Bundle()
-        bundle.putInt("colorPrimary", contactColorPrimary)
-        bundle.putInt("colorPrimaryStatus", contactColorStatus)
+        bundle(BundleKey.colorPrimary) = contactColorPrimary
+        bundle(BundleKey.colorPrimaryStatus) = contactColorStatus
         recallMessageIntent.putExtras(bundle)
         startActivity(recallMessageIntent)
         true
@@ -85,8 +85,8 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
       case R.id.action_group_members =>
         val contactListIntent = new Intent(this, classOf[MessageGroupContacts])
         val bundle = new Bundle()
-        bundle.putInt("colorPrimary", contactColorPrimary)
-        bundle.putInt("colorPrimaryStatus", contactColorStatus)
+        bundle(BundleKey.colorPrimary) = contactColorPrimary
+        bundle(BundleKey.colorPrimaryStatus) = contactColorStatus
         contactListIntent.putExtras(bundle)
         startActivity(contactListIntent)
         true
@@ -94,9 +94,9 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
       case R.id.action_see_files_list =>
         val bundle = new Bundle
 
-        bundle.putString("contactName", title)
-        bundle.putInt("contactColorPrimary", contactColorPrimary)
-        bundle.putInt("contactColorStatus", contactColorStatus)
+        bundle(BundleKey.contactName) = title
+        bundle(BundleKey.contactColorPrimary) = contactColorPrimary
+        bundle(BundleKey.contactColorStatus) = contactColorStatus
 
         val newIntent = new Intent(this, classOf[FileSendActivity])
         newIntent.putExtras(bundle)
@@ -133,7 +133,7 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
           getResources.getString(R.string.message_snackbar_group_muted),
           Snackbar.LENGTH_LONG
         )
-        snack.setAction("Undo", new OnClickListener {
+        snack.setAction(getResources.getString(R.string.action_undo), new OnClickListener {
           override def onClick(v: View): Unit = {
             logger.debug("asdsad")
           }
@@ -164,7 +164,7 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
           getResources.getString(R.string.message_snackbar_friend_muted),
           Snackbar.LENGTH_LONG
         )
-        snack.setAction("Undo", new OnClickListener {
+        snack.setAction(getResources.getString(R.string.action_undo), new OnClickListener {
           override def onClick(v: View): Unit = {
             logger.debug("asdsad")
           }
@@ -193,7 +193,6 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
     }
 
     super.onCreateOptionsMenu(menu)
-    true
   }
 
   private def initToolbar(): Unit = {
@@ -206,7 +205,7 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
 
     getWindow.setStatusBarColor(contactColorStatus)
 
-    overlay_attachments = this.findView(TR.fragment_attachments_slide)
+    overlayAttachments = this.findView(TR.fragment_attachments_slide)
     header = this.findView(TR.message_header)
 
     val params = new RelativeLayout.LayoutParams(
@@ -215,35 +214,32 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
     )
     params.addRule(RelativeLayout.CENTER_VERTICAL)
 
-    if (typeOfMessage == 0) {
+    typeOfMessage match {
+      case 0 =>
+        header.addView(getLayoutInflater.inflate(TR.layout.message_header_user, null, true), params)
+        header.findView(TR.message_header_user_img).setImageResource(imgSRC)
+        header.setOnClickListener(new OnClickListener {
+          override def onClick(v: View): Unit = {
+            startOverLayFriend()
+          }
+        })
 
-      header.addView(getLayoutInflater.inflate(TR.layout.message_header_user, null, true), params)
-      header.findView(TR.message_header_user_img).setImageResource(imgSRC)
-      header.setOnClickListener(new OnClickListener {
-        override def onClick(v: View): Unit = {
-          startOverLayFriend()
-        }
-      })
-
-    } else {
-
-      header.addView(getLayoutInflater.inflate(TR.layout.message_header_group, null, true), params)
-      header.setOnClickListener(new OnClickListener {
-        override def onClick(v: View): Unit = {
-          val contactListIntent = new Intent(MessageActivity.this, classOf[MessageGroupContacts])
-          val bundle = new Bundle()
-          bundle.putInt("colorPrimary", contactColorPrimary)
-          bundle.putInt("colorPrimaryStatus", contactColorStatus)
-          contactListIntent.putExtras(bundle)
-          startActivity(contactListIntent)
-        }
-      })
-
+      case _ =>
+        header.addView(getLayoutInflater.inflate(TR.layout.message_header_group, null, true), params)
+        header.setOnClickListener(new OnClickListener {
+          override def onClick(v: View): Unit = {
+            val contactListIntent = new Intent(MessageActivity.this, classOf[MessageGroupContacts])
+            val bundle = new Bundle()
+            bundle(BundleKey.colorPrimary) = contactColorPrimary
+            bundle(BundleKey.colorPrimaryStatus) = contactColorStatus
+            contactListIntent.putExtras(bundle)
+            startActivity(contactListIntent)
+          }
+        })
     }
 
     mUserName = header.findView(TR.message_header_title)
     mUserName.setText(title)
-
   }
 
   private def initRecyclerView(): Unit = {
@@ -257,6 +253,7 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
     if (imgSRC == 0) {
       imgSRC = R.drawable.lorem
       mRecyclerAdapter.addItem(Message(MessageType.Action, "The Amazing Group was created", "", R.drawable.user))
+      mRecyclerAdapter.addItem(Message(MessageType.Received, "Awesome stuff!", "14:29 Received", R.drawable.john))
     }
 
     mRecyclerAdapter.addItem(Message(MessageType.Delivered, "Welcome to TokTok " + title + ", I hope you love it, as much as I do \uD83D\uDE00", "14:30 Delivered", R.drawable.user))
@@ -276,7 +273,7 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
         val imm = MessageActivity.this.getSystemService(TContext.INPUT_METHOD_SERVICE)
         imm.hideSoftInputFromWindow(mInput.getApplicationWindowToken, 0)
 
-        overlay_attachments.start()
+        overlayAttachments.start()
       }
     })
 
@@ -389,25 +386,25 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
         WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
       PixelFormat.TRANSLUCENT
     )
-    val window = this.getSystemService(TContext.WINDOW_SERVICE)
+    getWindowManager.addView(overlayContactsLayout, params)
 
-    window.addView(overlayContactsLayout, params)
-
-    var actionBarHeight = 0
-
-    val tv = new TypedValue()
-    if (getTheme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-      actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources.getDisplayMetrics)
+    val actionBarHeight = {
+      val tv = new TypedValue()
+      if (getTheme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+        TypedValue.complexToDimensionPixelSize(tv.data, getResources.getDisplayMetrics)
+      } else {
+        0
+      }
     }
 
     overlayContactsLayout.start(this, Friend.lorem, actionBarHeight)
   }
 
   override def onBackPressed(): Unit = {
-    if (overlay_attachments.getVisibility == View.INVISIBLE) {
+    if (overlayAttachments.getVisibility == View.INVISIBLE) {
       finish()
     } else {
-      overlay_attachments.finish()
+      overlayAttachments.finish()
     }
   }
 
@@ -418,13 +415,13 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
       case 0 =>
         mActionMode.finish()
       case 1 =>
-        mActionMode.setTitle("1 " + getResources.getString(R.string.action_mode_selected_single))
+        mActionMode.setTitle(getResources.getString(R.string.action_mode_selected_single))
       case count =>
         mActionMode.setTitle(s"$count " + getResources.getString(R.string.action_mode_selected_multi))
     }
   }
 
-  override def onClick(i: Int) = {
+  override def onClick(i: Int): Unit = {
     if (mActionMode != null) {
       toggleSelection(i)
     }

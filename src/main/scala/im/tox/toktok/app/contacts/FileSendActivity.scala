@@ -5,18 +5,19 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{ LinearLayoutManager, RecyclerView, Toolbar }
 import android.view.MenuItem
 import im.tox.toktok.TypedResource._
+import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.app.domain.File
-import im.tox.toktok.{ R, TR }
+import im.tox.toktok.{ BundleKey, R, TR }
 
 import scala.collection.mutable.ListBuffer
 
 final class FileSendActivity extends AppCompatActivity {
 
-  var mToolbar: Toolbar = null
-  var mRecycler: RecyclerView = null
-  var colorPrimary: Int = 0
-  var colorStatus: Int = 0
-  var userName: String = ""
+  private var mToolbar: Toolbar = null
+  private var mRecycler: RecyclerView = null
+  private var colorPrimary = 0
+  private var colorStatus = 0
+  private var userName = ""
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -24,9 +25,9 @@ final class FileSendActivity extends AppCompatActivity {
 
     val bundle = getIntent.getExtras
 
-    colorPrimary = bundle.getInt("contactColorPrimary")
-    colorStatus = bundle.getInt("contactColorStatus")
-    userName = bundle.getString("contactName")
+    colorPrimary = bundle(BundleKey.contactColorPrimary)
+    colorStatus = bundle(BundleKey.contactColorStatus)
+    userName = bundle(BundleKey.contactName)
 
     getWindow.setStatusBarColor(colorStatus)
 
