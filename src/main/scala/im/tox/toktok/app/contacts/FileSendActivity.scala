@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.{ LinearLayoutManager, RecyclerView, Toolbar }
 import android.view.MenuItem
-import im.tox.toktok.TypedResource._
 import im.tox.toktok.TypedBundleKey._
+import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.File
 import im.tox.toktok.{ BundleKey, R, TR }
 

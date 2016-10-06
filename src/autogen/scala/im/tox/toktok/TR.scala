@@ -150,6 +150,7 @@ object TR {
   final val reject_item_message_delete = TypedResource[android.widget.ImageView](R.id.reject_item_message_delete)
   final val call_answer = TypedResource[im.tox.toktok.app.call.CallSliderAnswer](R.id.call_answer)
   final val main_content = TypedResource[android.support.design.widget.CoordinatorLayout](R.id.main_content)
+  final val call_slider_img = TypedResource[android.widget.ImageView](R.id.call_slider_img)
   final val call_ongoing_contact_name = TypedResource[android.widget.TextView](R.id.call_ongoing_contact_name)
   final val profile_change_reject_call = TypedResource[android.widget.TextView](R.id.profile_change_reject_call)
   final val profile_share_id_title = TypedResource[android.widget.TextView](R.id.profile_share_id_title)

@@ -6,17 +6,21 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View.OnClickListener
-import android.view.{ View, Window }
+import android.view.Window
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.{ R, TR }
+import org.scaloid.common._
 
 final class SimpleDialogDesign(
-    activity: Activity,
-    question: String,
-    color: Int,
-    icon: Int,
-    clickAction: OnClickListener
-) extends Dialog(activity, R.style.DialogSlideAnimation) {
+  activity: Activity,
+  question: String,
+  color: Int,
+  icon: Int,
+  clickAction: OnClickListener
+) extends Dialog(
+  activity,
+  R.style.DialogSlideAnimation
+) {
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -32,11 +36,9 @@ final class SimpleDialogDesign(
     confirmButton.setOnClickListener(clickAction)
 
     val cancelButton = this.findView(TR.simple_dialog_cancel)
-    cancelButton.setOnClickListener(new OnClickListener {
-      override def onClick(v: View): Unit = {
-        dismiss()
-      }
-    })
+    cancelButton.onClick {
+      dismiss()
+    }
   }
 
 }

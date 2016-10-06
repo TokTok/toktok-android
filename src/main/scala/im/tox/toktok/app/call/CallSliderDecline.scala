@@ -3,9 +3,10 @@ package im.tox.toktok.app.call
 import android.content.Context
 import android.util.AttributeSet
 import android.view.{ LayoutInflater, MotionEvent, View }
-import android.widget.{ ImageView, RelativeLayout, TextView }
+import android.widget.RelativeLayout
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.{ R, TR }
+import org.scaloid.common._
 
 final class CallSliderDecline(
     context: Context,
@@ -13,50 +14,44 @@ final class CallSliderDecline(
     defStyle: Int
 ) extends RelativeLayout(context, attrs, defStyle) with View.OnTouchListener {
 
-  private var mContext: Context = null
-  private var mCallImage: ImageView = null
-  private var _X: Int = 0
-  private var buttonWidth: Int = 0
-  private var barWidth: Int = 0
-  private var answered: Boolean = false
-  private var mCallText: TextView = null
-  private var startPosition: Int = 0
+  LayoutInflater.from(getContext).inflate(TR.layout.call_slider_decline, this, true)
+
+  private val mCallImage = this.findView(TR.call_slider_img)
+  private var mX = 0
+  private var buttonWidth = 0
+  private var barWidth = 0
+  private var answered = false
+  private val mCallText = this.findView(TR.call_slider_text)
+  private var startPosition = 0
   private var listener: CallListener = null
 
   def this(context: Context, attrs: AttributeSet) { this(context, attrs, 0) }
   def this(context: Context) { this(context, null) }
 
-  {
-    val inflater = LayoutInflater.from(getContext)
-    inflater.inflate(TR.layout.call_slider_decline, this, true)
-    mCallImage = findViewById(R.id.call_slider_img).asInstanceOf[ImageView]
-    if (mCallImage != null) {
-      mCallImage.setOnTouchListener(this)
-    }
-    mCallText = findViewById(R.id.call_slider_text).asInstanceOf[TextView]
+  if (mCallImage != null) {
+    mCallImage.setOnTouchListener(this)
   }
 
   def onTouch(v: View, motion: MotionEvent): Boolean = {
-    val x: Int = motion.getRawX.toInt
-    val y: Int = motion.getRawY.toInt
-    val buttonPayoutParams: RelativeLayout.LayoutParams = mCallImage.getLayoutParams.asInstanceOf[RelativeLayout.LayoutParams]
+    val x = motion.getRawX.toInt
+    val buttonPayoutParams = mCallImage.getLayoutParams.asInstanceOf[RelativeLayout.LayoutParams]
     motion.getAction match {
       case MotionEvent.ACTION_DOWN =>
-        _X = x
+        mX = x
         buttonWidth = mCallImage.getWidth
         barWidth = getWidth - buttonWidth - getPaddingRight - getPaddingLeft
         mCallImage.setImageResource(R.drawable.call_decline_hold)
-        startPosition = mCallImage.getX.toInt
+        startPosition = mCallImage.x.toInt
         listener.onStart()
       case MotionEvent.ACTION_MOVE =>
-        if ((_X - x) >= 0 && (_X - x) <= barWidth) {
-          buttonPayoutParams.rightMargin = _X - x
-          mCallText.setAlpha((_X - x).toFloat / (barWidth * 1.3f))
+        if ((mX - x) >= 0 && (mX - x) <= barWidth) {
+          buttonPayoutParams.rightMargin = mX - x
+          mCallText.setAlpha((mX - x).toFloat / (barWidth * 1.3f))
           answered = false
-        } else if ((_X - x) >= barWidth) {
+        } else if ((mX - x) >= barWidth) {
           buttonPayoutParams.rightMargin = barWidth
           answered = true
-        } else if ((_X - x) <= 0) {
+        } else if ((mX - x) <= 0) {
           buttonPayoutParams.rightMargin = 0
           mCallText.setAlpha(0)
         }
@@ -74,7 +69,7 @@ final class CallSliderDecline(
     true
   }
 
-  def setOnCallListener(listener: CallListener) {
+  def setOnCallListener(listener: CallListener): Unit = {
     this.listener = listener
   }
 

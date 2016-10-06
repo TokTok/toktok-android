@@ -1,11 +1,9 @@
 package im.tox.toktok.app.main
 
-import android.app.Dialog
-import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Bundle
 import android.support.design.widget.{ FloatingActionButton, TabLayout }
-import android.support.v4.app.Fragment
+import android.support.v4.app.{ Fragment, FragmentActivity }
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.support.v4.widget.DrawerLayout
@@ -22,9 +20,12 @@ import im.tox.toktok.app.new_message.NewMessageActivity
 import im.tox.toktok.app.simple_dialogs.SimpleAddFriendDialogDesign
 import im.tox.toktok.app.{ CustomViewPager, MainActivityHolder }
 import im.tox.toktok.{ R, TR }
+import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
 final class MainFragment extends Fragment {
+
+  private implicit def activity: FragmentActivity = getActivity
 
   private val logger = Logger(LoggerFactory.getLogger(getClass))
 
@@ -104,19 +105,17 @@ final class MainFragment extends Fragment {
 
     getActivity.asInstanceOf[AppCompatActivity].setSupportActionBar(mToolbar)
 
-    val mActionBar = getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar
-    mActionBar.setTitle(getResources.getString(R.string.app_name))
-    mActionBar.setHomeAsUpIndicator(R.drawable.ic_navigation_menu)
-    mActionBar.setDisplayHomeAsUpEnabled(true)
+    val actionBar = getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar
+    actionBar.setTitle(getResources.getString(R.string.app_name))
+    actionBar.setHomeAsUpIndicator(R.drawable.ic_navigation_menu)
+    actionBar.setDisplayHomeAsUpEnabled(true)
   }
 
   private def initFAB(view: FrameLayout): Unit = {
     mFab = view.findView(TR.home_fab)
-    mFab.setOnClickListener(new OnClickListener {
-      override def onClick(view: View): Unit = {
-        startActivity(new Intent(getActivity, classOf[NewMessageActivity]))
-      }
-    })
+    mFab.onClick {
+      startActivity(SIntent[NewMessageActivity])
+    }
   }
 
   override def onOptionsItemSelected(item: MenuItem): Boolean = {

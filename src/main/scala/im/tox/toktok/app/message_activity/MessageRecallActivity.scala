@@ -13,11 +13,11 @@ import im.tox.toktok.{ BundleKey, R, TR }
 
 final class MessageRecallActivity extends AppCompatActivity with RecallMessageListener {
 
-  var colorPrimary: Int = 0
-  var colorStatus: Int = 0
-  var adapter: MessageRecallRecyclerAdapter = null
-  var mToolbar: Toolbar = null
-  var mFAB: FloatingActionButton = null
+  private var colorPrimary: Int = 0
+  private var colorStatus: Int = 0
+  private var adapter: MessageRecallRecyclerAdapter = null
+  private var mToolbar: Toolbar = null
+  private var mFAB: FloatingActionButton = null
 
   protected override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)

@@ -24,7 +24,7 @@
         android:layout_height="match_parent" />
 
     <ImageView
-        android:id="@id/call_slider_img"
+        android:id="@+id/call_slider_img"
         android:src="@drawable/call_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

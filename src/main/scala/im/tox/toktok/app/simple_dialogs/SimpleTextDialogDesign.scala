@@ -5,11 +5,11 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.{ Editable, TextWatcher }
 import android.view.View.OnClickListener
-import android.view.{ View, Window }
+import android.view.Window
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.{ R, TR }
+import org.scaloid.common._
 
 final class SimpleTextDialogDesign(
     activity: Activity,
@@ -34,26 +34,17 @@ final class SimpleTextDialogDesign(
     input.setText(value)
 
     val cancelButton = this.findView(TR.simple_dialog_cancel)
-    cancelButton.setOnClickListener(new OnClickListener {
-      override def onClick(v: View): Unit = {
-        dismiss()
-      }
-    })
+    cancelButton.onClick {
+      dismiss()
+    }
 
     val confirmButton = this.findView(TR.simple_dialog_confirm)
 
-    input.addTextChangedListener(new TextWatcher {
-      override def beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int): Unit = {}
-
-      override def onTextChanged(s: CharSequence, start: Int, before: Int, count: Int): Unit = {}
-
-      override def afterTextChanged(s: Editable): Unit = {
-        confirmButton.setEnabled(true)
-        confirmButton.setTextColor(activity.getResources.getColor(R.color.simpleDialogTextButton, null))
-        confirmButton.setBackgroundTintList(ColorStateList.valueOf(activity.getResources.getColor(R.color.simpleDialogIconButton, null)))
-        confirmButton.setOnClickListener(clickAction)
-      }
-    })
-
+    input.afterTextChanged {
+      confirmButton.setEnabled(true)
+      confirmButton.setTextColor(activity.getResources.getColor(R.color.simpleDialogTextButton, null))
+      confirmButton.setBackgroundTintList(ColorStateList.valueOf(activity.getResources.getColor(R.color.simpleDialogIconButton, null)))
+      confirmButton.setOnClickListener(clickAction)
+    }
   }
 }

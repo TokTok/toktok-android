@@ -7,10 +7,10 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.{ Editable, TextWatcher }
 import android.view.View.OnClickListener
-import android.view.{ View, Window }
-import android.widget._
+import android.view.Window
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.{ R, TR }
+import org.scaloid.common._
 
 final class SimpleAddFriendDialogDesign(
     activity: Activity,
@@ -28,11 +28,9 @@ final class SimpleAddFriendDialogDesign(
     val confirmButton = this.findView(TR.simple_dialog_confirm)
 
     val cancelButton = this.findView(TR.simple_dialog_cancel)
-    cancelButton.setOnClickListener(new OnClickListener {
-      override def onClick(v: View): Unit = {
-        dismiss()
-      }
-    })
+    cancelButton.onClick {
+      dismiss()
+    }
 
     input.addTextChangedListener(new TextWatcher {
 

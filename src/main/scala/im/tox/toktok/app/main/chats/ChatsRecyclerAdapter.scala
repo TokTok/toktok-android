@@ -1,15 +1,15 @@
 package im.tox.toktok.app.main.chats
 
-import android.content.Intent
-import android.os.Bundle
+import android.content.Context
 import android.support.v7.widget.{ CardView, RecyclerView }
 import android.util.SparseBooleanArray
 import android.view.{ LayoutInflater, View, ViewGroup }
-import im.tox.toktok.{ BundleKey, TR }
-import im.tox.toktok.TypedResource._
 import im.tox.toktok.TypedBundleKey._
+import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.{ ChatMessage, FriendMessage, GroupMessage }
 import im.tox.toktok.app.message_activity.MessageActivity
+import im.tox.toktok.{ BundleKey, TR }
+import org.scaloid.common.SIntent
 
 import scala.collection.mutable.ListBuffer
 
@@ -116,7 +116,7 @@ final class ChatsRecyclerAdapter(
 
 }
 
-final class ChatsRecyclerViewHolderUser(
+sealed abstract class ChatsRecyclerViewHolder(
   itemView: View,
   chatMessages: Seq[ChatMessage],
   clickListener: ChatItemClick
@@ -124,41 +124,53 @@ final class ChatsRecyclerViewHolderUser(
     with View.OnClickListener
     with View.OnLongClickListener {
 
+  protected implicit def context: Context = itemView.getContext
+
   itemView.setOnClickListener(this)
   itemView.setOnLongClickListener(this)
 
   val mSelectedBackground = itemView.findView(TR.home_item_selected)
   val mUserName = itemView.findView(TR.home_item_name)
-  val mUserStatus = itemView.findView(TR.home_item_status)
   val mLastMessage = itemView.findView(TR.home_item_last_message)
-  val mUserImage = itemView.findView(TR.home_item_img)
   val mColor = itemView.findView(TR.home_item_color)
+
+  final override def onLongClick(v: View): Boolean = {
+    clickListener.onLongClick(getLayoutPosition)
+  }
+
+}
+
+final class ChatsRecyclerViewHolderUser(
+  itemView: View,
+  chatMessages: Seq[ChatMessage],
+  clickListener: ChatItemClick
+) extends ChatsRecyclerViewHolder(
+  itemView,
+  chatMessages,
+  clickListener
+) {
+
+  val mUserStatus = itemView.findView(TR.home_item_status)
+  val mUserImage = itemView.findView(TR.home_item_img)
 
   def onClick(view: View) = {
     if (!clickListener.onClick(getLayoutPosition)) {
-      val bundle = new Bundle()
-
-      chatMessages(getLayoutPosition) match {
+      val bundle = chatMessages(getLayoutPosition) match {
         case FriendMessage(friend, lastMessage) =>
-          bundle(BundleKey.messageType) = 0
-          bundle(BundleKey.contactColorPrimary) = friend.color
-          bundle(BundleKey.contactColorStatus) = friend.secondColor
-          bundle(BundleKey.messageTitle) = friend.userName
-          bundle(BundleKey.imgResource) = friend.photoReference
+          SBundle(
+            BundleKey.messageType -> 0,
+            BundleKey.contactColorPrimary -> friend.color,
+            BundleKey.contactColorStatus -> friend.secondColor,
+            BundleKey.messageTitle -> friend.userName,
+            BundleKey.imgResource -> friend.photoReference
+          )
 
         case GroupMessage(_, _) =>
           throw new RuntimeException("Got group message but expected friend message")
       }
 
-      val messageIntent = new Intent(itemView.getContext, classOf[MessageActivity])
-      messageIntent.putExtras(bundle)
-
-      itemView.getContext.startActivity(messageIntent)
+      context.startActivity(SIntent[MessageActivity].putExtras(bundle))
     }
-  }
-
-  def onLongClick(v: View): Boolean = {
-    clickListener.onLongClick(getLayoutPosition)
   }
 
 }
@@ -167,42 +179,29 @@ final class ChatsRecyclerViewHolderGroup(
   itemView: CardView,
   chatMessages: Seq[ChatMessage],
   clickListener: ChatItemClick
-) extends RecyclerView.ViewHolder(itemView)
-    with View.OnClickListener
-    with View.OnLongClickListener {
-
-  itemView.setOnClickListener(this)
-  itemView.setOnLongClickListener(this)
-
-  val mSelectedBackground = itemView.findView(TR.home_item_selected)
-  val mUserName = itemView.findView(TR.home_item_name)
-  val mLastMessage = itemView.findView(TR.home_item_last_message)
-  val mColor = itemView.findView(TR.home_item_color)
+) extends ChatsRecyclerViewHolder(
+  itemView,
+  chatMessages,
+  clickListener
+) {
 
   override def onClick(view: View) = {
     if (!clickListener.onClick(getLayoutPosition)) {
-      val bundle = new Bundle()
-
-      chatMessages(getLayoutPosition) match {
+      val bundle = chatMessages(getLayoutPosition) match {
         case GroupMessage(group, lastMessage) =>
-          bundle(BundleKey.messageType) = 1
-          bundle(BundleKey.contactColorPrimary) = group.primaryColor
-          bundle(BundleKey.contactColorStatus) = group.statusColor
-          bundle(BundleKey.messageTitle) = group.groupName
+          SBundle(
+            BundleKey.messageType -> 1,
+            BundleKey.contactColorPrimary -> group.primaryColor,
+            BundleKey.contactColorStatus -> group.statusColor,
+            BundleKey.messageTitle -> group.groupName
+          )
 
         case FriendMessage(_, _) =>
           throw new RuntimeException("Got friend message but expected group message")
       }
 
-      val messageIntent = new Intent(itemView.getContext, classOf[MessageActivity])
-      messageIntent.putExtras(bundle)
-
-      itemView.getContext.startActivity(messageIntent)
+      context.startActivity(SIntent[MessageActivity].putExtras(bundle))
     }
-  }
-
-  override def onLongClick(v: View): Boolean = {
-    clickListener.onLongClick(getLayoutPosition)
   }
 
 }

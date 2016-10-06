@@ -1,11 +1,10 @@
 package im.tox.toktok.app.call
 
-import android.content.Intent
+import android.app.Activity
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.{ Color, Point }
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup.LayoutParams
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.animation.Animation.AnimationListener
@@ -18,9 +17,12 @@ import im.tox.toktok.app.domain.Friend
 import im.tox.toktok.app.util.ActivityAdapter
 import im.tox.toktok.app.video_call.VideoCallActivity
 import im.tox.toktok.{ BundleKey, R, TR }
+import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
 final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layout.activity_call_layout) {
+
+  private implicit def activity: Activity = this
 
   private val logger = Logger(LoggerFactory.getLogger(getClass))
 
@@ -79,11 +81,9 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
     contactsView.setLayoutManager(contactsLayoutManager)
     contactsView.setAdapter(new CallOnGoingContactsAdapter(friends))
 
-    this.findView(TR.call_ongoing_fab).setOnClickListener(new OnClickListener {
-      override def onClick(v: View): Unit = {
-        finish()
-      }
-    })
+    this.findView(TR.call_ongoing_fab).onClick {
+      finish()
+    }
   }
 
   private def initReceiveCall(holder: CallActivityViewHolder): Unit = {
@@ -150,9 +150,7 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
             holder.topPanel.getChildAt(0).startAnimation(fadeOutAnimationTop)
 
           case 2 =>
-            val videoIntent = new Intent(CallActivity.this, classOf[VideoCallActivity])
-            videoIntent.putExtras(holder.bundle)
-            startActivity(videoIntent)
+            startActivity(SIntent[VideoCallActivity].putExtras(holder.bundle))
             overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out)
             finish()
         }
@@ -229,11 +227,9 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
 
     val bottomTextBar = this.findView(TR.call_message_bottom_bar)
 
-    bottomTextBar.setOnClickListener(new OnClickListener {
-      override def onClick(v: View): Unit = {
-        logger.debug("asda")
-      }
-    })
+    bottomTextBar.onClick {
+      logger.debug("asda")
+    }
   }
 
   private def initBackground(holder: CallActivityViewHolder, imgResource: Int): Unit = {

@@ -7,45 +7,50 @@ import android.view.{ LayoutInflater, View, ViewGroup }
 import com.typesafe.scalalogging.Logger
 import im.tox.toktok.TR
 import im.tox.toktok.TypedResource._
+import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
-final class SimpleColorDialogDesignAdapter(items: Seq[String]) extends RecyclerView.Adapter[SimpleColorDialogDesignViewHolder] {
+final class SimpleColorDialogDesignAdapter(
+    items: Seq[String]
+) extends RecyclerView.Adapter[SimpleColorDialogDesignViewHolder] {
 
-  val logger = Logger(LoggerFactory.getLogger(getClass))
+  private val logger = Logger(LoggerFactory.getLogger(getClass))
 
-  def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): SimpleColorDialogDesignViewHolder = {
+  override def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): SimpleColorDialogDesignViewHolder = {
     val itemView = LayoutInflater.from(viewGroup.getContext)
       .inflate(TR.layout.simple_color_dialog_item, viewGroup, false)
 
-    itemView.setOnClickListener(new OnClickListener {
-      override def onClick(v: View): Unit = {
-        logger.debug("adsd")
-        v.setZ(1000.0f)
-      }
-    })
+    itemView.onClick { (v: View) =>
+      logger.debug("adsd")
+      v.setZ(1000.0f)
+    }
 
     new SimpleColorDialogDesignViewHolder(itemView)
   }
 
-  def onBindViewHolder(viewHolder: SimpleColorDialogDesignViewHolder, position: Int) = {
+  override def onBindViewHolder(viewHolder: SimpleColorDialogDesignViewHolder, position: Int) = {
     val item = items(position)
     logger.debug(item)
     viewHolder.mColor.setBackgroundColor(Color.parseColor(item))
   }
 
-  def getItemCount: Int = {
+  override def getItemCount: Int = {
     items.length
   }
 
 }
 
-final class SimpleColorDialogDesignViewHolder(itemView: CardView) extends RecyclerView.ViewHolder(itemView) with OnClickListener {
+final class SimpleColorDialogDesignViewHolder(
+  itemView: CardView
+) extends RecyclerView.ViewHolder(
+  itemView
+) with OnClickListener {
 
   val logger = Logger(LoggerFactory.getLogger(getClass))
 
   val mColor = itemView.findView(TR.simple_color_dialog_item)
 
-  def onClick(v: View) = {
+  override def onClick(v: View) = {
     logger.debug("adsd")
   }
 

@@ -1,10 +1,10 @@
 package im.tox.toktok.app.main.friends
 
 import android.app.Activity
+import android.content.Context
 import android.content.res.ColorStateList
-import android.content.{ Context, Intent }
 import android.graphics.drawable.TransitionDrawable
-import android.os.{ Bundle, Handler }
+import android.os.Handler
 import android.support.design.widget.{ CollapsingToolbarLayout, FloatingActionButton, Snackbar }
 import android.support.v4.view.{ MotionEventCompat, ViewCompat }
 import android.support.v4.widget.ViewDragHelper
@@ -24,6 +24,7 @@ import im.tox.toktok.app.message_activity.MessageActivity
 import im.tox.toktok.app.simple_dialogs.{ SimpleColorDialogDesign, SimpleDialogDesign, SimpleTextDialogDesign }
 import im.tox.toktok.app.video_call.VideoCallActivity
 import im.tox.toktok.{ BundleKey, R, TR }
+import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
 final class SlideInContactsLayout(
@@ -38,6 +39,8 @@ final class SlideInContactsLayout(
 
   private val logger = Logger(LoggerFactory.getLogger(getClass))
 
+  private implicit var activity: Activity = null
+
   private val mDragHelper = ViewDragHelper.create(this, 1f, new DragHelperCallback)
   private var mCoordinator: View = null
   private var mCollapsingToolbarLayout: CollapsingToolbarLayout = null
@@ -49,7 +52,6 @@ final class SlideInContactsLayout(
   private var mToolbar: Toolbar = null
   private var mStatusBar: View = null
   private var mEditNameButton: RelativeLayout = null
-  private var activity: Activity = null
   private var friend: Friend = null
   private var mInitialMotionY = .0
   private var mDragRange = 0
@@ -66,7 +68,6 @@ final class SlideInContactsLayout(
   private var mBlockFriend: RelativeLayout = null
   private var mChangeColor: RelativeLayout = null
   private var scrollTop = 0
-  private var bundle: Bundle = null
 
   private val icons = Array(
     TR.contacts_icon_call,
@@ -295,97 +296,83 @@ final class SlideInContactsLayout(
   }
 
   private def initListeners(friend: Friend): Unit = {
-    mEditNameButton.setOnClickListener(new View.OnClickListener() {
-      def onClick(v: View): Unit = {
-        val dial = new SimpleTextDialogDesign(activity, getResources.getString(R.string.contact_popup_edit_alias), friend.color, R.drawable.ic_person_black_48dp, friend.userName, null)
-        dial.show()
-      }
-    })
+    mEditNameButton.onClick {
+      val dial = new SimpleTextDialogDesign(activity, getResources.getString(R.string.contact_popup_edit_alias), friend.color, R.drawable.ic_person_black_48dp, friend.userName, null)
+      dial.show()
+    }
 
-    mVoiceCall.setOnClickListener(new View.OnClickListener() {
-      def onClick(v: View): Unit = {
-        bundle = new Bundle
-        bundle(BundleKey.contactName) = friend.userName
-        bundle(BundleKey.contactColorPrimary) = friend.color
-        bundle(BundleKey.contactPhotoReference) = friend.photoReference
-        val newIntent = new Intent(activity, classOf[CallActivity])
-        newIntent.putExtras(bundle)
-        activity.startActivity(newIntent)
-      }
-    })
+    mVoiceCall.onClick {
+      activity.startActivity(SIntent[CallActivity].putExtras(SBundle(
+        BundleKey.contactName -> friend.userName,
+        BundleKey.contactColorPrimary -> friend.color,
+        BundleKey.contactPhotoReference -> friend.photoReference
+      )))
+    }
 
-    mVideoCall.setOnClickListener(new View.OnClickListener() {
-      def onClick(v: View): Unit = {
-        bundle = new Bundle
-        bundle(BundleKey.contactPhotoReference) = friend.photoReference
-        val newIntent = new Intent(activity, classOf[VideoCallActivity])
-        newIntent.putExtras(bundle)
-        activity.overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out)
-        activity.startActivity(newIntent)
-      }
-    })
+    mVideoCall.onClick {
+      activity.overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out)
+      activity.startActivity(SIntent[VideoCallActivity].putExtras(SBundle(
+        BundleKey.contactPhotoReference -> friend.photoReference
+      )))
+    }
 
-    mMessage.setOnClickListener(new View.OnClickListener() {
-      def onClick(v: View): Unit = {
-        bundle = new Bundle
-        bundle(BundleKey.messageTitle) = friend.userName
-        bundle(BundleKey.contactColorPrimary) = friend.color
-        bundle(BundleKey.contactColorStatus) = friend.secondColor
-        bundle(BundleKey.imgResource) = friend.photoReference
-        bundle(BundleKey.messageType) = 0
-        val newIntent = new Intent(activity, classOf[MessageActivity])
-        newIntent.putExtras(bundle)
-        activity.startActivity(newIntent)
-      }
-    })
+    mMessage.onClick {
+      activity.startActivity(SIntent[MessageActivity].putExtras(SBundle(
+        BundleKey.messageTitle -> friend.userName,
+        BundleKey.contactColorPrimary -> friend.color,
+        BundleKey.contactColorStatus -> friend.secondColor,
+        BundleKey.imgResource -> friend.photoReference,
+        BundleKey.messageType -> 0
+      )))
+    }
 
-    mSaveProfile.setOnClickListener(new View.OnClickListener() {
-      def onClick(v: View): Unit = {
-        val snack = Snackbar.make(mCoordinator, getResources.getString(R.string.contact_save_photo_snackbar), Snackbar.LENGTH_LONG)
-        val snackView = snack.getView
-        snackView.setBackgroundResource(R.color.snackBarColor)
-        val snackText = snackView.findViewById(android.support.design.R.id.snackbar_text).asInstanceOf[TextView]
-        snackText.setTextColor(getResources.getColor(R.color.textDarkColor, null))
-        snack.show()
-      }
-    })
+    mSaveProfile.onClick {
+      val snack = Snackbar.make(mCoordinator, getResources.getString(R.string.contact_save_photo_snackbar), Snackbar.LENGTH_LONG)
+      val snackView = snack.getView
+      snackView.setBackgroundResource(R.color.snackBarColor)
+      val snackText = snackView.findViewById(android.support.design.R.id.snackbar_text).asInstanceOf[TextView]
+      snackText.setTextColor(getResources.getColor(R.color.textDarkColor, null))
+      snack.show()
+    }
 
-    mFilesSend.setOnClickListener(new View.OnClickListener() {
-      def onClick(v: View): Unit = {
-        bundle = new Bundle
-        bundle(BundleKey.contactName) = friend.userName
-        bundle(BundleKey.contactColorPrimary) = friend.color
-        bundle(BundleKey.contactColorStatus) = friend.secondColor
-        val newIntent = new Intent(activity, classOf[FileSendActivity])
-        newIntent.putExtras(bundle)
-        activity.startActivity(newIntent)
-      }
-    })
+    mFilesSend.onClick {
+      activity.startActivity(SIntent[FileSendActivity].putExtras(SBundle(
+        BundleKey.contactName -> friend.userName,
+        BundleKey.contactColorPrimary -> friend.color,
+        BundleKey.contactColorStatus -> friend.secondColor
+      )))
+    }
 
-    mDeleteFriend.setOnClickListener(new View.OnClickListener() {
-      def onClick(v: View): Unit = {
-        val dial = new SimpleDialogDesign(activity, getResources.getString(R.string.dialog_delete_friend) + " " + friend.userName + " " + getResources.getString(R.string.dialog_delete_friend_end), friend.color, R.drawable.ic_person_black_48dp, null)
-        dial.show()
-      }
-    })
+    mDeleteFriend.onClick {
+      val dial = new SimpleDialogDesign(
+        activity,
+        getResources.getString(R.string.dialog_delete_friend) + " " +
+          friend.userName + " " +
+          getResources.getString(R.string.dialog_delete_friend_end),
+        friend.color, R.drawable.ic_person_black_48dp, null
+      )
+      dial.show()
+    }
 
-    mBlockFriend.setOnClickListener(new View.OnClickListener() {
-      def onClick(v: View): Unit = {
-        val snack = Snackbar.make(mCoordinator, getResources.getString(R.string.contact_blocked), Snackbar.LENGTH_LONG)
-        val snackView = snack.getView
-        snackView.setBackgroundResource(R.color.snackBarColor)
-        val snackText = snackView.findViewById(android.support.design.R.id.snackbar_text).asInstanceOf[TextView]
-        snackText.setTextColor(getResources.getColor(R.color.textDarkColor, null))
-        snack.show()
-      }
-    })
+    mBlockFriend.onClick {
+      val snack = Snackbar.make(mCoordinator, getResources.getString(R.string.contact_blocked), Snackbar.LENGTH_LONG)
+      val snackView = snack.getView
+      snackView.setBackgroundResource(R.color.snackBarColor)
+      val snackText = snackView.findViewById(android.support.design.R.id.snackbar_text).asInstanceOf[TextView]
+      snackText.setTextColor(getResources.getColor(R.color.textDarkColor, null))
+      snack.show()
+    }
 
-    mChangeColor.setOnClickListener(new View.OnClickListener() {
-      def onClick(v: View): Unit = {
-        val dial = new SimpleColorDialogDesign(activity, getResources.getString(R.string.dialog_change_color) + " " + friend.userName + " " + getResources.getString(R.string.dialog_change_color_end), friend.color, R.drawable.ic_image_color_lens, 0, null)
-        dial.show()
-      }
-    })
+    mChangeColor.onClick {
+      val dial = new SimpleColorDialogDesign(
+        activity,
+        getResources.getString(R.string.dialog_change_color) + " " +
+          friend.userName + " " +
+          getResources.getString(R.string.dialog_change_color_end),
+        friend.color, R.drawable.ic_image_color_lens, 0, null
+      )
+      dial.show()
+    }
   }
 
   def getStatusBarHeight: Int = {

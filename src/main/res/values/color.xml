@@ -16,7 +16,7 @@
     <item name="statusBusy" type="color">#F8E71C</item>
     <item name="statusAway" type="color">#9B9B9B</item>
 
-    <item name="drawerBackgroundSelected" type="color">#E9E9E9</item>
+    <item name="drawerBackgroundSelected" type="color">#C9C9C9</item>
     <item name="drawerTint" type="color">@color/textDarkColor</item>
     <item name="drawerTextColor" type="color">#616161</item>
 

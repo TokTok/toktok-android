@@ -1,11 +1,9 @@
 package im.tox.toktok.app
 
-import android.os.{ Bundle, Handler }
-import android.support.v4.app.FragmentManager
+import android.os.Bundle
+import android.support.v4.app.{ Fragment, FragmentManager }
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
-import android.view.View.OnClickListener
 import android.widget.LinearLayout
 import com.typesafe.scalalogging.Logger
 import im.tox.toktok.TypedResource._
@@ -13,6 +11,7 @@ import im.tox.toktok.app.main.friends.SlideInContactsLayout
 import im.tox.toktok.app.main.{ HomeSearch, MainFragment }
 import im.tox.toktok.app.profile.ProfileFragment
 import im.tox.toktok.{ R, TR }
+import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
 final class MainActivityHolder extends AppCompatActivity {
@@ -27,49 +26,19 @@ final class MainActivityHolder extends AppCompatActivity {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
-    getSupportFragmentManager
-      .beginTransaction()
-      .replace(R.id.home_frame, new MainFragment, "Chats")
-      .commit()
-
     val chatsDrawerItem = this.findView(TR.home_drawer_chats)
     val profileDrawerItem = this.findView(TR.home_drawer_profile)
     val settingsDrawerItem = this.findView(TR.home_drawer_settings)
 
-    activeTab = chatsDrawerItem
+    chatsDrawerItem.onClick { (v: View) =>
+      activeTab = changeTab(activeTab, v.asInstanceOf[LinearLayout], "Chats", "", new MainFragment)
+    }
 
-    activeTab.setBackgroundResource(R.color.drawerBackgroundSelected)
+    profileDrawerItem.onClick { (v: View) =>
+      activeTab = changeTab(activeTab, v.asInstanceOf[LinearLayout], "Profile", "Activity", new ProfileFragment)
+    }
 
-    chatsDrawerItem.setOnClickListener(new OnClickListener {
-      override def onClick(v: View): Unit = {
-        if (v != activeTab) {
-          getSupportFragmentManager
-            .beginTransaction()
-            .replace(R.id.home_frame, new MainFragment, "Chats")
-            .addToBackStack("")
-            .commit()
-          changeTab(v)
-        } else {
-          MainActivityHolder.this.findView(TR.home_layout).closeDrawers()
-        }
-      }
-    })
-
-    profileDrawerItem.setOnClickListener(new OnClickListener {
-      override def onClick(v: View): Unit = {
-        if (v != activeTab) {
-          getSupportFragmentManager
-            .beginTransaction()
-            .replace(R.id.home_frame, new ProfileFragment, "Profile")
-            .addToBackStack("Activity")
-            .commit()
-          changeTab(v)
-        } else {
-          MainActivityHolder.this.findView(TR.home_layout).closeDrawers()
-        }
-      }
-    })
-
+    chatsDrawerItem.callOnClick()
   }
 
   override def onDestroy(): Unit = {
@@ -86,11 +55,29 @@ final class MainActivityHolder extends AppCompatActivity {
     super.onDestroy()
   }
 
-  private def changeTab(v: View): Unit = {
-    activeTab.setBackgroundResource(R.drawable.background_ripple)
-    activeTab = v.asInstanceOf[LinearLayout]
-    activeTab.setBackgroundResource(R.color.drawerBackgroundSelected)
+  private def changeTab[T <: Fragment](
+    oldTab: LinearLayout,
+    newTab: LinearLayout,
+    tag: String,
+    stackName: String,
+    newFragment: => T
+  ): LinearLayout = {
+    if (newTab != oldTab) {
+      getSupportFragmentManager
+        .beginTransaction()
+        .replace(R.id.home_frame, newFragment, tag)
+        .addToBackStack(stackName)
+        .commit()
+    }
+
+    if (oldTab != null) {
+      oldTab.setBackgroundResource(R.drawable.background_ripple)
+    }
+
+    newTab.setBackgroundResource(R.color.drawerBackgroundSelected)
     this.findView(TR.home_layout).closeDrawers()
+
+    newTab
   }
 
   def setAddContactPopup(contact: SlideInContactsLayout): Unit = {

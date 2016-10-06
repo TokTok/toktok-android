@@ -2,7 +2,6 @@ package im.tox.toktok.app.message_activity
 
 import android.support.v7.widget.RecyclerView
 import android.util.SparseBooleanArray
-import android.view.View.OnClickListener
 import android.view.{ LayoutInflater, View, ViewGroup }
 import android.widget.RelativeLayout
 import com.typesafe.scalalogging.Logger
@@ -10,6 +9,7 @@ import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.{ Message, MessageType }
 import im.tox.toktok.app.message_activity.MessageAdapter.inflate
 import im.tox.toktok.{ TR, TypedLayout }
+import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
 import scala.collection.mutable.ListBuffer
@@ -84,21 +84,17 @@ final class MessageAdapter(
         view.mUserDetails.setText(message.msgDetails)
 
       case MessageType.Received.viewType =>
-        viewHolder.mUserImg.setOnClickListener(new OnClickListener {
-          override def onClick(v: View): Unit = {
-            messageClick.onImgClick()
-          }
-        })
+        viewHolder.mUserImg.onClick {
+          messageClick.onImgClick()
+        }
 
         val view = viewHolder.asInstanceOf[MessageViewHolderDetailed]
         view.mUserDetails.setText(message.msgDetails)
 
       case MessageType.Action.viewType =>
-        viewHolder.mUserImg.setOnClickListener(new OnClickListener {
-          override def onClick(v: View): Unit = {
-            messageClick.onImgClick()
-          }
-        })
+        viewHolder.mUserImg.onClick {
+          messageClick.onImgClick()
+        }
     }
   }
 

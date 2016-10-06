@@ -24,6 +24,8 @@ libraryDependencies ++= Seq(
   "com.tonicartos" % "superslim" % "0.4.13",
   "de.hdodenhof" % "circleimageview" % "2.1.0",
 
+  "org.scaloid" %% "scaloid" % "4.2",
+
   "com.jayway.android.robotium" % "robotium-solo" % "5.5.3",
 
   "org.slf4j" % "slf4j-android" % "1.7.13",

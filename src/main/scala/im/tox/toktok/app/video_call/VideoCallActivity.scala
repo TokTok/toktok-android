@@ -3,12 +3,12 @@ package im.tox.toktok.app.video_call
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.animation.Animation.AnimationListener
 import android.view.animation.{ Animation, AnimationUtils }
 import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.{ BundleKey, R, TR }
+import org.scaloid.common._
 
 final class VideoCallActivity extends AppCompatActivity {
 
@@ -25,11 +25,9 @@ final class VideoCallActivity extends AppCompatActivity {
     getWindow.getDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     getWindow.setStatusBarColor(getResources.getColor(R.color.contactsTransparentBar, null))
 
-    this.findView(TR.call_ongoing_fab).setOnClickListener(new OnClickListener {
-      override def onClick(v: View): Unit = {
-        finish()
-      }
-    })
+    this.findView(TR.call_ongoing_fab).onClick {
+      finish()
+    }
 
     val bottom = this.findView(TR.videocall_bar)
 

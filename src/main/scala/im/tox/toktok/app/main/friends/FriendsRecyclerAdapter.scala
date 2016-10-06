@@ -2,12 +2,12 @@ package im.tox.toktok.app.main.friends
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
-import android.view.View.OnClickListener
 import android.view.{ LayoutInflater, View, ViewGroup }
 import android.widget.RelativeLayout
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.Friend
 import im.tox.toktok.{ R, TR }
+import org.scaloid.common._
 
 abstract class FriendsRecyclerAdapter(
     friends: Seq[Friend],
@@ -42,30 +42,23 @@ abstract class FriendsRecyclerAdapter(
     val item = friends(position)
     viewHolder.mUserName.setText(item.userName)
     viewHolder.mUserImage.setImageResource(item.photoReference)
+    viewHolder.mUserImage.setClickable(true)
+    viewHolder.mUserImage.onClick {
+      expandOnClick.startOverLayFriend(position)
+    }
 
     if (position == expandedItem) {
       viewHolder.mExpandedArea.setVisibility(View.VISIBLE)
       viewHolder.mBase.setElevation(10)
       viewHolder.mBase.setBackgroundResource(R.drawable.cardboard_ripple)
-      viewHolder.mUserImage.setClickable(true)
 
-      viewHolder.mUserImage.setOnClickListener(new OnClickListener {
-        override def onClick(v: View): Unit = {
-          expandOnClick.startOverLayFriend(position)
-        }
-      })
+      viewHolder.mCallButton.onClick {
+        expandOnClick.startCall(position)
+      }
 
-      viewHolder.mCallButton.setOnClickListener(new OnClickListener {
-        override def onClick(v: View): Unit = {
-          expandOnClick.startCall(position)
-        }
-      })
-
-      viewHolder.mMessageButton.setOnClickListener(new OnClickListener {
-        override def onClick(v: View): Unit = {
-          expandOnClick.startMessage(position)
-        }
-      })
+      viewHolder.mMessageButton.onClick {
+        expandOnClick.startMessage(position)
+      }
     } else {
       viewHolder.mExpandedArea.setVisibility(View.GONE)
       viewHolder.mBase.setElevation(0)
@@ -73,8 +66,6 @@ abstract class FriendsRecyclerAdapter(
 
       viewHolder.mCallButton.setOnClickListener(null)
       viewHolder.mMessageButton.setOnClickListener(null)
-      viewHolder.mUserImage.setOnClickListener(null)
-      viewHolder.mUserImage.setClickable(false)
     }
 
   }
@@ -121,8 +112,8 @@ trait FriendItemExpand {
 }
 
 trait FriendItemClicks {
-  def startOverLayFriend(layoutPosition: Int)
-  def startCall(layoutPosition: Int)
-  def startMessage(layoutPosition: Int)
+  def startOverLayFriend(layoutPosition: Int): Unit
+  def startCall(layoutPosition: Int): Unit
+  def startMessage(layoutPosition: Int): Unit
 }
 

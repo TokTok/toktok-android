@@ -13,6 +13,7 @@
 -dontwarn okio.*
 -dontwarn org.apache.commons.logging.impl.*
 -dontwarn org.threeten.bp.chrono.JapaneseEra
+-dontwarn org.scaloid.common.TraitWebView$class
 -dontwarn org.slf4j.MDC
 -dontwarn org.slf4j.MarkerFactory
 -dontwarn org.xmlpull.v1.**

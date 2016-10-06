@@ -1,9 +1,8 @@
 package im.tox.toktok.app.main.friends
 
-import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.v4.app.{ Fragment, FragmentActivity }
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.TypedValue
@@ -18,10 +17,12 @@ import im.tox.toktok.app.call.CallActivity
 import im.tox.toktok.app.domain.Friend
 import im.tox.toktok.app.message_activity.MessageActivity
 import im.tox.toktok.{ BundleKey, TR }
+import org.scaloid.common.SIntent
 
 final class FriendsFragment extends Fragment with FriendItemClicks {
 
   private var mFriendsRecyclerAdapter: FriendsRecyclerHeaderAdapter = null
+  private implicit def activity: FragmentActivity = getActivity
 
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedState: Bundle): LinearLayout = {
     val view = inflater.inflate(TR.layout.fragment_home_friends, container, false)
@@ -42,7 +43,7 @@ final class FriendsFragment extends Fragment with FriendItemClicks {
         Friend.jane,
         Friend.john
       )
-      friend <- (1 to 500).map(n => friend.copy(userName = friend.userName + n))
+      friend <- (1 to 50).map(n => friend.copy(userName = friend.userName + n))
     } yield {
       friend
     }
@@ -84,29 +85,23 @@ final class FriendsFragment extends Fragment with FriendItemClicks {
   override def startCall(friendPosition: Int): Unit = {
     val friend = mFriendsRecyclerAdapter.getItem(friendPosition)
 
-    val bundle = new Bundle
-    bundle(BundleKey.contactName) = friend.userName
-    bundle(BundleKey.contactColorPrimary) = friend.color
-    bundle(BundleKey.contactPhotoReference) = friend.photoReference
-
-    val newIntent = new Intent(getActivity, classOf[CallActivity])
-    newIntent.putExtras(bundle)
-    getActivity.startActivity(newIntent)
+    getActivity.startActivity(SIntent[CallActivity].putExtras(SBundle(
+      BundleKey.contactName -> friend.userName,
+      BundleKey.contactColorPrimary -> friend.color,
+      BundleKey.contactPhotoReference -> friend.photoReference
+    )))
   }
 
   override def startMessage(friendPosition: Int): Unit = {
     val friend = mFriendsRecyclerAdapter.getItem(friendPosition)
 
-    val bundle = new Bundle
-    bundle(BundleKey.messageTitle) = friend.userName
-    bundle(BundleKey.contactColorPrimary) = friend.color
-    bundle(BundleKey.contactColorStatus) = friend.secondColor
-    bundle(BundleKey.imgResource) = friend.photoReference
-    bundle(BundleKey.messageType) = 0
-
-    val newIntent = new Intent(getActivity, classOf[MessageActivity])
-    newIntent.putExtras(bundle)
-    getActivity.startActivity(newIntent)
+    getActivity.startActivity(SIntent[MessageActivity].putExtras(SBundle(
+      BundleKey.messageTitle -> friend.userName,
+      BundleKey.contactColorPrimary -> friend.color,
+      BundleKey.contactColorStatus -> friend.secondColor,
+      BundleKey.imgResource -> friend.photoReference,
+      BundleKey.messageType -> 0
+    )))
   }
 
 }

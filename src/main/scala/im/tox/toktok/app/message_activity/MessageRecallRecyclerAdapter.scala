@@ -6,13 +6,13 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.text.TextUtils
 import android.util.SparseBooleanArray
-import android.view.View.OnClickListener
-import android.view.{ LayoutInflater, View, ViewGroup }
+import android.view.{ LayoutInflater, ViewGroup }
 import android.widget.LinearLayout
 import com.tonicartos.superslim.{ GridSLM, LinearSLM }
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.Message
 import im.tox.toktok.{ R, TR }
+import org.scaloid.common._
 
 import scala.collection.mutable.ListBuffer
 
@@ -24,10 +24,10 @@ final class MessageRecallRecyclerAdapter(
 
   private val items = new ListBuffer[LineItem]
   private val selectedItems = new SparseBooleanArray()
-  private var lastHeader: String = ""
-  private var sectionManager: Int = -1
-  private var headerCount: Int = 0
-  private var sectionFirstPosition: Int = 0
+  private var lastHeader = ""
+  private var sectionManager = -1
+  private var headerCount = 0
+  private var sectionFirstPosition = 0
   private var i = 0
 
   for (message <- messages) {
@@ -78,11 +78,9 @@ final class MessageRecallRecyclerAdapter(
 
       view.mMessageText.setText(itemMessage.msgContent)
       view.mMessageDetails.setText(itemMessage.msgDetails)
-      view.mMessageBase.setOnClickListener(new OnClickListener {
-        override def onClick(v: View): Unit = {
-          recallMessageListener.onClick(position)
-        }
-      })
+      view.mMessageBase.onClick {
+        recallMessageListener.onClick(position)
+      }
 
       if (isSelected(position)) {
         view.mMessageBase.setBackgroundColor(Color.parseColor("#E0E0E0"))
