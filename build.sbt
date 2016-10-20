@@ -13,11 +13,11 @@ resolvers += Resolver.bintrayRepo("toktok", "maven")
 
 // Dependencies.
 libraryDependencies ++= Seq(
-  "com.android.support" % "appcompat-v7" % "24.2.1",
-  "com.android.support" % "recyclerview-v7" % "24.2.1",
-  "com.android.support" % "cardview-v7" % "24.2.1",
-  "com.android.support" % "palette-v7" % "24.2.1",
-  "com.android.support" % "design" % "24.2.1",
+  "com.android.support" % "appcompat-v7" % "25.0.0",
+  "com.android.support" % "recyclerview-v7" % "25.0.0",
+  "com.android.support" % "cardview-v7" % "25.0.0",
+  "com.android.support" % "palette-v7" % "25.0.0",
+  "com.android.support" % "design" % "25.0.0",
 
   "com.sothree.slidinguppanel" % "library" % "3.3.1",
   "com.timehop.stickyheadersrecyclerview" % "library" % "0.4.3",

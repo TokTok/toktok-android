@@ -31,11 +31,11 @@ final class MainActivityHolder extends AppCompatActivity {
     val settingsDrawerItem = this.findView(TR.home_drawer_settings)
 
     chatsDrawerItem.onClick { (v: View) =>
-      activeTab = changeTab(activeTab, v.asInstanceOf[LinearLayout], "Chats", "", new MainFragment)
+      activeTab = changeTab(activeTab, chatsDrawerItem, "Chats", "", new MainFragment)
     }
 
     profileDrawerItem.onClick { (v: View) =>
-      activeTab = changeTab(activeTab, v.asInstanceOf[LinearLayout], "Profile", "Activity", new ProfileFragment)
+      activeTab = changeTab(activeTab, profileDrawerItem, "Profile", "Activity", new ProfileFragment)
     }
 
     chatsDrawerItem.callOnClick()

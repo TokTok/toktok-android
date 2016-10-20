@@ -19,19 +19,23 @@ final class ProfileFragment extends Fragment {
 
   private implicit def activity: AppCompatActivity = getActivity.asInstanceOf[AppCompatActivity]
 
-  private var mToolbar: Toolbar = null
-  private var mDrawer: DrawerLayout = null
-
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedState: Bundle): CoordinatorLayout = {
     super.onCreate(savedState)
     val view = inflater.inflate(TR.layout.activity_profile, container, false)
+
     getActivity.getWindow.setStatusBarColor(Color.parseColor("#2b000000"))
 
     view.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
 
-    initToolbar(view)
+    val toolbar = view.findView(TR.profile_toolbar)
+    activity.setSupportActionBar(toolbar)
+    activity.getSupportActionBar.setHomeAsUpIndicator(R.drawable.ic_navigation_menu)
+    activity.getSupportActionBar.setDisplayHomeAsUpEnabled(true)
 
-    mDrawer = getActivity.findView(TR.home_layout)
+    val drawer = getActivity.findView(TR.home_layout)
+    toolbar.onClick {
+      drawer.openDrawer(GravityCompat.START)
+    }
 
     val mShareIDButton = view.findView(TR.profile_share_id)
     mShareIDButton.onClick {
@@ -77,17 +81,6 @@ final class ProfileFragment extends Fragment {
     }
 
     view
-  }
-
-  def initToolbar(view: View): Unit = {
-    mToolbar = view.findView(TR.profile_toolbar)
-    activity.setSupportActionBar(mToolbar)
-    activity.getSupportActionBar.setHomeAsUpIndicator(R.drawable.ic_navigation_menu)
-    activity.getSupportActionBar.setDisplayHomeAsUpEnabled(true)
-
-    mToolbar.onClick {
-      mDrawer.openDrawer(GravityCompat.START)
-    }
   }
 
 }

@@ -46,11 +46,11 @@ final class MainFragment extends Fragment {
     super.onCreate(savedState)
     val view = inflater.inflate(TR.layout.activity_main_fragment, container, false)
 
+    mDrawer = getActivity.findView(TR.home_layout)
+
     initToolbar(view)
     initFAB(view)
     initViewPaper(view)
-
-    mDrawer = getActivity.findView(TR.home_layout)
 
     view
   }
