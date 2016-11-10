@@ -4,6 +4,8 @@ name          := "toktok"
 version       := "0.1.0"
 scalaVersion  := "2.11.7"
 
+enablePlugins(AndroidApp)
+
 wartremoverErrors in (Compile, Keys.compile) := Nil
 wartremoverErrors in (Test, Keys.compile) := Nil
 
