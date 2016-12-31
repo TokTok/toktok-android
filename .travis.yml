@@ -43,3 +43,10 @@ before_cache:
   # Clean up cache.
   - find $HOME/.ivy2 -type f -name "ivydata-*.properties" -delete
   - find $HOME/.sbt/boot -name "sbt.*.lock" -delete
+
+branches:
+  only:
+    - master
+
+git:
+  depth: 1
