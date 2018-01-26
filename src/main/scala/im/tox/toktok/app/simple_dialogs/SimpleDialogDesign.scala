@@ -12,11 +12,11 @@ import im.tox.toktok.{ R, TR }
 import org.scaloid.common._
 
 final class SimpleDialogDesign(
-  activity: Activity,
-  question: String,
-  color: Int,
-  icon: Int,
-  clickAction: OnClickListener
+    activity: Activity,
+    question: String,
+    color: Int,
+    icon: Int,
+    clickAction: OnClickListener
 ) extends Dialog(
   activity,
   R.style.DialogSlideAnimation

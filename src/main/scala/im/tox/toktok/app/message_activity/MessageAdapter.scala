@@ -131,12 +131,12 @@ final class MessageAdapter(
 }
 
 sealed class MessageViewHolder(
-  itemView: RelativeLayout,
-  messageActionMode: MessageActionMode,
-  final val base: View
+    itemView: RelativeLayout,
+    messageActionMode: MessageActionMode,
+    final val base: View
 ) extends RecyclerView.ViewHolder(itemView)
-    with View.OnLongClickListener
-    with View.OnClickListener {
+  with View.OnLongClickListener
+  with View.OnClickListener {
 
   final val mUserText = itemView.findView(TR.message_item_text)
   final val mUserImg = itemView.findView(TR.message_item_img)
@@ -155,8 +155,8 @@ sealed class MessageViewHolder(
 }
 
 final class MessageViewHolderDetailed(
-  itemView: RelativeLayout,
-  messageActionMode: MessageActionMode
+    itemView: RelativeLayout,
+    messageActionMode: MessageActionMode
 ) extends MessageViewHolder(
   itemView,
   messageActionMode,

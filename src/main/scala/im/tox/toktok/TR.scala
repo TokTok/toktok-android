@@ -1,14 +1,14 @@
 package im.tox.toktok
 
 import android.annotation.TargetApi
-import android.app.{Activity,Dialog}
+import android.app.{ Activity, Dialog }
 import android.content.Context
-import android.content.res.{TypedArray,XmlResourceParser}
+import android.content.res.{ TypedArray, XmlResourceParser }
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.view.{View,ViewGroup,LayoutInflater}
-import android.view.animation.{Animation, AnimationUtils, Interpolator}
-import android.animation.{Animator, AnimatorInflater}
+import android.view.{ View, ViewGroup, LayoutInflater, MenuInflater, Menu, MenuItem }
+import android.view.animation.{ Animation, AnimationUtils, Interpolator }
+import android.animation.{ Animator, AnimatorInflater }
 
 import scala.annotation.implicitNotFound
 
@@ -16,6 +16,7 @@ case class TypedResource[A](id: Int) extends AnyVal
 case class TypedLayout[A](id: Int)
 case class TypedRes[A](resid: Int) extends AnyVal {
   def value(implicit ev: TypedResource.TypedResValueOp[A], c: Context): ev.T = ev.resourceValue(resid)(c)
+  def unapply[T](t: T)(implicit ex: TypedResource.Extractor[A, T]): Boolean = ex.matches(resid, t)
 }
 
 object TR {
@@ -262,7 +263,6 @@ object TR {
     final val message_item_user_simple = TypedLayout[android.widget.RelativeLayout](R.layout.message_item_user_simple)
   }
 
-
   object drawable {
     final val ic_file_attachment = TypedRes[TypedResource.ResDrawable](R.drawable.ic_file_attachment)
     final val ripple = TypedRes[TypedResource.ResDrawable](R.drawable.ripple)
@@ -337,6 +337,19 @@ object TR {
     final val ic_communication_call = TypedRes[TypedResource.ResDrawable](R.drawable.ic_communication_call)
     final val bart = TypedRes[TypedResource.ResDrawable](R.drawable.bart)
     final val simple_dialog_button = TypedRes[TypedResource.ResDrawable](R.drawable.simple_dialog_button)
+  }
+  object menu_item {
+    final val action_group_members = TypedRes[TypedResource.ResMenuItem](R.id.action_group_members)
+    final val action_mute_conversation_group = TypedRes[TypedResource.ResMenuItem](R.id.action_mute_conversation_group)
+    final val action_delete_conversation = TypedRes[TypedResource.ResMenuItem](R.id.action_delete_conversation)
+    final val action_rename_conversation = TypedRes[TypedResource.ResMenuItem](R.id.action_rename_conversation)
+    final val action_message_delete = TypedRes[TypedResource.ResMenuItem](R.id.action_message_delete)
+    final val action_mute_conversation_single = TypedRes[TypedResource.ResMenuItem](R.id.action_mute_conversation_single)
+    final val action_add_friend = TypedRes[TypedResource.ResMenuItem](R.id.action_add_friend)
+    final val action_leave_conversation = TypedRes[TypedResource.ResMenuItem](R.id.action_leave_conversation)
+    final val action_search = TypedRes[TypedResource.ResMenuItem](R.id.action_search)
+    final val action_recall_message = TypedRes[TypedResource.ResMenuItem](R.id.action_recall_message)
+    final val action_see_files_list = TypedRes[TypedResource.ResMenuItem](R.id.action_see_files_list)
   }
   object color {
     final val md_red_600 = TypedRes[TypedResource.ResColor](R.color.md_red_600)
@@ -631,7 +644,7 @@ object TR {
 }
 
 trait TypedFindView extends Any {
-  protected def findViewById(id: Int): View
+  protected def findViewById[V <: View](id: Int): V
   final def findView[A](tr: TypedResource[A]): A = findViewById(tr.id).asInstanceOf[A]
 }
 
@@ -647,6 +660,7 @@ object TypedResource {
   sealed trait ResInteger
   sealed trait ResInterpolator
   sealed trait ResMenu
+  sealed trait ResMenuItem
   sealed trait ResMipMap
   sealed trait ResPlurals
   sealed trait ResRaw
@@ -666,25 +680,42 @@ object TypedResource {
     def resourceValue(resid: Int)(implicit c: Context): T
   }
 
+  @implicitNotFound("didn't find an extractor for ${A},${T}; create an Extractor[${A},${T}] manually")
+  trait Extractor[A, T] {
+    def matches(resid: Int, t: T): Boolean
+  }
+
   implicit class TypedView(val v: View) extends AnyVal with TypedFindView {
-    def findViewById(id: Int) = v.findViewById(id)
+    def findViewById[V <: View](id: Int): V = v.findViewById(id)
   }
   implicit class TypedActivity(val a: Activity) extends AnyVal with TypedFindView {
-    def findViewById(id: Int) = a.findViewById(id)
+    def findViewById[V <: View](id: Int): V = a.findViewById(id)
   }
   implicit class TypedDialog(val d: Dialog) extends AnyVal with TypedFindView {
-    def findViewById(id: Int) = d.findViewById(id)
+    def findViewById[V <: View](id: Int): V = d.findViewById(id)
   }
   implicit class TypedLayoutInflater(val l: LayoutInflater) extends AnyVal {
-    def inflate[A <: View](tl: TypedLayout[A], c: ViewGroup, b: Boolean): A = {
-      val v = l.inflate(tl.id, c, b)
-      val a = if(c != null && b) c.getChildAt(c.getChildCount - 1) else v
+    def inflate[A <: View](resource: TypedLayout[A], root: ViewGroup, attachToRoot: Boolean): A = {
+      val v = l.inflate(resource.id, root, attachToRoot)
+      val a = if (root != null && attachToRoot) root.getChildAt(root.getChildCount - 1) else v
       a.asInstanceOf[A]
     }
-    def inflate[A <: View](tl: TypedLayout[A], c: ViewGroup): A =
-      inflate(tl, c, true)
-    def inflate[A <: View](tl: TypedLayout[A]): A =
-      inflate(tl, null, false)
+    def inflate[A <: View](resource: TypedLayout[A], root: ViewGroup): A =
+      inflate(resource, root, true)
+    def inflate[A <: View](resource: TypedLayout[A]): A =
+      inflate(resource, null, false)
+  }
+
+  implicit class TypedResMenuInflater(val mi: MenuInflater) extends AnyVal {
+    def inflate(menuRes: TypedRes[ResMenu], menu: Menu): Unit = {
+      mi.inflate(menuRes.resid, menu)
+    }
+  }
+
+  implicit class TypedResMenuOps(val m: Menu) extends AnyVal {
+    def findItem(item: TypedRes[ResMenuItem]): MenuItem = {
+      m.findItem(item.resid)
+    }
   }
 
   implicit val trAnimValueOp: TypedResValueOp[ResAnim] { type T = Animation } = new TypedResValueOp[ResAnim] {
@@ -697,7 +728,7 @@ object TypedResource {
     @TargetApi(11)
     @inline final def resourceValue(resid: Int)(implicit c: Context): T =
       if (android.os.Build.VERSION.SDK_INT >= 11)
-       AnimatorInflater.loadAnimator(c, resid)
+        AnimatorInflater.loadAnimator(c, resid)
       else ???
   }
   implicit val trIntegerArrayValueOp: TypedResValueOp[ResIntegerArray] { type T = Array[Int] } = new TypedResValueOp[ResIntegerArray] {
@@ -724,7 +755,7 @@ object TypedResource {
     type T = Int
     @TargetApi(23)
     @inline final def resourceValue(resid: Int)(implicit c: Context): T =
-      compat.getColor(c,resid)
+      compat.getColor(c, resid)
   }
   implicit val trDimenValueOp: TypedResValueOp[ResDimen] { type T = Int } = new TypedResValueOp[ResDimen] {
     type T = Int
@@ -735,7 +766,7 @@ object TypedResource {
     type T = Drawable
     @TargetApi(21)
     @inline final def resourceValue(resid: Int)(implicit c: Context): T =
-      compat.getDrawable(c,resid)
+      compat.getDrawable(c, resid)
   }
   implicit val trIntegerValueOp: TypedResValueOp[ResInteger] { type T = Int } = new TypedResValueOp[ResInteger] {
     type T = Int
@@ -751,7 +782,7 @@ object TypedResource {
     type T = Drawable
     @TargetApi(21)
     @inline final def resourceValue(resid: Int)(implicit c: Context): T =
-      compat.getDrawable(c,resid)
+      compat.getDrawable(c, resid)
   }
   implicit val trRawValueOp: TypedResValueOp[ResRaw] { type T = java.io.InputStream } = new TypedResValueOp[ResRaw] {
     type T = java.io.InputStream
@@ -768,7 +799,9 @@ object TypedResource {
     @inline final def resourceValue(resid: Int)(implicit c: Context): T =
       c.getResources.getXml(resid)
   }
-
+  implicit val menuItemExtractor: Extractor[ResMenuItem, MenuItem] = new Extractor[ResMenuItem, MenuItem] {
+    @inline final def matches(resid: Int, mi: MenuItem): Boolean = (mi.getItemId == resid)
+  }
 
   // Helper object to suppress deprecation warnings as discussed in
   // https://issues.scala-lang.org/browse/SI-7934
@@ -782,7 +815,6 @@ object TypedResource {
       else
         c.getResources.getColor(resid)
     }
-
 
     @TargetApi(21)
     @inline def getDrawable(c: Context, resid: Int): Drawable = {

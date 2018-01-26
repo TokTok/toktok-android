@@ -41,7 +41,7 @@ final class SimpleColorDialogDesignAdapter(
 }
 
 final class SimpleColorDialogDesignViewHolder(
-  itemView: CardView
+    itemView: CardView
 ) extends RecyclerView.ViewHolder(
   itemView
 ) with OnClickListener {

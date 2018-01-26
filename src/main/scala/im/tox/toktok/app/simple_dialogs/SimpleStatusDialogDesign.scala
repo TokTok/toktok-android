@@ -10,8 +10,8 @@ import im.tox.toktok.{ R, TR }
 import org.scaloid.common._
 
 final class SimpleStatusDialogDesign(
-  activity: Activity,
-  statusActive: Int
+    activity: Activity,
+    statusActive: Int
 ) extends Dialog(
   activity,
   R.style.DialogSlideAnimation

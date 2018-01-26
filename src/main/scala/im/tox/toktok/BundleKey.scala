@@ -28,10 +28,10 @@ object TypedBundleKey {
   }
 
   final case class StringKey(id: String) {
-    def -> (value: String): StringKeyValue = StringKeyValue(id, value)
+    def ->(value: String): StringKeyValue = StringKeyValue(id, value)
   }
   final case class IntKey(id: String) {
-    def -> (value: Int): IntKeyValue = IntKeyValue(id, value)
+    def ->(value: Int): IntKeyValue = IntKeyValue(id, value)
   }
 
   implicit class TypedBundle(val bundle: Bundle) extends AnyVal {

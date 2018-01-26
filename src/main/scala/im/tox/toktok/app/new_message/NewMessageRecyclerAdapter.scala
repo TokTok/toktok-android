@@ -97,10 +97,10 @@ abstract class NewMessageRecyclerAdapter(
 }
 
 final class NewMessageRecyclerViewHolder(
-  itemView: RelativeLayout,
-  clickListener: FriendAddOnClick
+    itemView: RelativeLayout,
+    clickListener: FriendAddOnClick
 ) extends RecyclerView.ViewHolder(itemView)
-    with View.OnClickListener {
+  with View.OnClickListener {
 
   val mUserName = itemView.findView(TR.new_message_item_name)
   val mUserImage = itemView.findView(TR.new_message_item_img)

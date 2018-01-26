@@ -13,8 +13,8 @@ import im.tox.toktok.TypedResource._
 import scala.collection.mutable.ListBuffer
 
 final class RejectedCallAdapter(items: ListBuffer[String], dragStart: DragStart)
-    extends RecyclerView.Adapter[RejectedCallViewHolder]
-    with DragInterface {
+  extends RecyclerView.Adapter[RejectedCallViewHolder]
+  with DragInterface {
 
   def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RejectedCallViewHolder = {
     val itemView = LayoutInflater.from(viewGroup.getContext).inflate(TR.layout.rejected_call_item, viewGroup, false)

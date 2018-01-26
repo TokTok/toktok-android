@@ -3,13 +3,13 @@ package im.tox.toktok.app.domain
 sealed trait ChatMessage
 
 final case class FriendMessage(
-  friend: Friend,
-  lastMessage: String
+    friend: Friend,
+    lastMessage: String
 ) extends ChatMessage
 
 final case class GroupMessage(
-  group: Group,
-  lastMessage: String
+    group: Group,
+    lastMessage: String
 ) extends ChatMessage
 
 object ChatMessage {
@@ -20,7 +20,7 @@ object ChatMessage {
   def messageType(message: ChatMessage): Int = {
     message match {
       case FriendMessage(_, _) => 0
-      case GroupMessage(_, _) => 1
+      case GroupMessage(_, _)  => 1
     }
   }
 }

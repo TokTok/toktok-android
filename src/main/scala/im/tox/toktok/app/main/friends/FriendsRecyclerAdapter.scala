@@ -85,10 +85,10 @@ abstract class FriendsRecyclerAdapter(
 }
 
 final class FriendsRecyclerViewHolder(
-  itemView: RelativeLayout,
-  itemOnClick: FriendItemExpand
+    itemView: RelativeLayout,
+    itemOnClick: FriendItemExpand
 ) extends RecyclerView.ViewHolder(itemView)
-    with View.OnClickListener {
+  with View.OnClickListener {
 
   val mBase = itemView.findView(TR.home_friends_base)
   val mUserInfo = itemView.findView(TR.home_item_info)

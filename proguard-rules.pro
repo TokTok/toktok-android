@@ -7,13 +7,11 @@
 -dontwarn com.google.common.**
 -dontwarn com.google.protobuf.UnsafeUtil*
 -dontwarn com.squareup.picasso.OkHttpDownloader
--dontwarn io.grpc.netty.*
--dontwarn io.netty.**
 -dontwarn io.realm.**
 -dontwarn okio.*
 -dontwarn org.apache.commons.logging.impl.*
 -dontwarn org.threeten.bp.chrono.JapaneseEra
--dontwarn org.scaloid.common.TraitWebView$class
+-dontwarn org.scaloid.common.**
 -dontwarn org.slf4j.MDC
 -dontwarn org.slf4j.MarkerFactory
 -dontwarn org.xmlpull.v1.**

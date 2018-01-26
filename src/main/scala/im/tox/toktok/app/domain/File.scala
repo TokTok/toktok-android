@@ -1,8 +1,8 @@
 package im.tox.toktok.app.domain
 
 final case class File(
-  name: String,
-  date: String
+    name: String,
+    date: String
 )
 
 object File {

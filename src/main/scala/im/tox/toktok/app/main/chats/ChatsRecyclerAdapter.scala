@@ -117,12 +117,12 @@ final class ChatsRecyclerAdapter(
 }
 
 sealed abstract class ChatsRecyclerViewHolder(
-  itemView: View,
-  chatMessages: Seq[ChatMessage],
-  clickListener: ChatItemClick
+    itemView: View,
+    chatMessages: Seq[ChatMessage],
+    clickListener: ChatItemClick
 ) extends RecyclerView.ViewHolder(itemView)
-    with View.OnClickListener
-    with View.OnLongClickListener {
+  with View.OnClickListener
+  with View.OnLongClickListener {
 
   protected implicit def context: Context = itemView.getContext
 
@@ -141,9 +141,9 @@ sealed abstract class ChatsRecyclerViewHolder(
 }
 
 final class ChatsRecyclerViewHolderUser(
-  itemView: View,
-  chatMessages: Seq[ChatMessage],
-  clickListener: ChatItemClick
+    itemView: View,
+    chatMessages: Seq[ChatMessage],
+    clickListener: ChatItemClick
 ) extends ChatsRecyclerViewHolder(
   itemView,
   chatMessages,
@@ -176,9 +176,9 @@ final class ChatsRecyclerViewHolderUser(
 }
 
 final class ChatsRecyclerViewHolderGroup(
-  itemView: CardView,
-  chatMessages: Seq[ChatMessage],
-  clickListener: ChatItemClick
+    itemView: CardView,
+    chatMessages: Seq[ChatMessage],
+    clickListener: ChatItemClick
 ) extends ChatsRecyclerViewHolder(
   itemView,
   chatMessages,

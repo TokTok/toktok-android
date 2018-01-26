@@ -9,10 +9,10 @@ import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.Friend
 
 final class FriendsRecyclerHeaderAdapter(
-  friends: Seq[Friend],
-  friendPhotoOnClick: FriendItemClicks
+    friends: Seq[Friend],
+    friendPhotoOnClick: FriendItemClicks
 ) extends FriendsRecyclerAdapter(friends, friendPhotoOnClick)
-    with StickyRecyclerHeadersAdapter[FriendsRecyclerHeaderViewHolder] {
+  with StickyRecyclerHeadersAdapter[FriendsRecyclerHeaderViewHolder] {
 
   def getHeaderText(position: Int): String = {
     getItemPosition(position).charAt(0).toString

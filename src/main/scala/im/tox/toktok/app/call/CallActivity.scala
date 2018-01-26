@@ -240,7 +240,7 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
     val screenSize = new Point()
     screen.getSize(screenSize)
 
-    val content = findViewById(android.R.id.content).getRootView
+    val content = findViewById[View](android.R.id.content).getRootView
 
     content.getViewTreeObserver.addOnGlobalLayoutListener(new OnGlobalLayoutListener {
       override def onGlobalLayout(): Unit = {

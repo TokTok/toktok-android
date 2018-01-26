@@ -28,9 +28,9 @@ import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
 final class SlideInContactsLayout(
-  context: Context,
-  attrs: AttributeSet,
-  defStyle: Int
+    context: Context,
+    attrs: AttributeSet,
+    defStyle: Int
 ) extends ViewGroup(
   context,
   attrs,

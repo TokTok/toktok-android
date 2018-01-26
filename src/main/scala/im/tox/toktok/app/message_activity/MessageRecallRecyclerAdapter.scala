@@ -139,10 +139,10 @@ final class MessageRecallRecyclerViewHolderHeader(itemView: LinearLayout) extend
 }
 
 final case class LineItem(
-  content: Any,
-  isItemHeader: Int,
-  sectionManager: Int,
-  sectionFirstPosition: Int
+    content: Any,
+    isItemHeader: Int,
+    sectionManager: Int,
+    sectionFirstPosition: Int
 )
 
 trait RecallMessageListener {

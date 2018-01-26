@@ -4,13 +4,13 @@ import android.graphics.Color
 import im.tox.toktok.R
 
 final case class Friend(
-  id: Int,
-  userName: String,
-  userMessage: String,
-  userStatus: Int,
-  color: Int,
-  secondColor: Int,
-  photoReference: Int
+    id: Int,
+    userName: String,
+    userMessage: String,
+    userStatus: Int,
+    color: Int,
+    secondColor: Int,
+    photoReference: Int
 )
 
 object Friend {

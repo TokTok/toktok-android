@@ -8,8 +8,8 @@ object MessageType {
 }
 
 final case class Message(
-  msgType: MessageType,
-  msgContent: String,
-  msgDetails: String,
-  imageSrc: Int
+    msgType: MessageType,
+    msgContent: String,
+    msgDetails: String,
+    imageSrc: Int
 )

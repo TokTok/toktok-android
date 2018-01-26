@@ -11,8 +11,8 @@ import im.tox.toktok.app.domain.Friend
 import scala.collection.mutable.ListBuffer
 
 final class NewMessageRecyclerHeaderAdapter(friends: ListBuffer[Friend], clickListener: FriendAddOnClick)
-    extends NewMessageRecyclerAdapter(friends, clickListener)
-    with StickyRecyclerHeadersAdapter[RecyclerView.ViewHolder] {
+  extends NewMessageRecyclerAdapter(friends, clickListener)
+  with StickyRecyclerHeadersAdapter[RecyclerView.ViewHolder] {
 
   def getHeaderId(position: Int): Long = {
     getItem(position).userName.charAt(0)

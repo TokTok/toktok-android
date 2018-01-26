@@ -5,10 +5,10 @@ import android.graphics.Color
 import scala.collection.mutable.ListBuffer
 
 final case class Group(
-  groupName: String,
-  friendsList: ListBuffer[Friend],
-  primaryColor: Int,
-  statusColor: Int
+    groupName: String,
+    friendsList: ListBuffer[Friend],
+    primaryColor: Int,
+    statusColor: Int
 )
 
 object Group {
