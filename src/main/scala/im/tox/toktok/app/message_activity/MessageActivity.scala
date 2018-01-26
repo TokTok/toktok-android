@@ -1,5 +1,6 @@
 package im.tox.toktok.app.message_activity
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.PixelFormat
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.support.design.widget.{ FloatingActionButton, Snackbar }
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.view.ActionMode
 import android.support.v7.widget.{ CardView, LinearLayoutManager, RecyclerView, Toolbar }
+import android.text.{ Editable, TextWatcher }
 import android.util.TypedValue
 import android.view.View.OnClickListener
 import android.view.ViewGroup.LayoutParams
@@ -23,12 +25,9 @@ import im.tox.toktok.app.domain.{ Friend, Message, MessageType }
 import im.tox.toktok.app.main.friends.SlideInContactsLayout
 import im.tox.toktok.app.simple_dialogs.{ SimpleDialogDesign, SimpleTextDialogDesign }
 import im.tox.toktok.{ BundleKey, R, TContext, TR }
-import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
 final class MessageActivity extends AppCompatActivity with MessageClick with MessageActionMode {
-
-  private implicit def activity: AppCompatActivity = this
 
   val logger = Logger(LoggerFactory.getLogger(getClass))
 
@@ -74,23 +73,23 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
         finish()
         true
 
-      case R.id.action_recall_message =>
-        startActivity(SIntent[MessageRecallActivity]
+      case id if id == R.id.action_recall_message =>
+        startActivity(new Intent(this, classOf[MessageRecallActivity])
           .putExtras(SBundle(
             BundleKey.colorPrimary -> contactColorPrimary,
             BundleKey.colorPrimaryStatus -> contactColorStatus
           )))
         true
 
-      case R.id.action_group_members =>
-        startActivity(SIntent[MessageGroupContacts].putExtras(SBundle(
+      case id if id == R.id.action_group_members =>
+        startActivity(new Intent(this, classOf[MessageGroupContacts]).putExtras(SBundle(
           BundleKey.colorPrimary -> contactColorPrimary,
           BundleKey.colorPrimaryStatus -> contactColorStatus
         )))
         true
 
-      case R.id.action_see_files_list =>
-        startActivity(SIntent[FileSendActivity].putExtras(SBundle(
+      case id if id == R.id.action_see_files_list =>
+        startActivity(new Intent(this, classOf[FileSendActivity]).putExtras(SBundle(
           BundleKey.contactName -> title,
           BundleKey.contactColorPrimary -> contactColorPrimary,
           BundleKey.contactColorStatus -> contactColorStatus
@@ -98,8 +97,8 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
 
         true
 
-      case R.id.action_leave_conversation =>
-        val dial = new SimpleDialogDesign(
+      case id if id == R.id.action_leave_conversation =>
+        val dial: SimpleDialogDesign = new SimpleDialogDesign(
           this,
           getResources.getString(R.string.dialog_leave_group),
           contactColorPrimary,
@@ -109,8 +108,8 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
         dial.show()
         true
 
-      case R.id.action_rename_conversation =>
-        val dial = new SimpleTextDialogDesign(
+      case id if id == R.id.action_rename_conversation =>
+        val dial: SimpleTextDialogDesign = new SimpleTextDialogDesign(
           this,
           getResources.getString(R.string.dialog_edit_group_name),
           contactColorPrimary,
@@ -121,8 +120,8 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
         dial.show()
         true
 
-      case R.id.action_mute_conversation_group =>
-        val snack = Snackbar.make(
+      case id if id == R.id.action_mute_conversation_group =>
+        val snack: Snackbar = Snackbar.make(
           this.findView(TR.coordinatorLayout),
           getResources.getString(R.string.message_snackbar_group_muted),
           Snackbar.LENGTH_LONG
@@ -136,12 +135,12 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
         val snackView = snack.getView
         snackView.setBackgroundResource(R.color.snackBarColor)
         snackView.setElevation(10)
-        val snackText = snackView.findViewById(android.support.design.R.id.snackbar_text).asInstanceOf[TextView]
+        val snackText = snackView.findViewById(SupportDesignR.snackbar_text).asInstanceOf[TextView]
         snackText.setTextColor(getResources.getColor(R.color.textDarkColor, null))
         snack.show()
         true
 
-      case R.id.action_delete_conversation =>
+      case id if id == R.id.action_delete_conversation =>
         val dial = new SimpleDialogDesign(
           this,
           getResources.getString(R.string.dialog_delete_conversion),
@@ -152,8 +151,8 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
         dial.show()
         true
 
-      case R.id.action_mute_conversation_single =>
-        val snack = Snackbar.make(
+      case id if id == R.id.action_mute_conversation_single =>
+        val snack: Snackbar = Snackbar.make(
           this.findView(TR.coordinatorLayout),
           getResources.getString(R.string.message_snackbar_friend_muted),
           Snackbar.LENGTH_LONG
@@ -164,10 +163,10 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
           }
         })
         snack.setActionTextColor(contactColorPrimary)
-        val snackView = snack.getView
+        val snackView: View = snack.getView
         snackView.setBackgroundResource(R.color.snackBarColor)
         snackView.setElevation(10)
-        val snackText = snackView.findViewById(android.support.design.R.id.snackbar_text).asInstanceOf[TextView]
+        val snackText: TextView = snackView.findViewById(SupportDesignR.snackbar_text).asInstanceOf[TextView]
         snackText.setTextColor(getResources.getColor(R.color.textDarkColor, null))
         snack.show()
         true
@@ -202,7 +201,7 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
     overlayAttachments = this.findView(TR.fragment_attachments_slide)
     header = this.findView(TR.message_header)
 
-    val params = new RelativeLayout.LayoutParams(
+    val params: RelativeLayout.LayoutParams = new RelativeLayout.LayoutParams(
       ViewGroup.LayoutParams.WRAP_CONTENT,
       ViewGroup.LayoutParams.WRAP_CONTENT
     )
@@ -212,18 +211,22 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
       case 0 =>
         header.addView(getLayoutInflater.inflate(TR.layout.message_header_user, null, true), params)
         header.findView(TR.message_header_user_img).setImageResource(imgSRC)
-        header.onClick {
-          startOverLayFriend()
-        }
+        header.setOnClickListener(new View.OnClickListener {
+          override def onClick(v: View): Unit = {
+            startOverLayFriend()
+          }
+        })
 
       case _ =>
         header.addView(getLayoutInflater.inflate(TR.layout.message_header_group, null, true), params)
-        header.onClick {
-          startActivity(SIntent[MessageGroupContacts].putExtras(SBundle(
-            BundleKey.colorPrimary -> contactColorPrimary,
-            BundleKey.colorPrimaryStatus -> contactColorStatus
-          )))
-        }
+        header.setOnClickListener(new View.OnClickListener {
+          override def onClick(v: View): Unit = {
+            startActivity(new Intent(MessageActivity.this, classOf[MessageGroupContacts]).putExtras(SBundle(
+              BundleKey.colorPrimary -> contactColorPrimary,
+              BundleKey.colorPrimaryStatus -> contactColorStatus
+            )))
+          }
+        })
     }
 
     mUserName = header.findView(TR.message_header_title)
@@ -233,7 +236,7 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
   private def initRecyclerView(): Unit = {
     mRecycler = this.findView(TR.message_recycler)
 
-    val mLayoutManager = new LinearLayoutManager(getBaseContext)
+    val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
     mLayoutManager.setReverseLayout(true)
     mRecycler.setHasFixedSize(true)
     mRecyclerAdapter = new MessageAdapter(this, this)
@@ -254,14 +257,16 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
 
     mRecycler.setItemAnimator(new MessageItemAnimator)
 
-    val attachButton = this.findView(TR.message_attachments_button)
+    val attachButton: ImageButton = this.findView(TR.message_attachments_button)
 
-    attachButton.onClick {
-      val imm = this.getSystemService(TContext.INPUT_METHOD_SERVICE)
-      imm.hideSoftInputFromWindow(mInput.getApplicationWindowToken, 0)
+    attachButton.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        val imm = MessageActivity.this.getSystemService(TContext.INPUT_METHOD_SERVICE)
+        imm.hideSoftInputFromWindow(mInput.getApplicationWindowToken, 0)
 
-      overlayAttachments.start()
-    }
+        overlayAttachments.start()
+      }
+    })
   }
 
   private def initInput(): Unit = {
@@ -270,36 +275,44 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
     mSendButton = this.findView(TR.message_fab)
     mSendButton.setBackgroundTintList(ColorStateList.valueOf(contactColorPrimary))
 
-    mSendButton.onClick {
-      logger.debug("hahaha: " + mInput.getText.toString)
-      mRecyclerAdapter.addItem(Message(MessageType.Delivered, mInput.getText.toString, "14:41 Delivered", R.drawable.user))
-      mRecycler.smoothScrollToPosition(0)
-      mInput.setText("")
-    }
+    mSendButton.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        logger.debug("hahaha: " + mInput.getText.toString)
+        mRecyclerAdapter.addItem(Message(MessageType.Delivered, mInput.getText.toString, "14:41 Delivered", R.drawable.user))
+        mRecycler.smoothScrollToPosition(0)
+        mInput.setText("")
+      }
+    })
 
     if (typeOfMessage == 0) {
       mInput.setHint(getResources.getString(R.string.message_hint_single) + " " + title)
     }
 
-    mInput.onTextChanged { (s: CharSequence, start: Int, before: Int, count: Int) =>
-      val textLength = mInput.getText.length
-      if (textLength == 0 && mSendButtonActive) {
-        expandInputBar()
-      } else if (textLength > 0 && !mSendButtonActive) {
-        shrinkInputBar()
+    mInput.addTextChangedListener(new TextWatcher {
+      override def onTextChanged(s: CharSequence, start: Int, before: Int, count: Int): Unit = {
+        val textLength = mInput.getText.length
+        if (textLength == 0 && mSendButtonActive) {
+          expandInputBar()
+        } else if (textLength > 0 && !mSendButtonActive) {
+          shrinkInputBar()
+        }
       }
-    }
+
+      override def afterTextChanged(s: Editable): Unit = {}
+
+      override def beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int): Unit = {}
+    })
   }
 
   private def shrinkInputBar(): Unit = {
-    val inputAnimation = new SizeAnimation(
+    val inputAnimation: SizeAnimation = new SizeAnimation(
       mInputLayout,
       mInputLayout.getWidth - mSendButton.getWidth - mSendButton.getPaddingRight, 0
     )
     inputAnimation.setDuration(250)
     mInputLayout.startAnimation(inputAnimation)
 
-    val buttonAnimation = AnimationUtils.loadAnimation(this, R.anim.fab_from_right)
+    val buttonAnimation: Animation = AnimationUtils.loadAnimation(this, R.anim.fab_from_right)
 
     buttonAnimation.setAnimationListener(new AnimationListener {
       override def onAnimationStart(animation: Animation): Unit = {
@@ -439,7 +452,7 @@ final class MessageActivity extends AppCompatActivity with MessageClick with Mes
 
     override def onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean = {
       item.getItemId match {
-        case R.id.action_message_delete =>
+        case id if id == R.id.action_message_delete =>
           mRecyclerAdapter.deleteSelected()
           mode.finish()
       }

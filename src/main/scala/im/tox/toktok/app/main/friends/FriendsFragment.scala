@@ -1,5 +1,6 @@
 package im.tox.toktok.app.main.friends
 
+import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Bundle
 import android.support.v4.app.{ Fragment, FragmentActivity }
@@ -17,7 +18,6 @@ import im.tox.toktok.app.call.CallActivity
 import im.tox.toktok.app.domain.Friend
 import im.tox.toktok.app.message_activity.MessageActivity
 import im.tox.toktok.{ BundleKey, TR }
-import org.scaloid.common.SIntent
 
 final class FriendsFragment extends Fragment with FriendItemClicks {
 
@@ -85,7 +85,7 @@ final class FriendsFragment extends Fragment with FriendItemClicks {
   override def startCall(friendPosition: Int): Unit = {
     val friend = mFriendsRecyclerAdapter.getItem(friendPosition)
 
-    getActivity.startActivity(SIntent[CallActivity].putExtras(SBundle(
+    getActivity.startActivity(new Intent(activity, classOf[CallActivity]).putExtras(SBundle(
       BundleKey.contactName -> friend.userName,
       BundleKey.contactColorPrimary -> friend.color,
       BundleKey.contactPhotoReference -> friend.photoReference
@@ -95,7 +95,7 @@ final class FriendsFragment extends Fragment with FriendItemClicks {
   override def startMessage(friendPosition: Int): Unit = {
     val friend = mFriendsRecyclerAdapter.getItem(friendPosition)
 
-    getActivity.startActivity(SIntent[MessageActivity].putExtras(SBundle(
+    getActivity.startActivity(new Intent(activity, classOf[MessageActivity]).putExtras(SBundle(
       BundleKey.messageTitle -> friend.userName,
       BundleKey.contactColorPrimary -> friend.color,
       BundleKey.contactColorStatus -> friend.secondColor,

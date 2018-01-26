@@ -1,34 +1,33 @@
 package im.tox.toktok.app.call
 
-import android.app.Activity
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.{ Color, Point }
-import android.support.v7.widget.LinearLayoutManager
-import android.view.View
+import android.os.Bundle
+import android.support.v7.widget.{ LinearLayoutManager, RecyclerView }
+import android.view.{ Display, View }
 import android.view.ViewGroup.LayoutParams
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.animation.Animation.AnimationListener
 import android.view.animation.{ Animation, AnimationUtils }
 import android.widget._
 import com.typesafe.scalalogging.Logger
+import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.Friend
 import im.tox.toktok.app.util.ActivityAdapter
 import im.tox.toktok.app.video_call.VideoCallActivity
 import im.tox.toktok.{ BundleKey, R, TR }
-import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
 final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layout.activity_call_layout) {
 
-  private implicit def activity: Activity = this
-
   private val logger = Logger(LoggerFactory.getLogger(getClass))
 
-  private val viewType = 2
+  private val viewType: Int = 2
 
-  private var backgroundInitialised = false
+  private var backgroundInitialised: Boolean = false
 
   protected override def onCreateViewHolder(): CallActivityViewHolder = {
     new CallActivityViewHolder(this)
@@ -63,9 +62,9 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
     holder.topPanel.addView(getLayoutInflater.inflate(TR.layout.call_top_on_going))
     holder.bottomPanel.addView(getLayoutInflater.inflate(TR.layout.call_bottom_on_going))
 
-    val contactsView = this.findView(TR.call_ongoing_contacts)
+    val contactsView: RecyclerView = this.findView(TR.call_ongoing_contacts)
 
-    val friends = Seq(
+    val friends: Seq[Friend] = Seq(
       Friend(
         -1,
         holder.friendTitle,
@@ -77,27 +76,29 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
       )
     )
 
-    val contactsLayoutManager = new LinearLayoutManager(getBaseContext)
+    val contactsLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
     contactsView.setLayoutManager(contactsLayoutManager)
     contactsView.setAdapter(new CallOnGoingContactsAdapter(friends))
 
-    this.findView(TR.call_ongoing_fab).onClick {
-      finish()
-    }
+    this.findView(TR.call_ongoing_fab).setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        finish()
+      }
+    })
   }
 
   private def initReceiveCall(holder: CallActivityViewHolder): Unit = {
     holder.topPanel.addView(getLayoutInflater.inflate(TR.layout.call_top_receive))
     holder.bottomPanel.addView(getLayoutInflater.inflate(TR.layout.call_bottom_receive))
 
-    val friendPhotoView = this.findView(TR.call_img)
+    val friendPhotoView: CircleImageView = this.findView(TR.call_img)
     friendPhotoView.setImageResource(holder.friendImgSrc)
 
     this.findView(TR.call_friend).setText(holder.friendTitle)
     this.findView(TR.call_message_input).setHint(getResources.getString(R.string.call_input_message) + " " + holder.friendTitle)
 
-    val callMessageView = this.findView(TR.call_messages_recycler)
-    val excuses = Seq(
+    val callMessageView: RecyclerView = this.findView(TR.call_messages_recycler)
+    val excuses: Seq[String] = Seq(
       "Sorry I’m In Class, Call you later",
       "I’m at a meeting, can’t talk",
       "Call you later",
@@ -105,12 +106,12 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
       "Not available"
     )
 
-    val callMessageLayoutManager = new LinearLayoutManager(getBaseContext)
+    val callMessageLayoutManager: LinearLayoutManager = new LinearLayoutManager(getBaseContext)
     callMessageView.setLayoutManager(callMessageLayoutManager)
     callMessageView.setAdapter(new CallMessageAdapter(excuses))
 
-    val callAnswerSlider = this.findView(TR.call_answer)
-    val callDeclineSlider = this.findView(TR.call_decline)
+    val callAnswerSlider: CallSliderAnswer = this.findView(TR.call_answer)
+    val callDeclineSlider: CallSliderDecline = this.findView(TR.call_decline)
 
     callAnswerSlider.setOnCallListener(new CallListener {
       override def onCompleted(): Unit = {
@@ -150,14 +151,14 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
             holder.topPanel.getChildAt(0).startAnimation(fadeOutAnimationTop)
 
           case 2 =>
-            startActivity(SIntent[VideoCallActivity].putExtras(holder.bundle))
+            startActivity(new Intent(CallActivity.this, classOf[VideoCallActivity]).putExtras(holder.bundle))
             overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out)
             finish()
         }
       }
 
       override def onStart(): Unit = {
-        val animation = AnimationUtils.loadAnimation(callDeclineSlider.getContext, R.anim.abc_fade_out)
+        val animation: Animation = AnimationUtils.loadAnimation(callDeclineSlider.getContext, R.anim.abc_fade_out)
         animation.setDuration(250)
         animation.setAnimationListener(new AnimationListener {
           override def onAnimationEnd(animation: Animation): Unit = {
@@ -172,7 +173,7 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
       }
 
       override def onReleased(): Unit = {
-        val animation = AnimationUtils.loadAnimation(callDeclineSlider.getContext, R.anim.abc_fade_in)
+        val animation: Animation = AnimationUtils.loadAnimation(callDeclineSlider.getContext, R.anim.abc_fade_in)
         animation.setDuration(250)
         animation.setAnimationListener(new AnimationListener {
           override def onAnimationEnd(animation: Animation): Unit = {
@@ -195,7 +196,7 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
       }
 
       override def onReleased(): Unit = {
-        val animation = AnimationUtils.loadAnimation(callAnswerSlider.getContext, R.anim.abc_fade_in)
+        val animation: Animation = AnimationUtils.loadAnimation(callAnswerSlider.getContext, R.anim.abc_fade_in)
         animation.setDuration(250)
         animation.setAnimationListener(new AnimationListener {
           override def onAnimationEnd(animation: Animation): Unit = {
@@ -210,7 +211,7 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
       }
 
       override def onStart(): Unit = {
-        val animation = AnimationUtils.loadAnimation(callAnswerSlider.getContext, R.anim.abc_fade_out)
+        val animation: Animation = AnimationUtils.loadAnimation(callAnswerSlider.getContext, R.anim.abc_fade_out)
         animation.setDuration(250)
         animation.setAnimationListener(new AnimationListener {
           override def onAnimationEnd(animation: Animation): Unit = {
@@ -225,22 +226,24 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
       }
     })
 
-    val bottomTextBar = this.findView(TR.call_message_bottom_bar)
+    val bottomTextBar: TextView = this.findView(TR.call_message_bottom_bar)
 
-    bottomTextBar.onClick {
-      logger.debug("asda")
-    }
+    bottomTextBar.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        logger.debug("asda")
+      }
+    })
   }
 
   private def initBackground(holder: CallActivityViewHolder, imgResource: Int): Unit = {
-    val background = this.findView(TR.call_background)
+    val background: ImageView = this.findView(TR.call_background)
     background.setImageResource(imgResource)
 
-    val screen = getWindowManager.getDefaultDisplay
-    val screenSize = new Point()
+    val screen: Display = getWindowManager.getDefaultDisplay
+    val screenSize: Point = new Point()
     screen.getSize(screenSize)
 
-    val content = findViewById[View](android.R.id.content).getRootView
+    val content: View = findViewById[View](android.R.id.content).getRootView
 
     content.getViewTreeObserver.addOnGlobalLayoutListener(new OnGlobalLayoutListener {
       override def onGlobalLayout(): Unit = {
@@ -265,13 +268,13 @@ final class CallActivity extends ActivityAdapter[CallActivityViewHolder](TR.layo
 }
 
 final class CallActivityViewHolder(activity: CallActivity) {
-  val topPanel = activity.findView(TR.call_top_panel)
-  val bottomPanel = activity.findView(TR.call_bottom_panel)
+  val topPanel: RelativeLayout = activity.findView(TR.call_top_panel)
+  val bottomPanel: FrameLayout = activity.findView(TR.call_bottom_panel)
 
-  val bundle = activity.getIntent.getExtras
-  val friendTitle = bundle(BundleKey.contactName)
-  val friendColor = bundle(BundleKey.contactColorPrimary)
-  val friendImgSrc = bundle(BundleKey.contactPhotoReference)
+  val bundle: Bundle = activity.getIntent.getExtras
+  val friendTitle: String = bundle(BundleKey.contactName)
+  val friendColor: Int = bundle(BundleKey.contactColorPrimary)
+  val friendImgSrc: Int = bundle(BundleKey.contactPhotoReference)
 }
 
 trait CallListener {

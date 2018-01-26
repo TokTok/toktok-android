@@ -1,5 +1,6 @@
 package im.tox.toktok.app.main
 
+import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Bundle
 import android.support.design.widget.{ FloatingActionButton, TabLayout }
@@ -7,7 +8,7 @@ import android.support.v4.app.{ Fragment, FragmentActivity }
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.AppCompatActivity
+import android.support.v7.app.{ ActionBar, AppCompatActivity }
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View.OnClickListener
@@ -20,12 +21,9 @@ import im.tox.toktok.app.new_message.NewMessageActivity
 import im.tox.toktok.app.simple_dialogs.SimpleAddFriendDialogDesign
 import im.tox.toktok.app.{ CustomViewPager, MainActivityHolder }
 import im.tox.toktok.{ R, TR }
-import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
 final class MainFragment extends Fragment {
-
-  private implicit def activity: FragmentActivity = getActivity
 
   private val logger = Logger(LoggerFactory.getLogger(getClass))
 
@@ -44,7 +42,7 @@ final class MainFragment extends Fragment {
 
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedState: Bundle): FrameLayout = {
     super.onCreate(savedState)
-    val view = inflater.inflate(TR.layout.activity_main_fragment, container, false)
+    val view: FrameLayout = inflater.inflate(TR.layout.activity_main_fragment, container, false)
 
     mDrawer = getActivity.findView(TR.home_layout)
 
@@ -105,7 +103,7 @@ final class MainFragment extends Fragment {
 
     getActivity.asInstanceOf[AppCompatActivity].setSupportActionBar(mToolbar)
 
-    val actionBar = getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar
+    val actionBar: ActionBar = getActivity.asInstanceOf[AppCompatActivity].getSupportActionBar
     actionBar.setTitle(getResources.getString(R.string.app_name))
     actionBar.setHomeAsUpIndicator(R.drawable.ic_navigation_menu)
     actionBar.setDisplayHomeAsUpEnabled(true)
@@ -113,9 +111,11 @@ final class MainFragment extends Fragment {
 
   private def initFAB(view: FrameLayout): Unit = {
     mFab = view.findView(TR.home_fab)
-    mFab.onClick {
-      startActivity(SIntent[NewMessageActivity])
-    }
+    mFab.setOnClickListener(new OnClickListener {
+      override def onClick(v: View): Unit = {
+        startActivity(new Intent(getActivity, classOf[NewMessageActivity]))
+      }
+    })
   }
 
   override def onOptionsItemSelected(item: MenuItem): Boolean = {
@@ -124,12 +124,12 @@ final class MainFragment extends Fragment {
         mDrawer.openDrawer(GravityCompat.START)
         true
 
-      case R.id.action_add_friend =>
+      case id if id == R.id.action_add_friend =>
         val dial = new SimpleAddFriendDialogDesign(getActivity, null)
         dial.show()
         true
 
-      case R.id.action_search =>
+      case id if id == R.id.action_search =>
         val searchLayout = getActivity.getLayoutInflater.inflate(TR.layout.home_search)
         val params = new WindowManager.LayoutParams(
           LayoutParams.MATCH_PARENT,

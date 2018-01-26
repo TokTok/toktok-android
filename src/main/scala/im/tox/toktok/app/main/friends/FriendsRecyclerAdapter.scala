@@ -7,7 +7,6 @@ import android.widget.RelativeLayout
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.Friend
 import im.tox.toktok.{ R, TR }
-import org.scaloid.common._
 
 abstract class FriendsRecyclerAdapter(
     friends: Seq[Friend],
@@ -38,27 +37,33 @@ abstract class FriendsRecyclerAdapter(
     })
   }
 
-  def onBindViewHolder(viewHolder: FriendsRecyclerViewHolder, position: Int) = {
+  def onBindViewHolder(viewHolder: FriendsRecyclerViewHolder, position: Int): Unit = {
     val item = friends(position)
     viewHolder.mUserName.setText(item.userName)
     viewHolder.mUserImage.setImageResource(item.photoReference)
     viewHolder.mUserImage.setClickable(true)
-    viewHolder.mUserImage.onClick {
-      expandOnClick.startOverLayFriend(position)
-    }
+    viewHolder.mUserImage.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        expandOnClick.startOverLayFriend(position)
+      }
+    })
 
     if (position == expandedItem) {
       viewHolder.mExpandedArea.setVisibility(View.VISIBLE)
       viewHolder.mBase.setElevation(10)
       viewHolder.mBase.setBackgroundResource(R.drawable.cardboard_ripple)
 
-      viewHolder.mCallButton.onClick {
-        expandOnClick.startCall(position)
-      }
+      viewHolder.mCallButton.setOnClickListener(new View.OnClickListener {
+        override def onClick(v: View): Unit = {
+          expandOnClick.startCall(position)
+        }
+      })
 
-      viewHolder.mMessageButton.onClick {
-        expandOnClick.startMessage(position)
-      }
+      viewHolder.mMessageButton.setOnClickListener(new View.OnClickListener {
+        override def onClick(v: View): Unit = {
+          expandOnClick.startMessage(position)
+        }
+      })
     } else {
       viewHolder.mExpandedArea.setVisibility(View.GONE)
       viewHolder.mBase.setElevation(0)

@@ -11,12 +11,9 @@ import im.tox.toktok.app.main.friends.SlideInContactsLayout
 import im.tox.toktok.app.main.{ HomeSearch, MainFragment }
 import im.tox.toktok.app.profile.ProfileFragment
 import im.tox.toktok.{ R, TR }
-import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
 final class MainActivityHolder extends AppCompatActivity {
-
-  private val logger = Logger(LoggerFactory.getLogger(getClass))
 
   private var activeTab: LinearLayout = null
   private var activeContacts: SlideInContactsLayout = null
@@ -26,17 +23,20 @@ final class MainActivityHolder extends AppCompatActivity {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
-    val chatsDrawerItem = this.findView(TR.home_drawer_chats)
-    val profileDrawerItem = this.findView(TR.home_drawer_profile)
-    val settingsDrawerItem = this.findView(TR.home_drawer_settings)
+    val chatsDrawerItem: LinearLayout = this.findView(TR.home_drawer_chats)
+    val profileDrawerItem: LinearLayout = this.findView(TR.home_drawer_profile)
 
-    chatsDrawerItem.onClick { (v: View) =>
-      activeTab = changeTab(activeTab, chatsDrawerItem, "Chats", "", new MainFragment)
-    }
+    chatsDrawerItem.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        activeTab = changeTab(activeTab, chatsDrawerItem, "Chats", "", new MainFragment)
+      }
+    })
 
-    profileDrawerItem.onClick { (v: View) =>
-      activeTab = changeTab(activeTab, profileDrawerItem, "Profile", "Activity", new ProfileFragment)
-    }
+    profileDrawerItem.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        activeTab = changeTab(activeTab, profileDrawerItem, "Profile", "Activity", new ProfileFragment)
+      }
+    })
 
     chatsDrawerItem.callOnClick()
   }

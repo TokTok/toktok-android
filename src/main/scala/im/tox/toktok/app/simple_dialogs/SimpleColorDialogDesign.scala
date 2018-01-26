@@ -7,11 +7,10 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View.OnClickListener
-import android.view.Window
+import android.view.{ View, Window }
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.MaterialColors
 import im.tox.toktok.{ R, TR }
-import org.scaloid.common._
 
 final class SimpleColorDialogDesign(
     activity: Activity,
@@ -38,9 +37,11 @@ final class SimpleColorDialogDesign(
     color_recycler.setLayoutManager(new LinearLayoutManager(activity))
 
     val cancelButton = this.findView(TR.simple_dialog_cancel)
-    cancelButton.onClick {
-      dismiss()
-    }
+    cancelButton.setOnClickListener(new OnClickListener {
+      override def onClick(v: View): Unit = {
+        dismiss()
+      }
+    })
   }
 
 }

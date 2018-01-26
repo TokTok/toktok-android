@@ -16,11 +16,13 @@
 -dontwarn org.slf4j.MarkerFactory
 -dontwarn org.xmlpull.v1.**
 -dontwarn scala.xml.**
+-dontwarn scala.**
 -dontwarn scalaz.**
 -dontwarn scodec.bits.*
 
--keep class io.realm.annotations.RealmModule
--keep @io.realm.annotations.RealmModule class *
+-keep interface android.support.** { *; }
+-keep class android.support.** { *; }
+
 -keep class * extends android.support.design.widget.CoordinatorLayout$Behavior { <init>(...); }
 -keep class * extends android.test.ActivityInstrumentationTestCase2 { public *; }
 

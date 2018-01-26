@@ -1,5 +1,6 @@
 package im.tox.toktok.app.main.chats
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.{ Bundle, Handler }
 import android.support.design.widget.{ AppBarLayout, FloatingActionButton }
@@ -15,7 +16,6 @@ import im.tox.toktok.app.domain.ChatMessage
 import im.tox.toktok.app.new_message.NewMessageActivity
 import im.tox.toktok.app.{ CustomViewPager, MyRecyclerScroll }
 import im.tox.toktok.{ R, TR }
-import org.scaloid.common._
 
 import scala.collection.mutable.ListBuffer
 
@@ -28,17 +28,17 @@ final class ChatsFragment extends Fragment with ChatItemClick {
   private var mActionMode: ActionMode = null
 
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedState: Bundle): FrameLayout = {
-    val view = inflater.inflate(TR.layout.fragment_home_chats, container, false)
-    val fab = activity.findView(TR.home_fab)
+    val view: FrameLayout = inflater.inflate(TR.layout.fragment_home_chats, container, false)
+    val fab: FloatingActionButton = activity.findView(TR.home_fab)
 
     // Recycler View
 
     mChatsRecycler = view.findView(TR.home_chats_recycler)
 
-    val mLayoutManager = new LinearLayoutManager(activity.getBaseContext)
+    val mLayoutManager: LinearLayoutManager = new LinearLayoutManager(activity.getBaseContext)
     mChatsRecycler.setLayoutManager(mLayoutManager)
 
-    val chatMessages = ListBuffer[ChatMessage](
+    val chatMessages: ListBuffer[ChatMessage] = ListBuffer[ChatMessage](
       ChatMessage.loremMessage,
       ChatMessage.johnMessage,
       ChatMessage.groupMessage
@@ -109,15 +109,17 @@ final class ChatsFragment extends Fragment with ChatItemClick {
       mCustomViewPager = activity.findView(TR.home_tab_holder)
       mCustomViewPager.setSwipingEnabled(false)
 
-      mFab.onClick {
-        mChatsRecyclerAdapter.deleteSelected()
+      mFab.setOnClickListener(new View.OnClickListener {
+        override def onClick(v: View): Unit = {
+          mChatsRecyclerAdapter.deleteSelected()
 
-        new Handler().postDelayed(new Runnable {
-          override def run(): Unit = {
-            mode.finish()
-          }
-        }, 500)
-      }
+          new Handler().postDelayed(new Runnable {
+            override def run(): Unit = {
+              mode.finish()
+            }
+          }, 500)
+        }
+      })
 
       true
     }
@@ -129,9 +131,11 @@ final class ChatsFragment extends Fragment with ChatItemClick {
       mFab.setBackgroundTintList(ColorStateList.valueOf(getResources.getColor(R.color.basicFABColor, null)))
       mFab.setImageTintList(ColorStateList.valueOf(getResources.getColor(R.color.basicFABTint, null)))
 
-      mFab.onClick {
-        startActivity(SIntent[NewMessageActivity])
-      }
+      mFab.setOnClickListener(new View.OnClickListener {
+        override def onClick(v: View): Unit = {
+          startActivity(new Intent(activity, classOf[NewMessageActivity]))
+        }
+      })
 
       mCustomViewPager.setSwipingEnabled(true)
 

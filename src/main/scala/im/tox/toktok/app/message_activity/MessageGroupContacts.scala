@@ -1,12 +1,13 @@
 package im.tox.toktok.app.message_activity
 
+import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.TypedValue
 import android.view.ViewGroup.LayoutParams
-import android.view.{ MenuItem, WindowManager }
+import android.view.{ MenuItem, View, WindowManager }
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration
 import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.TypedResource._
@@ -15,7 +16,6 @@ import im.tox.toktok.app.domain.Friend
 import im.tox.toktok.app.main.friends.{ FriendItemClicks, FriendsRecyclerHeaderAdapter }
 import im.tox.toktok.app.new_message.NewMessageActivity
 import im.tox.toktok.{ BundleKey, R, TR }
-import org.scaloid.common._
 
 import scala.collection.mutable.ListBuffer
 
@@ -46,9 +46,11 @@ final class MessageGroupContacts extends AppCompatActivity with FriendItemClicks
 
     val mFAB = this.findView(TR.message_group_members_fab)
 
-    mFAB.onClick {
-      startActivity(SIntent[NewMessageActivity].putExtras(bundle))
-    }
+    mFAB.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        startActivity(new Intent(activity, classOf[NewMessageActivity]).putExtras(bundle))
+      }
+    })
 
     val mRecycler = this.findView(TR.message_group_members_recycler)
 
@@ -101,7 +103,7 @@ final class MessageGroupContacts extends AppCompatActivity with FriendItemClicks
   override def startCall(friendPosition: Int): Unit = {
     val friend = adapter.getItem(friendPosition)
 
-    startActivity(SIntent[CallActivity].putExtras(SBundle(
+    startActivity(new Intent(activity, classOf[CallActivity]).putExtras(SBundle(
       BundleKey.contactName -> friend.userName,
       BundleKey.contactColorPrimary -> friend.color,
       BundleKey.contactPhotoReference -> friend.photoReference
@@ -111,7 +113,7 @@ final class MessageGroupContacts extends AppCompatActivity with FriendItemClicks
   override def startMessage(friendPosition: Int): Unit = {
     val friend = adapter.getItem(friendPosition)
 
-    startActivity(SIntent[MessageActivity].putExtras(SBundle(
+    startActivity(new Intent(activity, classOf[MessageActivity]).putExtras(SBundle(
       BundleKey.messageTitle -> friend.userName,
       BundleKey.contactColorPrimary -> friend.color,
       BundleKey.contactColorStatus -> friend.secondColor,

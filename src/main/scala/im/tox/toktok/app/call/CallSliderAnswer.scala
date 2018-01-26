@@ -6,7 +6,6 @@ import android.view.{ LayoutInflater, MotionEvent, View }
 import android.widget.{ ImageView, RelativeLayout, TextView }
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.{ R, TR }
-import org.scaloid.common._
 
 final class CallSliderAnswer(
     context: Context,
@@ -48,7 +47,7 @@ final class CallSliderAnswer(
         buttonWidth = mCallImage.getWidth
         barWidth = getWidth - buttonWidth - getPaddingRight - getPaddingLeft
         mCallImage.setImageResource(R.drawable.call_answer_hold)
-        startPosition = mCallImage.x.toInt
+        startPosition = mCallImage.getX.toInt
         listener.onStart()
 
       case MotionEvent.ACTION_MOVE =>

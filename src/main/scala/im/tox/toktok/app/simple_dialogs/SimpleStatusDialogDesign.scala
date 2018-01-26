@@ -4,10 +4,9 @@ import android.app.{ Activity, Dialog }
 import android.graphics.Color
 import android.graphics.drawable.{ ColorDrawable, TransitionDrawable }
 import android.os.Bundle
-import android.view.Window
+import android.view.{ View, Window }
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.{ R, TR }
-import org.scaloid.common._
 
 final class SimpleStatusDialogDesign(
     activity: Activity,
@@ -36,30 +35,38 @@ final class SimpleStatusDialogDesign(
     activeBackgroundTransition.startTransition(250)
 
     val onlineStatus = this.findView(TR.simple_dialog_status_online)
-    onlineStatus.onClick {
-      activeBackgroundTransition.reverseTransition(250)
-      activeBackgroundTransition = onlineStatus.getBackground.asInstanceOf[TransitionDrawable]
-      activeBackgroundTransition.startTransition(250)
-    }
+    onlineStatus.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        activeBackgroundTransition.reverseTransition(250)
+        activeBackgroundTransition = onlineStatus.getBackground.asInstanceOf[TransitionDrawable]
+        activeBackgroundTransition.startTransition(250)
+      }
+    })
 
     val awayStatus = this.findView(TR.simple_dialog_status_away)
-    awayStatus.onClick {
-      activeBackgroundTransition.reverseTransition(250)
-      activeBackgroundTransition = awayStatus.getBackground.asInstanceOf[TransitionDrawable]
-      activeBackgroundTransition.startTransition(250)
-    }
+    awayStatus.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        activeBackgroundTransition.reverseTransition(250)
+        activeBackgroundTransition = awayStatus.getBackground.asInstanceOf[TransitionDrawable]
+        activeBackgroundTransition.startTransition(250)
+      }
+    })
 
     val busyStatus = this.findView(TR.simple_dialog_status_busy)
-    busyStatus.onClick {
-      activeBackgroundTransition.reverseTransition(250)
-      activeBackgroundTransition = busyStatus.getBackground.asInstanceOf[TransitionDrawable]
-      activeBackgroundTransition.startTransition(250)
-    }
+    busyStatus.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        activeBackgroundTransition.reverseTransition(250)
+        activeBackgroundTransition = busyStatus.getBackground.asInstanceOf[TransitionDrawable]
+        activeBackgroundTransition.startTransition(250)
+      }
+    })
 
     val cancelButton = this.findView(TR.simple_dialog_cancel)
-    cancelButton.onClick {
-      dismiss()
-    }
+    cancelButton.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        dismiss()
+      }
+    })
   }
 
 }

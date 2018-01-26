@@ -1,15 +1,17 @@
 package im.tox.toktok.app.main.chats
 
-import android.content.Context
+import android.content.{ Context, Intent }
+import android.os.Bundle
 import android.support.v7.widget.{ CardView, RecyclerView }
 import android.util.SparseBooleanArray
 import android.view.{ LayoutInflater, View, ViewGroup }
+import android.widget.TextView
+import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.{ ChatMessage, FriendMessage, GroupMessage }
 import im.tox.toktok.app.message_activity.MessageActivity
 import im.tox.toktok.{ BundleKey, TR }
-import org.scaloid.common.SIntent
 
 import scala.collection.mutable.ListBuffer
 
@@ -18,7 +20,7 @@ final class ChatsRecyclerAdapter(
     chatItemClick: ChatItemClick
 ) extends RecyclerView.Adapter[RecyclerView.ViewHolder] {
 
-  private val selectedItems = new SparseBooleanArray()
+  private val selectedItems: SparseBooleanArray = new SparseBooleanArray()
 
   override def onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder = {
     viewType match {
@@ -35,7 +37,7 @@ final class ChatsRecyclerAdapter(
     }
   }
 
-  override def onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) = {
+  override def onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int): Unit = {
     chatMessages(position) match {
       case FriendMessage(friend, lastMessage) =>
         val view = viewHolder.asInstanceOf[ChatsRecyclerViewHolderUser]
@@ -124,15 +126,15 @@ sealed abstract class ChatsRecyclerViewHolder(
   with View.OnClickListener
   with View.OnLongClickListener {
 
-  protected implicit def context: Context = itemView.getContext
+  protected def context: Context = itemView.getContext
 
   itemView.setOnClickListener(this)
   itemView.setOnLongClickListener(this)
 
-  val mSelectedBackground = itemView.findView(TR.home_item_selected)
-  val mUserName = itemView.findView(TR.home_item_name)
-  val mLastMessage = itemView.findView(TR.home_item_last_message)
-  val mColor = itemView.findView(TR.home_item_color)
+  val mSelectedBackground: View = itemView.findView(TR.home_item_selected)
+  val mUserName: TextView = itemView.findView(TR.home_item_name)
+  val mLastMessage: TextView = itemView.findView(TR.home_item_last_message)
+  val mColor: View = itemView.findView(TR.home_item_color)
 
   final override def onLongClick(v: View): Boolean = {
     clickListener.onLongClick(getLayoutPosition)
@@ -150,12 +152,12 @@ final class ChatsRecyclerViewHolderUser(
   clickListener
 ) {
 
-  val mUserStatus = itemView.findView(TR.home_item_status)
-  val mUserImage = itemView.findView(TR.home_item_img)
+  val mUserStatus: TextView = itemView.findView(TR.home_item_status)
+  val mUserImage: CircleImageView = itemView.findView(TR.home_item_img)
 
-  def onClick(view: View) = {
+  def onClick(view: View): Unit = {
     if (!clickListener.onClick(getLayoutPosition)) {
-      val bundle = chatMessages(getLayoutPosition) match {
+      val bundle: Bundle = chatMessages(getLayoutPosition) match {
         case FriendMessage(friend, lastMessage) =>
           SBundle(
             BundleKey.messageType -> 0,
@@ -169,7 +171,7 @@ final class ChatsRecyclerViewHolderUser(
           throw new RuntimeException("Got group message but expected friend message")
       }
 
-      context.startActivity(SIntent[MessageActivity].putExtras(bundle))
+      context.startActivity(new Intent(context, classOf[MessageActivity]).putExtras(bundle))
     }
   }
 
@@ -185,9 +187,9 @@ final class ChatsRecyclerViewHolderGroup(
   clickListener
 ) {
 
-  override def onClick(view: View) = {
+  override def onClick(view: View): Unit = {
     if (!clickListener.onClick(getLayoutPosition)) {
-      val bundle = chatMessages(getLayoutPosition) match {
+      val bundle: Bundle = chatMessages(getLayoutPosition) match {
         case GroupMessage(group, lastMessage) =>
           SBundle(
             BundleKey.messageType -> 1,
@@ -200,7 +202,7 @@ final class ChatsRecyclerViewHolderGroup(
           throw new RuntimeException("Got friend message but expected group message")
       }
 
-      context.startActivity(SIntent[MessageActivity].putExtras(bundle))
+      context.startActivity(new Intent(context, classOf[MessageActivity]).putExtras(bundle))
     }
   }
 

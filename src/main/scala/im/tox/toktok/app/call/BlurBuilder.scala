@@ -15,8 +15,8 @@ object BlurBuilder {
   }
 
   def blur(ctx: Context, image: Bitmap): Bitmap = {
-    val width = (image.getWidth * BITMAP_SCALE).round
-    val height = (image.getHeight * BITMAP_SCALE).round
+    val width = Math.round(image.getWidth * BITMAP_SCALE)
+    val height = Math.round(image.getHeight * BITMAP_SCALE)
     val inputBitmap = Bitmap.createScaledBitmap(image, width, height, false)
     val outputBitmap = Bitmap.createBitmap(inputBitmap)
     val rs = RenderScript.create(ctx)

@@ -3,13 +3,13 @@ package im.tox.toktok.app.message_activity
 import android.support.v7.widget.RecyclerView
 import android.util.SparseBooleanArray
 import android.view.{ LayoutInflater, View, ViewGroup }
-import android.widget.RelativeLayout
+import android.widget.{ RelativeLayout, TextView }
 import com.typesafe.scalalogging.Logger
+import de.hdodenhof.circleimageview.CircleImageView
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.{ Message, MessageType }
 import im.tox.toktok.app.message_activity.MessageAdapter.inflate
 import im.tox.toktok.{ TR, TypedLayout }
-import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
 import scala.collection.mutable.ListBuffer
@@ -66,7 +66,7 @@ final class MessageAdapter(
     selectedItems.get(position, false)
   }
 
-  override def onBindViewHolder(viewHolder: MessageViewHolder, position: Int) = {
+  override def onBindViewHolder(viewHolder: MessageViewHolder, position: Int): Unit = {
     val message = messages(position)
 
     viewHolder.mUserText.setText(message.msgContent)
@@ -84,17 +84,21 @@ final class MessageAdapter(
         view.mUserDetails.setText(message.msgDetails)
 
       case MessageType.Received.viewType =>
-        viewHolder.mUserImg.onClick {
-          messageClick.onImgClick()
-        }
+        viewHolder.mUserImg.setOnClickListener(new View.OnClickListener {
+          override def onClick(v: View): Unit = {
+            messageClick.onImgClick()
+          }
+        })
 
         val view = viewHolder.asInstanceOf[MessageViewHolderDetailed]
         view.mUserDetails.setText(message.msgDetails)
 
       case MessageType.Action.viewType =>
-        viewHolder.mUserImg.onClick {
-          messageClick.onImgClick()
-        }
+        viewHolder.mUserImg.setOnClickListener(new View.OnClickListener {
+          override def onClick(v: View): Unit = {
+            messageClick.onImgClick()
+          }
+        })
     }
   }
 
@@ -138,8 +142,8 @@ sealed class MessageViewHolder(
   with View.OnLongClickListener
   with View.OnClickListener {
 
-  final val mUserText = itemView.findView(TR.message_item_text)
-  final val mUserImg = itemView.findView(TR.message_item_img)
+  final val mUserText: TextView = itemView.findView(TR.message_item_text)
+  final val mUserImg: CircleImageView = itemView.findView(TR.message_item_img)
 
   itemView.setOnLongClickListener(this)
   itemView.setOnClickListener(this)
@@ -162,7 +166,7 @@ final class MessageViewHolderDetailed(
   messageActionMode,
   itemView.findView(TR.message_item_base)
 ) {
-  val mUserDetails = itemView.findView(TR.message_item_details)
+  val mUserDetails: TextView = itemView.findView(TR.message_item_details)
 }
 
 trait MessageClick {

@@ -7,7 +7,6 @@ import android.view.{ LayoutInflater, View, ViewGroup }
 import com.typesafe.scalalogging.Logger
 import im.tox.toktok.TR
 import im.tox.toktok.TypedResource._
-import org.scaloid.common._
 import org.slf4j.LoggerFactory
 
 final class SimpleColorDialogDesignAdapter(
@@ -20,15 +19,17 @@ final class SimpleColorDialogDesignAdapter(
     val itemView = LayoutInflater.from(viewGroup.getContext)
       .inflate(TR.layout.simple_color_dialog_item, viewGroup, false)
 
-    itemView.onClick { (v: View) =>
-      logger.debug("adsd")
-      v.setZ(1000.0f)
-    }
+    itemView.setOnClickListener(new OnClickListener {
+      override def onClick(v: View): Unit = {
+        logger.debug("adsd")
+        v.setZ(1000.0f)
+      }
+    })
 
     new SimpleColorDialogDesignViewHolder(itemView)
   }
 
-  override def onBindViewHolder(viewHolder: SimpleColorDialogDesignViewHolder, position: Int) = {
+  override def onBindViewHolder(viewHolder: SimpleColorDialogDesignViewHolder, position: Int): Unit = {
     val item = items(position)
     logger.debug(item)
     viewHolder.mColor.setBackgroundColor(Color.parseColor(item))
@@ -48,7 +49,7 @@ final class SimpleColorDialogDesignViewHolder(
 
   val logger = Logger(LoggerFactory.getLogger(getClass))
 
-  val mColor = itemView.findView(TR.simple_color_dialog_item)
+  val mColor: View = itemView.findView(TR.simple_color_dialog_item)
 
   override def onClick(v: View) = {
     logger.debug("adsd")

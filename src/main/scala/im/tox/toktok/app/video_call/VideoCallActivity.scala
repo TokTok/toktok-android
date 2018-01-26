@@ -8,7 +8,6 @@ import android.view.animation.{ Animation, AnimationUtils }
 import im.tox.toktok.TypedBundleKey._
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.{ BundleKey, R, TR }
-import org.scaloid.common._
 
 final class VideoCallActivity extends AppCompatActivity {
 
@@ -25,9 +24,11 @@ final class VideoCallActivity extends AppCompatActivity {
     getWindow.getDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     getWindow.setStatusBarColor(getResources.getColor(R.color.contactsTransparentBar, null))
 
-    this.findView(TR.call_ongoing_fab).onClick {
-      finish()
-    }
+    this.findView(TR.call_ongoing_fab).setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        finish()
+      }
+    })
 
     val bottom = this.findView(TR.videocall_bar)
 

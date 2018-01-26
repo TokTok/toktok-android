@@ -6,13 +6,12 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.text.TextUtils
 import android.util.SparseBooleanArray
-import android.view.{ LayoutInflater, ViewGroup }
+import android.view.{ LayoutInflater, View, ViewGroup }
 import android.widget.LinearLayout
 import com.tonicartos.superslim.{ GridSLM, LinearSLM }
 import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.Message
 import im.tox.toktok.{ R, TR }
-import org.scaloid.common._
 
 import scala.collection.mutable.ListBuffer
 
@@ -78,9 +77,11 @@ final class MessageRecallRecyclerAdapter(
 
       view.mMessageText.setText(itemMessage.msgContent)
       view.mMessageDetails.setText(itemMessage.msgDetails)
-      view.mMessageBase.onClick {
-        recallMessageListener.onClick(position)
-      }
+      view.mMessageBase.setOnClickListener(new View.OnClickListener {
+        override def onClick(v: View): Unit = {
+          recallMessageListener.onClick(position)
+        }
+      })
 
       if (isSelected(position)) {
         view.mMessageBase.setBackgroundColor(Color.parseColor("#E0E0E0"))

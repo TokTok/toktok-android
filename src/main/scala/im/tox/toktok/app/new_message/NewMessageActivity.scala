@@ -21,7 +21,6 @@ import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.MyRecyclerScroll
 import im.tox.toktok.app.domain.Friend
 import im.tox.toktok.{ BundleKey, R, TR }
-import org.scaloid.common._
 
 import scala.collection.mutable.ListBuffer
 
@@ -213,10 +212,12 @@ final class NewMessageActivity extends AppCompatActivity {
     mSelectedFriendsImg.setImageResource(first.photoReference)
     mSelectedFriendsText.setText(first.userName)
     mSelectedFriendsButton.setImageResource(R.drawable.ic_content_clear)
-    mSelectedFriendsButton.onClick {
-      adapter.clearSelectedList()
-      destroySelectedContacts()
-    }
+    mSelectedFriendsButton.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        adapter.clearSelectedList()
+        destroySelectedContacts()
+      }
+    })
   }
 
   def setMultiSelectedContact(adapter: NewMessageRecyclerAdapter, selectedFriends: Int): Unit = {
@@ -227,17 +228,19 @@ final class NewMessageActivity extends AppCompatActivity {
     mSelectedFriendsImg.setImageResource(R.color.backgroundColor)
 
     mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_down)
-    mSelectedFriendsButton.onClick {
-      if (mSelectedMiniExtended) {
-        destroySelectedContactsMini()
-        mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_down)
-      } else {
-        mSelectedMini.setVisibility(View.VISIBLE)
-        mSelectedMiniExtended = true
-        mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_up)
-        createMiniContact(adapter)
+    mSelectedFriendsButton.setOnClickListener(new View.OnClickListener {
+      override def onClick(v: View): Unit = {
+        if (mSelectedMiniExtended) {
+          destroySelectedContactsMini()
+          mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_down)
+        } else {
+          mSelectedMini.setVisibility(View.VISIBLE)
+          mSelectedMiniExtended = true
+          mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_up)
+          createMiniContact(adapter)
+        }
       }
-    }
+    })
   }
 
   def createMiniContact(adapter: NewMessageRecyclerAdapter): Unit = {

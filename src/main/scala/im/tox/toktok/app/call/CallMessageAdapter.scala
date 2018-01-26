@@ -2,7 +2,7 @@ package im.tox.toktok.app.call
 
 import android.support.v7.widget.RecyclerView
 import android.view.{ LayoutInflater, ViewGroup }
-import android.widget.LinearLayout
+import android.widget.{ LinearLayout, TextView }
 import im.tox.toktok.TR
 import im.tox.toktok.TypedResource._
 
@@ -13,7 +13,7 @@ final class CallMessageAdapter(excuses: Seq[String]) extends RecyclerView.Adapte
     new CallMessageViewHolder(itemView)
   }
 
-  def onBindViewHolder(viewHolder: CallMessageViewHolder, position: Int) = {
+  def onBindViewHolder(viewHolder: CallMessageViewHolder, position: Int): Unit = {
     val item = excuses(position)
     viewHolder.mMessage.setText(item)
   }
@@ -26,6 +26,6 @@ final class CallMessageAdapter(excuses: Seq[String]) extends RecyclerView.Adapte
 
 final class CallMessageViewHolder(itemView: LinearLayout) extends RecyclerView.ViewHolder(itemView) {
 
-  val mMessage = itemView.findView(TR.call_item_message)
+  val mMessage: TextView = itemView.findView(TR.call_item_message)
 
 }

@@ -1,14 +1,14 @@
 package im.tox.toktok
 
+import android.animation.{ Animator, AnimatorInflater }
 import android.annotation.TargetApi
 import android.app.{ Activity, Dialog }
 import android.content.Context
 import android.content.res.{ TypedArray, XmlResourceParser }
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.view.{ View, ViewGroup, LayoutInflater, MenuInflater, Menu, MenuItem }
 import android.view.animation.{ Animation, AnimationUtils, Interpolator }
-import android.animation.{ Animator, AnimatorInflater }
+import android.view._
 
 import scala.annotation.implicitNotFound
 
