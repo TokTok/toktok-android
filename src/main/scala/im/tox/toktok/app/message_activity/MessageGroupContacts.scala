@@ -1,5 +1,7 @@
 package im.tox.toktok.app.message_activity
 
+import java.util
+
 import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Bundle
@@ -54,7 +56,7 @@ final class MessageGroupContacts extends AppCompatActivity with FriendItemClicks
 
     val mRecycler = this.findView(TR.message_group_members_recycler)
 
-    val friends = ListBuffer(Friend.lorem, Friend.john)
+    val friends = util.Arrays.asList(Friend.lorem, Friend.john)
 
     val mLayoutManager = new LinearLayoutManager(getBaseContext)
     mRecycler.setLayoutManager(mLayoutManager)

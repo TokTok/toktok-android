@@ -9,7 +9,7 @@ import im.tox.toktok.app.domain.Friend
 import im.tox.toktok.{ R, TR }
 
 abstract class FriendsRecyclerAdapter(
-    friends: Seq[Friend],
+    friends: java.util.List[Friend],
     expandOnClick: FriendItemClicks
 ) extends RecyclerView.Adapter[FriendsRecyclerViewHolder] {
 
@@ -38,7 +38,7 @@ abstract class FriendsRecyclerAdapter(
   }
 
   def onBindViewHolder(viewHolder: FriendsRecyclerViewHolder, position: Int): Unit = {
-    val item = friends(position)
+    val item = friends.get(position)
     viewHolder.mUserName.setText(item.userName)
     viewHolder.mUserImage.setImageResource(item.photoReference)
     viewHolder.mUserImage.setClickable(true)
@@ -76,15 +76,15 @@ abstract class FriendsRecyclerAdapter(
   }
 
   def getItemCount: Int = {
-    friends.length
+    friends.size()
   }
 
   def getItemPosition(i: Int): String = {
-    friends(i).userName
+    friends.get(i).userName
   }
 
   def getItem(i: Int): Friend = {
-    friends(i)
+    friends.get(i)
   }
 
 }

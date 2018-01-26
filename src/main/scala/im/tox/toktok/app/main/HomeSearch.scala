@@ -10,6 +10,7 @@ import android.view.animation.{ Animation, AnimationUtils }
 import android.view.{ View, ViewGroup }
 import android.widget.{ EditText, LinearLayout }
 import im.tox.toktok.TypedResource._
+import im.tox.toktok.app.main.friends.SlideInContactsLayout.AfterFinish
 import im.tox.toktok.{ R, TR }
 
 final class HomeSearch(
@@ -63,7 +64,7 @@ final class HomeSearch(
     setMeasuredDimension(View.resolveSizeAndState(maxWidth, widthMeasureSpec, 0), View.resolveSizeAndState(maxHeight, heightMeasureSpec, 0))
   }
 
-  def finish(after: => Unit): Unit = {
+  def finish(after: AfterFinish): Unit = {
     if (mInput.isFocusable) {
       mInput.clearFocus()
     }
@@ -77,7 +78,7 @@ final class HomeSearch(
         mCardView.setVisibility(View.INVISIBLE)
         setVisibility(View.GONE)
         mBackground.reverseTransition(500)
-        after
+        after.run()
       }
 
       def onAnimationRepeat(animation: Animation): Unit = {}

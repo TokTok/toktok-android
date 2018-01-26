@@ -20,11 +20,18 @@ import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.call.CallActivity
 import im.tox.toktok.app.contacts.FileSendActivity
 import im.tox.toktok.app.domain.Friend
+import im.tox.toktok.app.main.friends.SlideInContactsLayout.AfterFinish
 import im.tox.toktok.app.message_activity.{ MessageActivity, SupportDesignR }
 import im.tox.toktok.app.simple_dialogs.{ SimpleColorDialogDesign, SimpleDialogDesign, SimpleTextDialogDesign }
 import im.tox.toktok.app.video_call.VideoCallActivity
 import im.tox.toktok.{ BundleKey, R, TR }
 import org.slf4j.LoggerFactory
+
+object SlideInContactsLayout {
+  trait AfterFinish {
+    def run(): Unit
+  }
+}
 
 final class SlideInContactsLayout(
     context: Context,
@@ -174,7 +181,7 @@ final class SlideInContactsLayout(
       return false
     }
 
-    ev.getAction match {
+    ev.getActionMasked match {
       case MotionEvent.ACTION_DOWN =>
         logger.debug("Intercept Touch DOWN")
       case MotionEvent.ACTION_MOVE =>
@@ -200,7 +207,7 @@ final class SlideInContactsLayout(
     val y = ev.getY
     val v = this.findView(TR.contacts_nested)
 
-    ev.getAction match {
+    ev.getActionMasked match {
       case MotionEvent.ACTION_DOWN =>
         mInitialMotionY = y
       case MotionEvent.ACTION_MOVE =>
@@ -253,14 +260,18 @@ final class SlideInContactsLayout(
     }
   }
 
-  def finish(after: => Unit = {}): Unit = {
+  object DoNothing extends AfterFinish {
+    override def run(): Unit = {}
+  }
+
+  def finish(after: AfterFinish = DoNothing): Unit = {
     smoothSlideTo(1f)
     backgroundTransition.reverseTransition(500)
     new Handler().postDelayed(new Runnable() {
       def run(): Unit = {
         mCoordinator.setVisibility(View.INVISIBLE)
         setVisibility(View.GONE)
-        after
+        after.run()
       }
     }, 500)
   }

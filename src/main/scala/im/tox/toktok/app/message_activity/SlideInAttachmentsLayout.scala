@@ -55,7 +55,7 @@ final class SlideInAttachmentsLayout(
   override def onInterceptTouchEvent(ev: MotionEvent): Boolean = {
     val y = ev.getY
 
-    MotionEventCompat.getActionMasked(ev) match {
+    ev.getActionMasked match {
       case MotionEvent.ACTION_DOWN =>
         logger.debug("DOWN")
         mInitialMotionY = y
@@ -97,7 +97,7 @@ final class SlideInAttachmentsLayout(
   override def dispatchTouchEvent(ev: MotionEvent): Boolean = {
     val y = ev.getY
 
-    MotionEventCompat.getActionMasked(ev) match {
+    ev.getActionMasked match {
       case MotionEvent.ACTION_DOWN =>
         mInitialMotionY = y
         if (y < getHeight - mChild.getHeight) {

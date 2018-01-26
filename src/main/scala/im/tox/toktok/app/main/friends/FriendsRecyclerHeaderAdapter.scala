@@ -9,7 +9,7 @@ import im.tox.toktok.TypedResource._
 import im.tox.toktok.app.domain.Friend
 
 final class FriendsRecyclerHeaderAdapter(
-    friends: Seq[Friend],
+    friends: java.util.List[Friend],
     friendPhotoOnClick: FriendItemClicks
 ) extends FriendsRecyclerAdapter(friends, friendPhotoOnClick)
   with StickyRecyclerHeadersAdapter[FriendsRecyclerHeaderViewHolder] {

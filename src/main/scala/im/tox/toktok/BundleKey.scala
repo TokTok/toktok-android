@@ -3,6 +3,8 @@ package im.tox.toktok
 import android.os.Bundle
 import im.tox.toktok.TypedBundleKey.{ IntKey, StringKey }
 
+import scala.annotation.varargs
+
 object BundleKey {
   val colorPrimary = IntKey("colorPrimary")
   val colorPrimaryStatus = IntKey("colorPrimaryStatus")
@@ -39,6 +41,7 @@ object TypedBundleKey {
     def apply(key: IntKey): Int = bundle.getInt(key.id)
   }
 
+  @varargs
   def SBundle(keyValues: KeyValue[_]*): Bundle = {
     val bundle = new Bundle
     keyValues.foreach(_.put(bundle))
