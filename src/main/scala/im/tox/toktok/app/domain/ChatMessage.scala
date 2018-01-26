@@ -13,9 +13,9 @@ final case class GroupMessage(
 ) extends ChatMessage
 
 object ChatMessage {
-  val loremMessage = FriendMessage(Friend.lorem, "Hello, how are you?")
-  val johnMessage = FriendMessage(Friend.john, "Hey buddy, how's things?")
-  val groupMessage = GroupMessage(Group.group, "Let's Go!")
+  val loremMessage: ChatMessage = FriendMessage(Friend.lorem, "Hello, how are you?")
+  val johnMessage: ChatMessage = FriendMessage(Friend.john, "Hey buddy, how's things?")
+  val groupMessage: ChatMessage = GroupMessage(Group.group, "Let's Go!")
 
   def messageType(message: ChatMessage): Int = {
     message match {

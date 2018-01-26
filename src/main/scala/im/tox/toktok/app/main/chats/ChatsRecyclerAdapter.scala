@@ -16,7 +16,7 @@ import im.tox.toktok.{ BundleKey, TR }
 import scala.collection.mutable.ListBuffer
 
 final class ChatsRecyclerAdapter(
-    chatMessages: ListBuffer[ChatMessage],
+    chatMessages: java.util.List[ChatMessage],
     chatItemClick: ChatItemClick
 ) extends RecyclerView.Adapter[RecyclerView.ViewHolder] {
 
@@ -38,7 +38,7 @@ final class ChatsRecyclerAdapter(
   }
 
   override def onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int): Unit = {
-    chatMessages(position) match {
+    chatMessages.get(position) match {
       case FriendMessage(friend, lastMessage) =>
         val view = viewHolder.asInstanceOf[ChatsRecyclerViewHolderUser]
 
@@ -71,11 +71,11 @@ final class ChatsRecyclerAdapter(
   }
 
   override def getItemViewType(position: Int): Int = {
-    ChatMessage.messageType(chatMessages(position))
+    ChatMessage.messageType(chatMessages.get(position))
   }
 
   def getItemCount: Int = {
-    chatMessages.length
+    chatMessages.size()
   }
 
   def toggleSelection(i: Int): Unit = {
@@ -120,7 +120,7 @@ final class ChatsRecyclerAdapter(
 
 sealed abstract class ChatsRecyclerViewHolder(
     itemView: View,
-    chatMessages: Seq[ChatMessage],
+    chatMessages: java.util.List[ChatMessage],
     clickListener: ChatItemClick
 ) extends RecyclerView.ViewHolder(itemView)
   with View.OnClickListener
@@ -144,7 +144,7 @@ sealed abstract class ChatsRecyclerViewHolder(
 
 final class ChatsRecyclerViewHolderUser(
     itemView: View,
-    chatMessages: Seq[ChatMessage],
+    chatMessages: java.util.List[ChatMessage],
     clickListener: ChatItemClick
 ) extends ChatsRecyclerViewHolder(
   itemView,
@@ -157,7 +157,7 @@ final class ChatsRecyclerViewHolderUser(
 
   def onClick(view: View): Unit = {
     if (!clickListener.onClick(getLayoutPosition)) {
-      val bundle: Bundle = chatMessages(getLayoutPosition) match {
+      val bundle: Bundle = chatMessages.get(getLayoutPosition) match {
         case FriendMessage(friend, lastMessage) =>
           SBundle(
             BundleKey.messageType -> 0,
@@ -179,7 +179,7 @@ final class ChatsRecyclerViewHolderUser(
 
 final class ChatsRecyclerViewHolderGroup(
     itemView: CardView,
-    chatMessages: Seq[ChatMessage],
+    chatMessages: java.util.List[ChatMessage],
     clickListener: ChatItemClick
 ) extends ChatsRecyclerViewHolder(
   itemView,
@@ -189,7 +189,7 @@ final class ChatsRecyclerViewHolderGroup(
 
   override def onClick(view: View): Unit = {
     if (!clickListener.onClick(getLayoutPosition)) {
-      val bundle: Bundle = chatMessages(getLayoutPosition) match {
+      val bundle: Bundle = chatMessages.get(getLayoutPosition) match {
         case GroupMessage(group, lastMessage) =>
           SBundle(
             BundleKey.messageType -> 1,
