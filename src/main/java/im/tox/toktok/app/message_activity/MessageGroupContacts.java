@@ -34,6 +34,7 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
 
     private FriendsRecyclerHeaderAdapter adapter = null;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_group_members);
@@ -54,6 +55,7 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
         FloatingActionButton mFAB = this.findViewById(R.id.message_group_members_fab);
 
         mFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 startActivity(new Intent(MessageGroupContacts.this, NewMessageActivity.class).putExtras(bundle));
             }
@@ -71,6 +73,7 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
         mRecycler.addItemDecoration(new StickyRecyclerHeadersDecoration(adapter));
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -81,6 +84,7 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
         }
     }
 
+    @Override
     public void startOverLayFriend(int friendPosition) {
         SlideInContactsLayout layout = (SlideInContactsLayout) getLayoutInflater().inflate(
                 R.layout.overlay_contacts, null, false);
@@ -103,6 +107,7 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
         layout.start(this, adapter.getItem(friendPosition), actionBarHeight);
     }
 
+    @Override
     public void startCall(int friendPosition) {
         Friend friend = adapter.getItem(friendPosition);
 
@@ -113,6 +118,7 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
         )));
     }
 
+    @Override
     public void startMessage(int friendPosition) {
         Friend friend = adapter.getItem(friendPosition);
 

@@ -33,6 +33,7 @@ public final class FriendsFragment extends Fragment implements FriendItemClicks 
 
   private FriendsRecyclerHeaderAdapter mFriendsRecyclerAdapter = null;
 
+  @Override
   public LinearLayout onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedState) {
     LinearLayout view = (LinearLayout) inflater.inflate(R.layout.fragment_home_friends, container, false);
     AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -74,6 +75,7 @@ public final class FriendsFragment extends Fragment implements FriendItemClicks 
     return view;
   }
 
+  @Override
   public void startOverLayFriend(int friendPosition) {
     SlideInContactsLayout layout = (SlideInContactsLayout) getActivity().getLayoutInflater().inflate(R.layout.overlay_contacts, null, false);
     WindowManager.LayoutParams params = new WindowManager.LayoutParams(
@@ -100,6 +102,7 @@ public final class FriendsFragment extends Fragment implements FriendItemClicks 
     layout.start(activity, mFriendsRecyclerAdapter.getItem(friendPosition), actionBarHeight);
   }
 
+  @Override
   public void startCall(int friendPosition) {
     Friend friend = mFriendsRecyclerAdapter.getItem(friendPosition);
 
@@ -110,6 +113,7 @@ public final class FriendsFragment extends Fragment implements FriendItemClicks 
     )));
   }
 
+  @Override
   public void startMessage(int friendPosition) {
     Friend friend = mFriendsRecyclerAdapter.getItem(friendPosition);
 
