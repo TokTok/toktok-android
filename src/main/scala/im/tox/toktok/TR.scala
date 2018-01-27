@@ -148,7 +148,6 @@ object TR {
   final val home_drawer_holder = TypedResource[android.widget.LinearLayout](R.id.home_drawer_holder)
   final val home_item_info = TypedResource[android.widget.RelativeLayout](R.id.home_item_info)
   final val reject_item_message_delete = TypedResource[android.widget.ImageView](R.id.reject_item_message_delete)
-  final val call_answer = TypedResource[im.tox.toktok.app.call.CallSliderAnswer](R.id.call_answer)
   final val main_content = TypedResource[android.support.design.widget.CoordinatorLayout](R.id.main_content)
   final val call_slider_img = TypedResource[android.widget.ImageView](R.id.call_slider_img)
   final val call_ongoing_contact_name = TypedResource[android.widget.TextView](R.id.call_ongoing_contact_name)
@@ -194,7 +193,6 @@ object TR {
   final val simple_color_dialog_item = TypedResource[android.view.View](R.id.simple_color_dialog_item)
   final val call_messages_recycler = TypedResource[android.support.v7.widget.RecyclerView](R.id.call_messages_recycler)
   final val simple_dialog_status_online = TypedResource[android.widget.LinearLayout](R.id.simple_dialog_status_online)
-  final val call_decline = TypedResource[im.tox.toktok.app.call.CallSliderDecline](R.id.call_decline)
   final val message_input_cardview = TypedResource[android.support.v7.widget.CardView](R.id.message_input_cardview)
   final val home_search_img = TypedResource[de.hdodenhof.circleimageview.CircleImageView](R.id.home_search_img)
 
