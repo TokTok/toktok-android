@@ -8,7 +8,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath 'jp.leafytree.gradle:gradle-android-scala-plugin:1.5-SNAPSHOT'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -21,7 +20,6 @@ repositories {
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'jp.leafytree.android-scala'
 
 android {
     compileSdkVersion 27
@@ -41,6 +39,9 @@ android {
         }
     }
     buildToolsVersion '26.0.2'
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -58,6 +59,5 @@ dependencies {
     implementation 'com.tonicartos:superslim:0.4.13'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     // Logging.
-    implementation 'com.typesafe.scala-logging:scala-logging_2.11:3.7.2'
     implementation 'org.slf4j:slf4j-android:1.7.21'
 }

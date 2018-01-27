@@ -1,5 +1,3 @@
-load("@io_bazel_rules_scala//scala:scala.bzl", "scala_library")
-
 supportLibraryVersion = "27.0.1".replace(".", "_")
 
 android_deps = [
@@ -36,28 +34,6 @@ android_library(
     deps = android_deps,
 )
 
-scala_library(
-    name = "app_lib_scala",
-    srcs = glob(["src/main/scala/**/*.scala"]),
-    deps = android_deps + [
-        ":app_res",
-        "//tools/defaults:android_jar",
-        "@com_typesafe_scala_logging_scala_logging//jar:file",
-        "@org_slf4j_slf4j_api//jar",
-    ],
-)
-
-java_import(
-    name = "app_lib",
-    jars = ["app_lib_scala.jar"],
-    exports = [
-        "@com_typesafe_scala_logging_scala_logging//jar",
-        "@org_slf4j_slf4j_android//jar",
-        "@org_slf4j_slf4j_api//jar",
-        "@scala//:scala-library",
-    ],
-)
-
 android_binary(
     name = "app",
     srcs = glob(["src/main/java/**/*.java"]),
@@ -66,6 +42,7 @@ android_binary(
     proguard_specs = ["proguard-rules.pro"],
     resource_files = glob(["src/main/res/**"]),
     deps = android_deps + [
-        ":app_lib",
+        "@org_slf4j_slf4j_android//jar",
+        "@org_slf4j_slf4j_api//jar",
     ],
 )

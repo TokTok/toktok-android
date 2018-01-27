@@ -18,16 +18,3 @@ android:
 
 before_install:
 - yes | sdkmanager "platforms;android-27"
-
-install:
-# Install latest gradle android scala plugin, which supports recent android
-# gradle plugins.
-- git clone --depth=1 https://github.com/saturday06/gradle-android-scala-plugin ../gradle-android-scala-plugin
-- sed -i -e 's/"com.android.tools.build:gradle:2.0.0"/"com.android.tools.build:gradle:2.0.0"/' ../gradle-android-scala-plugin/build.gradle
-- sed -i -e 's/"org.scala-lang:scala-compiler:2.11.7"/"org.scala-lang:scala-compiler:2.11.12"/' ../gradle-android-scala-plugin/build.gradle
-- sed -i -e 's/scalaCompileOptions.useAnt = false/\/\/ scalaCompileOptions.useAnt = false/' ../gradle-android-scala-plugin/src/main/groovy/jp/leafytree/gradle/AndroidScalaPlugin.groovy
-- (cd ../gradle-android-scala-plugin && ./gradlew install)
-
-script:
-# Build APK.
-- ./gradlew packageDebug
