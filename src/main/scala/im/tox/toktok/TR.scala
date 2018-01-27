@@ -188,7 +188,6 @@ object TR {
   final val message_header_user_img = TypedResource[de.hdodenhof.circleimageview.CircleImageView](R.id.message_header_user_img)
   final val home_frieds_requests_decline = TypedResource[android.widget.ImageButton](R.id.home_frieds_requests_decline)
   final val message_header = TypedResource[android.widget.RelativeLayout](R.id.message_header)
-  final val home_tab_holder = TypedResource[im.tox.toktok.app.CustomViewPager](R.id.home_tab_holder)
   final val simple_color_dialog_item = TypedResource[android.view.View](R.id.simple_color_dialog_item)
   final val call_messages_recycler = TypedResource[android.support.v7.widget.RecyclerView](R.id.call_messages_recycler)
   final val simple_dialog_status_online = TypedResource[android.widget.LinearLayout](R.id.simple_dialog_status_online)
