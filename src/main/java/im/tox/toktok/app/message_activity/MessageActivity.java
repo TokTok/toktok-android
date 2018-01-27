@@ -67,8 +67,9 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
     private RecyclerView mRecycler = null;
     private SlideInAttachmentsLayout overlayAttachments = null;
     private ActionMode mActionMode = null;
-    private MessageActionModeCallback actionModeCallback = new MessageActionModeCallback();
+    private ActionMode.Callback actionModeCallback = new MessageActionModeCallback();
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
@@ -85,6 +86,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         initInput();
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final int id = item.getItemId();
         if (id == android.R.id.home) {
@@ -151,6 +153,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
                     Snackbar.LENGTH_LONG
             );
             snack.setAction(getResources().getString(R.string.action_undo), new OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     logger.debug("asdsad");
                 }
@@ -184,6 +187,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
                     Snackbar.LENGTH_LONG
             );
             snack.setAction(getResources().getString(R.string.action_undo), new OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     logger.debug("asdsad");
                 }
@@ -201,6 +205,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (typeOfMessage == 0) {
             getMenuInflater().inflate(R.menu.menu_single_message, menu);
@@ -235,6 +240,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
                 header.addView(getLayoutInflater().inflate(R.layout.message_header_user, null, true), params);
                 header.<CircleImageView>findViewById(R.id.message_header_user_img).setImageResource(imgSRC);
                 header.setOnClickListener(new View.OnClickListener() {
+                    @Override
                     public void onClick(View v) {
                         startOverLayFriend();
                     }
@@ -244,6 +250,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
             default:
                 header.addView(getLayoutInflater().inflate(R.layout.message_header_group, null, true), params);
                 header.setOnClickListener(new View.OnClickListener() {
+                    @Override
                     public void onClick(View v) {
                         startActivity(new Intent(MessageActivity.this, MessageGroupContacts.class).putExtras(SBundle(
                                 BundleKey.colorPrimary().map(contactColorPrimary),
@@ -284,6 +291,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         ImageButton attachButton = this.findViewById(R.id.message_attachments_button);
 
         attachButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager) MessageActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(mInput.getApplicationWindowToken(), 0);
@@ -300,8 +308,9 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         mSendButton.setBackgroundTintList(ColorStateList.valueOf(contactColorPrimary));
 
         mSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                logger.debug("hahaha: " + mInput.getText().toString());
+                logger.debug("hahaha: " + mInput.getText());
                 mRecyclerAdapter.addItem(new Message(MessageType.Delivered, mInput.getText().toString(), "14:41 Delivered", R.drawable.user));
                 mRecycler.smoothScrollToPosition(0);
                 mInput.setText("");
@@ -317,6 +326,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
+            @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int textLength = mInput.getText().length();
                 if (textLength == 0 && mSendButtonActive) {
@@ -343,6 +353,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         Animation buttonAnimation = AnimationUtils.loadAnimation(this, R.anim.fab_from_right);
 
         buttonAnimation.setAnimationListener(new AnimationListener() {
+            @Override
             public void onAnimationStart(Animation animation) {
                 mSendButton.setVisibility(View.VISIBLE);
             }
@@ -377,6 +388,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
             public void onAnimationStart(Animation animation) {
             }
 
+            @Override
             public void onAnimationEnd(Animation animation) {
                 // Hide the button behind the input widget, because the setVisibility call performs another
                 // fade-out animation that shows the button temporarily.
@@ -394,6 +406,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         mSendButtonActive = false;
     }
 
+    @Override
     public void onImgClick() {
         startOverLayFriend();
     }
@@ -421,6 +434,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         overlayContactsLayout.start(this, Friend.lorem, actionBarHeight);
     }
 
+    @Override
     public void onBackPressed() {
         if (overlayAttachments.getVisibility() == View.INVISIBLE) {
             finish();
@@ -446,12 +460,14 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         }
     }
 
+    @Override
     public void onClick(int i) {
         if (mActionMode != null) {
             toggleSelection(i);
         }
     }
 
+    @Override
     public boolean onLongClick(int i) {
         if (mActionMode == null) {
             mActionMode = startSupportActionMode(actionModeCallback);
@@ -464,6 +480,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
 
     private final class MessageActionModeCallback implements ActionMode.Callback {
 
+        @Override
         public void onDestroyActionMode(ActionMode mode) {
             mActionMode = null;
             mRecyclerAdapter.setActionModeActive(false);
@@ -473,6 +490,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
             mInputLayout.startAnimation(animationIn);
         }
 
+        @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater menuInflater = mode.getMenuInflater();
             menuInflater.inflate(R.menu.message_action_mode, menu);
@@ -487,6 +505,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
             return true;
         }
 
+        @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             final int id = item.getItemId();
             if (id == R.id.action_message_delete) {
@@ -497,6 +516,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
             return true;
         }
 
+        @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             return false;
         }

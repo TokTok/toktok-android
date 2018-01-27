@@ -20,6 +20,7 @@ public final class MainActivityHolder extends AppCompatActivity {
     private SlideInContactsLayout activeContacts = null;
     private HomeSearch activeSearch = null;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -28,6 +29,7 @@ public final class MainActivityHolder extends AppCompatActivity {
         final LinearLayout profileDrawerItem = this.findViewById(R.id.home_drawer_profile);
 
         chatsDrawerItem.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 activeTab = changeTab(activeTab, chatsDrawerItem, "Chats", "", new FragmentFactory() {
                     @Override
@@ -39,6 +41,7 @@ public final class MainActivityHolder extends AppCompatActivity {
         });
 
         profileDrawerItem.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 activeTab = changeTab(activeTab, profileDrawerItem, "Profile", "Activity", new FragmentFactory() {
                     @Override
@@ -52,6 +55,7 @@ public final class MainActivityHolder extends AppCompatActivity {
         chatsDrawerItem.callOnClick();
     }
 
+    @Override
     protected void onDestroy() {
         if (activeSearch != null) {
             getWindowManager().removeView(activeSearch);
@@ -100,13 +104,14 @@ public final class MainActivityHolder extends AppCompatActivity {
         activeSearch = homeSearch;
     }
 
+    @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().findFragmentByTag("Profile") != null) {
             getSupportFragmentManager().popBackStack("Activity", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
 
         if (activeContacts != null) {
-            activeContacts.finish(new SlideInContactsLayout.AfterFinish() {
+            activeContacts.finish(new Runnable() {
                 @Override
                 public void run() {
                     getWindowManager().removeView(activeContacts);

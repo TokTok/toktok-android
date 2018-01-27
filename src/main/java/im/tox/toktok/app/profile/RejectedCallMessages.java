@@ -16,7 +16,7 @@ import im.tox.toktok.R;
 
 public final class RejectedCallMessages extends AppCompatActivity implements DragStart {
 
-    private ItemTouchHelper itemDrag = null;
+    private ItemTouchHelper itemDrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public final class RejectedCallMessages extends AppCompatActivity implements Dra
 
         mRecycler.setLayoutManager(mLayoutManager);
 
-        List<String> a = new ArrayList<String>();
+        List<String> a = new ArrayList<>();
 
         a.add("Sorry I’m In Class, Call you later");
         a.add("I’m at a meeting, can’t talk");

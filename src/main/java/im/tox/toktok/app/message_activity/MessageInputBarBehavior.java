@@ -7,9 +7,10 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-class MessageInputBarBehavior extends CoordinatorLayout.Behavior<RelativeLayout> {
+public final class MessageInputBarBehavior extends CoordinatorLayout.Behavior<RelativeLayout> {
 
-    MessageInputBarBehavior(Context context, AttributeSet attrs) {
+    public MessageInputBarBehavior(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
     @Override

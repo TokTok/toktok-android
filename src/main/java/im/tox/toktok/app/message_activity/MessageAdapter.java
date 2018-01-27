@@ -24,8 +24,8 @@ final class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     private final MessageClick messageClick;
     private final MessageActionMode messageActionMode;
-    private List<Message> messages = new ArrayList<>();
-    private SparseBooleanArray selectedItems = new SparseBooleanArray();
+    private final List<Message> messages = new ArrayList<>();
+    private final SparseBooleanArray selectedItems = new SparseBooleanArray();
     private boolean actionModeActive = false;
 
     MessageAdapter(

@@ -48,15 +48,15 @@ import im.tox.toktok.app.domain.Friend;
 
 public final class NewMessageActivity extends AppCompatActivity {
 
-    private LinearLayout mSelectedFriends = null;
-    private NewMessageRecyclerHeaderAdapter mFriends_Recycler_Adapter = null;
-    private FloatingActionButton mFab = null;
-    private TextView mSelectedFriendsText = null;
-    private CircleImageView mSelectedFriendsImg = null;
-    private TextView mSelectedFriendsCounter = null;
-    private ImageButton mSelectedFriendsButton = null;
-    private TextView mSelectedMini = null;
-    private Boolean mSelectedMiniExtended = false;
+    private LinearLayout mSelectedFriends;
+    private NewMessageRecyclerHeaderAdapter mFriends_Recycler_Adapter;
+    private FloatingActionButton mFab;
+    private TextView mSelectedFriendsText;
+    private CircleImageView mSelectedFriendsImg;
+    private TextView mSelectedFriendsCounter;
+    private ImageButton mSelectedFriendsButton;
+    private TextView mSelectedMini;
+    private Boolean mSelectedMiniExtended;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

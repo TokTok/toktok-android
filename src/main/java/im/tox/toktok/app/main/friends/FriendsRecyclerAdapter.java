@@ -56,7 +56,7 @@ abstract class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendsRecycl
     }
 
     @Override
-    public void onBindViewHolder(FriendsRecyclerViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final FriendsRecyclerViewHolder viewHolder, int position) {
         Friend item = friends.get(position);
         viewHolder.mUserName.setText(item.userName);
         viewHolder.mUserImage.setImageResource(item.photoReference);
@@ -64,7 +64,7 @@ abstract class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendsRecycl
         viewHolder.mUserImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                expandOnClick.startOverLayFriend(position);
+                expandOnClick.startOverLayFriend(viewHolder.getAdapterPosition());
             }
         });
 
@@ -76,14 +76,14 @@ abstract class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendsRecycl
             viewHolder.mCallButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    expandOnClick.startCall(position);
+                    expandOnClick.startCall(viewHolder.getAdapterPosition());
                 }
             });
 
             viewHolder.mMessageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    expandOnClick.startMessage(position);
+                    expandOnClick.startMessage(viewHolder.getAdapterPosition());
                 }
             });
         } else {

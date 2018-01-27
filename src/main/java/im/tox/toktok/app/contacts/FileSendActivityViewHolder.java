@@ -13,7 +13,7 @@ final class FileSendActivityViewHolder extends RecyclerView.ViewHolder {
     TextView mFileName;
     TextView mFileDate;
 
-    public FileSendActivityViewHolder(RelativeLayout itemView) {
+    FileSendActivityViewHolder(RelativeLayout itemView) {
         super(itemView);
         mIcon = itemView.findViewById(R.id.files_send_item_icon);
         mFileName = itemView.findViewById(R.id.files_send_item_name);

@@ -37,6 +37,7 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
     private ChatsRecyclerAdapter mChatsRecyclerAdapter = null;
     private ActionMode mActionMode = null;
 
+    @Override
     public FrameLayout onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         FrameLayout view = (FrameLayout) inflater.inflate(R.layout.fragment_home_chats, container, false);
         final FloatingActionButton fab = ((AppCompatActivity) getActivity()).findViewById(R.id.home_fab);
@@ -59,10 +60,12 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
         mChatsRecycler.setAdapter(mChatsRecyclerAdapter);
         mChatsRecycler.setItemAnimator(new DefaultItemAnimator());
         mChatsRecycler.addOnScrollListener(new MyRecyclerScroll() {
+            @Override
             public void hide() {
                 fab.animate().translationY(fab.getHeight() + fab.getBottom()).setInterpolator(new AccelerateInterpolator(2)).start();
             }
 
+            @Override
             public void show() {
                 fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
             }
@@ -87,6 +90,7 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
         }
     }
 
+    @Override
     public boolean onClick(int i) {
         if (mActionMode == null) {
             return false;
@@ -95,6 +99,7 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
         return true;
     }
 
+    @Override
     public boolean onLongClick(int i) {
         if (mActionMode == null) {
             mActionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(new ChatsActionModeCallback());
@@ -109,6 +114,7 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
         private FloatingActionButton mFab = null;
         private CustomViewPager mCustomViewPager = null;
 
+        @Override
         public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
             final AppCompatActivity activity = (AppCompatActivity) getActivity();
             mAppLayout = activity.findViewById(R.id.appBarLayout);
@@ -123,10 +129,12 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
             mCustomViewPager.setSwipingEnabled(false);
 
             mFab.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     mChatsRecyclerAdapter.deleteSelected();
 
                     new Handler().postDelayed(new Runnable() {
+                        @Override
                         public void run() {
                             mode.finish();
                         }
@@ -137,6 +145,7 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
             return true;
         }
 
+        @Override
         public void onDestroyActionMode(ActionMode mode) {
             mAppLayout.setBackgroundColor(getResources().getColor(R.color.homeColorToolbar, null));
 
@@ -145,6 +154,7 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
             mFab.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.basicFABTint, null)));
 
             mFab.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View v) {
                     startActivity(new Intent(getActivity(), NewMessageActivity.class));
                 }
@@ -159,10 +169,12 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
             mCustomViewPager = null;
         }
 
+        @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             return true;
         }
 
+        @Override
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             return false;
         }

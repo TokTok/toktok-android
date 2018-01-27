@@ -15,12 +15,12 @@ import java.util.List;
 
 import im.tox.toktok.R;
 
-public final class SimpleColorDialogDesignAdapter extends RecyclerView.Adapter<SimpleColorDialogDesignViewHolder> {
+final class SimpleColorDialogDesignAdapter extends RecyclerView.Adapter<SimpleColorDialogDesignViewHolder> {
 
     private static final Logger logger = LoggerFactory.getLogger(SimpleColorDialogDesignAdapter.class);
     private final List<String> items;
 
-    public SimpleColorDialogDesignAdapter(List<String> items) {
+    SimpleColorDialogDesignAdapter(List<String> items) {
         this.items = items;
     }
 

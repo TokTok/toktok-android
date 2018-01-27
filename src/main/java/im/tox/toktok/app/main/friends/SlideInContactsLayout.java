@@ -43,46 +43,38 @@ import static im.tox.toktok.app.TypedBundleKey.SBundle;
 
 public final class SlideInContactsLayout extends ViewGroup {
 
-    public SlideInContactsLayout(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
-
-    public interface AfterFinish {
-        void run();
-    }
-
-    private Logger logger = LoggerFactory.getLogger(SlideInContactsLayout.class);
+    private static final Logger logger = LoggerFactory.getLogger(SlideInContactsLayout.class);
 
     private Activity activity = null;
 
-    private ViewDragHelper mDragHelper = ViewDragHelper.create(this, 1f, new DragHelperCallback());
-    private View mCoordinator = null;
-    private CollapsingToolbarLayout mCollapsingToolbarLayout = null;
-    private FloatingActionButton mFloatingActionButton = null;
-    private ImageView mUserImage = null;
-    private TextView mSubtitle = null;
-    private TextView mTitle = null;
-    private TextView mSettingsTitle = null;
-    private Toolbar mToolbar = null;
-    private View mStatusBar = null;
-    private RelativeLayout mEditNameButton = null;
-    private double mInitialMotionY = .0;
-    private int mDragRange = 0;
-    private int mTop = 0;
-    private Boolean scrollActive = false;
-    private double mDragOffset = .0;
-    private TransitionDrawable backgroundTransition = null;
-    private TextView mVoiceCall = null;
-    private TextView mVideoCall = null;
-    private CardView mMessage = null;
-    private CardView mSaveProfile = null;
-    private CardView mFilesSend = null;
-    private RelativeLayout mDeleteFriend = null;
-    private RelativeLayout mBlockFriend = null;
-    private RelativeLayout mChangeColor = null;
-    private int scrollTop = 0;
+    private final ViewDragHelper mDragHelper;
+    private View mCoordinator;
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;
+    private FloatingActionButton mFloatingActionButton;
+    private ImageView mUserImage;
+    private TextView mSubtitle;
+    private TextView mTitle;
+    private TextView mSettingsTitle;
+    private Toolbar mToolbar;
+    private View mStatusBar;
+    private RelativeLayout mEditNameButton;
+    private double mInitialMotionY;
+    private int mDragRange;
+    private int mTop;
+    private Boolean scrollActive;
+    private double mDragOffset;
+    private TransitionDrawable backgroundTransition;
+    private TextView mVoiceCall;
+    private TextView mVideoCall;
+    private CardView mMessage;
+    private CardView mSaveProfile;
+    private CardView mFilesSend;
+    private RelativeLayout mDeleteFriend;
+    private RelativeLayout mBlockFriend;
+    private RelativeLayout mChangeColor;
+    private int scrollTop;
 
-    private int[] icons = {
+    private static final int[] icons = {
             R.id.contacts_icon_call,
             R.id.contacts_icon_message,
             R.id.contacts_icon_image,
@@ -93,6 +85,11 @@ public final class SlideInContactsLayout extends ViewGroup {
             R.id.contacts_icon_lock
     };
 
+    public SlideInContactsLayout(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        mDragHelper = ViewDragHelper.create(this, 1f, new DragHelperCallback());
+    }
+
     public SlideInContactsLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -101,6 +98,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         this(context, null);
     }
 
+    @Override
     protected void onFinishInflate() {
         mCoordinator = this.findViewById(R.id.contacts_coordinator_layout);
         mCollapsingToolbarLayout = this.findViewById(R.id.contacts_collapsing_toolbar);
@@ -174,22 +172,22 @@ public final class SlideInContactsLayout extends ViewGroup {
         mCoordinator.startAnimation(animation);
     }
 
-    private boolean smoothSlideTo(Float slideOffset) {
+    private void smoothSlideTo(Float slideOffset) {
         int topBound = getPaddingTop();
         int y = (int) (topBound + slideOffset * mDragRange);
         if (mDragHelper.smoothSlideViewTo(mCoordinator, mCoordinator.getLeft(), y)) {
             ViewCompat.postInvalidateOnAnimation(this);
-            return true;
         }
-        return false;
     }
 
+    @Override
     public void computeScroll() {
         if (mDragHelper.continueSettling(true)) {
             ViewCompat.postInvalidateOnAnimation(this);
         }
     }
 
+    @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         if (scrollActive) {
             mDragHelper.cancel();
@@ -212,6 +210,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         return mDragHelper.shouldInterceptTouchEvent(ev);
     }
 
+    @Override
     public boolean onTouchEvent(MotionEvent ev) {
         try {
             mDragHelper.processTouchEvent(ev);
@@ -221,6 +220,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         }
     }
 
+    @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         Float y = ev.getY();
         NestedScrollView v = this.findViewById(R.id.contacts_nested);
@@ -259,6 +259,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         return super.dispatchTouchEvent(ev);
     }
 
+    @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         measureChildren(widthMeasureSpec, heightMeasureSpec);
         int maxWidth = MeasureSpec.getSize(widthMeasureSpec);
@@ -269,6 +270,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         );
     }
 
+    @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         mDragRange = getHeight();
         if (changed) {
@@ -279,7 +281,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         }
     }
 
-    private final AfterFinish DoNothing = new AfterFinish() {
+    private final Runnable DoNothing = new Runnable() {
         @Override
         public void run() {
         }
@@ -289,10 +291,11 @@ public final class SlideInContactsLayout extends ViewGroup {
         finish(DoNothing);
     }
 
-    public void finish(final AfterFinish after) {
+    public void finish(final Runnable after) {
         smoothSlideTo(1f);
         backgroundTransition.reverseTransition(500);
         new Handler().postDelayed(new Runnable() {
+            @Override
             public void run() {
                 mCoordinator.setVisibility(View.INVISIBLE);
                 setVisibility(View.GONE);
@@ -302,20 +305,24 @@ public final class SlideInContactsLayout extends ViewGroup {
     }
 
     private final class DragHelperCallback extends ViewDragHelper.Callback {
+        @Override
         public boolean tryCaptureView(@NonNull View child, int pointerId) {
             return child == mCoordinator;
         }
 
+        @Override
         public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
             mTop = top;
             mDragOffset = (float) top / mDragRange;
             requestLayout();
         }
 
+        @Override
         public int getViewVerticalDragRange(@NonNull View child) {
             return mDragRange;
         }
 
+        @Override
         public int clampViewPositionVertical(@NonNull View child, int top, int dy) {
             int topBound = 0;
             int bottomBound = getHeight();
@@ -325,6 +332,7 @@ public final class SlideInContactsLayout extends ViewGroup {
 
     private void initListeners(final Friend friend) {
         mEditNameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 SimpleTextDialogDesign dial = new SimpleTextDialogDesign(
                         activity,
@@ -339,6 +347,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         });
 
         mVoiceCall.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 activity.startActivity(new Intent(activity, CallActivity.class).putExtras(SBundle(
                         BundleKey.contactName().map(friend.userName),
@@ -349,6 +358,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         });
 
         mVideoCall.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 activity.overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out);
                 activity.startActivity(new Intent(activity, VideoCallActivity.class).putExtras(SBundle(
@@ -358,6 +368,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         });
 
         mMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 activity.startActivity(new Intent(activity, MessageActivity.class).putExtras(SBundle(
                         BundleKey.messageTitle().map(friend.userName),
@@ -370,6 +381,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         });
 
         mSaveProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Snackbar snack = Snackbar.make(
                         mCoordinator,
@@ -385,6 +397,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         });
 
         mFilesSend.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 activity.startActivity(new Intent(activity, FileSendActivity.class).putExtras(SBundle(
                         BundleKey.contactName().map(friend.userName),
@@ -395,6 +408,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         });
 
         mDeleteFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 SimpleDialogDesign dial = new SimpleDialogDesign(
                         activity,
@@ -408,6 +422,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         });
 
         mBlockFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Snackbar snack = Snackbar.make(
                         mCoordinator,
@@ -423,6 +438,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         });
 
         mChangeColor.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 SimpleColorDialogDesign dial = new SimpleColorDialogDesign(
                         activity,

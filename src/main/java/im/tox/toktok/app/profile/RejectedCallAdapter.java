@@ -78,9 +78,9 @@ final class RejectedCallViewHolder extends RecyclerView.ViewHolder {
 
 final class DragHelperCallback extends ItemTouchHelper.Callback {
 
-    private final RejectedCallAdapter adapter;
+    private final DragInterface adapter;
 
-    DragHelperCallback(RejectedCallAdapter adapter) {
+    DragHelperCallback(DragInterface adapter) {
         this.adapter = adapter;
     }
 

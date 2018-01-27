@@ -40,6 +40,7 @@ final class ChatsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private SparseBooleanArray selectedItems = new SparseBooleanArray();
 
+    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         CardView itemView;
         switch (viewType) {
@@ -58,6 +59,7 @@ final class ChatsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         throw new RuntimeException("Bad view type: " + viewType);
     }
 
+    @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ChatMessage message = chatMessages.get(position);
 
@@ -96,10 +98,12 @@ final class ChatsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+    @Override
     public int getItemViewType(int position) {
         return chatMessages.get(position).messageType();
     }
 
+    @Override
     public int getItemCount() {
         return chatMessages.size();
     }
@@ -170,6 +174,7 @@ abstract class ChatsRecyclerViewHolder extends RecyclerView.ViewHolder implement
         return itemView.getContext();
     }
 
+    @Override
     public boolean onLongClick(View v) {
         return clickListener.onLongClick(getLayoutPosition());
     }
@@ -186,6 +191,7 @@ final class ChatsRecyclerViewHolderGroup extends ChatsRecyclerViewHolder {
         super(itemView, chatMessages, clickListener);
     }
 
+    @Override
     public void onClick(View view) {
         if (!clickListener.onClick(getLayoutPosition())) {
             ChatMessage message = chatMessages.get(getLayoutPosition());
@@ -223,6 +229,7 @@ final class ChatsRecyclerViewHolderUser extends ChatsRecyclerViewHolder {
         mUserImage = itemView.findViewById(R.id.home_item_img);
     }
 
+    @Override
     public void onClick(View view) {
         if (!clickListener.onClick(getLayoutPosition())) {
             Bundle bundle;

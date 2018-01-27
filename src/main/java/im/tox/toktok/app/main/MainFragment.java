@@ -3,6 +3,7 @@ package im.tox.toktok.app.main;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -32,20 +33,18 @@ import im.tox.toktok.app.simple_dialogs.SimpleAddFriendDialogDesign;
 
 public final class MainFragment extends Fragment {
 
-    private CustomViewPager mViewPaper = null;
     private Menu mMenu = null;
-    private Toolbar mToolbar = null;
-    private TabLayout mTabs = null;
     private FloatingActionButton mFab = null;
-    private MainTabsAdapter mPagerAdapter = null;
     private DrawerLayout mDrawer = null;
 
+    @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         setHasOptionsMenu(true);
     }
 
-    public FrameLayout onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
+    @Override
+    public FrameLayout onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         super.onCreate(savedState);
         FrameLayout view = (FrameLayout) inflater.inflate(R.layout.activity_main_fragment, container, false);
 
@@ -58,6 +57,7 @@ public final class MainFragment extends Fragment {
         return view;
     }
 
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         mMenu = menu;
         inflater.inflate(R.menu.menu_main, menu);
@@ -65,8 +65,8 @@ public final class MainFragment extends Fragment {
     }
 
     private void initViewPaper(FrameLayout view) {
-        mViewPaper = view.findViewById(R.id.home_tab_holder);
-        mPagerAdapter = new MainTabsAdapter(getChildFragmentManager(), getActivity());
+        CustomViewPager mViewPaper = view.findViewById(R.id.home_tab_holder);
+        MainTabsAdapter mPagerAdapter = new MainTabsAdapter(getChildFragmentManager(), getActivity());
         mViewPaper.setAdapter(mPagerAdapter);
 
         mViewPaper.addOnPageChangeListener(new OnPageChangeListener() {
@@ -94,18 +94,19 @@ public final class MainFragment extends Fragment {
             }
         });
 
-        mTabs = view.findViewById(R.id.home_tabs);
+        TabLayout mTabs = view.findViewById(R.id.home_tabs);
 
         mTabs.setupWithViewPager(mViewPaper);
         mViewPaper.setCurrentItem(1);
     }
 
     private void initToolbar(FrameLayout view) {
-        mToolbar = view.findViewById(R.id.home_toolbar);
+        Toolbar mToolbar = view.findViewById(R.id.home_toolbar);
 
         getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.homeColorStatusBar, null));
 
         mToolbar.setNavigationOnClickListener(new OnClickListener() {
+            @Override
             public void onClick(View v) {
                 mDrawer.openDrawer(GravityCompat.START);
             }
@@ -123,12 +124,14 @@ public final class MainFragment extends Fragment {
     private void initFAB(FrameLayout view) {
         mFab = view.findViewById(R.id.home_fab);
         mFab.setOnClickListener(new OnClickListener() {
+            @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), NewMessageActivity.class));
             }
         });
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {

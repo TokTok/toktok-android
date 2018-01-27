@@ -28,9 +28,9 @@ final class MessageRecallRecyclerAdapter extends RecyclerView.Adapter<ViewHolder
     private List<LineItem> items = new ArrayList<LineItem>();
     private SparseBooleanArray selectedItems = new SparseBooleanArray();
 
-    public MessageRecallRecyclerAdapter(
+    MessageRecallRecyclerAdapter(
             Context context,
-            List<Message> messages,
+            Iterable<Message> messages,
             RecallMessageListener recallMessageListener
     ) {
         this.recallMessageListener = recallMessageListener;
@@ -69,7 +69,7 @@ final class MessageRecallRecyclerAdapter extends RecyclerView.Adapter<ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         LineItem item = items.get(position);
 
         GridSLM.LayoutParams lp = GridSLM.LayoutParams.from(viewHolder.itemView.getLayoutParams());
@@ -96,7 +96,7 @@ final class MessageRecallRecyclerAdapter extends RecyclerView.Adapter<ViewHolder
             view.mMessageBase.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    recallMessageListener.onClick(position);
+                    recallMessageListener.onClick(viewHolder.getAdapterPosition());
                 }
             });
 
@@ -121,10 +121,6 @@ final class MessageRecallRecyclerAdapter extends RecyclerView.Adapter<ViewHolder
 
     private boolean isSelected(int position) {
         return selectedItems.get(position, false);
-    }
-
-    Object getItemPosition(int position) {
-        return items.get(position);
     }
 
     void toggleSelection(int i) {

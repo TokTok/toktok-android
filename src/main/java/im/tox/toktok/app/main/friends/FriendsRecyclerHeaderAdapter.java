@@ -14,7 +14,9 @@ import java.util.List;
 import im.tox.toktok.R;
 import im.tox.toktok.app.domain.Friend;
 
-public final class FriendsRecyclerHeaderAdapter extends FriendsRecyclerAdapter implements StickyRecyclerHeadersAdapter<FriendsRecyclerHeaderViewHolder> {
+public final class FriendsRecyclerHeaderAdapter
+        extends FriendsRecyclerAdapter
+        implements StickyRecyclerHeadersAdapter<FriendsRecyclerHeaderViewHolder> {
 
     public FriendsRecyclerHeaderAdapter(
             List<Friend> friends,

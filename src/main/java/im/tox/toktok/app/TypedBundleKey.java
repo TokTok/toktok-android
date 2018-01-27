@@ -3,11 +3,11 @@ package im.tox.toktok.app;
 import android.os.Bundle;
 
 public class TypedBundleKey {
-    public interface KeyValue<A> {
+    public interface KeyValue {
         void put(Bundle bundle);
     }
 
-    public static final class StringKeyValue implements KeyValue<String> {
+    public static final class StringKeyValue implements KeyValue {
         private final String id;
         private final String value;
 
@@ -22,7 +22,7 @@ public class TypedBundleKey {
         }
     }
 
-    public static final class IntKeyValue implements KeyValue<Integer> {
+    public static final class IntKeyValue implements KeyValue {
         private final String id;
         private final int value;
 
@@ -71,7 +71,7 @@ public class TypedBundleKey {
 
     public static Bundle SBundle(KeyValue... keyValues) {
         Bundle bundle = new Bundle();
-        for (KeyValue<?> kv : keyValues) {
+        for (KeyValue kv : keyValues) {
             kv.put(bundle);
         }
         return bundle;
