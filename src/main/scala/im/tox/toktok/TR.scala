@@ -133,7 +133,6 @@ object TR {
   final val new_message_item_img = TypedResource[de.hdodenhof.circleimageview.CircleImageView](R.id.new_message_item_img)
   final val home_friends_base = TypedResource[android.widget.RelativeLayout](R.id.home_friends_base)
   final val contacts_toolbar = TypedResource[android.support.v7.widget.Toolbar](R.id.contacts_toolbar)
-  final val temp = TypedResource[im.tox.toktok.app.main.friends.SlideInContactsLayout](R.id.temp)
   final val simple_dialog_confirm = TypedResource[android.widget.Button](R.id.simple_dialog_confirm)
   final val contacts_icon_image = TypedResource[android.widget.ImageView](R.id.contacts_icon_image)
   final val newMessage_toolbar = TypedResource[android.support.v7.widget.Toolbar](R.id.newMessage_toolbar)
@@ -201,7 +200,6 @@ object TR {
 
   object layout {
     final val fragment_home_chats = TypedLayout[android.widget.FrameLayout](R.layout.fragment_home_chats)
-    final val overlay_contacts = TypedLayout[im.tox.toktok.app.main.friends.SlideInContactsLayout](R.layout.overlay_contacts)
     final val activity_files_send = TypedLayout[android.support.design.widget.CoordinatorLayout](R.layout.activity_files_send)
     final val simple_status_chooser_dialog_design = TypedLayout[android.widget.RelativeLayout](R.layout.simple_status_chooser_dialog_design)
     final val fragment_home_chats_item_user = TypedLayout[android.support.v7.widget.CardView](R.layout.fragment_home_chats_item_user)

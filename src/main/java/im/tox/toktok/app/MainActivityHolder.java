@@ -118,7 +118,7 @@ public final class MainActivityHolder extends AppCompatActivity {
         }
 
         if (activeSearch != null) {
-            activeSearch.finish(new SlideInContactsLayout.AfterFinish() {
+            activeSearch.finish(new HomeSearch.AfterFinish() {
                 @Override
                 public void run() {
                     getWindowManager().removeView(activeSearch);

@@ -6,12 +6,18 @@ import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import android.view.View.MeasureSpec
-import android.view.animation.{ Animation, AnimationUtils }
-import android.view.{ View, ViewGroup }
-import android.widget.{ EditText, LinearLayout }
+import android.view.animation.{Animation, AnimationUtils}
+import android.view.{View, ViewGroup}
+import android.widget.{EditText, LinearLayout}
 import im.tox.toktok.TypedResource._
-import im.tox.toktok.app.main.friends.SlideInContactsLayout.AfterFinish
-import im.tox.toktok.{ R, TR }
+import im.tox.toktok.app.main.HomeSearch.AfterFinish
+import im.tox.toktok.{R, TR}
+
+object HomeSearch {
+  trait AfterFinish {
+    def run(): Unit
+  }
+}
 
 final class HomeSearch(
     context: Context,

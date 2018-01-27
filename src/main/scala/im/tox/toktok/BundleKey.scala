@@ -31,14 +31,16 @@ object TypedBundleKey {
 
   final case class StringKey(id: String) {
     def ->(value: String): StringKeyValue = StringKeyValue(id, value)
+    def get(bundle: Bundle): String = bundle.getString(id)
   }
   final case class IntKey(id: String) {
     def ->(value: Int): IntKeyValue = IntKeyValue(id, value)
+    def get(bundle: Bundle): Int = bundle.getInt(id)
   }
 
   implicit class TypedBundle(val bundle: Bundle) extends AnyVal {
-    def apply(key: StringKey): String = bundle.getString(key.id)
-    def apply(key: IntKey): Int = bundle.getInt(key.id)
+    def apply(key: StringKey): String = key.get(bundle)
+    def apply(key: IntKey): Int = key.get(bundle)
   }
 
   @varargs
