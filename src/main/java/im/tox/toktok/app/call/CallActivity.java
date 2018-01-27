@@ -31,8 +31,8 @@ import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import im.tox.toktok.BundleKey;
 import im.tox.toktok.R;
+import im.tox.toktok.app.BundleKey;
 import im.tox.toktok.app.domain.Friend;
 import im.tox.toktok.app.video_call.VideoCallActivity;
 

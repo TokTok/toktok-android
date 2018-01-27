@@ -12,7 +12,7 @@ import com.tonicartos.superslim.LayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import im.tox.toktok.BundleKey;
+import im.tox.toktok.app.BundleKey;
 import im.tox.toktok.R;
 import im.tox.toktok.app.domain.Message;
 import im.tox.toktok.app.domain.MessageType;

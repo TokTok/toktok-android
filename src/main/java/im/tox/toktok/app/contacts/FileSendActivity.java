@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import java.util.Collections;
 import java.util.List;
 
-import im.tox.toktok.BundleKey;
 import im.tox.toktok.R;
+import im.tox.toktok.app.BundleKey;
 import im.tox.toktok.app.domain.File;
 
 public final class FileSendActivity extends AppCompatActivity {

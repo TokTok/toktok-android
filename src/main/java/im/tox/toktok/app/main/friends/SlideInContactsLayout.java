@@ -1,32 +1,45 @@
 package im.tox.toktok.app.main.friends;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.content.*;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.*;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.*;
-import android.support.v7.widget.*;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.ViewDragHelper;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
-import android.view.animation.*;
-import android.view.*;
-import android.widget.*;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import im.tox.toktok.R;
+import im.tox.toktok.app.BundleKey;
 import im.tox.toktok.app.call.CallActivity;
 import im.tox.toktok.app.contacts.FileSendActivity;
 import im.tox.toktok.app.domain.Friend;
-import im.tox.toktok.app.message_activity.*;
-import im.tox.toktok.app.simple_dialogs.*;
-import im.tox.toktok.*;
+import im.tox.toktok.app.message_activity.MessageActivity;
+import im.tox.toktok.app.simple_dialogs.SimpleColorDialogDesign;
+import im.tox.toktok.app.simple_dialogs.SimpleDialogDesign;
+import im.tox.toktok.app.simple_dialogs.SimpleTextDialogDesign;
 import im.tox.toktok.app.video_call.VideoCallActivity;
 
-import org.slf4j.*;
-
-import static im.tox.toktok.TypedBundleKey.SBundle;
+import static im.tox.toktok.app.TypedBundleKey.SBundle;
 
 public final class SlideInContactsLayout extends ViewGroup {
 
@@ -328,9 +341,9 @@ public final class SlideInContactsLayout extends ViewGroup {
         mVoiceCall.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 activity.startActivity(new Intent(activity, CallActivity.class).putExtras(SBundle(
-                        BundleKey.contactName().$minus$greater(friend.userName),
-                        BundleKey.contactColorPrimary().$minus$greater(friend.color),
-                        BundleKey.contactPhotoReference().$minus$greater(friend.photoReference)
+                        BundleKey.contactName().map(friend.userName),
+                        BundleKey.contactColorPrimary().map(friend.color),
+                        BundleKey.contactPhotoReference().map(friend.photoReference)
                 )));
             }
         });
@@ -339,7 +352,7 @@ public final class SlideInContactsLayout extends ViewGroup {
             public void onClick(View v) {
                 activity.overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out);
                 activity.startActivity(new Intent(activity, VideoCallActivity.class).putExtras(SBundle(
-                        BundleKey.contactPhotoReference().$minus$greater(friend.photoReference)
+                        BundleKey.contactPhotoReference().map(friend.photoReference)
                 )));
             }
         });
@@ -347,11 +360,11 @@ public final class SlideInContactsLayout extends ViewGroup {
         mMessage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 activity.startActivity(new Intent(activity, MessageActivity.class).putExtras(SBundle(
-                        BundleKey.messageTitle().$minus$greater(friend.userName),
-                        BundleKey.contactColorPrimary().$minus$greater(friend.color),
-                        BundleKey.contactColorStatus().$minus$greater(friend.secondColor),
-                        BundleKey.imgResource().$minus$greater(friend.photoReference),
-                        BundleKey.messageType().$minus$greater(0)
+                        BundleKey.messageTitle().map(friend.userName),
+                        BundleKey.contactColorPrimary().map(friend.color),
+                        BundleKey.contactColorStatus().map(friend.secondColor),
+                        BundleKey.imgResource().map(friend.photoReference),
+                        BundleKey.messageType().map(0)
                 )));
             }
         });
@@ -374,9 +387,9 @@ public final class SlideInContactsLayout extends ViewGroup {
         mFilesSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 activity.startActivity(new Intent(activity, FileSendActivity.class).putExtras(SBundle(
-                        BundleKey.contactName().$minus$greater(friend.userName),
-                        BundleKey.contactColorPrimary().$minus$greater(friend.color),
-                        BundleKey.contactColorStatus().$minus$greater(friend.secondColor)
+                        BundleKey.contactName().map(friend.userName),
+                        BundleKey.contactColorPrimary().map(friend.color),
+                        BundleKey.contactColorStatus().map(friend.secondColor)
                 )));
             }
         });

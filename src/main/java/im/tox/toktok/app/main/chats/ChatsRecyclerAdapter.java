@@ -14,8 +14,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import im.tox.toktok.BundleKey;
 import im.tox.toktok.R;
+import im.tox.toktok.app.BundleKey;
 import im.tox.toktok.app.domain.ChatMessage;
 import im.tox.toktok.app.domain.Friend;
 import im.tox.toktok.app.domain.FriendMessage;
@@ -23,7 +23,7 @@ import im.tox.toktok.app.domain.Group;
 import im.tox.toktok.app.domain.GroupMessage;
 import im.tox.toktok.app.message_activity.MessageActivity;
 
-import static im.tox.toktok.TypedBundleKey.SBundle;
+import static im.tox.toktok.app.TypedBundleKey.SBundle;
 
 final class ChatsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -193,10 +193,10 @@ final class ChatsRecyclerViewHolderGroup extends ChatsRecyclerViewHolder {
             if (message instanceof GroupMessage) {
                 Group group = ((GroupMessage) message).group;
                 bundle = SBundle(
-                        BundleKey.messageType().$minus$greater(1),
-                        BundleKey.contactColorPrimary().$minus$greater(group.primaryColor),
-                        BundleKey.contactColorStatus().$minus$greater(group.statusColor),
-                        BundleKey.messageTitle().$minus$greater(group.groupName)
+                        BundleKey.messageType().map(1),
+                        BundleKey.contactColorPrimary().map(group.primaryColor),
+                        BundleKey.contactColorStatus().map(group.statusColor),
+                        BundleKey.messageTitle().map(group.groupName)
                 );
             } else {
                 throw new RuntimeException("Unsupported message type: " + message.getClass().getSimpleName());
@@ -230,11 +230,11 @@ final class ChatsRecyclerViewHolderUser extends ChatsRecyclerViewHolder {
             if (message instanceof FriendMessage) {
                 Friend friend = ((FriendMessage) message).friend;
                 bundle = SBundle(
-                        BundleKey.messageType().$minus$greater(0),
-                        BundleKey.contactColorPrimary().$minus$greater(friend.color),
-                        BundleKey.contactColorStatus().$minus$greater(friend.secondColor),
-                        BundleKey.messageTitle().$minus$greater(friend.userName),
-                        BundleKey.imgResource().$minus$greater(friend.photoReference)
+                        BundleKey.messageType().map(0),
+                        BundleKey.contactColorPrimary().map(friend.color),
+                        BundleKey.contactColorStatus().map(friend.secondColor),
+                        BundleKey.messageTitle().map(friend.userName),
+                        BundleKey.imgResource().map(friend.photoReference)
                 );
             } else {
                 throw new RuntimeException("Unsupported message type: " + message.getClass().getSimpleName());

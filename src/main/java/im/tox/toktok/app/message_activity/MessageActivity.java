@@ -37,7 +37,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import im.tox.toktok.BundleKey;
+import im.tox.toktok.app.BundleKey;
 import im.tox.toktok.R;
 import im.tox.toktok.app.SizeAnimation;
 import im.tox.toktok.app.contacts.FileSendActivity;
@@ -48,7 +48,7 @@ import im.tox.toktok.app.main.friends.SlideInContactsLayout;
 import im.tox.toktok.app.simple_dialogs.SimpleDialogDesign;
 import im.tox.toktok.app.simple_dialogs.SimpleTextDialogDesign;
 
-import static im.tox.toktok.TypedBundleKey.SBundle;
+import static im.tox.toktok.app.TypedBundleKey.SBundle;
 
 public final class MessageActivity extends AppCompatActivity implements MessageClick, MessageActionMode {
 
@@ -95,25 +95,25 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         if (id == R.id.action_recall_message) {
             startActivity(new Intent(this, MessageRecallActivity.class)
                     .putExtras(SBundle(
-                            BundleKey.colorPrimary().$minus$greater(contactColorPrimary),
-                            BundleKey.colorPrimaryStatus().$minus$greater(contactColorStatus)
+                            BundleKey.colorPrimary().map(contactColorPrimary),
+                            BundleKey.colorPrimaryStatus().map(contactColorStatus)
                     )));
             return true;
         }
 
         if (id == R.id.action_group_members) {
             startActivity(new Intent(this, MessageGroupContacts.class).putExtras(SBundle(
-                    BundleKey.colorPrimary().$minus$greater(contactColorPrimary),
-                    BundleKey.colorPrimaryStatus().$minus$greater(contactColorStatus)
+                    BundleKey.colorPrimary().map(contactColorPrimary),
+                    BundleKey.colorPrimaryStatus().map(contactColorStatus)
             )));
             return true;
         }
 
         if (id == R.id.action_see_files_list) {
             startActivity(new Intent(this, FileSendActivity.class).putExtras(SBundle(
-                    BundleKey.contactName().$minus$greater(title),
-                    BundleKey.contactColorPrimary().$minus$greater(contactColorPrimary),
-                    BundleKey.contactColorStatus().$minus$greater(contactColorStatus)
+                    BundleKey.contactName().map(title),
+                    BundleKey.contactColorPrimary().map(contactColorPrimary),
+                    BundleKey.contactColorStatus().map(contactColorStatus)
             )));
 
             return true;
@@ -246,8 +246,8 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
                 header.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         startActivity(new Intent(MessageActivity.this, MessageGroupContacts.class).putExtras(SBundle(
-                                BundleKey.colorPrimary().$minus$greater(contactColorPrimary),
-                                BundleKey.colorPrimaryStatus().$minus$greater(contactColorStatus)
+                                BundleKey.colorPrimary().map(contactColorPrimary),
+                                BundleKey.colorPrimaryStatus().map(contactColorStatus)
                         )));
                     }
                 });

@@ -19,8 +19,8 @@ import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import java.util.Arrays;
 import java.util.List;
 
-import im.tox.toktok.BundleKey;
 import im.tox.toktok.R;
+import im.tox.toktok.app.BundleKey;
 import im.tox.toktok.app.call.CallActivity;
 import im.tox.toktok.app.domain.Friend;
 import im.tox.toktok.app.main.friends.FriendItemClicks;
@@ -28,7 +28,7 @@ import im.tox.toktok.app.main.friends.FriendsRecyclerHeaderAdapter;
 import im.tox.toktok.app.main.friends.SlideInContactsLayout;
 import im.tox.toktok.app.new_message.NewMessageActivity;
 
-import static im.tox.toktok.TypedBundleKey.SBundle;
+import static im.tox.toktok.app.TypedBundleKey.SBundle;
 
 public final class MessageGroupContacts extends AppCompatActivity implements FriendItemClicks {
 
@@ -112,9 +112,9 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
         Friend friend = adapter.getItem(friendPosition);
 
         startActivity(new Intent(this, CallActivity.class).putExtras(SBundle(
-                BundleKey.contactName().$minus$greater(friend.userName),
-                BundleKey.contactColorPrimary().$minus$greater(friend.color),
-                BundleKey.contactPhotoReference().$minus$greater(friend.photoReference)
+                BundleKey.contactName().map(friend.userName),
+                BundleKey.contactColorPrimary().map(friend.color),
+                BundleKey.contactPhotoReference().map(friend.photoReference)
         )));
     }
 
@@ -123,11 +123,11 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
         Friend friend = adapter.getItem(friendPosition);
 
         startActivity(new Intent(this, MessageActivity.class).putExtras(SBundle(
-                BundleKey.messageTitle().$minus$greater(friend.userName),
-                BundleKey.contactColorPrimary().$minus$greater(friend.color),
-                BundleKey.contactColorStatus().$minus$greater(friend.secondColor),
-                BundleKey.imgResource().$minus$greater(friend.photoReference),
-                BundleKey.messageType().$minus$greater(0)
+                BundleKey.messageTitle().map(friend.userName),
+                BundleKey.contactColorPrimary().map(friend.color),
+                BundleKey.contactColorStatus().map(friend.secondColor),
+                BundleKey.imgResource().map(friend.photoReference),
+                BundleKey.messageType().map(0)
         )));
     }
 

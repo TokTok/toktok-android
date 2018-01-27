@@ -9,7 +9,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import im.tox.toktok.BundleKey;
+import im.tox.toktok.app.BundleKey;
 import im.tox.toktok.R;
 
 public final class VideoCallActivity extends AppCompatActivity {
