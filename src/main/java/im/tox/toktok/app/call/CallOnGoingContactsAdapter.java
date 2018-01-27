@@ -30,8 +30,8 @@ final class CallOnGoingContactsAdapter extends RecyclerView.Adapter<CallOnGoingC
     @Override
     public void onBindViewHolder(CallOnGoingContactsViewHolder viewHolder, int position) {
         Friend item = friends.get(position);
-        viewHolder.mFriendName.setText(item.userName());
-        viewHolder.mFriendImage.setImageResource(item.photoReference());
+        viewHolder.mFriendName.setText(item.userName);
+        viewHolder.mFriendImage.setImageResource(item.photoReference);
     }
 
     @Override

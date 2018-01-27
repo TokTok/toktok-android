@@ -37,7 +37,7 @@ public final class FileSendActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RecyclerView mRecycler = this.findViewById(R.id.files_send_recycler);
-        List<File> list = Collections.singletonList(File.file());
+        List<File> list = Collections.singletonList(File.file);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getBaseContext());
         mRecycler.setLayoutManager(mLayoutManager);

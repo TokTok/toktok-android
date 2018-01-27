@@ -53,11 +53,11 @@ abstract class NewMessageRecyclerAdapter extends RecyclerView.Adapter<NewMessage
     @Override
     public void onBindViewHolder(NewMessageRecyclerViewHolder viewHolder, int position) {
         Friend item = friends.get(position);
-        viewHolder.mUserName.setText(item.userName());
-        viewHolder.mUserImage.setImageResource(item.photoReference());
+        viewHolder.mUserName.setText(item.userName);
+        viewHolder.mUserImage.setImageResource(item.photoReference);
 
         AlphaAnimation animation;
-        if (selectedItems.get(item.id(), false)) {
+        if (selectedItems.get(item.id, false)) {
             animation = new AlphaAnimation(1, 0.3F);
             animation.setDuration(0);
             animation.setFillAfter(true);
@@ -86,11 +86,11 @@ abstract class NewMessageRecyclerAdapter extends RecyclerView.Adapter<NewMessage
     }
 
     void selectItem(int position) {
-        if (selectedItems.get(friends.get(position).id(), false)) {
-            selectedItems.delete(friends.get(position).id());
+        if (selectedItems.get(friends.get(position).id, false)) {
+            selectedItems.delete(friends.get(position).id);
             selectedContacts.remove(friends.get(position));
         } else {
-            selectedItems.put(friends.get(position).id(), true);
+            selectedItems.put(friends.get(position).id, true);
             selectedContacts.add(friends.get(position));
         }
 
@@ -180,7 +180,7 @@ final class FriendFilter extends Filter {
             String trimmedString = constraint.toString().toLowerCase().trim();
 
             for (Friend a : friendsList) {
-                if (a.userName().toLowerCase().trim().contains(trimmedString)) {
+                if (a.userName.toLowerCase().trim().contains(trimmedString)) {
                     filteredResults.add(a);
                 }
             }

@@ -418,7 +418,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
                 getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true) ?
                         TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics()) : 0;
 
-        overlayContactsLayout.start(this, Friend.lorem(), actionBarHeight);
+        overlayContactsLayout.start(this, Friend.lorem, actionBarHeight);
     }
 
     public void onBackPressed() {

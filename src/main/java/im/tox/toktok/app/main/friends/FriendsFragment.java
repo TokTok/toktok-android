@@ -48,20 +48,20 @@ public final class FriendsFragment extends Fragment implements FriendItemClicks 
 
     ArrayList<Friend> friends = new ArrayList<>();
     for (Friend friend : Arrays.asList(
-            Friend.bart(),
-            Friend.lorem(),
-            Friend.jane(),
-            Friend.john()
+            Friend.bart,
+            Friend.lorem,
+            Friend.jane,
+            Friend.john
     )) {
       for (int n = 1; n <= 50; n++) {
-        friends.add(friend.copy(
-                friend.id(),
-                friend.userName() + n,
-                friend.userMessage(),
-                friend.userStatus(),
-                friend.color(),
-                friend.secondColor(),
-                friend.photoReference()
+        friends.add(new Friend(
+                friend.id,
+                friend.userName + n,
+                friend.userMessage,
+                friend.userStatus,
+                friend.color,
+                friend.secondColor,
+                friend.photoReference
         ));
       }
     }
@@ -107,9 +107,9 @@ public final class FriendsFragment extends Fragment implements FriendItemClicks 
     Friend friend = mFriendsRecyclerAdapter.getItem(friendPosition);
 
     getActivity().startActivity(new Intent(getActivity(), CallActivity.class).putExtras(SBundle(
-      BundleKey.contactName().$minus$greater(friend.userName()),
-      BundleKey.contactColorPrimary().$minus$greater(friend.color()),
-      BundleKey.contactPhotoReference().$minus$greater(friend.photoReference())
+      BundleKey.contactName().$minus$greater(friend.userName),
+      BundleKey.contactColorPrimary().$minus$greater(friend.color),
+      BundleKey.contactPhotoReference().$minus$greater(friend.photoReference)
     )));
   }
 
@@ -118,10 +118,10 @@ public final class FriendsFragment extends Fragment implements FriendItemClicks 
     Friend friend = mFriendsRecyclerAdapter.getItem(friendPosition);
 
     getActivity().startActivity(new Intent(getActivity(), MessageActivity.class).putExtras(SBundle(
-      BundleKey.messageTitle().$minus$greater(friend.userName()),
-      BundleKey.contactColorPrimary().$minus$greater(friend.color()),
-      BundleKey.contactColorStatus().$minus$greater(friend.secondColor()),
-      BundleKey.imgResource().$minus$greater(friend.photoReference()),
+      BundleKey.messageTitle().$minus$greater(friend.userName),
+      BundleKey.contactColorPrimary().$minus$greater(friend.color),
+      BundleKey.contactColorStatus().$minus$greater(friend.secondColor),
+      BundleKey.imgResource().$minus$greater(friend.photoReference),
       BundleKey.messageType().$minus$greater(0)
     )));
   }

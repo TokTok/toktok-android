@@ -28,8 +28,8 @@ final class FileSendActivityAdapter extends RecyclerView.Adapter<FileSendActivit
     @Override
     public void onBindViewHolder(FileSendActivityViewHolder viewHolder, int position) {
         File item = files.get(position);
-        viewHolder.mFileDate.setText(item.date());
-        viewHolder.mFileName.setText(item.name());
+        viewHolder.mFileDate.setText(item.date);
+        viewHolder.mFileName.setText(item.name);
         viewHolder.mIcon.setImageResource(R.drawable.files_movie);
 
     }

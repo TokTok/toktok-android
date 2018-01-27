@@ -113,19 +113,19 @@ public final class SlideInContactsLayout extends ViewGroup {
 
     public void start(Activity activity, Friend friend, int actionBarHeight) {
         this.activity = activity;
-        mTitle.setText(friend.userName());
+        mTitle.setText(friend.userName);
 
-        mCollapsingToolbarLayout.setBackgroundColor(friend.color());
-        mCollapsingToolbarLayout.setContentScrimColor(friend.color());
-        mCollapsingToolbarLayout.setStatusBarScrimColor(friend.secondColor());
+        mCollapsingToolbarLayout.setBackgroundColor(friend.color);
+        mCollapsingToolbarLayout.setContentScrimColor(friend.color);
+        mCollapsingToolbarLayout.setStatusBarScrimColor(friend.secondColor);
 
-        mUserImage.setImageResource(friend.photoReference());
+        mUserImage.setImageResource(friend.photoReference);
 
-        mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(friend.color()));
+        mFloatingActionButton.setBackgroundTintList(ColorStateList.valueOf(friend.color));
 
-        mSubtitle.setText(friend.userMessage());
+        mSubtitle.setText(friend.userMessage);
 
-        mSettingsTitle.setTextColor(ColorStateList.valueOf(friend.color()));
+        mSettingsTitle.setTextColor(ColorStateList.valueOf(friend.color));
 
         CollapsingToolbarLayout.LayoutParams b = (CollapsingToolbarLayout.LayoutParams) mToolbar.getLayoutParams();
         b.height = actionBarHeight + getStatusBarHeight();
@@ -134,7 +134,7 @@ public final class SlideInContactsLayout extends ViewGroup {
 
         for (int item : icons) {
             ImageView icon = this.findViewById(item);
-            icon.setImageTintList(ColorStateList.valueOf(friend.color()));
+            icon.setImageTintList(ColorStateList.valueOf(friend.color));
         }
 
         initListeners(friend);
@@ -316,9 +316,9 @@ public final class SlideInContactsLayout extends ViewGroup {
                 SimpleTextDialogDesign dial = new SimpleTextDialogDesign(
                         activity,
                         getResources().getString(R.string.contact_popup_edit_alias),
-                        friend.color(),
+                        friend.color,
                         R.drawable.ic_person_black_48dp,
-                        friend.userName(),
+                        friend.userName,
                         null
                 );
                 dial.show();
@@ -328,9 +328,9 @@ public final class SlideInContactsLayout extends ViewGroup {
         mVoiceCall.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 activity.startActivity(new Intent(activity, CallActivity.class).putExtras(SBundle(
-                        BundleKey.contactName().$minus$greater(friend.userName()),
-                        BundleKey.contactColorPrimary().$minus$greater(friend.color()),
-                        BundleKey.contactPhotoReference().$minus$greater(friend.photoReference())
+                        BundleKey.contactName().$minus$greater(friend.userName),
+                        BundleKey.contactColorPrimary().$minus$greater(friend.color),
+                        BundleKey.contactPhotoReference().$minus$greater(friend.photoReference)
                 )));
             }
         });
@@ -339,7 +339,7 @@ public final class SlideInContactsLayout extends ViewGroup {
             public void onClick(View v) {
                 activity.overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out);
                 activity.startActivity(new Intent(activity, VideoCallActivity.class).putExtras(SBundle(
-                        BundleKey.contactPhotoReference().$minus$greater(friend.photoReference())
+                        BundleKey.contactPhotoReference().$minus$greater(friend.photoReference)
                 )));
             }
         });
@@ -347,10 +347,10 @@ public final class SlideInContactsLayout extends ViewGroup {
         mMessage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 activity.startActivity(new Intent(activity, MessageActivity.class).putExtras(SBundle(
-                        BundleKey.messageTitle().$minus$greater(friend.userName()),
-                        BundleKey.contactColorPrimary().$minus$greater(friend.color()),
-                        BundleKey.contactColorStatus().$minus$greater(friend.secondColor()),
-                        BundleKey.imgResource().$minus$greater(friend.photoReference()),
+                        BundleKey.messageTitle().$minus$greater(friend.userName),
+                        BundleKey.contactColorPrimary().$minus$greater(friend.color),
+                        BundleKey.contactColorStatus().$minus$greater(friend.secondColor),
+                        BundleKey.imgResource().$minus$greater(friend.photoReference),
                         BundleKey.messageType().$minus$greater(0)
                 )));
             }
@@ -374,9 +374,9 @@ public final class SlideInContactsLayout extends ViewGroup {
         mFilesSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 activity.startActivity(new Intent(activity, FileSendActivity.class).putExtras(SBundle(
-                        BundleKey.contactName().$minus$greater(friend.userName()),
-                        BundleKey.contactColorPrimary().$minus$greater(friend.color()),
-                        BundleKey.contactColorStatus().$minus$greater(friend.secondColor())
+                        BundleKey.contactName().$minus$greater(friend.userName),
+                        BundleKey.contactColorPrimary().$minus$greater(friend.color),
+                        BundleKey.contactColorStatus().$minus$greater(friend.secondColor)
                 )));
             }
         });
@@ -386,9 +386,9 @@ public final class SlideInContactsLayout extends ViewGroup {
                 SimpleDialogDesign dial = new SimpleDialogDesign(
                         activity,
                         getResources().getString(R.string.dialog_delete_friend) + " " +
-                                friend.userName() + " " +
+                                friend.userName + " " +
                                 getResources().getString(R.string.dialog_delete_friend_end),
-                        friend.color(), R.drawable.ic_person_black_48dp, null
+                        friend.color, R.drawable.ic_person_black_48dp, null
                 );
                 dial.show();
             }
@@ -414,9 +414,9 @@ public final class SlideInContactsLayout extends ViewGroup {
                 SimpleColorDialogDesign dial = new SimpleColorDialogDesign(
                         activity,
                         getResources().getString(R.string.dialog_change_color) + " " +
-                                friend.userName() + " " +
+                                friend.userName + " " +
                                 getResources().getString(R.string.dialog_change_color_end),
-                        friend.color(), R.drawable.ic_image_color_lens, 0, null
+                        friend.color, R.drawable.ic_image_color_lens, 0, null
                 );
                 dial.show();
             }

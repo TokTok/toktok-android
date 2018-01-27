@@ -86,7 +86,7 @@ public final class NewMessageActivity extends AppCompatActivity {
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
 
-        List<Friend> friends = Arrays.asList(Friend.bart(), Friend.jane(), Friend.john(), Friend.lorem());
+        List<Friend> friends = Arrays.asList(Friend.bart, Friend.jane, Friend.john, Friend.lorem);
 
         mFriends_Recycler_Adapter = new NewMessageRecyclerHeaderAdapter(friends, null);
 
@@ -238,8 +238,8 @@ public final class NewMessageActivity extends AppCompatActivity {
             destroySelectedContactsMini();
         }
 
-        mSelectedFriendsImg.setImageResource(first.photoReference());
-        mSelectedFriendsText.setText(first.userName());
+        mSelectedFriendsImg.setImageResource(first.photoReference);
+        mSelectedFriendsText.setText(first.userName);
         mSelectedFriendsButton.setImageResource(R.drawable.ic_content_clear);
         mSelectedFriendsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -279,13 +279,13 @@ public final class NewMessageActivity extends AppCompatActivity {
 
         for (final Friend friend : adapter.getSelectedFriends()) {
             SpannableStringBuilder sb = new SpannableStringBuilder();
-            LinearLayout miniContact = createContactTextView(friend.userName());
+            LinearLayout miniContact = createContactTextView(friend.userName);
             BitmapDrawable bd = convertViewToDrawable(miniContact);
             bd.setBounds(0, 0, bd.getIntrinsicWidth() * 3, bd.getIntrinsicHeight() * 3);
 
-            sb.append(friend.userName() + " ");
+            sb.append(friend.userName + " ");
             sb.setSpan(new ImageSpan(bd),
-                    sb.length() - (friend.userName().length() + 1),
+                    sb.length() - (friend.userName.length() + 1),
                     sb.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             mSelectedMini.setMovementMethod(LinkMovementMethod.getInstance());
             sb.setSpan(new ClickableSpan() {
@@ -294,14 +294,14 @@ public final class NewMessageActivity extends AppCompatActivity {
                     int i = 0;
 
                     for (Friend item : adapter.getItems()) {
-                        if (item.id() == friend.id()) {
+                        if (item.id == friend.id) {
                             adapter.selectItem(i);
                             selectItem(i);
                         }
                         i += 1;
                     }
                 }
-            }, sb.length() - (friend.userName().length() + 1), sb.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }, sb.length() - (friend.userName.length() + 1), sb.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             friendsList = TextUtils.concat(friendsList, sb);
         }

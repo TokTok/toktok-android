@@ -17,7 +17,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import im.tox.toktok.BundleKey;
 import im.tox.toktok.R;
 import im.tox.toktok.app.domain.ChatMessage;
-import im.tox.toktok.app.domain.ChatMessage$;
 import im.tox.toktok.app.domain.Friend;
 import im.tox.toktok.app.domain.FriendMessage;
 import im.tox.toktok.app.domain.Group;
@@ -63,15 +62,15 @@ final class ChatsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ChatMessage message = chatMessages.get(position);
 
         if (message instanceof FriendMessage) {
-            Friend friend = ((FriendMessage) message).friend();
-            String lastMessage = ((FriendMessage) message).lastMessage();
+            Friend friend = ((FriendMessage) message).friend;
+            String lastMessage = ((FriendMessage) message).lastMessage;
             ChatsRecyclerViewHolderUser view = (ChatsRecyclerViewHolderUser) viewHolder;
 
-            view.mUserName.setText(friend.userName());
-            view.mUserStatus.setText(friend.userMessage());
+            view.mUserName.setText(friend.userName);
+            view.mUserStatus.setText(friend.userMessage);
             view.mLastMessage.setText(lastMessage);
-            view.mUserImage.setImageResource(friend.photoReference());
-            view.mColor.setBackgroundColor(friend.color());
+            view.mUserImage.setImageResource(friend.photoReference);
+            view.mColor.setBackgroundColor(friend.color);
 
             if (isSelected(position)) {
                 view.mSelectedBackground.setVisibility(View.VISIBLE);
@@ -79,13 +78,13 @@ final class ChatsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 view.mSelectedBackground.setVisibility(View.INVISIBLE);
             }
         } else if (message instanceof GroupMessage) {
-            Group group = ((GroupMessage) message).group();
-            String lastMessage = ((GroupMessage) message).lastMessage();
+            Group group = ((GroupMessage) message).group;
+            String lastMessage = ((GroupMessage) message).lastMessage;
             ChatsRecyclerViewHolderGroup view = (ChatsRecyclerViewHolderGroup) viewHolder;
 
-            view.mUserName.setText(group.groupName());
+            view.mUserName.setText(group.groupName);
             view.mLastMessage.setText(lastMessage);
-            view.mColor.setBackgroundColor(group.primaryColor());
+            view.mColor.setBackgroundColor(group.primaryColor);
 
             if (isSelected(position)) {
                 view.mSelectedBackground.setVisibility(View.VISIBLE);
@@ -98,7 +97,7 @@ final class ChatsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public int getItemViewType(int position) {
-        return ChatMessage$.MODULE$.messageType(chatMessages.get(position));
+        return chatMessages.get(position).messageType();
     }
 
     public int getItemCount() {
@@ -192,12 +191,12 @@ final class ChatsRecyclerViewHolderGroup extends ChatsRecyclerViewHolder {
             ChatMessage message = chatMessages.get(getLayoutPosition());
             Bundle bundle;
             if (message instanceof GroupMessage) {
-                Group group = ((GroupMessage) message).group();
+                Group group = ((GroupMessage) message).group;
                 bundle = SBundle(
                         BundleKey.messageType().$minus$greater(1),
-                        BundleKey.contactColorPrimary().$minus$greater(group.primaryColor()),
-                        BundleKey.contactColorStatus().$minus$greater(group.statusColor()),
-                        BundleKey.messageTitle().$minus$greater(group.groupName())
+                        BundleKey.contactColorPrimary().$minus$greater(group.primaryColor),
+                        BundleKey.contactColorStatus().$minus$greater(group.statusColor),
+                        BundleKey.messageTitle().$minus$greater(group.groupName)
                 );
             } else {
                 throw new RuntimeException("Unsupported message type: " + message.getClass().getSimpleName());
@@ -229,13 +228,13 @@ final class ChatsRecyclerViewHolderUser extends ChatsRecyclerViewHolder {
             Bundle bundle;
             ChatMessage message = chatMessages.get(getLayoutPosition());
             if (message instanceof FriendMessage) {
-                Friend friend = ((FriendMessage) message).friend();
+                Friend friend = ((FriendMessage) message).friend;
                 bundle = SBundle(
                         BundleKey.messageType().$minus$greater(0),
-                        BundleKey.contactColorPrimary().$minus$greater(friend.color()),
-                        BundleKey.contactColorStatus().$minus$greater(friend.secondColor()),
-                        BundleKey.messageTitle().$minus$greater(friend.userName()),
-                        BundleKey.imgResource().$minus$greater(friend.photoReference())
+                        BundleKey.contactColorPrimary().$minus$greater(friend.color),
+                        BundleKey.contactColorStatus().$minus$greater(friend.secondColor),
+                        BundleKey.messageTitle().$minus$greater(friend.userName),
+                        BundleKey.imgResource().$minus$greater(friend.photoReference)
                 );
             } else {
                 throw new RuntimeException("Unsupported message type: " + message.getClass().getSimpleName());

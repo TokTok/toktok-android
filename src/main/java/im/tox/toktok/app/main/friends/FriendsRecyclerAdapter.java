@@ -58,8 +58,8 @@ abstract class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendsRecycl
     @Override
     public void onBindViewHolder(FriendsRecyclerViewHolder viewHolder, final int position) {
         Friend item = friends.get(position);
-        viewHolder.mUserName.setText(item.userName());
-        viewHolder.mUserImage.setImageResource(item.photoReference());
+        viewHolder.mUserName.setText(item.userName);
+        viewHolder.mUserImage.setImageResource(item.photoReference);
         viewHolder.mUserImage.setClickable(true);
         viewHolder.mUserImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +103,7 @@ abstract class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendsRecycl
     }
 
     String getItemPosition(int i) {
-        return friends.get(i).userName();
+        return friends.get(i).userName;
     }
 
     public Friend getItem(int i) {

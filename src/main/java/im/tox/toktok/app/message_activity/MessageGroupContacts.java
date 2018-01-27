@@ -63,7 +63,7 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
 
         RecyclerView mRecycler = this.findViewById(R.id.message_group_members_recycler);
 
-        List<Friend> friends = Arrays.asList(Friend.lorem(), Friend.john());
+        List<Friend> friends = Arrays.asList(Friend.lorem, Friend.john);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getBaseContext());
         mRecycler.setLayoutManager(mLayoutManager);
@@ -112,9 +112,9 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
         Friend friend = adapter.getItem(friendPosition);
 
         startActivity(new Intent(this, CallActivity.class).putExtras(SBundle(
-                BundleKey.contactName().$minus$greater(friend.userName()),
-                BundleKey.contactColorPrimary().$minus$greater(friend.color()),
-                BundleKey.contactPhotoReference().$minus$greater(friend.photoReference())
+                BundleKey.contactName().$minus$greater(friend.userName),
+                BundleKey.contactColorPrimary().$minus$greater(friend.color),
+                BundleKey.contactPhotoReference().$minus$greater(friend.photoReference)
         )));
     }
 
@@ -123,10 +123,10 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
         Friend friend = adapter.getItem(friendPosition);
 
         startActivity(new Intent(this, MessageActivity.class).putExtras(SBundle(
-                BundleKey.messageTitle().$minus$greater(friend.userName()),
-                BundleKey.contactColorPrimary().$minus$greater(friend.color()),
-                BundleKey.contactColorStatus().$minus$greater(friend.secondColor()),
-                BundleKey.imgResource().$minus$greater(friend.photoReference()),
+                BundleKey.messageTitle().$minus$greater(friend.userName),
+                BundleKey.contactColorPrimary().$minus$greater(friend.color),
+                BundleKey.contactColorStatus().$minus$greater(friend.secondColor),
+                BundleKey.imgResource().$minus$greater(friend.photoReference),
                 BundleKey.messageType().$minus$greater(0)
         )));
     }

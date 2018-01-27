@@ -29,7 +29,6 @@ import im.tox.toktok.R;
 import im.tox.toktok.app.CustomViewPager;
 import im.tox.toktok.app.MyRecyclerScroll;
 import im.tox.toktok.app.domain.ChatMessage;
-import im.tox.toktok.app.domain.ChatMessage$;
 import im.tox.toktok.app.new_message.NewMessageActivity;
 
 public final class ChatsFragment extends Fragment implements ChatItemClick {
@@ -50,9 +49,9 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
         mChatsRecycler.setLayoutManager(mLayoutManager);
 
         List<ChatMessage> chatMessages = Arrays.asList(
-                ChatMessage$.MODULE$.loremMessage(),
-                ChatMessage$.MODULE$.johnMessage(),
-                ChatMessage$.MODULE$.groupMessage()
+                ChatMessage.loremMessage,
+                ChatMessage.johnMessage,
+                ChatMessage.groupMessage
         );
 
         mChatsRecyclerAdapter = new ChatsRecyclerAdapter(chatMessages, this);
