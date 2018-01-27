@@ -104,7 +104,6 @@ object TR {
   final val call_top_panel = TypedResource[android.widget.RelativeLayout](R.id.call_top_panel)
   final val contacts_icon_message = TypedResource[android.widget.ImageView](R.id.contacts_icon_message)
   final val new_message_app_bar_layout = TypedResource[android.support.design.widget.AppBarLayout](R.id.new_message_app_bar_layout)
-  final val fragment_attachments_slide = TypedResource[im.tox.toktok.app.message_activity.SlideInAttachmentsLayout](R.id.fragment_attachments_slide)
   final val home_item_name = TypedResource[android.widget.TextView](R.id.home_item_name)
   final val home_frame = TypedResource[android.widget.FrameLayout](R.id.home_frame)
   final val new_message_toolbar_selected_button = TypedResource[android.widget.ImageButton](R.id.new_message_toolbar_selected_button)
