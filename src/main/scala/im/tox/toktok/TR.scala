@@ -216,7 +216,6 @@ object TR {
     final val new_message_toolbar_friend_mini = TypedLayout[android.widget.LinearLayout](R.layout.new_message_toolbar_friend_mini)
     final val simple_share_dialog_design = TypedLayout[android.widget.RelativeLayout](R.layout.simple_share_dialog_design)
     final val simple_dialog_design = TypedLayout[android.widget.RelativeLayout](R.layout.simple_dialog_design)
-    final val home_search = TypedLayout[im.tox.toktok.app.main.HomeSearch](R.layout.home_search)
     final val contacts_file_download = TypedLayout[android.support.v7.widget.CardView](R.layout.contacts_file_download)
     final val contacts_other_options = TypedLayout[android.support.v7.widget.CardView](R.layout.contacts_other_options)
     final val overlay_attachments = TypedLayout[android.widget.LinearLayout](R.layout.overlay_attachments)
