@@ -37,8 +37,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import im.tox.toktok.app.BundleKey;
 import im.tox.toktok.R;
+import im.tox.toktok.app.BundleKey;
 import im.tox.toktok.app.SizeAnimation;
 import im.tox.toktok.app.contacts.FileSendActivity;
 import im.tox.toktok.app.domain.Friend;

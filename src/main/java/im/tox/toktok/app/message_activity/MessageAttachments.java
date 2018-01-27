@@ -11,9 +11,9 @@ import im.tox.toktok.R;
 
 public final class MessageAttachments extends Fragment {
 
-  @Override
-  public LinearLayout onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    return (LinearLayout) inflater.inflate(R.layout.overlay_attachments, container, false);
-  }
+    @Override
+    public LinearLayout onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return (LinearLayout) inflater.inflate(R.layout.overlay_attachments, container, false);
+    }
 
 }

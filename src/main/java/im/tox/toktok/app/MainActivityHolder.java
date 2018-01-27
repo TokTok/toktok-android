@@ -13,8 +13,6 @@ import im.tox.toktok.app.main.HomeSearch;
 import im.tox.toktok.app.main.MainFragment;
 import im.tox.toktok.app.main.friends.SlideInContactsLayout;
 import im.tox.toktok.app.profile.ProfileFragment;
-import scala.Function0;
-import scala.runtime.BoxedUnit;
 
 public final class MainActivityHolder extends AppCompatActivity {
 
