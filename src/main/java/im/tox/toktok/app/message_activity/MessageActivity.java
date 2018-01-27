@@ -267,14 +267,14 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
 
         if (imgSRC == 0) {
             imgSRC = R.drawable.lorem;
-            mRecyclerAdapter.addItem(Message.apply(MessageType.Action$.MODULE$, "The Amazing Group was created", "", R.drawable.user));
-            mRecyclerAdapter.addItem(Message.apply(MessageType.Received$.MODULE$, "Awesome stuff!", "14:29 Received", R.drawable.john));
+            mRecyclerAdapter.addItem(new Message(MessageType.Action, "The Amazing Group was created", "", R.drawable.user));
+            mRecyclerAdapter.addItem(new Message(MessageType.Received, "Awesome stuff!", "14:29 Received", R.drawable.john));
         }
 
-        mRecyclerAdapter.addItem(Message.apply(MessageType.Delivered$.MODULE$, "Welcome to TokTok " + title + ", I hope you love it, as much as I do \uD83D\uDE00", "14:30 Delivered", R.drawable.user));
-        mRecyclerAdapter.addItem(Message.apply(MessageType.Received$.MODULE$, "Thanks André Almeida, let's hope soo.", "14:31 Received", imgSRC));
-        mRecyclerAdapter.addItem(Message.apply(MessageType.Action$.MODULE$, "Smiled", "", imgSRC));
-        mRecyclerAdapter.addItem(Message.apply(MessageType.Received$.MODULE$, "Yooo!", "14:32 Received", imgSRC));
+        mRecyclerAdapter.addItem(new Message(MessageType.Delivered, "Welcome to TokTok " + title + ", I hope you love it, as much as I do \uD83D\uDE00", "14:30 Delivered", R.drawable.user));
+        mRecyclerAdapter.addItem(new Message(MessageType.Received, "Thanks André Almeida, let's hope soo.", "14:31 Received", imgSRC));
+        mRecyclerAdapter.addItem(new Message(MessageType.Action, "Smiled", "", imgSRC));
+        mRecyclerAdapter.addItem(new Message(MessageType.Received, "Yooo!", "14:32 Received", imgSRC));
 
         mRecycler.setAdapter(mRecyclerAdapter);
         mRecycler.setLayoutManager(mLayoutManager);
@@ -302,7 +302,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         mSendButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 logger.debug("hahaha: " + mInput.getText().toString());
-                mRecyclerAdapter.addItem(Message.apply(MessageType.Delivered$.MODULE$, mInput.getText().toString(), "14:41 Delivered", R.drawable.user));
+                mRecyclerAdapter.addItem(new Message(MessageType.Delivered, mInput.getText().toString(), "14:41 Delivered", R.drawable.user));
                 mRecycler.smoothScrollToPosition(0);
                 mInput.setText("");
             }
