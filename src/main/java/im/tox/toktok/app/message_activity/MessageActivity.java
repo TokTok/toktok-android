@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -57,16 +59,25 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
     private int contactColorPrimary = 0;
     private int contactColorStatus = 0;
     private int typeOfMessage = 0;
+    @Nullable
     private FloatingActionButton mSendButton = null;
+    @NonNull
     private Boolean mSendButtonActive = false;
     private String title = "";
     private int imgSRC = 0;
+    @Nullable
     private CardView mInputLayout = null;
+    @Nullable
     private EditText mInput = null;
+    @Nullable
     private MessageAdapter mRecyclerAdapter = null;
+    @Nullable
     private RecyclerView mRecycler = null;
+    @Nullable
     private SlideInAttachmentsLayout overlayAttachments = null;
+    @Nullable
     private ActionMode mActionMode = null;
+    @NonNull
     private ActionMode.Callback actionModeCallback = new MessageActionModeCallback();
 
     @Override
@@ -87,7 +98,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         final int id = item.getItemId();
         if (id == android.R.id.home) {
             finish();
@@ -491,7 +502,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         }
 
         @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        public boolean onCreateActionMode(@NonNull ActionMode mode, Menu menu) {
             MenuInflater menuInflater = mode.getMenuInflater();
             menuInflater.inflate(R.menu.message_action_mode, menu);
 
@@ -506,7 +517,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         }
 
         @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+        public boolean onActionItemClicked(@NonNull ActionMode mode, @NonNull MenuItem item) {
             final int id = item.getItemId();
             if (id == R.id.action_message_delete) {
                 mRecyclerAdapter.deleteSelected();

@@ -65,7 +65,7 @@ final class SlideInAttachmentsLayout extends ViewGroup {
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
+    public boolean onInterceptTouchEvent(@NonNull MotionEvent ev) {
         float y = ev.getY();
 
         switch (ev.getActionMasked()) {
@@ -83,7 +83,7 @@ final class SlideInAttachmentsLayout extends ViewGroup {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public boolean onTouchEvent(@NonNull MotionEvent ev) {
         try {
             mDragHelper.processTouchEvent(ev);
             return true;
@@ -108,7 +108,7 @@ final class SlideInAttachmentsLayout extends ViewGroup {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
         float y = ev.getY();
 
         switch (ev.getActionMasked()) {

@@ -1,6 +1,8 @@
 package im.tox.toktok.app;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,8 +18,11 @@ import im.tox.toktok.app.profile.ProfileFragment;
 
 public final class MainActivityHolder extends AppCompatActivity {
 
+    @Nullable
     private LinearLayout activeTab = null;
+    @Nullable
     private SlideInContactsLayout activeContacts = null;
+    @Nullable
     private HomeSearch activeSearch = null;
 
     @Override
@@ -32,6 +37,7 @@ public final class MainActivityHolder extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 activeTab = changeTab(activeTab, chatsDrawerItem, "Chats", "", new FragmentFactory() {
+                    @NonNull
                     @Override
                     public Fragment get() {
                         return new MainFragment();
@@ -44,6 +50,7 @@ public final class MainActivityHolder extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 activeTab = changeTab(activeTab, profileDrawerItem, "Profile", "Activity", new FragmentFactory() {
+                    @NonNull
                     @Override
                     public Fragment get() {
                         return new ProfileFragment();
@@ -70,12 +77,13 @@ public final class MainActivityHolder extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @NonNull
     private <T extends Fragment> LinearLayout changeTab(
-            LinearLayout oldTab,
-            LinearLayout newTab,
+            @Nullable LinearLayout oldTab,
+            @NonNull LinearLayout newTab,
             String tag,
             String stackName,
-            FragmentFactory<T> newFragment
+            @NonNull FragmentFactory<T> newFragment
     ) {
         if (newTab != oldTab) {
             getSupportFragmentManager()
@@ -132,6 +140,7 @@ public final class MainActivityHolder extends AppCompatActivity {
     }
 
     private interface FragmentFactory<T extends Fragment> {
+        @NonNull
         T get();
     }
 }

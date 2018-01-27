@@ -2,6 +2,8 @@ package im.tox.toktok.app.main;
 
 import android.content.Context;
 import android.graphics.drawable.TransitionDrawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
@@ -16,9 +18,13 @@ import im.tox.toktok.R;
 
 public final class HomeSearch extends ViewGroup {
 
+    @Nullable
     private TransitionDrawable mBackground = null;
+    @Nullable
     private LinearLayout mBase = null;
+    @Nullable
     private EditText mInput = null;
+    @Nullable
     private CardView mCardView = null;
 
     public HomeSearch(
@@ -86,7 +92,7 @@ public final class HomeSearch extends ViewGroup {
         );
     }
 
-    public void finish(final Runnable after) {
+    public void finish(@NonNull final Runnable after) {
         if (mInput.isFocusable()) {
             mInput.clearFocus();
         }

@@ -3,6 +3,8 @@ package im.tox.toktok.app.message_activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +34,7 @@ import static im.tox.toktok.app.TypedBundleKey.SBundle;
 
 public final class MessageGroupContacts extends AppCompatActivity implements FriendItemClicks {
 
+    @Nullable
     private FriendsRecyclerHeaderAdapter adapter = null;
 
     @Override
@@ -74,7 +77,7 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();

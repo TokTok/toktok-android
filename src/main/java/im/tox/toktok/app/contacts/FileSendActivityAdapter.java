@@ -1,5 +1,6 @@
 package im.tox.toktok.app.contacts;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -19,14 +20,14 @@ final class FileSendActivityAdapter extends RecyclerView.Adapter<FileSendActivit
     }
 
     @Override
-    public FileSendActivityViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public FileSendActivityViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         RelativeLayout itemView = (RelativeLayout) LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.files_send_item, viewGroup, false);
         return new FileSendActivityViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(FileSendActivityViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull FileSendActivityViewHolder viewHolder, int position) {
         File item = files.get(position);
         viewHolder.mFileDate.setText(item.date);
         viewHolder.mFileName.setText(item.name);

@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -17,11 +18,12 @@ import im.tox.toktok.R;
 
 public final class SimpleAddFriendDialogDesign extends Dialog {
 
+    @NonNull
     private final Activity activity;
     private final View.OnClickListener clickAction;
 
     public SimpleAddFriendDialogDesign(
-            Activity activity,
+            @NonNull Activity activity,
             View.OnClickListener clickAction
     ) {
         super(activity, R.style.DialogSlideAnimation);

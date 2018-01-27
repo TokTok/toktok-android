@@ -1,5 +1,6 @@
 package im.tox.toktok.app.call;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -19,14 +20,14 @@ final class CallMessageAdapter extends RecyclerView.Adapter<CallMessageViewHolde
     }
 
     @Override
-    public CallMessageViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public CallMessageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LinearLayout itemView = (LinearLayout) LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.call_item, viewGroup, false);
         return new CallMessageViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(CallMessageViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull CallMessageViewHolder viewHolder, int position) {
         String item = excuses.get(position);
         viewHolder.mMessage.setText(item);
     }
@@ -42,7 +43,7 @@ final class CallMessageViewHolder extends RecyclerView.ViewHolder {
 
     final TextView mMessage;
 
-    CallMessageViewHolder(LinearLayout itemView) {
+    CallMessageViewHolder(@NonNull LinearLayout itemView) {
         super(itemView);
         this.mMessage = itemView.findViewById(R.id.call_item_message);
     }

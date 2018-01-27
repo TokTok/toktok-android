@@ -3,6 +3,7 @@ package im.tox.toktok.app.main.chats;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
@@ -38,10 +39,11 @@ final class ChatsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.chatItemClick = chatItemClick;
     }
 
+    @NonNull
     private SparseBooleanArray selectedItems = new SparseBooleanArray();
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         CardView itemView;
         switch (viewType) {
             case 0:
@@ -155,7 +157,7 @@ abstract class ChatsRecyclerViewHolder extends RecyclerView.ViewHolder implement
     final View mColor;
 
     ChatsRecyclerViewHolder(
-            View itemView,
+            @NonNull View itemView,
             List<ChatMessage> chatMessages,
             ChatItemClick clickListener
     ) {
@@ -184,7 +186,7 @@ abstract class ChatsRecyclerViewHolder extends RecyclerView.ViewHolder implement
 final class ChatsRecyclerViewHolderGroup extends ChatsRecyclerViewHolder {
 
     ChatsRecyclerViewHolderGroup(
-            CardView itemView,
+            @NonNull CardView itemView,
             java.util.List<ChatMessage> chatMessages,
             ChatItemClick clickListener
     ) {
@@ -220,7 +222,7 @@ final class ChatsRecyclerViewHolderUser extends ChatsRecyclerViewHolder {
     final CircleImageView mUserImage;
 
     ChatsRecyclerViewHolderUser(
-            View itemView,
+            @NonNull View itemView,
             java.util.List<ChatMessage> chatMessages,
             ChatItemClick clickListener
     ) {

@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,6 +43,7 @@ public final class CallActivity extends AppCompatActivity {
     private static final Logger logger = LoggerFactory.getLogger(CallActivity.class);
 
     private int viewType = 2;
+    @NonNull
     private Boolean backgroundInitialised = false;
 
     private CallActivityViewHolder onCreateViewHolder() {
@@ -55,7 +58,7 @@ public final class CallActivity extends AppCompatActivity {
         onCreate(onCreateViewHolder());
     }
 
-    private void onCreate(CallActivityViewHolder holder) {
+    private void onCreate(@NonNull CallActivityViewHolder holder) {
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -82,7 +85,7 @@ public final class CallActivity extends AppCompatActivity {
         }
     }
 
-    private void initOnGoingCall(CallActivityViewHolder holder) {
+    private void initOnGoingCall(@NonNull CallActivityViewHolder holder) {
         holder.topPanel.setBackgroundColor(getResources().getColor(R.color.callTopColor, null));
         holder.topPanel.addView(getLayoutInflater().inflate(R.layout.call_top_on_going, null, false));
         holder.bottomPanel.addView(getLayoutInflater().inflate(R.layout.call_bottom_on_going, null, false));
@@ -114,7 +117,7 @@ public final class CallActivity extends AppCompatActivity {
         });
     }
 
-    private void initReceiveCall(final CallActivityViewHolder holder) {
+    private void initReceiveCall(@NonNull final CallActivityViewHolder holder) {
         holder.topPanel.addView(getLayoutInflater().inflate(R.layout.call_top_receive, null, false));
         holder.bottomPanel.addView(getLayoutInflater().inflate(R.layout.call_bottom_receive, null, false));
 
@@ -298,7 +301,7 @@ public final class CallActivity extends AppCompatActivity {
         });
     }
 
-    private void initBackground(CallActivityViewHolder holder, int imgResource) {
+    private void initBackground(@NonNull CallActivityViewHolder holder, int imgResource) {
         final ImageView background = this.findViewById(R.id.call_background);
         background.setImageResource(imgResource);
 
@@ -337,12 +340,13 @@ final class CallActivityViewHolder {
     final RelativeLayout topPanel;
     final FrameLayout bottomPanel;
 
+    @Nullable
     final Bundle bundle;
     final String friendTitle;
     final int friendColor;
     final int friendImgSrc;
 
-    CallActivityViewHolder(CallActivity activity) {
+    CallActivityViewHolder(@NonNull CallActivity activity) {
         topPanel = activity.findViewById(R.id.call_top_panel);
         bottomPanel = activity.findViewById(R.id.call_bottom_panel);
 

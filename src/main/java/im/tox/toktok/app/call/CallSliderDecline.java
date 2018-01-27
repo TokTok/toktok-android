@@ -1,6 +1,7 @@
 package im.tox.toktok.app.call;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -43,7 +44,7 @@ public final class CallSliderDecline extends RelativeLayout implements View.OnTo
     }
 
     @Override
-    public boolean onTouch(View v, MotionEvent motion) {
+    public boolean onTouch(View v, @NonNull MotionEvent motion) {
         int x = (int) motion.getRawX();
         RelativeLayout.LayoutParams buttonPayoutParams = (LayoutParams) mCallImage.getLayoutParams();
 

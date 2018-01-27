@@ -1,6 +1,7 @@
 package im.tox.toktok.app.simple_dialogs;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,13 +26,13 @@ final class SimpleColorDialogDesignAdapter extends RecyclerView.Adapter<SimpleCo
     }
 
     @Override
-    public SimpleColorDialogDesignViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public SimpleColorDialogDesignViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         CardView itemView = (CardView) LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.simple_color_dialog_item, viewGroup, false);
 
         itemView.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(@NonNull View v) {
                 logger.debug("adsd");
                 v.setZ(1000.0f);
             }
@@ -41,7 +42,7 @@ final class SimpleColorDialogDesignAdapter extends RecyclerView.Adapter<SimpleCo
     }
 
     @Override
-    public void onBindViewHolder(SimpleColorDialogDesignViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull SimpleColorDialogDesignViewHolder viewHolder, int position) {
         String item = items.get(position);
         logger.debug(item);
         viewHolder.mColor.setBackgroundColor(Color.parseColor(item));
@@ -60,7 +61,7 @@ final class SimpleColorDialogDesignViewHolder extends RecyclerView.ViewHolder im
 
     final View mColor;
 
-    SimpleColorDialogDesignViewHolder(CardView itemView) {
+    SimpleColorDialogDesignViewHolder(@NonNull CardView itemView) {
         super(itemView);
         mColor = itemView.findViewById(R.id.simple_color_dialog_item);
     }

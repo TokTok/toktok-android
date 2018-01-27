@@ -1,6 +1,7 @@
 package im.tox.toktok.app.new_message;
 
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ abstract class NewMessageRecyclerAdapter extends RecyclerView.Adapter<NewMessage
     FriendAddOnClick listener;
 
     NewMessageRecyclerAdapter(
-            List<Friend> friends,
+            @NonNull List<Friend> friends,
             FriendAddOnClick listener
     ) {
         this.savedContacts = new ArrayList<>(friends);
@@ -43,15 +44,16 @@ abstract class NewMessageRecyclerAdapter extends RecyclerView.Adapter<NewMessage
         this.selectedContacts = new ArrayList<>();
     }
 
+    @NonNull
     @Override
-    public NewMessageRecyclerViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public NewMessageRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         RelativeLayout itemView = (RelativeLayout) LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.new_message_item, viewGroup, false);
         return new NewMessageRecyclerViewHolder(itemView, listener);
     }
 
     @Override
-    public void onBindViewHolder(NewMessageRecyclerViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull NewMessageRecyclerViewHolder viewHolder, int position) {
         Friend item = friends.get(position);
         viewHolder.mUserName.setText(item.userName);
         viewHolder.mUserImage.setImageResource(item.photoReference);
@@ -80,6 +82,7 @@ abstract class NewMessageRecyclerAdapter extends RecyclerView.Adapter<NewMessage
         return friends.get(i);
     }
 
+    @NonNull
     @Override
     public Filter getFilter() {
         return new FriendFilter(this, savedContacts);
@@ -132,7 +135,7 @@ final class NewMessageRecyclerViewHolder extends RecyclerView.ViewHolder
 
 
     NewMessageRecyclerViewHolder(
-            RelativeLayout itemView,
+            @NonNull RelativeLayout itemView,
             FriendAddOnClick clickListener
     ) {
         super(itemView);
@@ -159,6 +162,7 @@ final class FriendFilter extends Filter {
 
     private final NewMessageRecyclerAdapter adapter;
     private final List<Friend> friendsList;
+    @NonNull
     private List<Friend> filteredResults = new ArrayList<Friend>();
 
     FriendFilter(
@@ -169,8 +173,9 @@ final class FriendFilter extends Filter {
         this.friendsList = friendsList;
     }
 
+    @NonNull
     @Override
-    protected FilterResults performFiltering(CharSequence constraint) {
+    protected FilterResults performFiltering(@NonNull CharSequence constraint) {
         filteredResults.clear();
         FilterResults results = new FilterResults();
 
@@ -193,7 +198,7 @@ final class FriendFilter extends Filter {
     }
 
     @Override
-    protected void publishResults(CharSequence constraint, FilterResults results) {
+    protected void publishResults(CharSequence constraint, @NonNull FilterResults results) {
         adapter.friends.clear();
         adapter.friends = (List<Friend>) results.values;
         adapter.notifyDataSetChanged();

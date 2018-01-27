@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -33,8 +34,11 @@ import im.tox.toktok.app.simple_dialogs.SimpleAddFriendDialogDesign;
 
 public final class MainFragment extends Fragment {
 
+    @Nullable
     private Menu mMenu = null;
+    @Nullable
     private FloatingActionButton mFab = null;
+    @Nullable
     private DrawerLayout mDrawer = null;
 
     @Override
@@ -58,13 +62,13 @@ public final class MainFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
         mMenu = menu;
         inflater.inflate(R.menu.menu_main, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private void initViewPaper(FrameLayout view) {
+    private void initViewPaper(@NonNull FrameLayout view) {
         CustomViewPager mViewPaper = view.findViewById(R.id.home_tab_holder);
         MainTabsAdapter mPagerAdapter = new MainTabsAdapter(getChildFragmentManager(), getActivity());
         mViewPaper.setAdapter(mPagerAdapter);
@@ -100,7 +104,7 @@ public final class MainFragment extends Fragment {
         mViewPaper.setCurrentItem(1);
     }
 
-    private void initToolbar(FrameLayout view) {
+    private void initToolbar(@NonNull FrameLayout view) {
         Toolbar mToolbar = view.findViewById(R.id.home_toolbar);
 
         getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.homeColorStatusBar, null));
@@ -121,7 +125,7 @@ public final class MainFragment extends Fragment {
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    private void initFAB(FrameLayout view) {
+    private void initFAB(@NonNull FrameLayout view) {
         mFab = view.findViewById(R.id.home_fab);
         mFab.setOnClickListener(new OnClickListener() {
             @Override
@@ -132,7 +136,7 @@ public final class MainFragment extends Fragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             mDrawer.openDrawer(GravityCompat.START);

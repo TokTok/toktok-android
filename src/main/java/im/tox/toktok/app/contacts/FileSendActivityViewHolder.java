@@ -1,5 +1,6 @@
 package im.tox.toktok.app.contacts;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -13,7 +14,7 @@ final class FileSendActivityViewHolder extends RecyclerView.ViewHolder {
     TextView mFileName;
     TextView mFileDate;
 
-    FileSendActivityViewHolder(RelativeLayout itemView) {
+    FileSendActivityViewHolder(@NonNull RelativeLayout itemView) {
         super(itemView);
         mIcon = itemView.findViewById(R.id.files_send_item_icon);
         mFileName = itemView.findViewById(R.id.files_send_item_name);

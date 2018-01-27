@@ -1,5 +1,6 @@
 package im.tox.toktok.app.main.friends;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
@@ -30,8 +31,9 @@ abstract class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendsRecycl
         this.expandOnClick = expandOnClick;
     }
 
+    @NonNull
     @Override
-    public FriendsRecyclerViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public FriendsRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         final RelativeLayout itemView = (RelativeLayout) LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.fragment_home_friends_item, viewGroup, false);
 
@@ -56,7 +58,7 @@ abstract class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendsRecycl
     }
 
     @Override
-    public void onBindViewHolder(final FriendsRecyclerViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull final FriendsRecyclerViewHolder viewHolder, int position) {
         Friend item = friends.get(position);
         viewHolder.mUserName.setText(item.userName);
         viewHolder.mUserImage.setImageResource(item.photoReference);
@@ -125,7 +127,7 @@ final class FriendsRecyclerViewHolder extends RecyclerView.ViewHolder
     final TextView mMessageButton;
 
     FriendsRecyclerViewHolder(
-            RelativeLayout itemView,
+            @NonNull RelativeLayout itemView,
             FriendItemExpand itemOnClick
     ) {
         super(itemView);

@@ -37,14 +37,14 @@ public final class FriendsRecyclerHeaderAdapter
 
     @NonNull
     @Override
-    public FriendsRecyclerHeaderViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
+    public FriendsRecyclerHeaderViewHolder onCreateHeaderViewHolder(@NonNull ViewGroup parent) {
         LinearLayout view = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_header, parent, false);
         return new FriendsRecyclerHeaderViewHolder(view);
     }
 
     @Override
-    public void onBindHeaderViewHolder(FriendsRecyclerHeaderViewHolder holder, int position) {
+    public void onBindHeaderViewHolder(@NonNull FriendsRecyclerHeaderViewHolder holder, int position) {
         holder.headerText.setText(getHeaderText(position));
     }
 
@@ -53,7 +53,7 @@ public final class FriendsRecyclerHeaderAdapter
 final class FriendsRecyclerHeaderViewHolder extends RecyclerView.ViewHolder {
     final TextView headerText;
 
-    FriendsRecyclerHeaderViewHolder(LinearLayout itemView) {
+    FriendsRecyclerHeaderViewHolder(@NonNull LinearLayout itemView) {
         super(itemView);
         headerText = itemView.findViewById(R.id.recyclerview_header_text);
     }

@@ -1,5 +1,6 @@
 package im.tox.toktok.app.message_activity;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -36,7 +37,8 @@ final class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         this.messageActionMode = messageActionMode;
     }
 
-    private static RelativeLayout inflate(int layout, ViewGroup viewGroup) {
+    @NonNull
+    private static RelativeLayout inflate(int layout, @NonNull ViewGroup viewGroup) {
         return (RelativeLayout) LayoutInflater.from(viewGroup.getContext())
                 .inflate(layout, viewGroup, false);
     }
@@ -47,7 +49,7 @@ final class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
     }
 
     @Override
-    public MessageViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         RelativeLayout itemView;
         switch (viewType) {
             case 1: //MessageType.Delivered:
@@ -82,7 +84,7 @@ final class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(MessageViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull MessageViewHolder viewHolder, int position) {
         Message message = messages.get(position);
 
         viewHolder.mUserText.setText(message.msgContent);
@@ -164,7 +166,7 @@ class MessageViewHolder extends RecyclerView.ViewHolder
     final View base;
 
     MessageViewHolder(
-            RelativeLayout itemView,
+            @NonNull RelativeLayout itemView,
             MessageActionMode messageActionMode,
             View base
     ) {
@@ -194,7 +196,7 @@ final class MessageViewHolderDetailed extends MessageViewHolder {
     TextView mUserDetails;
 
     MessageViewHolderDetailed(
-            RelativeLayout itemView,
+            @NonNull RelativeLayout itemView,
             MessageActionMode messageActionMode
     ) {
         super(

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -49,10 +50,12 @@ import im.tox.toktok.app.domain.Friend;
 public final class NewMessageActivity extends AppCompatActivity {
 
     private LinearLayout mSelectedFriends;
+    @Nullable
     private NewMessageRecyclerHeaderAdapter mFriends_Recycler_Adapter;
     private FloatingActionButton mFab;
     private TextView mSelectedFriendsText;
     private CircleImageView mSelectedFriendsImg;
+    @Nullable
     private TextView mSelectedFriendsCounter;
     private ImageButton mSelectedFriendsButton;
     private TextView mSelectedMini;
@@ -157,7 +160,7 @@ public final class NewMessageActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
@@ -167,7 +170,7 @@ public final class NewMessageActivity extends AppCompatActivity {
         }
     }
 
-    void initFirstSelectedContacts(NewMessageRecyclerAdapter adapter) {
+    void initFirstSelectedContacts(@NonNull NewMessageRecyclerAdapter adapter) {
         mSelectedFriends.measure(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         final int height = mSelectedFriends.getMeasuredHeight();
 
@@ -231,7 +234,7 @@ public final class NewMessageActivity extends AppCompatActivity {
         mSelectedMiniExtended = false;
     }
 
-    void setOneSelectedContact(final NewMessageRecyclerAdapter adapter) {
+    void setOneSelectedContact(@NonNull final NewMessageRecyclerAdapter adapter) {
         Friend first = adapter.getFirstSelected();
 
         if (mSelectedMiniExtended) {
@@ -250,7 +253,7 @@ public final class NewMessageActivity extends AppCompatActivity {
         });
     }
 
-    void setMultiSelectedContact(final NewMessageRecyclerAdapter adapter, int selectedFriends) {
+    void setMultiSelectedContact(@NonNull final NewMessageRecyclerAdapter adapter, int selectedFriends) {
         mSelectedFriendsCounter = this.findViewById(R.id.new_message_selected_counter);
         mSelectedFriendsCounter.setText(String.valueOf(selectedFriends));
 
@@ -274,7 +277,7 @@ public final class NewMessageActivity extends AppCompatActivity {
         });
     }
 
-    private void createMiniContact(final NewMessageRecyclerAdapter adapter) {
+    private void createMiniContact(@NonNull final NewMessageRecyclerAdapter adapter) {
         CharSequence friendsList = "";
 
         for (final Friend friend : adapter.getSelectedFriends()) {
@@ -310,7 +313,7 @@ public final class NewMessageActivity extends AppCompatActivity {
     }
 
     @NonNull
-    private BitmapDrawable convertViewToDrawable(View view) {
+    private BitmapDrawable convertViewToDrawable(@NonNull View view) {
         int spec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
 
         view.measure(spec, spec);
@@ -331,6 +334,7 @@ public final class NewMessageActivity extends AppCompatActivity {
         return new BitmapDrawable(null, viewBmp);
     }
 
+    @NonNull
     private LinearLayout createContactTextView(CharSequence text) {
         LinearLayout tv = (LinearLayout) getLayoutInflater().inflate(
                 R.layout.new_message_toolbar_friend_mini, null, false);

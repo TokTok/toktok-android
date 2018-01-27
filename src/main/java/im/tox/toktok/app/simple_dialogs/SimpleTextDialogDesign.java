@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -19,6 +20,7 @@ import im.tox.toktok.R;
 
 public final class SimpleTextDialogDesign extends Dialog {
 
+    @NonNull
     private final Activity activity;
     private final String title;
     private final int color;
@@ -27,7 +29,7 @@ public final class SimpleTextDialogDesign extends Dialog {
     private final View.OnClickListener clickAction;
 
     public SimpleTextDialogDesign(
-            Activity activity,
+            @NonNull Activity activity,
             String title,
             int color,
             int icon,

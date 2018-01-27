@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -22,7 +23,7 @@ public final class SimpleDialogDesign extends Dialog {
     private final View.OnClickListener clickAction;
 
     public SimpleDialogDesign(
-            Activity activity,
+            @NonNull Activity activity,
             String question,
             int color,
             int icon,

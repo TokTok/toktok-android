@@ -1,6 +1,7 @@
 package im.tox.toktok.app.message_activity;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.util.AttributeSet;
@@ -19,7 +20,7 @@ public final class MessageInputBarBehavior extends CoordinatorLayout.Behavior<Re
     }
 
     @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent, RelativeLayout child, View dependency) {
+    public boolean onDependentViewChanged(CoordinatorLayout parent, @NonNull RelativeLayout child, @NonNull View dependency) {
         float translationY = Math.min(0, dependency.getTranslationY() - dependency.getHeight());
         child.setTranslationY(translationY);
         return true;

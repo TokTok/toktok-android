@@ -1,6 +1,8 @@
 package im.tox.toktok.app.message_activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +21,9 @@ import im.tox.toktok.app.domain.MessageType;
 
 final class MessageRecallActivity extends AppCompatActivity implements RecallMessageListener {
 
+    @Nullable
     private MessageRecallRecyclerAdapter adapter = null;
+    @Nullable
     private FloatingActionButton mFAB = null;
 
     @Override
@@ -85,7 +89,7 @@ final class MessageRecallActivity extends AppCompatActivity implements RecallMes
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();

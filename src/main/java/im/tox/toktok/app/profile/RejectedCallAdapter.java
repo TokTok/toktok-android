@@ -1,5 +1,6 @@
 package im.tox.toktok.app.profile;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -29,20 +30,20 @@ final class RejectedCallAdapter
     }
 
     @Override
-    public RejectedCallViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public RejectedCallViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         RelativeLayout itemView = (RelativeLayout) LayoutInflater.from(viewGroup.getContext()).inflate(
                 R.layout.rejected_call_item, viewGroup, false);
         return new RejectedCallViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final RejectedCallViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull final RejectedCallViewHolder viewHolder, int position) {
         String item = items.get(position);
         viewHolder.mMessage.setText(item);
 
         viewHolder.itemView.setOnTouchListener(new OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public boolean onTouch(View v, @NonNull MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     dragStart.onDragStart(viewHolder);
                 }
@@ -70,7 +71,7 @@ final class RejectedCallAdapter
 final class RejectedCallViewHolder extends RecyclerView.ViewHolder {
     final TextView mMessage;
 
-    RejectedCallViewHolder(RelativeLayout itemView) {
+    RejectedCallViewHolder(@NonNull RelativeLayout itemView) {
         super(itemView);
         mMessage = itemView.findViewById(R.id.reject_item_message);
     }
@@ -101,7 +102,7 @@ final class DragHelperCallback extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public boolean onMove(RecyclerView recyclerView, ViewHolder viewHolder, ViewHolder target) {
+    public boolean onMove(RecyclerView recyclerView, @NonNull ViewHolder viewHolder, @NonNull ViewHolder target) {
         adapter.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
         return true;
     }

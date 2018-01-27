@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -18,7 +19,7 @@ public final class SimpleStatusDialogDesign extends Dialog {
     private final int statusActive;
 
     public SimpleStatusDialogDesign(
-            Activity activity,
+            @NonNull Activity activity,
             int statusActive
     ) {
         super(activity, R.style.DialogSlideAnimation);

@@ -1,17 +1,19 @@
 package im.tox.toktok.app;
 
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
 public final class SizeAnimation extends Animation {
 
+    @NonNull
     private final View view;
     private final int oldSize;
     private final int newSize;
     private final int sizeChange;
 
-    public SizeAnimation(View view, int newSize, int sizeChange) {
+    public SizeAnimation(@NonNull View view, int newSize, int sizeChange) {
         this.view = view;
         this.oldSize = sizeChange == 0 ? view.getWidth() : view.getHeight();
         this.newSize = newSize;

@@ -7,6 +7,7 @@ import android.content.res.ColorStateList;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -45,8 +46,10 @@ public final class SlideInContactsLayout extends ViewGroup {
 
     private static final Logger logger = LoggerFactory.getLogger(SlideInContactsLayout.class);
 
+    @Nullable
     private Activity activity = null;
 
+    @NonNull
     private final ViewDragHelper mDragHelper;
     private View mCoordinator;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
@@ -122,7 +125,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         super.onFinishInflate();
     }
 
-    public void start(Activity activity, Friend friend, int actionBarHeight) {
+    public void start(Activity activity, @NonNull Friend friend, int actionBarHeight) {
         this.activity = activity;
         mTitle.setText(friend.userName);
 
@@ -188,7 +191,7 @@ public final class SlideInContactsLayout extends ViewGroup {
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
+    public boolean onInterceptTouchEvent(@NonNull MotionEvent ev) {
         if (scrollActive) {
             mDragHelper.cancel();
             return false;
@@ -211,7 +214,7 @@ public final class SlideInContactsLayout extends ViewGroup {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public boolean onTouchEvent(@NonNull MotionEvent ev) {
         try {
             mDragHelper.processTouchEvent(ev);
             return true;
@@ -221,7 +224,7 @@ public final class SlideInContactsLayout extends ViewGroup {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
         Float y = ev.getY();
         NestedScrollView v = this.findViewById(R.id.contacts_nested);
 
@@ -291,7 +294,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         finish(DoNothing);
     }
 
-    public void finish(final Runnable after) {
+    public void finish(@NonNull final Runnable after) {
         smoothSlideTo(1f);
         backgroundTransition.reverseTransition(500);
         new Handler().postDelayed(new Runnable() {
@@ -330,7 +333,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         }
     }
 
-    private void initListeners(final Friend friend) {
+    private void initListeners(@NonNull final Friend friend) {
         mEditNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

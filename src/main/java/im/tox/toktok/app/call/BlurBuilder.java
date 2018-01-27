@@ -7,6 +7,7 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 final class BlurBuilder {
@@ -14,11 +15,11 @@ final class BlurBuilder {
     private static final float BITMAP_SCALE = 0.4f;
     private static final float BLUR_RADIUS = 20.5f;
 
-    static Bitmap blur(View v) {
+    static Bitmap blur(@NonNull View v) {
         return blur(v.getContext(), getScreenshot(v));
     }
 
-    private static Bitmap blur(Context ctx, Bitmap image) {
+    private static Bitmap blur(Context ctx, @NonNull Bitmap image) {
         int width = Math.round(image.getWidth() * BITMAP_SCALE);
         int height = Math.round(image.getHeight() * BITMAP_SCALE);
         Bitmap inputBitmap = Bitmap.createScaledBitmap(image, width, height, false);
@@ -34,7 +35,7 @@ final class BlurBuilder {
         return outputBitmap;
     }
 
-    private static Bitmap getScreenshot(View v) {
+    private static Bitmap getScreenshot(@NonNull View v) {
         Bitmap screenshot = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(screenshot);
         v.draw(canvas);

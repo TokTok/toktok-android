@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -33,8 +34,11 @@ import im.tox.toktok.app.new_message.NewMessageActivity;
 
 public final class ChatsFragment extends Fragment implements ChatItemClick {
 
+    @Nullable
     private RecyclerView mChatsRecycler = null;
+    @Nullable
     private ChatsRecyclerAdapter mChatsRecyclerAdapter = null;
+    @Nullable
     private ActionMode mActionMode = null;
 
     @Override
@@ -110,12 +114,15 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
     }
 
     final class ChatsActionModeCallback implements ActionMode.Callback {
+        @Nullable
         private AppBarLayout mAppLayout = null;
+        @Nullable
         private FloatingActionButton mFab = null;
+        @Nullable
         private CustomViewPager mCustomViewPager = null;
 
         @Override
-        public boolean onCreateActionMode(final ActionMode mode, Menu menu) {
+        public boolean onCreateActionMode(@NonNull final ActionMode mode, Menu menu) {
             final AppCompatActivity activity = (AppCompatActivity) getActivity();
             mAppLayout = activity.findViewById(R.id.appBarLayout);
             mAppLayout.setBackgroundColor(getResources().getColor(R.color.backgroundColor, null));

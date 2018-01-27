@@ -2,6 +2,7 @@ package im.tox.toktok.app.message_activity;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -25,12 +26,14 @@ import im.tox.toktok.app.domain.Message;
 final class MessageRecallRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private final RecallMessageListener recallMessageListener;
+    @NonNull
     private List<LineItem> items = new ArrayList<LineItem>();
+    @NonNull
     private SparseBooleanArray selectedItems = new SparseBooleanArray();
 
     MessageRecallRecyclerAdapter(
             Context context,
-            Iterable<Message> messages,
+            @NonNull Iterable<Message> messages,
             RecallMessageListener recallMessageListener
     ) {
         this.recallMessageListener = recallMessageListener;
@@ -56,7 +59,7 @@ final class MessageRecallRecyclerAdapter extends RecyclerView.Adapter<ViewHolder
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         if (viewType == 1) {
             LinearLayout itemView = (LinearLayout) LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.recall_header, viewGroup, false);
@@ -69,7 +72,7 @@ final class MessageRecallRecyclerAdapter extends RecyclerView.Adapter<ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
         LineItem item = items.get(position);
 
         GridSLM.LayoutParams lp = GridSLM.LayoutParams.from(viewHolder.itemView.getLayoutParams());
@@ -144,7 +147,7 @@ final class MessageRecallRecyclerAdapter extends RecyclerView.Adapter<ViewHolder
 }
 
 final class MessageRecallRecyclerViewHolder extends RecyclerView.ViewHolder {
-    MessageRecallRecyclerViewHolder(LinearLayout itemView) {
+    MessageRecallRecyclerViewHolder(@NonNull LinearLayout itemView) {
         super(itemView);
     }
 
@@ -154,7 +157,7 @@ final class MessageRecallRecyclerViewHolder extends RecyclerView.ViewHolder {
 }
 
 final class MessageRecallRecyclerViewHolderHeader extends RecyclerView.ViewHolder {
-    MessageRecallRecyclerViewHolderHeader(LinearLayout itemView) {
+    MessageRecallRecyclerViewHolderHeader(@NonNull LinearLayout itemView) {
         super(itemView);
     }
 

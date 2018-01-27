@@ -1,6 +1,8 @@
 package im.tox.toktok.app;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 public class TypedBundleKey {
     public interface KeyValue {
@@ -17,7 +19,7 @@ public class TypedBundleKey {
         }
 
         @Override
-        public void put(Bundle bundle) {
+        public void put(@NonNull Bundle bundle) {
             bundle.putString(id, value);
         }
     }
@@ -32,7 +34,7 @@ public class TypedBundleKey {
         }
 
         @Override
-        public void put(Bundle bundle) {
+        public void put(@NonNull Bundle bundle) {
             bundle.putInt(id, value);
         }
     }
@@ -48,7 +50,8 @@ public class TypedBundleKey {
             return new StringKeyValue(id, value);
         }
 
-        public String get(Bundle bundle) {
+        @Nullable
+        public String get(@NonNull Bundle bundle) {
             return bundle.getString(id);
         }
     }
@@ -64,12 +67,13 @@ public class TypedBundleKey {
             return new IntKeyValue(id, value);
         }
 
-        public int get(Bundle bundle) {
+        public int get(@NonNull Bundle bundle) {
             return bundle.getInt(id);
         }
     }
 
-    public static Bundle SBundle(KeyValue... keyValues) {
+    @NonNull
+    public static Bundle SBundle(@NonNull KeyValue... keyValues) {
         Bundle bundle = new Bundle();
         for (KeyValue kv : keyValues) {
             kv.put(bundle);

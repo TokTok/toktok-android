@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,6 +20,7 @@ import im.tox.toktok.app.MaterialColors;
 
 public final class SimpleColorDialogDesign extends Dialog {
 
+    @NonNull
     private final Activity activity;
     private final String title;
     private final int contactColor;
@@ -27,7 +29,7 @@ public final class SimpleColorDialogDesign extends Dialog {
     private final OnClickListener clickAction;
 
     public SimpleColorDialogDesign(
-            Activity activity,
+            @NonNull Activity activity,
             String title,
             int contactColor,
             int icon,
