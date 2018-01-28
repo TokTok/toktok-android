@@ -12,7 +12,7 @@ import im.tox.toktok.R;
 import im.tox.toktok.app.main.chats.ChatsFragment;
 import im.tox.toktok.app.main.friends.FriendsFragment;
 
-public final class MainTabsAdapter extends FragmentStatePagerAdapter {
+final class MainTabsAdapter extends FragmentStatePagerAdapter {
 
     private static final class Pair {
         private final Fragment fragment;

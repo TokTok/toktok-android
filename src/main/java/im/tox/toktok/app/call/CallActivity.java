@@ -35,6 +35,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import im.tox.toktok.R;
 import im.tox.toktok.app.BundleKey;
+import im.tox.toktok.app.CompatUtil;
 import im.tox.toktok.app.domain.Friend;
 import im.tox.toktok.app.video_call.VideoCallActivity;
 
@@ -42,7 +43,7 @@ public final class CallActivity extends AppCompatActivity {
 
     private static final Logger logger = LoggerFactory.getLogger(CallActivity.class);
 
-    private int viewType = 2;
+    private final int viewType = 2;
     @NonNull
     private Boolean backgroundInitialised = false;
 
@@ -63,7 +64,8 @@ public final class CallActivity extends AppCompatActivity {
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         );
-        getWindow().setStatusBarColor(getResources().getColor(R.color.contactsTransparentBar, null));
+        getWindow().setStatusBarColor(
+                CompatUtil.getColor(getResources(), R.color.contactsTransparentBar));
 
         holder.bottomPanel.setBackgroundColor(Color.argb(
                 165,
@@ -86,7 +88,7 @@ public final class CallActivity extends AppCompatActivity {
     }
 
     private void initOnGoingCall(@NonNull CallActivityViewHolder holder) {
-        holder.topPanel.setBackgroundColor(getResources().getColor(R.color.callTopColor, null));
+        holder.topPanel.setBackgroundColor(CompatUtil.getColor(getResources(), R.color.callTopColor));
         holder.topPanel.addView(getLayoutInflater().inflate(R.layout.call_top_on_going, null, false));
         holder.bottomPanel.addView(getLayoutInflater().inflate(R.layout.call_bottom_on_going, null, false));
 
@@ -351,9 +353,9 @@ final class CallActivityViewHolder {
         bottomPanel = activity.findViewById(R.id.call_bottom_panel);
 
         bundle = activity.getIntent().getExtras();
-        friendTitle = BundleKey.contactName().get(bundle);
-        friendColor = BundleKey.contactColorPrimary().get(bundle);
-        friendImgSrc = BundleKey.contactPhotoReference().get(bundle);
+        friendTitle = BundleKey.contactName.get(bundle);
+        friendColor = BundleKey.contactColorPrimary.get(bundle);
+        friendImgSrc = BundleKey.contactPhotoReference.get(bundle);
     }
 }
 

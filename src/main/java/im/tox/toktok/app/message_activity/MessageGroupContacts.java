@@ -44,8 +44,8 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
 
         final Bundle bundle = getIntent().getExtras();
 
-        int colorPrimary = BundleKey.colorPrimary().get(bundle);
-        int colorStatus = BundleKey.colorPrimaryStatus().get(bundle);
+        int colorPrimary = BundleKey.colorPrimary.get(bundle);
+        int colorStatus = BundleKey.colorPrimaryStatus.get(bundle);
 
         Toolbar mToolbar = this.findViewById(R.id.message_group_members_toolbar);
         mToolbar.setTitle(getResources().getString(R.string.message_group_contacts));
@@ -115,9 +115,9 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
         Friend friend = adapter.getItem(friendPosition);
 
         startActivity(new Intent(this, CallActivity.class).putExtras(SBundle(
-                BundleKey.contactName().map(friend.userName),
-                BundleKey.contactColorPrimary().map(friend.color),
-                BundleKey.contactPhotoReference().map(friend.photoReference)
+                BundleKey.contactName.map(friend.userName),
+                BundleKey.contactColorPrimary.map(friend.color),
+                BundleKey.contactPhotoReference.map(friend.photoReference)
         )));
     }
 
@@ -126,11 +126,11 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
         Friend friend = adapter.getItem(friendPosition);
 
         startActivity(new Intent(this, MessageActivity.class).putExtras(SBundle(
-                BundleKey.messageTitle().map(friend.userName),
-                BundleKey.contactColorPrimary().map(friend.color),
-                BundleKey.contactColorStatus().map(friend.secondColor),
-                BundleKey.imgResource().map(friend.photoReference),
-                BundleKey.messageType().map(0)
+                BundleKey.messageTitle.map(friend.userName),
+                BundleKey.contactColorPrimary.map(friend.color),
+                BundleKey.contactColorStatus.map(friend.secondColor),
+                BundleKey.imgResource.map(friend.photoReference),
+                BundleKey.messageType.map(0)
         )));
     }
 

@@ -52,7 +52,7 @@ final class CallOnGoingContactsViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         mFriendImage = itemView.findViewById(R.id.call_ongoing_contact_img);
         mFriendName = itemView.findViewById(R.id.call_ongoing_contact_name);
-        mFriendCallTime = itemView.findViewById(R.id.call_ongoing_contact_calltime);
+        mFriendCallTime = itemView.findViewById(R.id.call_ongoing_contact_call_time);
     }
 
 }

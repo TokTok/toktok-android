@@ -59,7 +59,7 @@ public final class NewMessageActivity extends AppCompatActivity {
     private TextView mSelectedFriendsCounter;
     private ImageButton mSelectedFriendsButton;
     private TextView mSelectedMini;
-    private Boolean mSelectedMiniExtended;
+    private boolean mSelectedMiniExtended;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +71,8 @@ public final class NewMessageActivity extends AppCompatActivity {
         int colorPrimary = 0;
         int colorStatus = 0;
         if (bundle != null) {
-            colorPrimary = BundleKey.colorPrimary().get(bundle);
-            colorStatus = BundleKey.colorPrimaryStatus().get(bundle);
+            colorPrimary = BundleKey.colorPrimary.get(bundle);
+            colorStatus = BundleKey.colorPrimaryStatus.get(bundle);
         } else {
             colorPrimary = Color.parseColor("#F5A623");
             colorStatus = Color.parseColor("#8C5F14");
@@ -84,7 +84,7 @@ public final class NewMessageActivity extends AppCompatActivity {
         initRecyclerView();
     }
 
-    void initRecyclerView() {
+    private void initRecyclerView() {
         RecyclerView mRecycler = this.findViewById(R.id.new_message_recycler);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -119,7 +119,7 @@ public final class NewMessageActivity extends AppCompatActivity {
         });
     }
 
-    void initToolbar(int colour, int secondColour) {
+    private void initToolbar(int colour, int secondColour) {
         mSelectedFriends = this.findViewById(R.id.new_message_selected_base);
         mSelectedFriendsImg = this.findViewById(R.id.new_message_selected_img);
         mSelectedFriendsText = this.findViewById(R.id.new_message_toolbar_selected_text);
@@ -170,7 +170,7 @@ public final class NewMessageActivity extends AppCompatActivity {
         }
     }
 
-    void initFirstSelectedContacts(@NonNull NewMessageRecyclerAdapter adapter) {
+    private void initFirstSelectedContacts(@NonNull NewMessageRecyclerAdapter adapter) {
         mSelectedFriends.measure(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         final int height = mSelectedFriends.getMeasuredHeight();
 
@@ -202,7 +202,7 @@ public final class NewMessageActivity extends AppCompatActivity {
         mSelectedFriends.startAnimation(inAnimation);
     }
 
-    void destroySelectedContacts() {
+    private void destroySelectedContacts() {
         final int height = mSelectedFriends.getMeasuredHeight();
 
         Animation outAnimation = new Animation() {
@@ -228,13 +228,13 @@ public final class NewMessageActivity extends AppCompatActivity {
         mFab.hide();
     }
 
-    void destroySelectedContactsMini() {
+    private void destroySelectedContactsMini() {
         mSelectedMini.setVisibility(View.GONE);
         mSelectedMini.setText("");
         mSelectedMiniExtended = false;
     }
 
-    void setOneSelectedContact(@NonNull final NewMessageRecyclerAdapter adapter) {
+    private void setOneSelectedContact(@NonNull final NewMessageRecyclerAdapter adapter) {
         Friend first = adapter.getFirstSelected();
 
         if (mSelectedMiniExtended) {
@@ -253,7 +253,7 @@ public final class NewMessageActivity extends AppCompatActivity {
         });
     }
 
-    void setMultiSelectedContact(@NonNull final NewMessageRecyclerAdapter adapter, int selectedFriends) {
+    private void setMultiSelectedContact(@NonNull final NewMessageRecyclerAdapter adapter, int selectedFriends) {
         mSelectedFriendsCounter = this.findViewById(R.id.new_message_selected_counter);
         mSelectedFriendsCounter.setText(String.valueOf(selectedFriends));
 
@@ -286,7 +286,7 @@ public final class NewMessageActivity extends AppCompatActivity {
             BitmapDrawable bd = convertViewToDrawable(miniContact);
             bd.setBounds(0, 0, bd.getIntrinsicWidth() * 3, bd.getIntrinsicHeight() * 3);
 
-            sb.append(friend.userName + " ");
+            sb.append(friend.userName).append(" ");
             sb.setSpan(new ImageSpan(bd),
                     sb.length() - (friend.userName.length() + 1),
                     sb.length() - 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -1,5 +1,5 @@
 package im.tox.toktok.app.main.friends;
 
-public interface FriendItemExpand {
+interface FriendItemExpand {
     void onClick();
 }

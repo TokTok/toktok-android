@@ -14,11 +14,11 @@ import im.tox.toktok.R;
 
 public final class CallSliderDecline extends RelativeLayout implements View.OnTouchListener {
 
-    private ImageView mCallImage;
+    private final ImageView mCallImage;
     private int mX;
     private int barWidth;
     private Boolean answered;
-    private TextView mCallText;
+    private final TextView mCallText;
     private CallListener listener;
 
     public CallSliderDecline(

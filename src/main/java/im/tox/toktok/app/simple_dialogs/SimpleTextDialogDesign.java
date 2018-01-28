@@ -3,6 +3,7 @@ package im.tox.toktok.app.simple_dialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import im.tox.toktok.R;
+import im.tox.toktok.app.CompatUtil;
 
 public final class SimpleTextDialogDesign extends Dialog {
 
@@ -76,8 +78,9 @@ public final class SimpleTextDialogDesign extends Dialog {
             @Override
             public void afterTextChanged(Editable s) {
                 confirmButton.setEnabled(true);
-                confirmButton.setTextColor(activity.getResources().getColor(R.color.simpleDialogTextButton, null));
-                confirmButton.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.simpleDialogIconButton, null)));
+                final Resources resources = activity.getResources();
+                confirmButton.setTextColor(CompatUtil.getColor(resources, R.color.simpleDialogTextButton));
+                confirmButton.setBackgroundTintList(ColorStateList.valueOf(CompatUtil.getColor(resources, R.color.simpleDialogIconButton)));
                 confirmButton.setOnClickListener(clickAction);
             }
 

@@ -7,7 +7,7 @@
     android:background="@null">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/simple_dialog_cardview"
+        android:id="@+id/simple_dialog_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"

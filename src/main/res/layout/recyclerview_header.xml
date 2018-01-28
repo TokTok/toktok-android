@@ -8,7 +8,7 @@
     android:paddingEnd="16dp">
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/recyclerview_header_text"
+        android:id="@+id/recycler_view_header_text"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/status_circle"

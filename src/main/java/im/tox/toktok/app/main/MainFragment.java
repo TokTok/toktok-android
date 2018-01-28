@@ -1,6 +1,7 @@
 package im.tox.toktok.app.main;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import im.tox.toktok.R;
+import im.tox.toktok.app.CompatUtil;
 import im.tox.toktok.app.CustomViewPager;
 import im.tox.toktok.app.MainActivityHolder;
 import im.tox.toktok.app.new_message.NewMessageActivity;
@@ -106,8 +108,10 @@ public final class MainFragment extends Fragment {
 
     private void initToolbar(@NonNull FrameLayout view) {
         Toolbar mToolbar = view.findViewById(R.id.home_toolbar);
+        final Resources resources = getResources();
 
-        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.homeColorStatusBar, null));
+        getActivity().getWindow().setStatusBarColor(
+                CompatUtil.getColor(resources, R.color.homeColorStatusBar));
 
         mToolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
@@ -120,7 +124,7 @@ public final class MainFragment extends Fragment {
         activity.setSupportActionBar(mToolbar);
 
         ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setTitle(getResources().getString(R.string.app_name));
+        actionBar.setTitle(resources.getString(R.string.app_name));
         actionBar.setHomeAsUpIndicator(R.drawable.ic_navigation_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
     }

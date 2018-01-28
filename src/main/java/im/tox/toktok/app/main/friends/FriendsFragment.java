@@ -18,8 +18,8 @@ import android.widget.LinearLayout;
 
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import im.tox.toktok.R;
 import im.tox.toktok.app.BundleKey;
@@ -48,25 +48,12 @@ public final class FriendsFragment extends Fragment implements FriendItemClicks 
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         friendsRecycler.setLayoutManager(layoutManager);
 
-        ArrayList<Friend> friends = new ArrayList<>();
-        for (Friend friend : Arrays.asList(
+        final List<Friend> friends = Arrays.asList(
                 Friend.bart,
                 Friend.lorem,
                 Friend.jane,
                 Friend.john
-        )) {
-            for (int n = 1; n <= 50; n++) {
-                friends.add(new Friend(
-                        friend.id,
-                        friend.userName + n,
-                        friend.userMessage,
-                        friend.userStatus,
-                        friend.color,
-                        friend.secondColor,
-                        friend.photoReference
-                ));
-            }
-        }
+        );
 
         mFriendsRecyclerAdapter = new FriendsRecyclerHeaderAdapter(friends, this);
 
@@ -109,9 +96,9 @@ public final class FriendsFragment extends Fragment implements FriendItemClicks 
         Friend friend = mFriendsRecyclerAdapter.getItem(friendPosition);
 
         getActivity().startActivity(new Intent(getActivity(), CallActivity.class).putExtras(SBundle(
-                BundleKey.contactName().map(friend.userName),
-                BundleKey.contactColorPrimary().map(friend.color),
-                BundleKey.contactPhotoReference().map(friend.photoReference)
+                BundleKey.contactName.map(friend.userName),
+                BundleKey.contactColorPrimary.map(friend.color),
+                BundleKey.contactPhotoReference.map(friend.photoReference)
         )));
     }
 
@@ -120,11 +107,11 @@ public final class FriendsFragment extends Fragment implements FriendItemClicks 
         Friend friend = mFriendsRecyclerAdapter.getItem(friendPosition);
 
         getActivity().startActivity(new Intent(getActivity(), MessageActivity.class).putExtras(SBundle(
-                BundleKey.messageTitle().map(friend.userName),
-                BundleKey.contactColorPrimary().map(friend.color),
-                BundleKey.contactColorStatus().map(friend.secondColor),
-                BundleKey.imgResource().map(friend.photoReference),
-                BundleKey.messageType().map(0)
+                BundleKey.messageTitle.map(friend.userName),
+                BundleKey.contactColorPrimary.map(friend.color),
+                BundleKey.contactColorStatus.map(friend.secondColor),
+                BundleKey.imgResource.map(friend.photoReference),
+                BundleKey.messageType.map(0)
         )));
     }
 

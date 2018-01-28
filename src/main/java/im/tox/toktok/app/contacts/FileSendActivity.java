@@ -24,9 +24,9 @@ public final class FileSendActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        int colorPrimary = BundleKey.contactColorPrimary().get(bundle);
-        int colorStatus = BundleKey.contactColorStatus().get(bundle);
-        String userName = BundleKey.contactName().get(bundle);
+        int colorPrimary = BundleKey.contactColorPrimary.get(bundle);
+        int colorStatus = BundleKey.contactColorStatus.get(bundle);
+        String userName = BundleKey.contactName.get(bundle);
 
         getWindow().setStatusBarColor(colorStatus);
 

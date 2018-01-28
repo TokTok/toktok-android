@@ -27,9 +27,9 @@ abstract class NewMessageRecyclerAdapter extends RecyclerView.Adapter<NewMessage
 
     private static final Logger logger = LoggerFactory.getLogger(NewMessageRecyclerAdapter.class);
 
-    private SparseBooleanArray selectedItems;
-    private List<Friend> selectedContacts;
-    private List<Friend> savedContacts;
+    private final SparseBooleanArray selectedItems;
+    private final List<Friend> selectedContacts;
+    private final List<Friend> savedContacts;
     public List<Friend> friends;
     FriendAddOnClick listener;
 
@@ -163,7 +163,7 @@ final class FriendFilter extends Filter {
     private final NewMessageRecyclerAdapter adapter;
     private final List<Friend> friendsList;
     @NonNull
-    private List<Friend> filteredResults = new ArrayList<Friend>();
+    private List<Friend> filteredResults = new ArrayList<>();
 
     FriendFilter(
             NewMessageRecyclerAdapter adapter,

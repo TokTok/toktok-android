@@ -27,9 +27,9 @@ final class MessageRecallRecyclerAdapter extends RecyclerView.Adapter<ViewHolder
 
     private final RecallMessageListener recallMessageListener;
     @NonNull
-    private List<LineItem> items = new ArrayList<LineItem>();
+    private final List<LineItem> items = new ArrayList<>();
     @NonNull
-    private SparseBooleanArray selectedItems = new SparseBooleanArray();
+    private final SparseBooleanArray selectedItems = new SparseBooleanArray();
 
     MessageRecallRecyclerAdapter(
             Context context,
@@ -151,9 +151,9 @@ final class MessageRecallRecyclerViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
-    TextView mMessageText = itemView.findViewById(R.id.message_item_text);
-    TextView mMessageDetails = itemView.findViewById(R.id.message_item_details);
-    CardView mMessageBase = itemView.findViewById(R.id.message_item_base);
+    final TextView mMessageText = itemView.findViewById(R.id.message_item_text);
+    final TextView mMessageDetails = itemView.findViewById(R.id.message_item_details);
+    final CardView mMessageBase = itemView.findViewById(R.id.message_item_base);
 }
 
 final class MessageRecallRecyclerViewHolderHeader extends RecyclerView.ViewHolder {
@@ -161,7 +161,7 @@ final class MessageRecallRecyclerViewHolderHeader extends RecyclerView.ViewHolde
         super(itemView);
     }
 
-    TextView mMessageText = itemView.findViewById(R.id.recall_header_text);
+    final TextView mMessageText = itemView.findViewById(R.id.recall_header_text);
     CardView mMessageBase = itemView.findViewById(R.id.recall_header_base);
 }
 

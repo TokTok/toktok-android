@@ -36,7 +36,7 @@
     <string name="contact_popup_edit_contact_color">Edit friend color</string>
     <string name="contact_popup_edit_alias">Edit alias</string>
     <string name="contact_popup_delete_friend">Delete friend?</string>
-    <string name="contact_save_photo_snackbar">Profile photo saved</string>
+    <string name="contact_save_photo_snack_bar">Profile photo saved</string>
     <string name="contact_blocked">Friend blocked</string>
 
     <!-- New Message -->

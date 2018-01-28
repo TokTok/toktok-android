@@ -19,12 +19,12 @@ import im.tox.toktok.app.BundleKey;
 import im.tox.toktok.app.domain.Message;
 import im.tox.toktok.app.domain.MessageType;
 
-final class MessageRecallActivity extends AppCompatActivity implements RecallMessageListener {
+public final class MessageRecallActivity extends AppCompatActivity implements RecallMessageListener {
 
     @Nullable
-    private MessageRecallRecyclerAdapter adapter = null;
+    private MessageRecallRecyclerAdapter adapter;
     @Nullable
-    private FloatingActionButton mFAB = null;
+    private FloatingActionButton mFAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,8 @@ final class MessageRecallActivity extends AppCompatActivity implements RecallMes
 
         Bundle bundle = getIntent().getExtras();
 
-        int colorPrimary = BundleKey.colorPrimary().get(bundle);
-        int colorStatus = BundleKey.colorPrimaryStatus().get(bundle);
+        int colorPrimary = BundleKey.colorPrimary.get(bundle);
+        int colorStatus = BundleKey.colorPrimaryStatus.get(bundle);
 
         Toolbar mToolbar = this.findViewById(R.id.recall_toolbar);
         mToolbar.setBackgroundColor(colorPrimary);

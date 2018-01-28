@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import im.tox.toktok.R;
 import im.tox.toktok.app.BundleKey;
+import im.tox.toktok.app.CompatUtil;
 import im.tox.toktok.app.call.CallActivity;
 import im.tox.toktok.app.contacts.FileSendActivity;
 import im.tox.toktok.app.domain.Friend;
@@ -290,7 +291,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         }
     };
 
-    void finish() {
+    private void finish() {
         finish(DoNothing);
     }
 
@@ -353,9 +354,9 @@ public final class SlideInContactsLayout extends ViewGroup {
             @Override
             public void onClick(View v) {
                 activity.startActivity(new Intent(activity, CallActivity.class).putExtras(SBundle(
-                        BundleKey.contactName().map(friend.userName),
-                        BundleKey.contactColorPrimary().map(friend.color),
-                        BundleKey.contactPhotoReference().map(friend.photoReference)
+                        BundleKey.contactName.map(friend.userName),
+                        BundleKey.contactColorPrimary.map(friend.color),
+                        BundleKey.contactPhotoReference.map(friend.photoReference)
                 )));
             }
         });
@@ -365,7 +366,7 @@ public final class SlideInContactsLayout extends ViewGroup {
             public void onClick(View v) {
                 activity.overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out);
                 activity.startActivity(new Intent(activity, VideoCallActivity.class).putExtras(SBundle(
-                        BundleKey.contactPhotoReference().map(friend.photoReference)
+                        BundleKey.contactPhotoReference.map(friend.photoReference)
                 )));
             }
         });
@@ -374,11 +375,11 @@ public final class SlideInContactsLayout extends ViewGroup {
             @Override
             public void onClick(View v) {
                 activity.startActivity(new Intent(activity, MessageActivity.class).putExtras(SBundle(
-                        BundleKey.messageTitle().map(friend.userName),
-                        BundleKey.contactColorPrimary().map(friend.color),
-                        BundleKey.contactColorStatus().map(friend.secondColor),
-                        BundleKey.imgResource().map(friend.photoReference),
-                        BundleKey.messageType().map(0)
+                        BundleKey.messageTitle.map(friend.userName),
+                        BundleKey.contactColorPrimary.map(friend.color),
+                        BundleKey.contactColorStatus.map(friend.secondColor),
+                        BundleKey.imgResource.map(friend.photoReference),
+                        BundleKey.messageType.map(0)
                 )));
             }
         });
@@ -388,13 +389,13 @@ public final class SlideInContactsLayout extends ViewGroup {
             public void onClick(View v) {
                 Snackbar snack = Snackbar.make(
                         mCoordinator,
-                        getResources().getString(R.string.contact_save_photo_snackbar),
+                        getResources().getString(R.string.contact_save_photo_snack_bar),
                         Snackbar.LENGTH_LONG
                 );
                 View snackView = snack.getView();
                 snackView.setBackgroundResource(R.color.snackBarColor);
                 TextView snackText = snackView.findViewById(android.support.design.R.id.snackbar_text);
-                snackText.setTextColor(getResources().getColor(R.color.textDarkColor, null));
+                snackText.setTextColor(CompatUtil.getColor(getResources(), R.color.textDarkColor));
                 snack.show();
             }
         });
@@ -403,9 +404,9 @@ public final class SlideInContactsLayout extends ViewGroup {
             @Override
             public void onClick(View v) {
                 activity.startActivity(new Intent(activity, FileSendActivity.class).putExtras(SBundle(
-                        BundleKey.contactName().map(friend.userName),
-                        BundleKey.contactColorPrimary().map(friend.color),
-                        BundleKey.contactColorStatus().map(friend.secondColor)
+                        BundleKey.contactName.map(friend.userName),
+                        BundleKey.contactColorPrimary.map(friend.color),
+                        BundleKey.contactColorStatus.map(friend.secondColor)
                 )));
             }
         });
@@ -435,7 +436,7 @@ public final class SlideInContactsLayout extends ViewGroup {
                 View snackView = snack.getView();
                 snackView.setBackgroundResource(R.color.snackBarColor);
                 TextView snackText = snackView.findViewById(android.support.design.R.id.snackbar_text);
-                snackText.setTextColor(getResources().getColor(R.color.textDarkColor, null));
+                snackText.setTextColor(CompatUtil.getColor(getResources(), R.color.textDarkColor));
                 snack.show();
             }
         });
@@ -455,7 +456,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         });
     }
 
-    int getStatusBarHeight() {
+    private int getStatusBarHeight() {
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             return getResources().getDimensionPixelSize(resourceId);

@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import im.tox.toktok.R;
+import im.tox.toktok.app.CompatUtil;
 import im.tox.toktok.app.CustomViewPager;
 import im.tox.toktok.app.MyRecyclerScroll;
 import im.tox.toktok.app.domain.ChatMessage;
@@ -35,8 +36,6 @@ import im.tox.toktok.app.new_message.NewMessageActivity;
 public final class ChatsFragment extends Fragment implements ChatItemClick {
 
     @Nullable
-    private RecyclerView mChatsRecycler = null;
-    @Nullable
     private ChatsRecyclerAdapter mChatsRecyclerAdapter = null;
     @Nullable
     private ActionMode mActionMode = null;
@@ -44,11 +43,11 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
     @Override
     public FrameLayout onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         FrameLayout view = (FrameLayout) inflater.inflate(R.layout.fragment_home_chats, container, false);
-        final FloatingActionButton fab = ((AppCompatActivity) getActivity()).findViewById(R.id.home_fab);
+        final FloatingActionButton fab = getActivity().findViewById(R.id.home_fab);
 
         // Recycler View
 
-        mChatsRecycler = view.findViewById(R.id.home_chats_recycler);
+        RecyclerView mChatsRecycler = view.findViewById(R.id.home_chats_recycler);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         mChatsRecycler.setLayoutManager(mLayoutManager);
@@ -125,12 +124,12 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
         public boolean onCreateActionMode(@NonNull final ActionMode mode, Menu menu) {
             final AppCompatActivity activity = (AppCompatActivity) getActivity();
             mAppLayout = activity.findViewById(R.id.appBarLayout);
-            mAppLayout.setBackgroundColor(getResources().getColor(R.color.backgroundColor, null));
+            mAppLayout.setBackgroundColor(CompatUtil.getColor(getResources(), R.color.backgroundColor));
 
             mFab = activity.findViewById(R.id.home_fab);
-            mFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.textDarkColor, null)));
+            mFab.setBackgroundTintList(ColorStateList.valueOf(CompatUtil.getColor(getResources(), R.color.textDarkColor)));
             mFab.setImageResource(R.drawable.ic_action_delete);
-            mFab.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.textWhiteColor, null)));
+            mFab.setImageTintList(ColorStateList.valueOf(CompatUtil.getColor(getResources(), R.color.textWhiteColor)));
 
             mCustomViewPager = activity.findViewById(R.id.home_tab_holder);
             mCustomViewPager.setSwipingEnabled(false);
@@ -154,11 +153,11 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            mAppLayout.setBackgroundColor(getResources().getColor(R.color.homeColorToolbar, null));
+            mAppLayout.setBackgroundColor(CompatUtil.getColor(getResources(), R.color.homeColorToolbar));
 
             mFab.setImageResource(R.drawable.ic_content_add_home);
-            mFab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.basicFABColor, null)));
-            mFab.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.basicFABTint, null)));
+            mFab.setBackgroundTintList(ColorStateList.valueOf(CompatUtil.getColor(getResources(), R.color.basicFABColor)));
+            mFab.setImageTintList(ColorStateList.valueOf(CompatUtil.getColor(getResources(), R.color.basicFABTint)));
 
             mFab.setOnClickListener(new View.OnClickListener() {
                 @Override

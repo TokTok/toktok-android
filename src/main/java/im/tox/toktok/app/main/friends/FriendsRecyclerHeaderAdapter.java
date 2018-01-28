@@ -55,6 +55,6 @@ final class FriendsRecyclerHeaderViewHolder extends RecyclerView.ViewHolder {
 
     FriendsRecyclerHeaderViewHolder(@NonNull LinearLayout itemView) {
         super(itemView);
-        headerText = itemView.findViewById(R.id.recyclerview_header_text);
+        headerText = itemView.findViewById(R.id.recycler_view_header_text);
     }
 }

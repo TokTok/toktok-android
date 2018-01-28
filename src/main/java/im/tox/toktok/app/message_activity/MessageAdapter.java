@@ -193,7 +193,7 @@ class MessageViewHolder extends RecyclerView.ViewHolder
 
 final class MessageViewHolderDetailed extends MessageViewHolder {
 
-    TextView mUserDetails;
+    final TextView mUserDetails;
 
     MessageViewHolderDetailed(
             @NonNull RelativeLayout itemView,

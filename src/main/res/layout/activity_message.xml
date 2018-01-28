@@ -57,7 +57,7 @@
 
             <android.support.v7.widget.CardView
                 android:layout_centerVertical="true"
-                android:id="@+id/message_input_cardview"
+                android:id="@+id/message_input_card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"

@@ -40,7 +40,7 @@ final class ChatsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @NonNull
-    private SparseBooleanArray selectedItems = new SparseBooleanArray();
+    private final SparseBooleanArray selectedItems = new SparseBooleanArray();
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -201,10 +201,10 @@ final class ChatsRecyclerViewHolderGroup extends ChatsRecyclerViewHolder {
             if (message instanceof GroupMessage) {
                 Group group = ((GroupMessage) message).group;
                 bundle = SBundle(
-                        BundleKey.messageType().map(1),
-                        BundleKey.contactColorPrimary().map(group.primaryColor),
-                        BundleKey.contactColorStatus().map(group.statusColor),
-                        BundleKey.messageTitle().map(group.groupName)
+                        BundleKey.messageType.map(1),
+                        BundleKey.contactColorPrimary.map(group.primaryColor),
+                        BundleKey.contactColorStatus.map(group.statusColor),
+                        BundleKey.messageTitle.map(group.groupName)
                 );
             } else {
                 throw new RuntimeException("Unsupported message type: " + message.getClass().getSimpleName());
@@ -239,11 +239,11 @@ final class ChatsRecyclerViewHolderUser extends ChatsRecyclerViewHolder {
             if (message instanceof FriendMessage) {
                 Friend friend = ((FriendMessage) message).friend;
                 bundle = SBundle(
-                        BundleKey.messageType().map(0),
-                        BundleKey.contactColorPrimary().map(friend.color),
-                        BundleKey.contactColorStatus().map(friend.secondColor),
-                        BundleKey.messageTitle().map(friend.userName),
-                        BundleKey.imgResource().map(friend.photoReference)
+                        BundleKey.messageType.map(0),
+                        BundleKey.contactColorPrimary.map(friend.color),
+                        BundleKey.contactColorStatus.map(friend.secondColor),
+                        BundleKey.messageTitle.map(friend.userName),
+                        BundleKey.imgResource.map(friend.photoReference)
                 );
             } else {
                 throw new RuntimeException("Unsupported message type: " + message.getClass().getSimpleName());

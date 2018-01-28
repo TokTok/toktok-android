@@ -10,9 +10,9 @@ import im.tox.toktok.R;
 
 final class FileSendActivityViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView mIcon;
-    TextView mFileName;
-    TextView mFileDate;
+    final ImageView mIcon;
+    final TextView mFileName;
+    final TextView mFileDate;
 
     FileSendActivityViewHolder(@NonNull RelativeLayout itemView) {
         super(itemView);

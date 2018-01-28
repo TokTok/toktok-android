@@ -17,7 +17,7 @@
         android:padding="16dp"
         android:visibility="invisible"
         android:clipToPadding="false"
-        android:id="@+id/videocall_bar"
+        android:id="@+id/video_call_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">

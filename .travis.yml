@@ -10,19 +10,19 @@ android:
   - tools
   - tools
   # Actual dependencies:
-  - android-24  # Needed for the system image.
+  - android-22  # Needed for the system image.
   - android-27
   - build-tools-26.0.2
   - extra-android-m2repository
   - extra-android-support
   - platform-tools
-  - sys-img-armeabi-v7a-android-24
+  - sys-img-armeabi-v7a-android-22
 
 before_install:
 - yes | sdkmanager "platforms;android-27"
 
 before_script:
-- echo no | android create avd --force -n test -t android-24 --abi armeabi-v7a
+- echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
 - emulator -avd test -no-window &
 - android-wait-for-emulator
 - adb shell settings put global window_animation_scale 0 &

@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import im.tox.toktok.R;
 import im.tox.toktok.app.BundleKey;
+import im.tox.toktok.app.CompatUtil;
 
 public final class VideoCallActivity extends AppCompatActivity {
 
@@ -21,12 +22,12 @@ public final class VideoCallActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        int contactColor = BundleKey.contactPhotoReference().get(bundle);
+        int contactColor = BundleKey.contactPhotoReference.get(bundle);
 
         this.<ImageView>findViewById(R.id.call_background).setImageResource(contactColor);
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.contactsTransparentBar, null));
+        getWindow().setStatusBarColor(CompatUtil.getColor(getResources(), R.color.contactsTransparentBar));
 
         this.findViewById(R.id.call_ongoing_fab).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +36,7 @@ public final class VideoCallActivity extends AppCompatActivity {
             }
         });
 
-        final RelativeLayout bottom = this.findViewById(R.id.videocall_bar);
+        final RelativeLayout bottom = this.findViewById(R.id.video_call_bar);
 
         Animation startAnimation = AnimationUtils.loadAnimation(bottom.getContext(), R.anim.abc_slide_in_bottom);
 

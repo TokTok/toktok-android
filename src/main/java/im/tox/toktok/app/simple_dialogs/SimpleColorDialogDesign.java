@@ -56,7 +56,7 @@ public final class SimpleColorDialogDesign extends Dialog {
         this.<ImageView>findViewById(R.id.simple_dialog_img).setImageResource(icon);
         this.<TextView>findViewById(R.id.simple_dialog_text).setText(title);
 
-        RecyclerView color_recycler = this.findViewById(R.id.simple_color_dialog_recyclerview);
+        RecyclerView color_recycler = this.findViewById(R.id.simple_color_dialog_recycler_view);
 
         color_recycler.setAdapter(new SimpleColorDialogDesignAdapter(MaterialColors.colors));
         color_recycler.setLayoutManager(new LinearLayoutManager(activity));

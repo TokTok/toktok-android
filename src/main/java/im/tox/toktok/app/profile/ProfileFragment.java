@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import im.tox.toktok.R;
+import im.tox.toktok.app.CompatUtil;
 import im.tox.toktok.app.simple_dialogs.SimpleShareDialogDesign;
 import im.tox.toktok.app.simple_dialogs.SimpleStatusDialogDesign;
 import im.tox.toktok.app.simple_dialogs.SimpleTextDialogDesign;
@@ -63,7 +64,7 @@ public final class ProfileFragment extends Fragment {
                 SimpleTextDialogDesign dial = new SimpleTextDialogDesign(
                         getActivity(),
                         getResources().getString(R.string.profile_nickname),
-                        getResources().getColor(R.color.homeColorToolbar, null),
+                        CompatUtil.getColor(getResources(), R.color.homeColorToolbar),
                         R.drawable.ic_person_black_48dp,
                         getResources().getString(R.string.sample_user_name),
                         null
@@ -79,7 +80,7 @@ public final class ProfileFragment extends Fragment {
                 SimpleTextDialogDesign dial = new SimpleTextDialogDesign(
                         getActivity(),
                         getResources().getString(R.string.profile_status_message),
-                        getResources().getColor(R.color.homeColorToolbar, null),
+                        CompatUtil.getColor(getResources(), R.color.homeColorToolbar),
                         R.drawable.ic_person_black_48dp,
                         getResources().getString(R.string.sample_status_message),
                         null

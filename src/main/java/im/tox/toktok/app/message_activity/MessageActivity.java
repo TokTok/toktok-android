@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 import de.hdodenhof.circleimageview.CircleImageView;
 import im.tox.toktok.R;
 import im.tox.toktok.app.BundleKey;
+import im.tox.toktok.app.CompatUtil;
 import im.tox.toktok.app.SizeAnimation;
 import im.tox.toktok.app.contacts.FileSendActivity;
 import im.tox.toktok.app.domain.Friend;
@@ -78,7 +79,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
     @Nullable
     private ActionMode mActionMode = null;
     @NonNull
-    private ActionMode.Callback actionModeCallback = new MessageActionModeCallback();
+    private final ActionMode.Callback actionModeCallback = new MessageActionModeCallback();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +87,11 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         setContentView(R.layout.activity_message);
 
         Bundle bundle = getIntent().getExtras();
-        contactColorPrimary = BundleKey.contactColorPrimary().get(bundle);
-        contactColorStatus = BundleKey.contactColorStatus().get(bundle);
-        typeOfMessage = BundleKey.messageType().get(bundle);
-        title = BundleKey.messageTitle().get(bundle);
-        imgSRC = BundleKey.imgResource().get(bundle);
+        contactColorPrimary = BundleKey.contactColorPrimary.get(bundle);
+        contactColorStatus = BundleKey.contactColorStatus.get(bundle);
+        typeOfMessage = BundleKey.messageType.get(bundle);
+        title = BundleKey.messageTitle.get(bundle);
+        imgSRC = BundleKey.imgResource.get(bundle);
 
         initToolbar();
         initRecyclerView();
@@ -108,25 +109,25 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         if (id == R.id.action_recall_message) {
             startActivity(new Intent(this, MessageRecallActivity.class)
                     .putExtras(SBundle(
-                            BundleKey.colorPrimary().map(contactColorPrimary),
-                            BundleKey.colorPrimaryStatus().map(contactColorStatus)
+                            BundleKey.colorPrimary.map(contactColorPrimary),
+                            BundleKey.colorPrimaryStatus.map(contactColorStatus)
                     )));
             return true;
         }
 
         if (id == R.id.action_group_members) {
             startActivity(new Intent(this, MessageGroupContacts.class).putExtras(SBundle(
-                    BundleKey.colorPrimary().map(contactColorPrimary),
-                    BundleKey.colorPrimaryStatus().map(contactColorStatus)
+                    BundleKey.colorPrimary.map(contactColorPrimary),
+                    BundleKey.colorPrimaryStatus.map(contactColorStatus)
             )));
             return true;
         }
 
         if (id == R.id.action_see_files_list) {
             startActivity(new Intent(this, FileSendActivity.class).putExtras(SBundle(
-                    BundleKey.contactName().map(title),
-                    BundleKey.contactColorPrimary().map(contactColorPrimary),
-                    BundleKey.contactColorStatus().map(contactColorStatus)
+                    BundleKey.contactName.map(title),
+                    BundleKey.contactColorPrimary.map(contactColorPrimary),
+                    BundleKey.contactColorStatus.map(contactColorStatus)
             )));
 
             return true;
@@ -174,7 +175,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
             snackView.setBackgroundResource(R.color.snackBarColor);
             snackView.setElevation(10);
             TextView snackText = snackView.findViewById(android.support.design.R.id.snackbar_text);
-            snackText.setTextColor(getResources().getColor(R.color.textDarkColor, null));
+            snackText.setTextColor(CompatUtil.getColor(getResources(), R.color.textDarkColor));
             snack.show();
             return true;
         }
@@ -208,7 +209,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
             snackView.setBackgroundResource(R.color.snackBarColor);
             snackView.setElevation(10);
             TextView snackText = snackView.findViewById(android.support.design.R.id.snackbar_text);
-            snackText.setTextColor(getResources().getColor(R.color.textDarkColor, null));
+            snackText.setTextColor(CompatUtil.getColor(getResources(), R.color.textDarkColor));
             snack.show();
             return true;
         }
@@ -264,8 +265,8 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
                     @Override
                     public void onClick(View v) {
                         startActivity(new Intent(MessageActivity.this, MessageGroupContacts.class).putExtras(SBundle(
-                                BundleKey.colorPrimary().map(contactColorPrimary),
-                                BundleKey.colorPrimaryStatus().map(contactColorStatus)
+                                BundleKey.colorPrimary.map(contactColorPrimary),
+                                BundleKey.colorPrimaryStatus.map(contactColorStatus)
                         )));
                     }
                 });
@@ -314,7 +315,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
 
     private void initInput() {
         mInput = this.findViewById(R.id.message_input);
-        mInputLayout = this.findViewById(R.id.message_input_cardview);
+        mInputLayout = this.findViewById(R.id.message_input_card_view);
         mSendButton = this.findViewById(R.id.message_fab);
         mSendButton.setBackgroundTintList(ColorStateList.valueOf(contactColorPrimary));
 

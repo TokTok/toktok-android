@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="im.tox.toktok">
-    <uses-sdk android:minSdkVersion="24"
+    <uses-sdk android:minSdkVersion="22"
               android:targetSdkVersion="27" />
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -36,7 +36,7 @@
         <activity
             android:name=".app.message_activity.MessageActivity"
             android:windowSoftInputMode="adjustResize"
-            android:label="Message"></activity>
+            android:label="Message" />
         <activity
             android:name=".app.message_activity.MessageRecallActivity"
             android:label="Recall Messages"
@@ -55,14 +55,14 @@
         </activity>
         <activity
             android:name=".app.call.CallActivity"
-            android:label="Voice Call"></activity>
+            android:label="Voice Call" />
         <activity
             android:name=".app.video_call.VideoCallActivity"
-            android:label="Video Call"></activity>
+            android:label="Video Call" />
 
         <activity
             android:name=".app.profile.RejectedCallMessages"
-            android:label="RejectedMessages"></activity>
+            android:label="RejectedMessages" />
 
     </application>
 

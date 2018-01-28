@@ -37,7 +37,7 @@ final class NewMessageRecyclerHeaderAdapter extends NewMessageRecyclerAdapter
 
     @Override
     public void onBindHeaderViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        TextView text = holder.itemView.findViewById(R.id.recyclerview_header_text);
+        TextView text = holder.itemView.findViewById(R.id.recycler_view_header_text);
         text.setText(String.valueOf(getItem(position).userName.charAt(0)));
     }
 
