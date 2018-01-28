@@ -16,6 +16,9 @@ android:
   - extra-android-support
   - platform-tools
 
+before_install:
+- yes | sdkmanager "platforms;android-27"
+
 install:
 # Install latest gradle android scala plugin, which supports recent android
 # gradle plugins.
