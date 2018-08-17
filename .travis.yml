@@ -1,31 +1,32 @@
+---
 language: android
 sudo: false
 jdk: oraclejdk8
 
 android:
   components:
-  # We need to install tools first, and twice, because it needs to be updated
-  # so android-27 can be found.
-  # See https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943
-  - tools
-  - tools
-  # Actual dependencies:
-  - android-22  # Needed for the system image.
-  - android-27
-  - build-tools-26.0.2
-  - extra-android-m2repository
-  - extra-android-support
-  - platform-tools
-  - sys-img-armeabi-v7a-android-22
+    # We need to install tools first, and twice, because it needs to be updated
+    # so android-27 can be found.
+    # See https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943
+    - tools
+    - tools
+    # Actual dependencies:
+    - android-22  # Needed for the system image.
+    - android-27
+    - build-tools-26.0.2
+    - extra-android-m2repository
+    - extra-android-support
+    - platform-tools
+    - sys-img-armeabi-v7a-android-22
 
 before_install:
-- yes | sdkmanager "platforms;android-27"
+  - yes | sdkmanager "platforms;android-27"
 
 before_script:
-- echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
-- emulator -avd test -no-window &
-- android-wait-for-emulator
-- adb shell settings put global window_animation_scale 0 &
-- adb shell settings put global transition_animation_scale 0 &
-- adb shell settings put global animator_duration_scale 0 &
-- adb shell input keyevent 82 &
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-window &
+  - android-wait-for-emulator
+  - adb shell settings put global window_animation_scale 0 &
+  - adb shell settings put global transition_animation_scale 0 &
+  - adb shell settings put global animator_duration_scale 0 &
+  - adb shell input keyevent 82 &

@@ -1,6 +1,6 @@
-load("//tools:project.bzl", "project")
+load("//tools/project:build_defs.bzl", "project")
 
-project("toktok-android")
+project()
 
 supportLibraryVersion = "27.0.1".replace(".", "_")
 
