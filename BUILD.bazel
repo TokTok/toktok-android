@@ -2,7 +2,7 @@ load("//tools/project:build_defs.bzl", "project")
 
 project()
 
-supportLibraryVersion = "27.0.1".replace(".", "_")
+supportLibraryVersion = "27.1.1".replace(".", "_")
 
 android_deps = [
     "@android_arch_core_common_1_0_0//jar",
