@@ -1,8 +1,9 @@
+load("@rules_android//android:rules.bzl", "android_binary", "android_library")
 load("//tools/project:build_defs.bzl", "project")
 
 project()
 
-supportLibraryVersion = "27.1.1".replace(".", "_")
+SUPPORT_LIBRARY_VERSION = "27.1.1".replace(".", "_")
 
 android_deps = [
     "@android_arch_core_common_1_0_0//jar",
@@ -10,18 +11,18 @@ android_deps = [
     "@android_arch_lifecycle_common_1_0_3//jar",
     "@android_arch_lifecycle_extensions_1_0_0//aar",
     "@android_arch_lifecycle_runtime_1_0_3//aar",
-    "@com_android_support_animated_vector_drawable_{}//aar".format(supportLibraryVersion),
-    "@com_android_support_appcompat_v7_{}//aar".format(supportLibraryVersion),
-    "@com_android_support_cardview_v7_{}//aar".format(supportLibraryVersion),
-    "@com_android_support_design_{}//aar".format(supportLibraryVersion),
-    "@com_android_support_recyclerview_v7_{}//aar".format(supportLibraryVersion),
-    "@com_android_support_support_annotations_{}//jar".format(supportLibraryVersion),
-    "@com_android_support_support_compat_{}//aar".format(supportLibraryVersion),
-    "@com_android_support_support_core_ui_{}//aar".format(supportLibraryVersion),
-    "@com_android_support_support_core_utils_{}//aar".format(supportLibraryVersion),
-    "@com_android_support_support_fragment_{}//aar".format(supportLibraryVersion),
-    "@com_android_support_support_vector_drawable_{}//aar".format(supportLibraryVersion),
-    "@com_android_support_transition_{}//aar".format(supportLibraryVersion),
+    "@com_android_support_animated_vector_drawable_{}//aar".format(SUPPORT_LIBRARY_VERSION),
+    "@com_android_support_appcompat_v7_{}//aar".format(SUPPORT_LIBRARY_VERSION),
+    "@com_android_support_cardview_v7_{}//aar".format(SUPPORT_LIBRARY_VERSION),
+    "@com_android_support_design_{}//aar".format(SUPPORT_LIBRARY_VERSION),
+    "@com_android_support_recyclerview_v7_{}//aar".format(SUPPORT_LIBRARY_VERSION),
+    "@com_android_support_support_annotations_{}//jar".format(SUPPORT_LIBRARY_VERSION),
+    "@com_android_support_support_compat_{}//aar".format(SUPPORT_LIBRARY_VERSION),
+    "@com_android_support_support_core_ui_{}//aar".format(SUPPORT_LIBRARY_VERSION),
+    "@com_android_support_support_core_utils_{}//aar".format(SUPPORT_LIBRARY_VERSION),
+    "@com_android_support_support_fragment_{}//aar".format(SUPPORT_LIBRARY_VERSION),
+    "@com_android_support_support_vector_drawable_{}//aar".format(SUPPORT_LIBRARY_VERSION),
+    "@com_android_support_transition_{}//aar".format(SUPPORT_LIBRARY_VERSION),
     "@com_sothree_slidinguppanel_library//aar",
     "@com_timehop_stickyheadersrecyclerview_library//aar",
     "@com_tonicartos_superslim//aar",
