@@ -44,6 +44,10 @@ android_binary(
     srcs = glob(["src/main/java/**/*.java"]),
     custom_package = "im.tox.toktok",
     manifest = "src/main/AndroidManifest.xml",
+    manifest_values = {
+        "minSdkVersion": "22",
+        "targetSdkVersion": "28",
+    },
     resource_files = glob(["src/main/res/**"]),
     deps = android_deps + [
         "@org_slf4j_slf4j_android//jar",
