@@ -1,6 +1,6 @@
 package im.tox.toktok.app;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class MyRecyclerScroll extends RecyclerView.OnScrollListener {
 

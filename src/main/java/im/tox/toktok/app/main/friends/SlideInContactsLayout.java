@@ -6,16 +6,16 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v4.widget.ViewDragHelper;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.view.ViewCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.customview.widget.ViewDragHelper;
+import androidx.cardview.widget.CardView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -394,7 +394,7 @@ public final class SlideInContactsLayout extends ViewGroup {
                 );
                 View snackView = snack.getView();
                 snackView.setBackgroundResource(R.color.snackBarColor);
-                TextView snackText = snackView.findViewById(android.support.design.R.id.snackbar_text);
+                TextView snackText = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
                 snackText.setTextColor(CompatUtil.getColor(getResources(), R.color.textDarkColor));
                 snack.show();
             }
@@ -435,7 +435,7 @@ public final class SlideInContactsLayout extends ViewGroup {
                 );
                 View snackView = snack.getView();
                 snackView.setBackgroundResource(R.color.snackBarColor);
-                TextView snackText = snackView.findViewById(android.support.design.R.id.snackbar_text);
+                TextView snackText = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
                 snackText.setTextColor(CompatUtil.getColor(getResources(), R.color.textDarkColor));
                 snack.show();
             }

@@ -13,7 +13,7 @@
     app:slm_isHeader="true"
     tools:text="Header Item">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/recall_header_base"
         app:cardBackgroundColor="@color/backgroundColor"
         android:layout_width="wrap_content"
@@ -29,5 +29,5 @@
             android:paddingTop="8dp"
             android:textSize="15sp" />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

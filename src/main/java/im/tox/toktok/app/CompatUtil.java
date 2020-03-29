@@ -1,8 +1,8 @@
 package im.tox.toktok.app;
 
 import android.content.res.Resources;
-import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
 
 public final class CompatUtil {
 

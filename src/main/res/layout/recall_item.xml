@@ -6,7 +6,7 @@
     android:paddingRight="24dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/message_item_base"
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_height="wrap_content"
@@ -46,6 +46,6 @@
 
         </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
