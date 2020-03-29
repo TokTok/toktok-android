@@ -50,7 +50,7 @@ android_binary(
     },
     resource_files = glob(["src/main/res/**"]),
     deps = android_deps + [
-        "@org_slf4j_slf4j_android//jar",
-        "@org_slf4j_slf4j_api//jar",
+        "@maven//:org_slf4j_slf4j_android",
+        "@maven//:org_slf4j_slf4j_api",
     ],
 )
