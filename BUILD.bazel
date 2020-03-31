@@ -1,35 +1,3 @@
-load("@rules_android//android:rules.bzl", "android_binary")
 load("//tools/project:build_defs.bzl", "project")
 
 project()
-
-android_deps = [
-    "@maven//:com_android_support_appcompat_v7",
-    "@maven//:com_android_support_cardview_v7",
-    "@maven//:com_android_support_support_core_ui",
-    "@maven//:com_android_support_support_fragment",
-    "@maven//:com_android_support_design",
-    "@maven//:com_android_support_recyclerview_v7",
-    "@maven//:com_android_support_support_annotations",
-    "@maven//:com_android_support_support_compat",
-    "@maven//:com_sothree_slidinguppanel_library",
-    "@maven//:com_timehop_stickyheadersrecyclerview_library",
-    "@maven//:com_tonicartos_superslim",
-    "@maven//:de_hdodenhof_circleimageview",
-]
-
-android_binary(
-    name = "app",
-    srcs = glob(["src/main/java/**/*.java"]),
-    custom_package = "im.tox.toktok",
-    manifest = "src/main/AndroidManifest.xml",
-    manifest_values = {
-        "minSdkVersion": "22",
-        "targetSdkVersion": "28",
-    },
-    resource_files = glob(["src/main/res/**"]),
-    deps = android_deps + [
-        "@maven//:org_slf4j_slf4j_android",
-        "@maven//:org_slf4j_slf4j_api",
-    ],
-)

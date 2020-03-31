@@ -1,0 +1,25 @@
+load("@rules_android//android:rules.bzl", "android_binary")
+
+android_binary(
+    name = "app",
+    srcs = glob(["src/main/java/**/*.java"]),
+    custom_package = "im.tox.toktok",
+    manifest = "src/main/AndroidManifest.xml",
+    manifest_values = {
+        "minSdkVersion": "22",
+        "targetSdkVersion": "28",
+    },
+    resource_files = glob(["src/main/res/**"]),
+    deps = [
+        "//toktok-android/sources/slidinguppanel",
+        "//toktok-android/sources/stickyheadersrecyclerview",
+        "//toktok-android/sources/superslim",
+        "@maven//:androidx_appcompat_appcompat",
+        "@maven//:androidx_cardview_cardview",
+        "@maven//:androidx_constraintlayout_constraintlayout",
+        "@maven//:com_google_android_material_material",
+        "@maven//:de_hdodenhof_circleimageview",
+        "@maven//:org_slf4j_slf4j_android",
+        "@maven//:org_slf4j_slf4j_api",
+    ],
+)

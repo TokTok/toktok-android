@@ -1,0 +1,8 @@
+include ':app'
+project(':app').projectDir = new File(rootDir, 'sources/app')
+include ':slidinguppanel'
+project(':slidinguppanel').projectDir = new File(rootDir, 'sources/slidinguppanel')
+include ':stickyheadersrecyclerview'
+project(':stickyheadersrecyclerview').projectDir = new File(rootDir, 'sources/stickyheadersrecyclerview')
+include ':superslim'
+project(':superslim').projectDir = new File(rootDir, 'sources/superslim')

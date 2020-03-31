@@ -1,0 +1,14 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "29.0.3"
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 27
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+}
