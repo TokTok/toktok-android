@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,12 +44,15 @@ public class LayoutManager extends RecyclerView.LayoutManager {
 
     private static final int NO_POSITION_REQUEST = -1;
 
+    @NonNull
     private final SectionLayoutManager mLinearSlm;
 
+    @NonNull
     private final SectionLayoutManager mGridSlm;
 
     private int mRequestPosition = NO_POSITION_REQUEST;
 
+    @NonNull
     private Rect mRect = new Rect();
 
     private int mRequestPositionOffset = 0;
@@ -62,7 +67,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         mSlms = new HashMap<>();
     }
 
-    LayoutManager(Builder builder) {
+    LayoutManager(@NonNull Builder builder) {
         mLinearSlm = new LinearSLM(this);
         mGridSlm = new GridSLM(this, builder.context);
         mSlms = builder.slms;
@@ -83,6 +88,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      *
      * @return Position of first completely visible item.
      */
+    @Nullable
     public View findFirstCompletelyVisibleItem() {
         View firstVisibleView = null;
         SectionData sd = null;
@@ -149,6 +155,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      *
      * @return Position of first visible item.
      */
+    @Nullable
     public View findFirstVisibleItem() {
         SectionData sd = new SectionData(this, getChildAt(0));
         final SectionLayoutManager slm = getSlm(sd);
@@ -245,7 +252,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
     }
 
     @Override
-    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+    public void onLayoutChildren(@NonNull RecyclerView.Recycler recycler, @NonNull RecyclerView.State state) {
         int itemCount = state.getItemCount();
         if (itemCount == 0) {
             detachAndScrapAttachedViews(recycler);
@@ -275,6 +282,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         fixOverscroll(bottomLine, layoutState);
     }
 
+    @NonNull
     @Override
     public RecyclerView.LayoutParams generateDefaultLayoutParams() {
         return new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -290,7 +298,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
     }
 
     @Override
-    public RecyclerView.LayoutParams generateLayoutParams(Context c, AttributeSet attrs) {
+    public RecyclerView.LayoutParams generateLayoutParams(@NonNull Context c, AttributeSet attrs) {
         // Just so we don't build layout params multiple times.
 
         boolean isString;
@@ -326,7 +334,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
 
     @Override
     public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler,
-                                  RecyclerView.State state) {
+                                  @NonNull RecyclerView.State state) {
         int numChildren = getChildCount();
         if (numChildren == 0) {
             return 0;
@@ -396,7 +404,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
     }
 
     @Override
-    public void smoothScrollToPosition(final RecyclerView recyclerView, RecyclerView.State state,
+    public void smoothScrollToPosition(@NonNull final RecyclerView recyclerView, RecyclerView.State state,
                                        final int position) {
         if (position < 0 || getItemCount() <= position) {
             Log.e("SuperSLiM.LayoutManager", "Ignored smooth scroll to " + position +
@@ -430,7 +438,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
                     }
 
                     @Override
-                    public int calculateDyToMakeVisible(View view, int snapPreference) {
+                    public int calculateDyToMakeVisible(@NonNull View view, int snapPreference) {
                         final RecyclerView.LayoutManager layoutManager = getLayoutManager();
                         if (!layoutManager.canScrollVertically()) {
                             return 0;
@@ -448,6 +456,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
                         return dy == 0 ? 1 : dy;
                     }
 
+                    @Nullable
                     @Override
                     public PointF computeScrollVectorForPosition(int targetPosition) {
                         if (getChildCount() == 0) {
@@ -464,21 +473,21 @@ public class LayoutManager extends RecyclerView.LayoutManager {
     }
 
     @Override
-    public int getDecoratedMeasuredWidth(View child) {
+    public int getDecoratedMeasuredWidth(@NonNull View child) {
         final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) child
                 .getLayoutParams();
         return super.getDecoratedMeasuredWidth(child) + lp.leftMargin + lp.rightMargin;
     }
 
     @Override
-    public int getDecoratedMeasuredHeight(View child) {
+    public int getDecoratedMeasuredHeight(@NonNull View child) {
         final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) child
                 .getLayoutParams();
         return super.getDecoratedMeasuredHeight(child) + lp.topMargin + lp.bottomMargin;
     }
 
     @Override
-    public void layoutDecorated(View child, int left, int top, int right, int bottom) {
+    public void layoutDecorated(@NonNull View child, int left, int top, int right, int bottom) {
         final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) child
                 .getLayoutParams();
         super.layoutDecorated(child, left + lp.leftMargin, top + lp.topMargin,
@@ -486,28 +495,28 @@ public class LayoutManager extends RecyclerView.LayoutManager {
     }
 
     @Override
-    public int getDecoratedLeft(View child) {
+    public int getDecoratedLeft(@NonNull View child) {
         final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) child
                 .getLayoutParams();
         return super.getDecoratedLeft(child) - lp.leftMargin;
     }
 
     @Override
-    public int getDecoratedTop(View child) {
+    public int getDecoratedTop(@NonNull View child) {
         final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) child
                 .getLayoutParams();
         return super.getDecoratedTop(child) - lp.topMargin;
     }
 
     @Override
-    public int getDecoratedRight(View child) {
+    public int getDecoratedRight(@NonNull View child) {
         final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) child
                 .getLayoutParams();
         return super.getDecoratedRight(child) + lp.rightMargin;
     }
 
     @Override
-    public int getDecoratedBottom(View child) {
+    public int getDecoratedBottom(@NonNull View child) {
         final ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) child
                 .getLayoutParams();
         return super.getDecoratedBottom(child) + lp.bottomMargin;
@@ -531,7 +540,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
     }
 
     @Override
-    public void onItemsUpdated(RecyclerView recyclerView, int positionStart, int itemCount) {
+    public void onItemsUpdated(@NonNull RecyclerView recyclerView, int positionStart, int itemCount) {
         super.onItemsUpdated(recyclerView, positionStart, itemCount);
 
         View first = getChildAt(0);
@@ -546,7 +555,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
     }
 
     @Override
-    public int computeVerticalScrollExtent(RecyclerView.State state) {
+    public int computeVerticalScrollExtent(@NonNull RecyclerView.State state) {
         if (getChildCount() == 0 || state.getItemCount() == 0) {
             return 0;
         }
@@ -565,7 +574,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
     }
 
     @Override
-    public int computeVerticalScrollOffset(RecyclerView.State state) {
+    public int computeVerticalScrollOffset(@NonNull RecyclerView.State state) {
         if (getChildCount() == 0 || state.getItemCount() == 0) {
             return 0;
         }
@@ -581,7 +590,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
     }
 
     @Override
-    public int computeVerticalScrollRange(RecyclerView.State state) {
+    public int computeVerticalScrollRange(@NonNull RecyclerView.State state) {
         if (!mSmoothScrollEnabled) {
             return state.getItemCount();
         }
@@ -604,7 +613,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
     }
 
     @Override
-    public void onRestoreInstanceState(Parcelable state) {
+    public void onRestoreInstanceState(@NonNull Parcelable state) {
         mRequestPosition = ((SavedState) state).anchorPosition;
         mRequestPositionOffset = ((SavedState) state).anchorOffset;
         requestLayout();
@@ -618,7 +627,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param direction  Direction fill will be taken towards.
      * @return Borderline.
      */
-    int getBorderLine(View anchorView, Direction direction) {
+    int getBorderLine(@Nullable View anchorView, Direction direction) {
         int borderline;
         if (anchorView == null) {
             if (direction == Direction.START) {
@@ -634,7 +643,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         return borderline;
     }
 
-    void measureHeader(View header) {
+    void measureHeader(@NonNull View header) {
         // Width to leave for the mSection to which this header belongs. Only applies if the
         // header is being laid out adjacent to the mSection.
         int unavailableWidth = 0;
@@ -650,8 +659,8 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         measureChildWithMargins(header, unavailableWidth, 0);
     }
 
-    private void attachHeaderForStart(View header, int leadingEdge, SectionData sd,
-                                      LayoutState state) {
+    private void attachHeaderForStart(@NonNull View header, int leadingEdge, @NonNull SectionData sd,
+                                      @NonNull LayoutState state) {
         if (state.getCachedView(sd.firstPosition) != null
                 && getDecoratedBottom(header) > leadingEdge) {
             addView(header, findLastIndexForSection(sd.firstPosition) + 1);
@@ -714,7 +723,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param state       Layout state.
      * @return Line to which content has been filled.
      */
-    private int fillNextSectionToEnd(int leadingEdge, int markerLine, LayoutState state) {
+    private int fillNextSectionToEnd(int leadingEdge, int markerLine, @NonNull LayoutState state) {
         if (markerLine >= leadingEdge) {
             return markerLine;
         }
@@ -761,7 +770,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param state       Layout state.
      * @return Line content was filled up to.
      */
-    private int fillNextSectionToStart(int leadingEdge, int markerLine, LayoutState state) {
+    private int fillNextSectionToStart(int leadingEdge, int markerLine, @NonNull LayoutState state) {
         if (markerLine < leadingEdge) {
             return markerLine;
         }
@@ -829,7 +838,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param state       Layout state.  @return Line to which content has been filled. If the line
      *                    is before the leading edge then the end of the data set has been reached.
      */
-    private int fillToEnd(int leadingEdge, LayoutState state) {
+    private int fillToEnd(int leadingEdge, @NonNull LayoutState state) {
         final View anchor = getAnchorAtEnd();
 
         LayoutParams anchorParams = (LayoutParams) anchor.getLayoutParams();
@@ -857,7 +866,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param state       Layout state.
      * @return Line content was filled up to.
      */
-    private int fillToStart(int leadingEdge, LayoutState state) {
+    private int fillToStart(int leadingEdge, @NonNull LayoutState state) {
         View anchor = getAnchorAtStart();
 
         LayoutParams anchorParams = (LayoutParams) anchor.getLayoutParams();
@@ -898,7 +907,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @return Line to which content has been filled. If the line is before the leading edge then
      * the end of the data set has been reached.
      */
-    private int fillUntil(int leadingEdge, Direction direction, LayoutState layoutState) {
+    private int fillUntil(int leadingEdge, Direction direction, @NonNull LayoutState layoutState) {
         if (direction == Direction.START) {
             return fillToStart(leadingEdge, layoutState);
         } else {
@@ -915,6 +924,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param from Edge to start looking from.
      * @return Null if no header found, otherwise the header view.
      */
+    @Nullable
     private View findAttachedHeaderForSection(final int sfp, final Direction from) {
         if (from == Direction.END) {
             return findAttachedHeaderForSectionFromEnd(sfp);
@@ -929,6 +939,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param sfp Section identifier.
      * @return Header, or null if not found.
      */
+    @Nullable
     private View findAttachedHeaderForSectionFromEnd(int sfp) {
         for (int i = getChildCount() - 1; i >= 0; i--) {
             View child = getChildAt(i);
@@ -952,6 +963,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param sfp Section identifier.
      * @return Header, or null if not found.
      */
+    @Nullable
     private View findAttachedHeaderForSectionFromStart(int min, int max, int sfp) {
         if (max < min) {
             return null;
@@ -981,6 +993,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param from       Edge to start looking from.
      * @return Null if no header or first item found, otherwise the found view.
      */
+    @Nullable
     private View findAttachedHeaderOrFirstViewForSection(final int sfp, int startIndex,
                                                          final Direction from) {
         int childIndex = startIndex;
@@ -1004,7 +1017,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         return binarySearchForLastPosition(0, getChildCount() - 1, sfp);
     }
 
-    private void fixOverscroll(int bottomLine, LayoutState state) {
+    private void fixOverscroll(int bottomLine, @NonNull LayoutState state) {
         if (!isOverscrolled(state)) {
             return;
         }
@@ -1027,6 +1040,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      *
      * @return Non-header view closest to the end edge.
      */
+    @Nullable
     private View getAnchorAtEnd() {
         if (getChildCount() == 1) {
             return getChildAt(0);
@@ -1050,6 +1064,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      *
      * @return View in section at start edge.
      */
+    @Nullable
     private View getAnchorAtStart() {
         View child = getChildAt(0);
         LayoutParams params = (LayoutParams) child.getLayoutParams();
@@ -1076,6 +1091,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      *
      * @return The anchor view, or null if no view is a valid anchor.
      */
+    @Nullable
     private View getAnchorChild() {
         if (getChildCount() == 0) {
             return null;
@@ -1232,7 +1248,8 @@ public class LayoutManager extends RecyclerView.LayoutManager {
                 .howManyMissingBelow(lastPosition, positionsOffscreen);
     }
 
-    private View getHeaderOrFirstViewForSection(int sfp, Direction direction, LayoutState state) {
+    @Nullable
+    private View getHeaderOrFirstViewForSection(int sfp, Direction direction, @NonNull LayoutState state) {
         View view = findAttachedHeaderOrFirstViewForSection(sfp,
                 direction == Direction.START ? 0 : getChildCount() - 1, direction);
         if (view == null) {
@@ -1246,6 +1263,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         return view;
     }
 
+    @Nullable
     private SectionLayoutManager getSLM(int kind, String key) {
         if (kind == SECTION_MANAGER_CUSTOM) {
             return mSlms.get(key);
@@ -1258,7 +1276,8 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         }
     }
 
-    private SectionLayoutManager getSlm(LayoutParams params) {
+    @Nullable
+    private SectionLayoutManager getSlm(@NonNull LayoutParams params) {
         if (params.sectionManagerKind == SECTION_MANAGER_CUSTOM) {
             return mSlms.get(params.sectionManager);
         } else if (params.sectionManagerKind == SECTION_MANAGER_LINEAR) {
@@ -1270,7 +1289,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         }
     }
 
-    private SectionLayoutManager getSlm(SectionData sd) {
+    private SectionLayoutManager getSlm(@NonNull SectionData sd) {
         SectionLayoutManager slm;
         if (sd.headerParams.sectionManagerKind == SECTION_MANAGER_CUSTOM) {
             slm = mSlms.get(sd.sectionManager);
@@ -1288,7 +1307,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         return slm.init(sd);
     }
 
-    private boolean isOverscrolled(LayoutState state) {
+    private boolean isOverscrolled(@NonNull LayoutState state) {
         final int itemCount = state.getRecyclerState().getItemCount();
 
         if (getChildCount() == 0) {
@@ -1325,7 +1344,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param state          Layout state.  @return Line to which content has been filled. If the
      *                       line is before the leading edge then the end of the data set has been
      */
-    private int layoutChildren(int anchorPosition, int borderLine, LayoutState state) {
+    private int layoutChildren(int anchorPosition, int borderLine, @NonNull LayoutState state) {
         final int height = getHeight();
 
         final LayoutState.View anchor = state.getView(anchorPosition);
@@ -1377,8 +1396,8 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param state      Layout state.
      * @return Line at which to start filling out the section's content.
      */
-    private int layoutHeaderTowardsEnd(View header, int markerLine, SectionData sd,
-                                       LayoutState state) {
+    private int layoutHeaderTowardsEnd(@NonNull View header, int markerLine, @NonNull SectionData sd,
+                                       @NonNull LayoutState state) {
         Rect r = setHeaderRectSides(mRect, sd, state);
 
         r.top = markerLine;
@@ -1408,8 +1427,8 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param state       Layout state.
      * @return Top of the section including the header.
      */
-    private int layoutHeaderTowardsStart(View header, int leadingEdge, int markerLine, int offset,
-                                         int sectionBottom, SectionData sd, LayoutState state) {
+    private int layoutHeaderTowardsStart(@NonNull View header, int leadingEdge, int markerLine, int offset,
+                                         int sectionBottom, @NonNull SectionData sd, @NonNull LayoutState state) {
         Rect r = setHeaderRectSides(mRect, sd, state);
 
         if (sd.headerParams.isHeaderInline() && !sd.headerParams.isHeaderOverlay()) {
@@ -1442,7 +1461,8 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         return Math.min(r.top, markerLine);
     }
 
-    private Rect setHeaderRectSides(Rect r, SectionData sd, LayoutState state) {
+    @NonNull
+    private Rect setHeaderRectSides(@NonNull Rect r, @NonNull SectionData sd, @NonNull LayoutState state) {
         final int paddingLeft = getPaddingLeft();
         final int paddingRight = getPaddingRight();
 
@@ -1498,7 +1518,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      *
      * @param state Layout state.
      */
-    private void trimEnd(LayoutState state) {
+    private void trimEnd(@NonNull LayoutState state) {
         int height = getHeight();
         for (int i = getChildCount() - 1; i >= 0; i--) {
             View child = getChildAt(i);
@@ -1517,7 +1537,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      *
      * @param state Layout state.
      */
-    private void trimStart(LayoutState state) {
+    private void trimStart(@NonNull LayoutState state) {
         // Find the first view visible on the screen.
         View anchor = null;
         int anchorIndex = 0;
@@ -1575,7 +1595,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param direction Direction of edge to trim against.
      * @param state     Layout state.
      */
-    private void trimTail(Direction direction, LayoutState state) {
+    private void trimTail(Direction direction, @NonNull LayoutState state) {
         if (direction == Direction.START) {
             trimStart(state);
         } else {
@@ -1591,7 +1611,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param markerLine End of the section as given by the SLM.
      * @return The end of the section including the header.
      */
-    private int updateHeaderForEnd(View header, int markerLine) {
+    private int updateHeaderForEnd(@Nullable View header, int markerLine) {
         if (header == null) {
             return markerLine;
         }
@@ -1613,8 +1633,8 @@ public class LayoutManager extends RecyclerView.LayoutManager {
      * @param state       Layout state.
      * @return Updated line for the start of the section content including the header.
      */
-    private int updateHeaderForStart(View header, int leadingEdge, int markerLine, SectionData sd,
-                                     LayoutState state) {
+    private int updateHeaderForStart(@NonNull View header, int leadingEdge, int markerLine, @NonNull SectionData sd,
+                                     @NonNull LayoutState state) {
         if (!sd.hasHeader) {
             return markerLine;
         }
@@ -1661,7 +1681,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         return markerLine;
     }
 
-    private void updateHeaderForTrimFromStart(View header) {
+    private void updateHeaderForTrimFromStart(@NonNull View header) {
         SectionData sd = new SectionData(this, header);
         if (!sd.headerParams.isHeaderSticky()) {
             return;
@@ -1704,17 +1724,20 @@ public class LayoutManager extends RecyclerView.LayoutManager {
 
         final Context context;
 
+        @NonNull
         HashMap<String, SectionLayoutManager> slms = new HashMap<>();
 
         public Builder(Context context) {
             this.context = context;
         }
 
+        @NonNull
         public Builder addSlm(String key, SectionLayoutManager slm) {
             slms.put(key, slm);
             return this;
         }
 
+        @NonNull
         public LayoutManager build() {
             return new LayoutManager(this);
         }
@@ -1760,6 +1783,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
 
         public boolean headerEndMarginIsAuto;
 
+        @Nullable
         String sectionManager;
 
         int sectionManagerKind = SECTION_MANAGER_LINEAR;
@@ -1773,7 +1797,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         }
 
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-        public LayoutParams(Context c, AttributeSet attrs) {
+        public LayoutParams(@NonNull Context c, AttributeSet attrs) {
             super(c, attrs);
 
             TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.superslim_LayoutManager);
@@ -1856,7 +1880,8 @@ public class LayoutManager extends RecyclerView.LayoutManager {
          * @param other Source layout params.
          * @return New layout params.
          */
-        public static LayoutParams from(ViewGroup.LayoutParams other) {
+        @NonNull
+        public static LayoutParams from(@Nullable ViewGroup.LayoutParams other) {
             if (other == null) {
                 Log.w("SuperSLiM",
                         "Null value passed in call to LayoutManager.LayoutParams.from().");
@@ -1971,7 +1996,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
             }
         }
 
-        private void loadHeaderEndMargin(TypedArray a, boolean isDimension) {
+        private void loadHeaderEndMargin(@NonNull TypedArray a, boolean isDimension) {
             if (isDimension) {
                 headerEndMarginIsAuto = false;
                 headerMarginEnd = a.getDimensionPixelSize(
@@ -1981,7 +2006,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
             }
         }
 
-        private void loadHeaderStartMargin(TypedArray a, boolean isDimension) {
+        private void loadHeaderStartMargin(@NonNull TypedArray a, boolean isDimension) {
             if (isDimension) {
                 headerStartMarginIsAuto = false;
                 headerMarginStart = a.getDimensionPixelSize(
@@ -1991,7 +2016,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
             }
         }
 
-        private void loadSlm(TypedArray a, boolean isString) {
+        private void loadSlm(@NonNull TypedArray a, boolean isString) {
             if (isString) {
                 sectionManager = a
                         .getString(R.styleable.superslim_LayoutManager_slm_section_sectionManager);
@@ -2040,11 +2065,13 @@ public class LayoutManager extends RecyclerView.LayoutManager {
 
         public static final Parcelable.Creator<SavedState> CREATOR
                 = new Parcelable.Creator<SavedState>() {
+            @NonNull
             @Override
-            public SavedState createFromParcel(Parcel in) {
+            public SavedState createFromParcel(@NonNull Parcel in) {
                 return new SavedState(in);
             }
 
+            @NonNull
             @Override
             public SavedState[] newArray(int size) {
                 return new SavedState[size];
@@ -2058,7 +2085,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         protected SavedState() {
         }
 
-        protected SavedState(Parcel in) {
+        protected SavedState(@NonNull Parcel in) {
             anchorPosition = in.readInt();
             anchorOffset = in.readInt();
         }
@@ -2069,7 +2096,7 @@ public class LayoutManager extends RecyclerView.LayoutManager {
         }
 
         @Override
-        public void writeToParcel(Parcel out, int flags) {
+        public void writeToParcel(@NonNull Parcel out, int flags) {
             out.writeInt(anchorPosition);
             out.writeInt(anchorOffset);
         }

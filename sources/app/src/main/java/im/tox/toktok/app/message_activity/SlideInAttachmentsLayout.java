@@ -20,6 +20,7 @@ final class SlideInAttachmentsLayout extends ViewGroup {
 
     private static final Logger logger = LoggerFactory.getLogger(SlideInAttachmentsLayout.class);
 
+    @NonNull
     private final ViewDragHelper mDragHelper;
     private View mChild;
     private float mInitialMotionY;

@@ -5,6 +5,9 @@ import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 public abstract class SectionLayoutManager {
 
     private static final int MARGIN_UNSET = -1;
@@ -120,7 +123,8 @@ public abstract class SectionLayoutManager {
         return params;
     }
 
-    public LayoutManager.LayoutParams generateLayoutParams(Context c, AttributeSet attrs) {
+    @NonNull
+    public LayoutManager.LayoutParams generateLayoutParams(@NonNull Context c, AttributeSet attrs) {
         return new LayoutManager.LayoutParams(c, attrs);
     }
 
@@ -136,6 +140,7 @@ public abstract class SectionLayoutManager {
      * @param skipHeader           Do not include the section header if it has one.
      * @return First completely visible item or null.
      */
+    @Nullable
     public View getFirstCompletelyVisibleView(int sectionFirstPosition, boolean skipHeader) {
         final int topEdge = mLayoutManager.getClipToPadding() ? mLayoutManager.getPaddingTop() : 0;
         final int bottomEdge = mLayoutManager.getClipToPadding() ?
@@ -181,6 +186,7 @@ public abstract class SectionLayoutManager {
      * @param skipHeader           Do not include the section header if it has one.
      * @return View.
      */
+    @Nullable
     public View getFirstVisibleView(int sectionFirstPosition, boolean skipHeader) {
         int lookAt = 0;
         int childCount = mLayoutManager.getChildCount();
@@ -241,6 +247,7 @@ public abstract class SectionLayoutManager {
      * @param sectionFirstPosition First position of section being queried.
      * @return Last completely visible item or null.
      */
+    @Nullable
     public View getLastCompletelyVisibleView(int sectionFirstPosition) {
         final int topEdge = mLayoutManager.getClipToPadding() ? mLayoutManager.getPaddingTop() : 0;
         final int bottomEdge = mLayoutManager.getClipToPadding() ?
@@ -285,6 +292,7 @@ public abstract class SectionLayoutManager {
      * @param sectionFirstPosition Section id.
      * @return View.
      */
+    @Nullable
     public View getLastVisibleView(int sectionFirstPosition) {
         int lookAt = mLayoutManager.getChildCount() - 1;
         View candidate = null;
@@ -338,7 +346,7 @@ public abstract class SectionLayoutManager {
         return defaultEdge;
     }
 
-    public int howManyMissingAbove(int firstPosition, SparseArray<Boolean> positionsOffscreen) {
+    public int howManyMissingAbove(int firstPosition, @NonNull SparseArray<Boolean> positionsOffscreen) {
         int itemsSkipped = 0;
         int itemsFound = 0;
         for (int i = firstPosition; itemsFound < positionsOffscreen.size(); i++) {
@@ -352,7 +360,7 @@ public abstract class SectionLayoutManager {
         return itemsSkipped;
     }
 
-    public int howManyMissingBelow(int lastPosition, SparseArray<Boolean> positionsOffscreen) {
+    public int howManyMissingBelow(int lastPosition, @NonNull SparseArray<Boolean> positionsOffscreen) {
         int itemsSkipped = 0;
         int itemsFound = 0;
         for (int i = lastPosition;
@@ -367,12 +375,13 @@ public abstract class SectionLayoutManager {
         return itemsSkipped;
     }
 
+    @NonNull
     public SectionLayoutManager init(SectionData sd) {
         return this;
     }
 
-    protected int addView(LayoutState.View child, int position, LayoutManager.Direction direction,
-                          LayoutState state) {
+    protected int addView(@NonNull LayoutState.View child, int position, LayoutManager.Direction direction,
+                          @NonNull LayoutState state) {
         int addIndex;
         if (direction == LayoutManager.Direction.START) {
             addIndex = 0;

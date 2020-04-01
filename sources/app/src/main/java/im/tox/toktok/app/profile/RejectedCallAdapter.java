@@ -30,6 +30,7 @@ final class RejectedCallAdapter
         this.dragStart = dragStart;
     }
 
+    @NonNull
     @Override
     public RejectedCallViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         RelativeLayout itemView = (RelativeLayout) LayoutInflater.from(viewGroup.getContext()).inflate(

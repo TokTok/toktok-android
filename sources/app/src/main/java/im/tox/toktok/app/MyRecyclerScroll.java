@@ -1,5 +1,6 @@
 package im.tox.toktok.app;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class MyRecyclerScroll extends RecyclerView.OnScrollListener {
@@ -11,7 +12,7 @@ public abstract class MyRecyclerScroll extends RecyclerView.OnScrollListener {
     private boolean isVisible = true;
 
     @Override
-    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         if (isVisible && scrollDist > MyRecyclerScroll.HIDE_THRESHOLD) {
             hide();

@@ -2,6 +2,8 @@ package com.tonicartos.superslim;
 
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 public class LinearSLM extends SectionLayoutManager {
 
     public static int ID = LayoutManager.SECTION_MANAGER_LINEAR;
@@ -11,7 +13,7 @@ public class LinearSLM extends SectionLayoutManager {
     }
 
     @Override
-    public int computeHeaderOffset(int firstVisiblePosition, SectionData sd, LayoutState state) {
+    public int computeHeaderOffset(int firstVisiblePosition, @NonNull SectionData sd, @NonNull LayoutState state) {
         /*
          * Work from an assumed overlap and add heights from the start until the overlap is zero or
          * less, or the current position (or max items) is reached.
@@ -39,8 +41,8 @@ public class LinearSLM extends SectionLayoutManager {
     }
 
     @Override
-    public int fillToEnd(int leadingEdge, int markerLine, int anchorPosition, SectionData sd,
-                         LayoutState state) {
+    public int fillToEnd(int leadingEdge, int markerLine, int anchorPosition, @NonNull SectionData sd,
+                         @NonNull LayoutState state) {
         final int itemCount = state.getRecyclerState().getItemCount();
 
         for (int i = anchorPosition; i < itemCount; i++) {
@@ -64,8 +66,8 @@ public class LinearSLM extends SectionLayoutManager {
     }
 
     @Override
-    public int fillToStart(int leadingEdge, int markerLine, int anchorPosition, SectionData sd,
-                           LayoutState state) {
+    public int fillToStart(int leadingEdge, int markerLine, int anchorPosition, @NonNull SectionData sd,
+                           @NonNull LayoutState state) {
         // Check to see if we have to adjust for minimum section height. We don't if there is an
         // attached non-header view in this section.
         boolean applyMinHeight = false;
@@ -150,7 +152,7 @@ public class LinearSLM extends SectionLayoutManager {
     }
 
     @Override
-    public int finishFillToEnd(int leadingEdge, View anchor, SectionData sd, LayoutState state) {
+    public int finishFillToEnd(int leadingEdge, @NonNull View anchor, @NonNull SectionData sd, @NonNull LayoutState state) {
         final int anchorPosition = mLayoutManager.getPosition(anchor);
         final int markerLine = mLayoutManager.getDecoratedBottom(anchor);
 
@@ -158,15 +160,15 @@ public class LinearSLM extends SectionLayoutManager {
     }
 
     @Override
-    public int finishFillToStart(int leadingEdge, View anchor, SectionData sd, LayoutState state) {
+    public int finishFillToStart(int leadingEdge, @NonNull View anchor, @NonNull SectionData sd, @NonNull LayoutState state) {
         final int anchorPosition = mLayoutManager.getPosition(anchor);
         final int markerLine = mLayoutManager.getDecoratedTop(anchor);
 
         return fillToStart(leadingEdge, markerLine, anchorPosition - 1, sd, state);
     }
 
-    private int layoutChild(LayoutState.View child, int markerLine,
-                            LayoutManager.Direction direction, SectionData sd, LayoutState state) {
+    private int layoutChild(@NonNull LayoutState.View child, int markerLine,
+                            LayoutManager.Direction direction, @NonNull SectionData sd, @NonNull LayoutState state) {
         final int height = mLayoutManager.getDecoratedMeasuredHeight(child.view);
         final int width = mLayoutManager.getDecoratedMeasuredWidth(child.view);
 
@@ -193,7 +195,7 @@ public class LinearSLM extends SectionLayoutManager {
         return markerLine;
     }
 
-    private void measureChild(LayoutState.View child, SectionData sd) {
+    private void measureChild(@NonNull LayoutState.View child, @NonNull SectionData sd) {
         mLayoutManager.measureChildWithMargins(child.view, sd.getTotalMarginWidth(), 0);
     }
 }

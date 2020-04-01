@@ -2,6 +2,7 @@ package com.timehop.stickyheadersrecyclerview;
 
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public interface StickyRecyclerHeadersAdapter<VH extends RecyclerView.ViewHolder> {
@@ -23,6 +24,7 @@ public interface StickyRecyclerHeadersAdapter<VH extends RecyclerView.ViewHolder
      * @param parent the view to create a header view holder for
      * @return the view holder
      */
+    @NonNull
     VH onCreateHeaderViewHolder(ViewGroup parent);
 
     /**

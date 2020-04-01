@@ -2,6 +2,7 @@ package im.tox.toktok.app.main;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -27,7 +28,7 @@ final class MainTabsAdapter extends FragmentStatePagerAdapter {
 
     private final Context context;
 
-    MainTabsAdapter(FragmentManager fm, Context context) {
+    MainTabsAdapter(@NonNull FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }
@@ -37,6 +38,7 @@ final class MainTabsAdapter extends FragmentStatePagerAdapter {
             new Pair(new ChatsFragment(), R.string.home_tabs_chats)
     );
 
+    @NonNull
     @Override
     public Fragment getItem(int i) {
         return items.get(i).fragment;
@@ -47,6 +49,7 @@ final class MainTabsAdapter extends FragmentStatePagerAdapter {
         return items.size();
     }
 
+    @NonNull
     @Override
     public CharSequence getPageTitle(int i) {
         return context.getResources().getString(items.get(i).titleResource);

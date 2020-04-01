@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.timehop.stickyheadersrecyclerview.calculation.DimensionCalculator;
@@ -43,7 +44,7 @@ public class HeaderRenderer {
      * @param offset       a Rect used to define the x/y offset of the header. Specify x/y offset by setting
      *                     the {@link Rect#left} and {@link Rect#top} properties, respectively.
      */
-    public void drawHeader(RecyclerView recyclerView, Canvas canvas, View header, Rect offset) {
+    public void drawHeader(@NonNull RecyclerView recyclerView, @NonNull Canvas canvas, @NonNull View header, @NonNull Rect offset) {
         canvas.save();
 
         if (recyclerView.getLayoutManager().getClipToPadding()) {
@@ -69,7 +70,7 @@ public class HeaderRenderer {
      * @param recyclerView for which to provide a header
      * @param header       for clipping
      */
-    private void initClipRectForHeader(Rect clipRect, RecyclerView recyclerView, View header) {
+    private void initClipRectForHeader(@NonNull Rect clipRect, @NonNull RecyclerView recyclerView, @NonNull View header) {
         mDimensionCalculator.initMargins(clipRect, header);
         if (mOrientationProvider.getOrientation(recyclerView) == LinearLayout.VERTICAL) {
             clipRect.set(

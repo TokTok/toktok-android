@@ -2,6 +2,7 @@ package com.tonicartos.superslim;
 
 import android.util.SparseArray;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,11 +15,12 @@ public class LayoutState {
 
     private final RecyclerView.State recyclerState;
 
+    @NonNull
     public final SparseArray<android.view.View> viewCache;
 
     public final boolean isLTR;
 
-    public LayoutState(RecyclerView.LayoutManager layoutManager, RecyclerView.Recycler recycler,
+    public LayoutState(@NonNull RecyclerView.LayoutManager layoutManager, RecyclerView.Recycler recycler,
                        RecyclerView.State recyclerState) {
         viewCache = new SparseArray<>(layoutManager.getChildCount());
         this.recyclerState = recyclerState;
@@ -42,6 +44,7 @@ public class LayoutState {
         return recyclerState;
     }
 
+    @NonNull
     public View getView(int position) {
         android.view.View child = getCachedView(position);
         boolean wasCached = child != null;
@@ -69,6 +72,7 @@ public class LayoutState {
             this.wasCached = wasCached;
         }
 
+        @NonNull
         public LayoutManager.LayoutParams getLayoutParams() {
             return (LayoutManager.LayoutParams) view.getLayoutParams();
         }

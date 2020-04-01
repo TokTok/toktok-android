@@ -20,6 +20,7 @@ final class FileSendActivityAdapter extends RecyclerView.Adapter<FileSendActivit
         this.files = files;
     }
 
+    @NonNull
     @Override
     public FileSendActivityViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         RelativeLayout itemView = (RelativeLayout) LayoutInflater.from(viewGroup.getContext())

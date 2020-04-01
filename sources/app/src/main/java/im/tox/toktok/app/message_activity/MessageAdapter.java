@@ -49,6 +49,7 @@ final class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         return messages.get(position).msgType.viewType;
     }
 
+    @NonNull
     @Override
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         RelativeLayout itemView;

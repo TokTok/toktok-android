@@ -22,6 +22,7 @@ final class CallOnGoingContactsAdapter extends RecyclerView.Adapter<CallOnGoingC
         this.friends = friends;
     }
 
+    @NonNull
     @Override
     public CallOnGoingContactsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         RelativeLayout itemView = (RelativeLayout) LayoutInflater.from(viewGroup.getContext())

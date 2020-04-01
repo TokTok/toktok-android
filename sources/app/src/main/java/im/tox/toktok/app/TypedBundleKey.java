@@ -47,6 +47,7 @@ public class TypedBundleKey {
             this.id = id;
         }
 
+        @NonNull
         public StringKeyValue map(String value) {
             return new StringKeyValue(id, value);
         }
@@ -64,6 +65,7 @@ public class TypedBundleKey {
             this.id = id;
         }
 
+        @NonNull
         public IntKeyValue map(int value) {
             return new IntKeyValue(id, value);
         }

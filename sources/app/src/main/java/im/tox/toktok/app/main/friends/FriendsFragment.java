@@ -36,6 +36,7 @@ public final class FriendsFragment extends Fragment implements FriendItemClicks 
     @Nullable
     private FriendsRecyclerHeaderAdapter mFriendsRecyclerAdapter = null;
 
+    @NonNull
     @Override
     public LinearLayout onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         LinearLayout view = (LinearLayout) inflater.inflate(R.layout.fragment_home_friends, container, false);

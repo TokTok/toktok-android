@@ -66,6 +66,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
     private FloatingActionButton mSendButton = null;
     @NonNull
     private Boolean mSendButtonActive = false;
+    @Nullable
     private String title = "";
     private int imgSRC = 0;
     @Nullable

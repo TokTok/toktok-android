@@ -5,10 +5,14 @@ import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTouchListener {
+    @NonNull
     private final GestureDetector mTapDetector;
+    @NonNull
     private final RecyclerView mRecyclerView;
     private final StickyRecyclerHeadersDecoration mDecor;
     private OnHeaderClickListener mOnHeaderClickListener;
@@ -17,13 +21,14 @@ public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTo
         void onHeaderClick(View header, int position, long headerId);
     }
 
-    public StickyRecyclerHeadersTouchListener(final RecyclerView recyclerView,
+    public StickyRecyclerHeadersTouchListener(@NonNull final RecyclerView recyclerView,
                                               final StickyRecyclerHeadersDecoration decor) {
         mTapDetector = new GestureDetector(recyclerView.getContext(), new SingleTapDetector());
         mRecyclerView = recyclerView;
         mDecor = decor;
     }
 
+    @Nullable
     public StickyRecyclerHeadersAdapter getAdapter() {
         if (mRecyclerView.getAdapter() instanceof StickyRecyclerHeadersAdapter) {
             return (StickyRecyclerHeadersAdapter) mRecyclerView.getAdapter();
@@ -40,7 +45,7 @@ public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTo
     }
 
     @Override
-    public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+    public boolean onInterceptTouchEvent(RecyclerView view, @NonNull MotionEvent e) {
         if (this.mOnHeaderClickListener != null) {
             boolean tapDetectorResponse = this.mTapDetector.onTouchEvent(e);
             if (tapDetectorResponse) {
@@ -65,7 +70,7 @@ public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTo
 
     private class SingleTapDetector extends GestureDetector.SimpleOnGestureListener {
         @Override
-        public boolean onSingleTapUp(MotionEvent e) {
+        public boolean onSingleTapUp(@NonNull MotionEvent e) {
             int position = mDecor.findHeaderPositionUnder((int) e.getX(), (int) e.getY());
             if (position != -1) {
                 View headerView = mDecor.getHeaderView(mRecyclerView, position);

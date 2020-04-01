@@ -26,6 +26,7 @@ import im.tox.toktok.app.simple_dialogs.SimpleTextDialogDesign;
 
 public final class ProfileFragment extends Fragment {
 
+    @NonNull
     @Override
     public CoordinatorLayout onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         super.onCreate(savedState);

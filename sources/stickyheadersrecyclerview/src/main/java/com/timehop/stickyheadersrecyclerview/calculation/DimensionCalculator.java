@@ -3,6 +3,8 @@ package com.timehop.stickyheadersrecyclerview.calculation;
 import android.graphics.Rect;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import static android.view.ViewGroup.LayoutParams;
 import static android.view.ViewGroup.MarginLayoutParams;
 
@@ -17,7 +19,7 @@ public class DimensionCalculator {
      * @param margins rect to populate
      * @param view    for which to get margins
      */
-    public void initMargins(Rect margins, View view) {
+    public void initMargins(@NonNull Rect margins, @NonNull View view) {
         LayoutParams layoutParams = view.getLayoutParams();
 
         if (layoutParams instanceof MarginLayoutParams) {
@@ -35,7 +37,7 @@ public class DimensionCalculator {
      *                           {@link MarginLayoutParams#leftMargin} is equivalent to {@link Rect#left}, etc.
      * @param marginLayoutParams margins to populate the Rect with
      */
-    private void initMarginRect(Rect marginRect, MarginLayoutParams marginLayoutParams) {
+    private void initMarginRect(@NonNull Rect marginRect, @NonNull MarginLayoutParams marginLayoutParams) {
         marginRect.set(
                 marginLayoutParams.leftMargin,
                 marginLayoutParams.topMargin,

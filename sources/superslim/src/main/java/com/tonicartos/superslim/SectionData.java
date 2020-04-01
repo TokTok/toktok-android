@@ -3,6 +3,8 @@ package com.tonicartos.superslim;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 public class SectionData {
 
     public final int firstPosition;
@@ -29,7 +31,7 @@ public class SectionData {
 
     LayoutManager.LayoutParams headerParams;
 
-    public SectionData(LayoutManager lm, View first) {
+    public SectionData(@NonNull LayoutManager lm, @NonNull View first) {
         final int paddingStart = lm.getPaddingStart();
         final int paddingEnd = lm.getPaddingEnd();
 
@@ -86,7 +88,7 @@ public class SectionData {
         return marginEnd + marginStart;
     }
 
-    public boolean sameSectionManager(LayoutManager.LayoutParams params) {
+    public boolean sameSectionManager(@NonNull LayoutManager.LayoutParams params) {
         return params.sectionManagerKind == sectionManagerKind ||
                 TextUtils.equals(params.sectionManager, sectionManager);
     }

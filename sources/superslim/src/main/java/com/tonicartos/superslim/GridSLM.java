@@ -8,6 +8,9 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 /**
  * Lays out views in a grid. The number of columns can be set directly, or a minimum size can be
  * requested. If you request a 100dip minimum column size and there is 330dip available, the layout
@@ -37,7 +40,7 @@ public class GridSLM extends SectionLayoutManager {
     }
 
     @Override
-    public int computeHeaderOffset(int firstVisiblePosition, SectionData sd, LayoutState state) {
+    public int computeHeaderOffset(int firstVisiblePosition, @NonNull SectionData sd, @NonNull LayoutState state) {
         final int itemCount = state.getRecyclerState().getItemCount();
 
         /*
@@ -70,8 +73,8 @@ public class GridSLM extends SectionLayoutManager {
     }
 
     @Override
-    public int fillToEnd(int leadingEdge, int markerLine, int anchorPosition, SectionData sd,
-                         LayoutState state) {
+    public int fillToEnd(int leadingEdge, int markerLine, int anchorPosition, @NonNull SectionData sd,
+                         @NonNull LayoutState state) {
         if (markerLine >= leadingEdge) {
             return markerLine;
         }
@@ -131,8 +134,8 @@ public class GridSLM extends SectionLayoutManager {
     }
 
     @Override
-    public int fillToStart(int leadingEdge, int markerLine, int anchorPosition, SectionData sd,
-                           LayoutState state) {
+    public int fillToStart(int leadingEdge, int markerLine, int anchorPosition, @NonNull SectionData sd,
+                           @NonNull LayoutState state) {
         final int firstContentPosition = sd.hasHeader ? sd.firstPosition + 1 : sd.firstPosition;
 
         // Check to see if we have to adjust for minimum section height. We don't if there is an
@@ -243,7 +246,7 @@ public class GridSLM extends SectionLayoutManager {
     }
 
     @Override
-    public int finishFillToEnd(int leadingEdge, View anchor, SectionData sd, LayoutState state) {
+    public int finishFillToEnd(int leadingEdge, @NonNull View anchor, @NonNull SectionData sd, @NonNull LayoutState state) {
         final int anchorPosition = mLayoutManager.getPosition(anchor);
         final int markerLine = getLowestEdge(sd.firstPosition, mLayoutManager.getChildCount() - 1,
                 mLayoutManager.getDecoratedBottom(anchor));
@@ -252,25 +255,27 @@ public class GridSLM extends SectionLayoutManager {
     }
 
     @Override
-    public int finishFillToStart(int leadingEdge, View anchor, SectionData sd, LayoutState state) {
+    public int finishFillToStart(int leadingEdge, @NonNull View anchor, @NonNull SectionData sd, @NonNull LayoutState state) {
         final int anchorPosition = mLayoutManager.getPosition(anchor);
         final int markerLine = mLayoutManager.getDecoratedTop(anchor);
 
         return fillToStart(leadingEdge, markerLine, anchorPosition - 1, sd, state);
     }
 
+    @NonNull
     @Override
     public LayoutManager.LayoutParams generateLayoutParams(LayoutManager.LayoutParams params) {
         return LayoutParams.from(params);
     }
 
+    @NonNull
     @Override
-    public LayoutManager.LayoutParams generateLayoutParams(Context c, AttributeSet attrs) {
+    public LayoutManager.LayoutParams generateLayoutParams(@NonNull Context c, AttributeSet attrs) {
         return new LayoutParams(c, attrs);
     }
 
     @Override
-    public int getAnchorPosition(LayoutState state, SectionData sd, int position) {
+    public int getAnchorPosition(@NonNull LayoutState state, @NonNull SectionData sd, int position) {
         calculateColumnWidthValues(sd);
 
         int firstPosition = sd.firstPosition;
@@ -312,7 +317,8 @@ public class GridSLM extends SectionLayoutManager {
         return foundItems ? bottomMostEdge : defaultEdge;
     }
 
-    public GridSLM init(SectionData sd) {
+    @NonNull
+    public GridSLM init(@NonNull SectionData sd) {
         super.init(sd);
 
         if (sd.headerParams instanceof LayoutParams) {
@@ -347,7 +353,7 @@ public class GridSLM extends SectionLayoutManager {
      * @return The height of the new row.
      */
     public int fillRow(int markerLine, int anchorPosition, LayoutManager.Direction direction,
-                       boolean measureRowItems, SectionData sd, LayoutState state) {
+                       boolean measureRowItems, @NonNull SectionData sd, @NonNull LayoutState state) {
         int rowHeight = 0;
         LayoutState.View[] views = new LayoutState.View[mNumColumns];
         for (int i = 0; i < mNumColumns; i++) {
@@ -409,7 +415,7 @@ public class GridSLM extends SectionLayoutManager {
         mColumnsSpecified = true;
     }
 
-    private void calculateColumnWidthValues(SectionData sd) {
+    private void calculateColumnWidthValues(@NonNull SectionData sd) {
         int availableWidth = mLayoutManager.getWidth() - sd.contentStart - sd.contentEnd;
         if (!mColumnsSpecified) {
             if (mMinimumWidth <= 0) {
@@ -440,8 +446,8 @@ public class GridSLM extends SectionLayoutManager {
      * @param sd        Section data.
      * @param state     Layout state.
      */
-    private void layoutChild(LayoutState.View child, int top, int col, int rowHeight,
-                             SectionData sd, LayoutState state) {
+    private void layoutChild(@NonNull LayoutState.View child, int top, int col, int rowHeight,
+                             @NonNull SectionData sd, @NonNull LayoutState state) {
         final int height;
         if (child.getLayoutParams().height == LayoutManager.LayoutParams.MATCH_PARENT) {
             height = rowHeight;
@@ -469,7 +475,7 @@ public class GridSLM extends SectionLayoutManager {
      * @param child View to measure.
      * @param sd    Section data.
      */
-    private void measureChild(LayoutState.View child, SectionData sd) {
+    private void measureChild(@NonNull LayoutState.View child, @NonNull SectionData sd) {
         int widthOtherColumns = (mNumColumns - 1) * mColumnWidth;
         mLayoutManager.measureChildWithMargins(child.view,
                 sd.marginStart + sd.marginEnd + widthOtherColumns,
@@ -486,7 +492,7 @@ public class GridSLM extends SectionLayoutManager {
             super(w, h);
         }
 
-        public LayoutParams(Context c, AttributeSet attrs) {
+        public LayoutParams(@NonNull Context c, AttributeSet attrs) {
             super(c, attrs);
 
             TypedArray a = c.obtainStyledAttributes(attrs, R.styleable.superslim_GridSLM);
@@ -531,7 +537,8 @@ public class GridSLM extends SectionLayoutManager {
          * @param other Source layout params.
          * @return New grid layout params.
          */
-        public static LayoutParams from(ViewGroup.LayoutParams other) {
+        @NonNull
+        public static LayoutParams from(@Nullable ViewGroup.LayoutParams other) {
             if (other == null) {
                 Log.w("SuperSLiM", "Null value passed in call to GridSLM.LayoutParams.from().");
                 return new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

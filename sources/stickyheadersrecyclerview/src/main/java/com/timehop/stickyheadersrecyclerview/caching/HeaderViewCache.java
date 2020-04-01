@@ -3,6 +3,8 @@ package com.timehop.stickyheadersrecyclerview.caching;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.collection.LongSparseArray;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,8 +27,9 @@ public class HeaderViewCache implements HeaderProvider {
         mOrientationProvider = orientationProvider;
     }
 
+    @Nullable
     @Override
-    public View getHeader(RecyclerView parent, int position) {
+    public View getHeader(@NonNull RecyclerView parent, int position) {
         long headerId = mAdapter.getHeaderId(position);
 
         View header = mHeaderViews.get(headerId);

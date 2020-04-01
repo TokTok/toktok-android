@@ -28,6 +28,7 @@ final class NewMessageRecyclerHeaderAdapter extends NewMessageRecyclerAdapter
         return getItem(position).userName.charAt(0);
     }
 
+    @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateHeaderViewHolder(@NonNull ViewGroup parent) {
         LinearLayout view = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(

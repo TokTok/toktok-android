@@ -49,6 +49,7 @@ public final class CallActivity extends AppCompatActivity {
     @NonNull
     private Boolean backgroundInitialised = false;
 
+    @NonNull
     private CallActivityViewHolder onCreateViewHolder() {
         return new CallActivityViewHolder(this);
     }
@@ -346,6 +347,7 @@ final class CallActivityViewHolder {
 
     @Nullable
     final Bundle bundle;
+    @Nullable
     final String friendTitle;
     final int friendColor;
     final int friendImgSrc;

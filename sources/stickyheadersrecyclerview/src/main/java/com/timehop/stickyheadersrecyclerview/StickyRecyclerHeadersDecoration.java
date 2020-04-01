@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.util.SparseArray;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,7 +68,7 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         int itemPosition = parent.getChildAdapterPosition(view);
         if (itemPosition == RecyclerView.NO_POSITION) {
@@ -86,7 +87,7 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
      * @param header      view used to calculate offset for the item
      * @param orientation used to calculate offset for the item
      */
-    private void setItemOffsetsForHeader(Rect itemOffsets, View header, int orientation) {
+    private void setItemOffsetsForHeader(@NonNull Rect itemOffsets, @NonNull View header, int orientation) {
         mDimensionCalculator.initMargins(mTempRect, header);
         if (orientation == LinearLayoutManager.VERTICAL) {
             itemOffsets.top = header.getHeight() + mTempRect.top + mTempRect.bottom;
@@ -96,7 +97,7 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
     }
 
     @Override
-    public void onDrawOver(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
+    public void onDrawOver(@NonNull Canvas canvas, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.onDrawOver(canvas, parent, state);
 
         final int childCount = parent.getChildCount();

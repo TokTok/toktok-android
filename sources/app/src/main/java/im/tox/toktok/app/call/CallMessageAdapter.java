@@ -20,6 +20,7 @@ final class CallMessageAdapter extends RecyclerView.Adapter<CallMessageViewHolde
         this.excuses = excuses;
     }
 
+    @NonNull
     @Override
     public CallMessageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LinearLayout itemView = (LinearLayout) LayoutInflater.from(viewGroup.getContext())

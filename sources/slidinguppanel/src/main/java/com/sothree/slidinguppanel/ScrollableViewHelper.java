@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -22,7 +23,7 @@ public class ScrollableViewHelper {
      * @param isSlidingUp    whether or not the panel is sliding up or down
      * @return the scroll position
      */
-    public int getScrollableViewScrollPosition(View scrollableView, boolean isSlidingUp) {
+    public int getScrollableViewScrollPosition(@Nullable View scrollableView, boolean isSlidingUp) {
         if (scrollableView == null) return 0;
         if (scrollableView instanceof ScrollView) {
             if (isSlidingUp) {

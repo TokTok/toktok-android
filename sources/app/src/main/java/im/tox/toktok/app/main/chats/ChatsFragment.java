@@ -42,6 +42,7 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
     @Nullable
     private ActionMode mActionMode = null;
 
+    @NonNull
     @Override
     public FrameLayout onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         FrameLayout view = (FrameLayout) inflater.inflate(R.layout.fragment_home_chats, container, false);

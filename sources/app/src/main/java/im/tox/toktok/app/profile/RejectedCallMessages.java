@@ -55,7 +55,7 @@ public final class RejectedCallMessages extends AppCompatActivity implements Dra
     }
 
     @Override
-    public void onDragStart(ViewHolder viewHolder) {
+    public void onDragStart(@NonNull ViewHolder viewHolder) {
         itemDrag.startDrag(viewHolder);
     }
 

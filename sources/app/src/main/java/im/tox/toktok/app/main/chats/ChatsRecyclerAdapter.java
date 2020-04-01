@@ -43,6 +43,7 @@ final class ChatsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @NonNull
     private final SparseBooleanArray selectedItems = new SparseBooleanArray();
 
+    @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         CardView itemView;

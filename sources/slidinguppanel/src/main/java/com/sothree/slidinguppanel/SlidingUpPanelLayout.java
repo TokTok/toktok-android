@@ -20,6 +20,8 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.MotionEventCompat;
 import androidx.core.view.ViewCompat;
 
@@ -45,6 +47,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     /**
      * Default initial state for the component
      */
+    @NonNull
     private static PanelState DEFAULT_SLIDE_STATE = PanelState.COLLAPSED;
 
     /**
@@ -103,6 +106,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     /**
      * Drawable used to draw the shadow between panes.
      */
+    @Nullable
     private final Drawable mShadowDrawable;
 
     /**
@@ -175,11 +179,13 @@ public class SlidingUpPanelLayout extends ViewGroup {
         DRAGGING
     }
 
+    @Nullable
     private PanelState mSlideState = DEFAULT_SLIDE_STATE;
 
     /**
      * If the current slide state is DRAGGING, this will store the last non dragging state
      */
+    @Nullable
     private PanelState mLastNotDraggingSlideState = DEFAULT_SLIDE_STATE;
 
     /**
@@ -218,6 +224,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     private final List<PanelSlideListener> mPanelSlideListeners = new CopyOnWriteArrayList<>();
     private View.OnClickListener mFadeOnClickListener;
 
+    @Nullable
     private final ViewDragHelper mDragHelper;
 
     /**
@@ -263,15 +270,15 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
     }
 
-    public SlidingUpPanelLayout(Context context) {
+    public SlidingUpPanelLayout(@NonNull Context context) {
         this(context, null);
     }
 
-    public SlidingUpPanelLayout(Context context, AttributeSet attrs) {
+    public SlidingUpPanelLayout(@NonNull Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SlidingUpPanelLayout(Context context, AttributeSet attrs, int defStyle) {
+    public SlidingUpPanelLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         if (isInEditMode()) {
@@ -705,7 +712,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
     }
 
-    private static boolean hasOpaqueBackground(View v) {
+    private static boolean hasOpaqueBackground(@NonNull View v) {
         final Drawable bg = v.getBackground();
         return bg != null && bg.getOpacity() == PixelFormat.OPAQUE;
     }
@@ -882,7 +889,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
+    public boolean onInterceptTouchEvent(@NonNull MotionEvent ev) {
         // If the scrollable view is handling touch, never intercept
         if (mIsScrollableViewHandlingTouch || !isTouchEnabled()) {
             mDragHelper.abort();
@@ -942,7 +949,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public boolean onTouchEvent(@NonNull MotionEvent ev) {
         if (!isEnabled() || !isTouchEnabled()) {
             return super.onTouchEvent(ev);
         }
@@ -956,7 +963,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
         final int action = MotionEventCompat.getActionMasked(ev);
 
         if (!isEnabled() || !isTouchEnabled() || (mIsUnableToDrag && action != MotionEvent.ACTION_DOWN)) {
@@ -1045,7 +1052,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         return super.dispatchTouchEvent(ev);
     }
 
-    private boolean isViewUnder(View view, int x, int y) {
+    private boolean isViewUnder(@Nullable View view, int x, int y) {
         if (view == null) return false;
         int[] viewLocation = new int[2];
         view.getLocationOnScreen(viewLocation);
@@ -1088,6 +1095,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
      *
      * @return the current panel state
      */
+    @Nullable
     public PanelState getPanelState() {
         return mSlideState;
     }
@@ -1097,7 +1105,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
      *
      * @param state - new panel state
      */
-    public void setPanelState(PanelState state) {
+    public void setPanelState(@Nullable PanelState state) {
 
         // Abort any running animation, to allow state change
         if (mDragHelper.getViewDragState() == ViewDragHelper.STATE_SETTLING) {
@@ -1185,7 +1193,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     @Override
-    protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
+    protected boolean drawChild(@NonNull Canvas canvas, View child, long drawingTime) {
         boolean result;
         final int save = canvas.save();
 
@@ -1257,7 +1265,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     @Override
-    public void draw(Canvas c) {
+    public void draw(@NonNull Canvas c) {
         super.draw(c);
 
         // draw the shadow
@@ -1310,11 +1318,13 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
 
+    @NonNull
     @Override
     protected ViewGroup.LayoutParams generateDefaultLayoutParams() {
         return new LayoutParams();
     }
 
+    @NonNull
     @Override
     protected ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams p) {
         return p instanceof MarginLayoutParams
@@ -1327,6 +1337,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         return p instanceof LayoutParams && super.checkLayoutParams(p);
     }
 
+    @NonNull
     @Override
     public ViewGroup.LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new LayoutParams(getContext(), attrs);
@@ -1392,7 +1403,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
         }
 
         @Override
-        public void onViewReleased(View releasedChild, float xvel, float yvel) {
+        public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
             int target = 0;
 
             // direction is always positive if we are sliding in the expanded direction
@@ -1476,7 +1487,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
             super(source);
         }
 
-        public LayoutParams(Context c, AttributeSet attrs) {
+        public LayoutParams(@NonNull Context c, AttributeSet attrs) {
             super(c, attrs);
 
             final TypedArray ta = c.obtainStyledAttributes(attrs, ATTRS);

@@ -1,5 +1,6 @@
 package com.timehop.stickyheadersrecyclerview.util;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 public class LinearLayoutOrientationProvider implements OrientationProvider {
 
     @Override
-    public int getOrientation(RecyclerView recyclerView) {
+    public int getOrientation(@NonNull RecyclerView recyclerView) {
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         throwIfNotLinearLayoutManager(layoutManager);
         return ((LinearLayoutManager) layoutManager).getOrientation();
     }
 
     @Override
-    public boolean isReverseLayout(RecyclerView recyclerView) {
+    public boolean isReverseLayout(@NonNull RecyclerView recyclerView) {
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         throwIfNotLinearLayoutManager(layoutManager);
         return ((LinearLayoutManager) layoutManager).getReverseLayout();

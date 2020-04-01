@@ -59,6 +59,7 @@ final class MessageRecallRecyclerAdapter extends RecyclerView.Adapter<ViewHolder
         }
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         if (viewType == 1) {

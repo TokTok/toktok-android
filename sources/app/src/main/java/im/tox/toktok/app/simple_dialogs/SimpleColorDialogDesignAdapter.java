@@ -26,6 +26,7 @@ final class SimpleColorDialogDesignAdapter extends RecyclerView.Adapter<SimpleCo
         this.items = items;
     }
 
+    @NonNull
     @Override
     public SimpleColorDialogDesignViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         CardView itemView = (CardView) LayoutInflater.from(viewGroup.getContext())
