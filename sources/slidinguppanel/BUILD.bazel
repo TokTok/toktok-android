@@ -8,9 +8,10 @@ android_library(
     resource_files = glob(["src/main/res/**"]),
     visibility = ["//toktok-android/sources/app:__pkg__"],
     deps = [
+        "@maven//:androidx_annotation_annotation",
         "@maven//:androidx_appcompat_appcompat",
-        "@maven//:androidx_recyclerview_recyclerview",
-        "@maven//:androidx_core_core",
         "@maven//:androidx_collection_collection",
+        "@maven//:androidx_core_core",
+        "@maven//:androidx_recyclerview_recyclerview",
     ],
 )
