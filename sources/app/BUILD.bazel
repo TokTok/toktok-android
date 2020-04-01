@@ -1,14 +1,21 @@
-load("@rules_android//android:rules.bzl", "android_binary")
+load("@rules_android//android:rules.bzl", "android_binary", "android_library")
 
 android_binary(
     name = "app",
-    srcs = glob(["src/main/java/**/*.java"]),
     custom_package = "im.tox.toktok",
     manifest = "src/main/AndroidManifest.xml",
     manifest_values = {
         "minSdkVersion": "14",
         "targetSdkVersion": "28",
     },
+    deps = [":app_lib"],
+)
+
+android_library(
+    name = "app_lib",
+    srcs = glob(["src/main/java/**/*.java"]),
+    custom_package = "im.tox.toktok",
+    manifest = "src/main/AndroidManifest.xml",
     resource_files = glob(["src/main/res/**"]),
     deps = [
         "//toktok-android/sources/slidinguppanel",
@@ -31,3 +38,32 @@ android_binary(
         "@maven//:org_slf4j_slf4j_api",
     ],
 )
+
+android_binary(
+    name = "test_app",
+    srcs = glob(["src/androidTest/**/*.java"]),
+    custom_package = "im.tox.toktok.app",
+    instruments = ":app",
+    manifest = "src/androidTest/AndroidManifest.xml",
+    manifest_values = {
+        "minSdkVersion": "14",
+        "targetSdkVersion": "28",
+    },
+    deps = [
+        ":app_lib",
+        "@maven//:androidx_annotation_annotation",
+        "@maven//:androidx_test_espresso_espresso_core",
+        "@maven//:androidx_test_ext_junit",
+        "@maven//:androidx_test_rules",
+        "@maven//:junit_junit",
+        "@maven//:org_hamcrest_hamcrest_library",
+    ],
+)
+
+# This doesn't work until android-test is migrated to Python 3.
+# TODO(https://github.com/android/android-test/issues/609): Enable this.
+#android_instrumentation_test(
+#    name = "app_test",
+#    target_device = "@android_test_support//tools/android/emulated_devices/generic_phone:android_28_x86",
+#    test_app = ":test_app",
+#)
