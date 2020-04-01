@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +40,7 @@ final class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
     }
 
     @NonNull
-    private static RelativeLayout inflate(int layout, @NonNull ViewGroup viewGroup) {
+    private static RelativeLayout inflate(@LayoutRes int layout, @NonNull ViewGroup viewGroup) {
         return (RelativeLayout) LayoutInflater.from(viewGroup.getContext())
                 .inflate(layout, viewGroup, false);
     }

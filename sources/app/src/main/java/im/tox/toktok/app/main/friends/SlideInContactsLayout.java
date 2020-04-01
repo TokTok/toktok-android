@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.Px;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.ViewCompat;
@@ -277,7 +278,7 @@ public final class SlideInContactsLayout extends ViewGroup {
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+    protected void onLayout(boolean changed, int left, int top, @Px int right, int bottom) {
         mDragRange = getHeight();
         if (changed) {
             mTop = getHeight() / 2;
@@ -317,7 +318,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         }
 
         @Override
-        public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
+        public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, @Px int dy) {
             mTop = top;
             mDragOffset = (float) top / mDragRange;
             requestLayout();

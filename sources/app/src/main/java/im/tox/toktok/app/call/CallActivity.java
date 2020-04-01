@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -306,7 +307,7 @@ public final class CallActivity extends AppCompatActivity {
         });
     }
 
-    private void initBackground(@NonNull CallActivityViewHolder holder, int imgResource) {
+    private void initBackground(@NonNull CallActivityViewHolder holder, @DrawableRes int imgResource) {
         final ImageView background = this.findViewById(R.id.call_background);
         background.setImageResource(imgResource);
 

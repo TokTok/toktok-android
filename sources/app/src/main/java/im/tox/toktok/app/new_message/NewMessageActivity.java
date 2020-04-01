@@ -28,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -120,7 +121,7 @@ public final class NewMessageActivity extends AppCompatActivity {
         });
     }
 
-    private void initToolbar(int colour, int secondColour) {
+    private void initToolbar(int colour, @ColorInt int secondColour) {
         mSelectedFriends = this.findViewById(R.id.new_message_selected_base);
         mSelectedFriendsImg = this.findViewById(R.id.new_message_selected_img);
         mSelectedFriendsText = this.findViewById(R.id.new_message_toolbar_selected_text);

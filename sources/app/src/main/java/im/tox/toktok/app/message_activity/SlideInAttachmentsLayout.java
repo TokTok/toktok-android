@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Px;
 import androidx.core.view.ViewCompat;
 import androidx.customview.widget.ViewDragHelper;
 
@@ -143,7 +144,7 @@ final class SlideInAttachmentsLayout extends ViewGroup {
     }
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    protected void onLayout(boolean changed, int l, int t, @Px int r, int b) {
         mDragRange = mChild.getHeight();
         if (changed) {
             mTop = getHeight() - mChild.getHeight();
@@ -161,7 +162,7 @@ final class SlideInAttachmentsLayout extends ViewGroup {
         }
 
         @Override
-        public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
+        public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, @Px int dy) {
             mTop = top;
             mDragOffset = (float) top / mDragRange;
             requestLayout();
