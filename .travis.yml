@@ -1,6 +1,7 @@
 ---
 language: android
-sudo: false
+dist: xenial
+os: linux
 jdk: oraclejdk8
 
 android:
@@ -12,8 +13,8 @@ android:
     - tools
     # Actual dependencies:
     - android-22  # Needed for the system image.
-    - android-28
-    - build-tools-29.0.2
+    - android-29
+    - build-tools-29.0.3
     - extra-android-m2repository
     - extra-android-support
     - platform-tools
