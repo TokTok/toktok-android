@@ -20,8 +20,10 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.Px;
 import androidx.core.view.MotionEventCompat;
 import androidx.core.view.ViewCompat;
 
@@ -428,7 +430,6 @@ public class SlidingUpPanelLayout extends ViewGroup {
         if (getPanelState() == PanelState.COLLAPSED) {
             smoothToBottom();
             invalidate();
-            return;
         }
     }
 
@@ -546,19 +547,16 @@ public class SlidingUpPanelLayout extends ViewGroup {
             mDragView.setClickable(true);
             mDragView.setFocusable(false);
             mDragView.setFocusableInTouchMode(false);
-            mDragView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!isEnabled() || !isTouchEnabled()) return;
-                    if (mSlideState != PanelState.EXPANDED && mSlideState != PanelState.ANCHORED) {
-                        if (mAnchorPoint < 1.0f) {
-                            setPanelState(PanelState.ANCHORED);
-                        } else {
-                            setPanelState(PanelState.EXPANDED);
-                        }
+            mDragView.setOnClickListener(v -> {
+                if (!isEnabled() || !isTouchEnabled()) return;
+                if (mSlideState != PanelState.EXPANDED && mSlideState != PanelState.ANCHORED) {
+                    if (mAnchorPoint < 1.0f) {
+                        setPanelState(PanelState.ANCHORED);
                     } else {
-                        setPanelState(PanelState.COLLAPSED);
+                        setPanelState(PanelState.EXPANDED);
                     }
+                } else {
+                    setPanelState(PanelState.COLLAPSED);
                 }
             });
             ;
@@ -570,7 +568,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
      *
      * @param dragViewResId The resource ID of the new drag view
      */
-    public void setDragView(int dragViewResId) {
+    public void setDragView(@IdRes int dragViewResId) {
         mDragViewResId = dragViewResId;
         setDragView(findViewById(dragViewResId));
     }
@@ -1466,11 +1464,11 @@ public class SlidingUpPanelLayout extends ViewGroup {
             super(MATCH_PARENT, MATCH_PARENT);
         }
 
-        public LayoutParams(int width, int height) {
+        public LayoutParams(@Px int width, @Px int height) {
             super(width, height);
         }
 
-        public LayoutParams(int width, int height, float weight) {
+        public LayoutParams(@Px int width, @Px int height, float weight) {
             super(width, height);
             this.weight = weight;
         }

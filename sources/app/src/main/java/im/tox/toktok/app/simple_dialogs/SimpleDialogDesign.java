@@ -52,12 +52,7 @@ public final class SimpleDialogDesign extends Dialog {
         confirmButton.setOnClickListener(clickAction);
 
         Button cancelButton = this.findViewById(R.id.simple_dialog_cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(v -> dismiss());
     }
 
 }

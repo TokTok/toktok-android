@@ -64,7 +64,7 @@ final class ChatsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         ChatMessage message = chatMessages.get(position);
 
         if (message instanceof FriendMessage) {

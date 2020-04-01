@@ -30,12 +30,7 @@ public final class VideoCallActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(CompatUtil.getColor(getResources(), R.color.contactsTransparentBar));
 
-        this.findViewById(R.id.call_ongoing_fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        this.findViewById(R.id.call_ongoing_fab).setOnClickListener(v -> finish());
 
         final RelativeLayout bottom = this.findViewById(R.id.video_call_bar);
 

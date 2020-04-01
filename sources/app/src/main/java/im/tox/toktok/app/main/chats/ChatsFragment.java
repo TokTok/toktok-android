@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -137,18 +136,10 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
             mCustomViewPager = activity.findViewById(R.id.home_tab_holder);
             mCustomViewPager.setSwipingEnabled(false);
 
-            mFab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mChatsRecyclerAdapter.deleteSelected();
+            mFab.setOnClickListener(v -> {
+                mChatsRecyclerAdapter.deleteSelected();
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mode.finish();
-                        }
-                    }, 500);
-                }
+                new Handler().postDelayed(() -> mode.finish(), 500);
             });
 
             return true;
@@ -162,12 +153,7 @@ public final class ChatsFragment extends Fragment implements ChatItemClick {
             mFab.setBackgroundTintList(ColorStateList.valueOf(CompatUtil.getColor(getResources(), R.color.basicFABColor)));
             mFab.setImageTintList(ColorStateList.valueOf(CompatUtil.getColor(getResources(), R.color.basicFABTint)));
 
-            mFab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getActivity(), NewMessageActivity.class));
-                }
-            });
+            mFab.setOnClickListener(v -> startActivity(new Intent(getActivity(), NewMessageActivity.class)));
 
             mCustomViewPager.setSwipingEnabled(true);
 

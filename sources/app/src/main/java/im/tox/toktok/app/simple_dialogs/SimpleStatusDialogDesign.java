@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -53,42 +52,28 @@ public final class SimpleStatusDialogDesign extends Dialog {
         activeBackgroundTransition[0].startTransition(250);
 
         final LinearLayout onlineStatus = this.findViewById(R.id.simple_dialog_status_online);
-        onlineStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activeBackgroundTransition[0].reverseTransition(250);
-                activeBackgroundTransition[0] = (TransitionDrawable) onlineStatus.getBackground();
-                activeBackgroundTransition[0].startTransition(250);
-            }
+        onlineStatus.setOnClickListener(v -> {
+            activeBackgroundTransition[0].reverseTransition(250);
+            activeBackgroundTransition[0] = (TransitionDrawable) onlineStatus.getBackground();
+            activeBackgroundTransition[0].startTransition(250);
         });
 
         final LinearLayout awayStatus = this.findViewById(R.id.simple_dialog_status_away);
-        awayStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activeBackgroundTransition[0].reverseTransition(250);
-                activeBackgroundTransition[0] = (TransitionDrawable) awayStatus.getBackground();
-                activeBackgroundTransition[0].startTransition(250);
-            }
+        awayStatus.setOnClickListener(v -> {
+            activeBackgroundTransition[0].reverseTransition(250);
+            activeBackgroundTransition[0] = (TransitionDrawable) awayStatus.getBackground();
+            activeBackgroundTransition[0].startTransition(250);
         });
 
         final LinearLayout busyStatus = this.findViewById(R.id.simple_dialog_status_busy);
-        busyStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activeBackgroundTransition[0].reverseTransition(250);
-                activeBackgroundTransition[0] = (TransitionDrawable) busyStatus.getBackground();
-                activeBackgroundTransition[0].startTransition(250);
-            }
+        busyStatus.setOnClickListener(v -> {
+            activeBackgroundTransition[0].reverseTransition(250);
+            activeBackgroundTransition[0] = (TransitionDrawable) busyStatus.getBackground();
+            activeBackgroundTransition[0].startTransition(250);
         });
 
         final Button cancelButton = this.findViewById(R.id.simple_dialog_cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(v -> dismiss());
     }
 
 }

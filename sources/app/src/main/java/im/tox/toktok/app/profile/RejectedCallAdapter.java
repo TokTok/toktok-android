@@ -2,8 +2,6 @@ package im.tox.toktok.app.profile;
 
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,15 +41,12 @@ final class RejectedCallAdapter
         String item = items.get(position);
         viewHolder.mMessage.setText(item);
 
-        viewHolder.itemView.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, @NonNull MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    dragStart.onDragStart(viewHolder);
-                }
-
-                return false;
+        viewHolder.itemView.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                dragStart.onDragStart(viewHolder);
             }
+
+            return false;
         });
     }
 

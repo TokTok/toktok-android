@@ -102,12 +102,7 @@ final class SlideInAttachmentsLayout extends ViewGroup {
 
     void finish() {
         smoothSlideTo(1f);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setVisibility(View.INVISIBLE);
-            }
-        }, 500);
+        new Handler().postDelayed(() -> setVisibility(View.INVISIBLE), 500);
     }
 
     @Override
@@ -162,7 +157,7 @@ final class SlideInAttachmentsLayout extends ViewGroup {
         }
 
         @Override
-        public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, @Px int dy) {
+        public void onViewPositionChanged(@NonNull View changedView, int left, int top, @Px int dx, @Px int dy) {
             mTop = top;
             mDragOffset = (float) top / mDragRange;
             requestLayout();

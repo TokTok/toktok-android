@@ -95,12 +95,9 @@ public final class NewMessageActivity extends AppCompatActivity {
 
         mFriends_Recycler_Adapter = new NewMessageRecyclerHeaderAdapter(friends, null);
 
-        mFriends_Recycler_Adapter.listener = new FriendAddOnClick() {
-            @Override
-            public void onClickListener(int position) {
-                mFriends_Recycler_Adapter.selectItem(position);
-                selectItem(position);
-            }
+        mFriends_Recycler_Adapter.listener = position -> {
+            mFriends_Recycler_Adapter.selectItem(position);
+            selectItem(position);
         };
 
         mRecycler.setAdapter(mFriends_Recycler_Adapter);
@@ -121,7 +118,7 @@ public final class NewMessageActivity extends AppCompatActivity {
         });
     }
 
-    private void initToolbar(int colour, @ColorInt int secondColour) {
+    private void initToolbar(@ColorInt int colour, @ColorInt int secondColour) {
         mSelectedFriends = this.findViewById(R.id.new_message_selected_base);
         mSelectedFriendsImg = this.findViewById(R.id.new_message_selected_img);
         mSelectedFriendsText = this.findViewById(R.id.new_message_toolbar_selected_text);
@@ -246,12 +243,9 @@ public final class NewMessageActivity extends AppCompatActivity {
         mSelectedFriendsImg.setImageResource(first.photoReference);
         mSelectedFriendsText.setText(first.userName);
         mSelectedFriendsButton.setImageResource(R.drawable.ic_content_clear);
-        mSelectedFriendsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.clearSelectedList();
-                destroySelectedContacts();
-            }
+        mSelectedFriendsButton.setOnClickListener(v -> {
+            adapter.clearSelectedList();
+            destroySelectedContacts();
         });
     }
 
@@ -263,18 +257,15 @@ public final class NewMessageActivity extends AppCompatActivity {
         mSelectedFriendsImg.setImageResource(R.color.backgroundColor);
 
         mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_down);
-        mSelectedFriendsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mSelectedMiniExtended) {
-                    destroySelectedContactsMini();
-                    mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_down);
-                } else {
-                    mSelectedMini.setVisibility(View.VISIBLE);
-                    mSelectedMiniExtended = true;
-                    mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_up);
-                    createMiniContact(adapter);
-                }
+        mSelectedFriendsButton.setOnClickListener(v -> {
+            if (mSelectedMiniExtended) {
+                destroySelectedContactsMini();
+                mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_down);
+            } else {
+                mSelectedMini.setVisibility(View.VISIBLE);
+                mSelectedMiniExtended = true;
+                mSelectedFriendsButton.setImageResource(R.drawable.ic_hardware_keyboard_arrow_up);
+                createMiniContact(adapter);
             }
         });
     }

@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
@@ -116,12 +114,7 @@ public final class MainFragment extends Fragment {
         getActivity().getWindow().setStatusBarColor(
                 CompatUtil.getColor(resources, R.color.homeColorStatusBar));
 
-        mToolbar.setNavigationOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDrawer.openDrawer(GravityCompat.START);
-            }
-        });
+        mToolbar.setNavigationOnClickListener(v -> mDrawer.openDrawer(GravityCompat.START));
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(mToolbar);
@@ -134,12 +127,7 @@ public final class MainFragment extends Fragment {
 
     private void initFAB(@NonNull FrameLayout view) {
         mFab = view.findViewById(R.id.home_fab);
-        mFab.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), NewMessageActivity.class));
-            }
-        });
+        mFab.setOnClickListener(v -> startActivity(new Intent(getActivity(), NewMessageActivity.class)));
     }
 
     @Override

@@ -105,23 +105,13 @@ final class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
                 view.mUserDetails.setText(message.msgDetails);
 
             case 2://MessageType.Received.viewType =>
-                viewHolder.mUserImg.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        messageClick.onImgClick();
-                    }
-                });
+                viewHolder.mUserImg.setOnClickListener(v -> messageClick.onImgClick());
 
                 view = (MessageViewHolderDetailed) viewHolder;
                 view.mUserDetails.setText(message.msgDetails);
 
             case 3://MessageType.Action.viewType =>
-                viewHolder.mUserImg.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        messageClick.onImgClick();
-                    }
-                });
+                viewHolder.mUserImg.setOnClickListener(v -> messageClick.onImgClick());
         }
     }
 

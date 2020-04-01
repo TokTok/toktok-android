@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
@@ -167,12 +166,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
                     getResources().getString(R.string.message_snackbar_group_muted),
                     Snackbar.LENGTH_LONG
             );
-            snack.setAction(getResources().getString(R.string.action_undo), new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    logger.debug("asdsad");
-                }
-            });
+            snack.setAction(getResources().getString(R.string.action_undo), v -> logger.debug("asdsad"));
             snack.setActionTextColor(contactColorPrimary);
             View snackView = snack.getView();
             snackView.setBackgroundResource(R.color.snackBarColor);
@@ -201,12 +195,7 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
                     getResources().getString(R.string.message_snackbar_friend_muted),
                     Snackbar.LENGTH_LONG
             );
-            snack.setAction(getResources().getString(R.string.action_undo), new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    logger.debug("asdsad");
-                }
-            });
+            snack.setAction(getResources().getString(R.string.action_undo), v -> logger.debug("asdsad"));
             snack.setActionTextColor(contactColorPrimary);
             View snackView = snack.getView();
             snackView.setBackgroundResource(R.color.snackBarColor);
@@ -254,25 +243,15 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
             case 0:
                 header.addView(getLayoutInflater().inflate(R.layout.message_header_user, null, true), params);
                 header.<CircleImageView>findViewById(R.id.message_header_user_img).setImageResource(imgSRC);
-                header.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startOverLayFriend();
-                    }
-                });
+                header.setOnClickListener(v -> startOverLayFriend());
                 break;
 
             default:
                 header.addView(getLayoutInflater().inflate(R.layout.message_header_group, null, true), params);
-                header.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(MessageActivity.this, MessageGroupContacts.class).putExtras(SBundle(
-                                BundleKey.colorPrimary.map(contactColorPrimary),
-                                BundleKey.colorPrimaryStatus.map(contactColorStatus)
-                        )));
-                    }
-                });
+                header.setOnClickListener(v -> startActivity(new Intent(MessageActivity.this, MessageGroupContacts.class).putExtras(SBundle(
+                        BundleKey.colorPrimary.map(contactColorPrimary),
+                        BundleKey.colorPrimaryStatus.map(contactColorStatus)
+                ))));
         }
 
         TextView mUserName = header.findViewById(R.id.message_header_title);
@@ -305,14 +284,11 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
 
         ImageButton attachButton = this.findViewById(R.id.message_attachments_button);
 
-        attachButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager) MessageActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(mInput.getApplicationWindowToken(), 0);
+        attachButton.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager) MessageActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mInput.getApplicationWindowToken(), 0);
 
-                overlayAttachments.start();
-            }
+            overlayAttachments.start();
         });
     }
 
@@ -322,14 +298,11 @@ public final class MessageActivity extends AppCompatActivity implements MessageC
         mSendButton = this.findViewById(R.id.message_fab);
         mSendButton.setBackgroundTintList(ColorStateList.valueOf(contactColorPrimary));
 
-        mSendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logger.debug("hahaha: " + mInput.getText());
-                mRecyclerAdapter.addItem(new Message(MessageType.Delivered, mInput.getText().toString(), "14:41 Delivered", R.drawable.user));
-                mRecycler.smoothScrollToPosition(0);
-                mInput.setText("");
-            }
+        mSendButton.setOnClickListener(v -> {
+            logger.debug("hahaha: " + mInput.getText());
+            mRecyclerAdapter.addItem(new Message(MessageType.Delivered, mInput.getText().toString(), "14:41 Delivered", R.drawable.user));
+            mRecycler.smoothScrollToPosition(0);
+            mInput.setText("");
         });
 
         if (typeOfMessage == 0) {

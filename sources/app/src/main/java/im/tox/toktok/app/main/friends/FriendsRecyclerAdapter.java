@@ -38,22 +38,19 @@ abstract class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendsRecycl
         final RelativeLayout itemView = (RelativeLayout) LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.fragment_home_friends_item, viewGroup, false);
 
-        return new FriendsRecyclerViewHolder(itemView, new FriendItemExpand() {
-            @Override
-            public void onClick() {
-                ViewHolder holder = (ViewHolder) itemView.getTag();
+        return new FriendsRecyclerViewHolder(itemView, () -> {
+            ViewHolder holder = (ViewHolder) itemView.getTag();
 
-                if (expandedItem == holder.getLayoutPosition()) {
-                    notifyItemChanged(expandedItem);
-                    expandedItem = -1;
-                } else {
-                    if (expandedItem >= 0) {
-                        notifyItemChanged(expandedItem);
-                    }
-
-                    expandedItem = holder.getLayoutPosition();
+            if (expandedItem == holder.getLayoutPosition()) {
+                notifyItemChanged(expandedItem);
+                expandedItem = -1;
+            } else {
+                if (expandedItem >= 0) {
                     notifyItemChanged(expandedItem);
                 }
+
+                expandedItem = holder.getLayoutPosition();
+                notifyItemChanged(expandedItem);
             }
         });
     }
@@ -64,31 +61,16 @@ abstract class FriendsRecyclerAdapter extends RecyclerView.Adapter<FriendsRecycl
         viewHolder.mUserName.setText(item.userName);
         viewHolder.mUserImage.setImageResource(item.photoReference);
         viewHolder.mUserImage.setClickable(true);
-        viewHolder.mUserImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                expandOnClick.startOverLayFriend(viewHolder.getAdapterPosition());
-            }
-        });
+        viewHolder.mUserImage.setOnClickListener(v -> expandOnClick.startOverLayFriend(viewHolder.getAdapterPosition()));
 
         if (position == expandedItem) {
             viewHolder.mExpandedArea.setVisibility(View.VISIBLE);
             viewHolder.mBase.setElevation(10);
             viewHolder.mBase.setBackgroundResource(R.drawable.cardboard_ripple);
 
-            viewHolder.mCallButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    expandOnClick.startCall(viewHolder.getAdapterPosition());
-                }
-            });
+            viewHolder.mCallButton.setOnClickListener(v -> expandOnClick.startCall(viewHolder.getAdapterPosition()));
 
-            viewHolder.mMessageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    expandOnClick.startMessage(viewHolder.getAdapterPosition());
-                }
-            });
+            viewHolder.mMessageButton.setOnClickListener(v -> expandOnClick.startMessage(viewHolder.getAdapterPosition()));
         } else {
             viewHolder.mExpandedArea.setVisibility(View.GONE);
             viewHolder.mBase.setElevation(0);

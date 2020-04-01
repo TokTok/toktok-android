@@ -5,7 +5,6 @@ import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 
@@ -58,12 +57,7 @@ public final class MessageGroupContacts extends AppCompatActivity implements Fri
 
         FloatingActionButton mFAB = this.findViewById(R.id.message_group_members_fab);
 
-        mFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MessageGroupContacts.this, NewMessageActivity.class).putExtras(bundle));
-            }
-        });
+        mFAB.setOnClickListener(v -> startActivity(new Intent(MessageGroupContacts.this, NewMessageActivity.class).putExtras(bundle)));
 
         RecyclerView mRecycler = this.findViewById(R.id.message_group_members_recycler);
 

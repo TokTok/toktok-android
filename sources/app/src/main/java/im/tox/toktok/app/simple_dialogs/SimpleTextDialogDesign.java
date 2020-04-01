@@ -63,12 +63,7 @@ public final class SimpleTextDialogDesign extends Dialog {
         input.setText(value);
 
         Button cancelButton = this.findViewById(R.id.simple_dialog_cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(v -> dismiss());
 
         final Button confirmButton = this.findViewById(R.id.simple_dialog_confirm);
         input.addTextChangedListener(new TextWatcher() {

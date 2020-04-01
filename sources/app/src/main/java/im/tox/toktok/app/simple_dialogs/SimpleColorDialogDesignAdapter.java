@@ -32,12 +32,9 @@ final class SimpleColorDialogDesignAdapter extends RecyclerView.Adapter<SimpleCo
         CardView itemView = (CardView) LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.simple_color_dialog_item, viewGroup, false);
 
-        itemView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(@NonNull View v) {
-                logger.debug("adsd");
-                v.setZ(1000.0f);
-            }
+        itemView.setOnClickListener(v -> {
+            logger.debug("adsd");
+            v.setZ(1000.0f);
         });
 
         return new SimpleColorDialogDesignViewHolder(itemView);

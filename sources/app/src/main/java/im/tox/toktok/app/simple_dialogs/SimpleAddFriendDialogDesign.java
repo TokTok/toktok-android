@@ -46,12 +46,7 @@ public final class SimpleAddFriendDialogDesign extends Dialog {
         final Button confirmButton = this.findViewById(R.id.simple_dialog_confirm);
 
         Button cancelButton = this.findViewById(R.id.simple_dialog_cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(v -> dismiss());
 
         input.addTextChangedListener(new TextWatcher() {
             @Override

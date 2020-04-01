@@ -129,7 +129,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         super.onFinishInflate();
     }
 
-    public void start(Activity activity, @NonNull Friend friend, int actionBarHeight) {
+    public void start(Activity activity, @NonNull Friend friend, @Px int actionBarHeight) {
         this.activity = activity;
         mTitle.setText(friend.userName);
 
@@ -278,7 +278,7 @@ public final class SlideInContactsLayout extends ViewGroup {
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, @Px int right, int bottom) {
+    protected void onLayout(boolean changed, @Px int left, @Px int top, @Px int right, @Px int bottom) {
         mDragRange = getHeight();
         if (changed) {
             mTop = getHeight() / 2;
@@ -288,10 +288,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         }
     }
 
-    private final Runnable DoNothing = new Runnable() {
-        @Override
-        public void run() {
-        }
+    private final Runnable DoNothing = () -> {
     };
 
     private void finish() {
@@ -301,13 +298,10 @@ public final class SlideInContactsLayout extends ViewGroup {
     public void finish(@NonNull final Runnable after) {
         smoothSlideTo(1f);
         backgroundTransition.reverseTransition(500);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mCoordinator.setVisibility(View.INVISIBLE);
-                setVisibility(View.GONE);
-                after.run();
-            }
+        new Handler().postDelayed(() -> {
+            mCoordinator.setVisibility(View.INVISIBLE);
+            setVisibility(View.GONE);
+            after.run();
         }, 500);
     }
 
@@ -318,7 +312,7 @@ public final class SlideInContactsLayout extends ViewGroup {
         }
 
         @Override
-        public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, @Px int dy) {
+        public void onViewPositionChanged(@NonNull View changedView, int left, int top, @Px int dx, @Px int dy) {
             mTop = top;
             mDragOffset = (float) top / mDragRange;
             requestLayout();
@@ -338,128 +332,96 @@ public final class SlideInContactsLayout extends ViewGroup {
     }
 
     private void initListeners(@NonNull final Friend friend) {
-        mEditNameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SimpleTextDialogDesign dial = new SimpleTextDialogDesign(
-                        activity,
-                        getResources().getString(R.string.contact_popup_edit_alias),
-                        friend.color,
-                        R.drawable.ic_person_black_48dp,
-                        friend.userName,
-                        null
-                );
-                dial.show();
-            }
+        mEditNameButton.setOnClickListener(v -> {
+            SimpleTextDialogDesign dial = new SimpleTextDialogDesign(
+                    activity,
+                    getResources().getString(R.string.contact_popup_edit_alias),
+                    friend.color,
+                    R.drawable.ic_person_black_48dp,
+                    friend.userName,
+                    null
+            );
+            dial.show();
         });
 
-        mVoiceCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.startActivity(new Intent(activity, CallActivity.class).putExtras(SBundle(
-                        BundleKey.contactName.map(friend.userName),
-                        BundleKey.contactColorPrimary.map(friend.color),
-                        BundleKey.contactPhotoReference.map(friend.photoReference)
-                )));
-            }
+        mVoiceCall.setOnClickListener(v -> activity.startActivity(new Intent(activity, CallActivity.class).putExtras(SBundle(
+                BundleKey.contactName.map(friend.userName),
+                BundleKey.contactColorPrimary.map(friend.color),
+                BundleKey.contactPhotoReference.map(friend.photoReference)
+        ))));
+
+        mVideoCall.setOnClickListener(v -> {
+            activity.overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out);
+            activity.startActivity(new Intent(activity, VideoCallActivity.class).putExtras(SBundle(
+                    BundleKey.contactPhotoReference.map(friend.photoReference)
+            )));
         });
 
-        mVideoCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fade_out);
-                activity.startActivity(new Intent(activity, VideoCallActivity.class).putExtras(SBundle(
-                        BundleKey.contactPhotoReference.map(friend.photoReference)
-                )));
-            }
+        mMessage.setOnClickListener(v -> activity.startActivity(new Intent(activity, MessageActivity.class).putExtras(SBundle(
+                BundleKey.messageTitle.map(friend.userName),
+                BundleKey.contactColorPrimary.map(friend.color),
+                BundleKey.contactColorStatus.map(friend.secondColor),
+                BundleKey.imgResource.map(friend.photoReference),
+                BundleKey.messageType.map(0)
+        ))));
+
+        mSaveProfile.setOnClickListener(v -> {
+            Snackbar snack = Snackbar.make(
+                    mCoordinator,
+                    getResources().getString(R.string.contact_save_photo_snack_bar),
+                    Snackbar.LENGTH_LONG
+            );
+            View snackView = snack.getView();
+            snackView.setBackgroundResource(R.color.snackBarColor);
+            TextView snackText = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
+            snackText.setTextColor(CompatUtil.getColor(getResources(), R.color.textDarkColor));
+            snack.show();
         });
 
-        mMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.startActivity(new Intent(activity, MessageActivity.class).putExtras(SBundle(
-                        BundleKey.messageTitle.map(friend.userName),
-                        BundleKey.contactColorPrimary.map(friend.color),
-                        BundleKey.contactColorStatus.map(friend.secondColor),
-                        BundleKey.imgResource.map(friend.photoReference),
-                        BundleKey.messageType.map(0)
-                )));
-            }
+        mFilesSend.setOnClickListener(v -> activity.startActivity(new Intent(activity, FileSendActivity.class).putExtras(SBundle(
+                BundleKey.contactName.map(friend.userName),
+                BundleKey.contactColorPrimary.map(friend.color),
+                BundleKey.contactColorStatus.map(friend.secondColor)
+        ))));
+
+        mDeleteFriend.setOnClickListener(v -> {
+            SimpleDialogDesign dial = new SimpleDialogDesign(
+                    activity,
+                    getResources().getString(R.string.dialog_delete_friend) + " " +
+                            friend.userName + " " +
+                            getResources().getString(R.string.dialog_delete_friend_end),
+                    friend.color, R.drawable.ic_person_black_48dp, null
+            );
+            dial.show();
         });
 
-        mSaveProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar snack = Snackbar.make(
-                        mCoordinator,
-                        getResources().getString(R.string.contact_save_photo_snack_bar),
-                        Snackbar.LENGTH_LONG
-                );
-                View snackView = snack.getView();
-                snackView.setBackgroundResource(R.color.snackBarColor);
-                TextView snackText = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
-                snackText.setTextColor(CompatUtil.getColor(getResources(), R.color.textDarkColor));
-                snack.show();
-            }
+        mBlockFriend.setOnClickListener(v -> {
+            Snackbar snack = Snackbar.make(
+                    mCoordinator,
+                    getResources().getString(R.string.contact_blocked),
+                    Snackbar.LENGTH_LONG
+            );
+            View snackView = snack.getView();
+            snackView.setBackgroundResource(R.color.snackBarColor);
+            TextView snackText = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
+            snackText.setTextColor(CompatUtil.getColor(getResources(), R.color.textDarkColor));
+            snack.show();
         });
 
-        mFilesSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.startActivity(new Intent(activity, FileSendActivity.class).putExtras(SBundle(
-                        BundleKey.contactName.map(friend.userName),
-                        BundleKey.contactColorPrimary.map(friend.color),
-                        BundleKey.contactColorStatus.map(friend.secondColor)
-                )));
-            }
-        });
-
-        mDeleteFriend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SimpleDialogDesign dial = new SimpleDialogDesign(
-                        activity,
-                        getResources().getString(R.string.dialog_delete_friend) + " " +
-                                friend.userName + " " +
-                                getResources().getString(R.string.dialog_delete_friend_end),
-                        friend.color, R.drawable.ic_person_black_48dp, null
-                );
-                dial.show();
-            }
-        });
-
-        mBlockFriend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar snack = Snackbar.make(
-                        mCoordinator,
-                        getResources().getString(R.string.contact_blocked),
-                        Snackbar.LENGTH_LONG
-                );
-                View snackView = snack.getView();
-                snackView.setBackgroundResource(R.color.snackBarColor);
-                TextView snackText = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
-                snackText.setTextColor(CompatUtil.getColor(getResources(), R.color.textDarkColor));
-                snack.show();
-            }
-        });
-
-        mChangeColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SimpleColorDialogDesign dial = new SimpleColorDialogDesign(
-                        activity,
-                        getResources().getString(R.string.dialog_change_color) + " " +
-                                friend.userName + " " +
-                                getResources().getString(R.string.dialog_change_color_end),
-                        friend.color, R.drawable.ic_image_color_lens, 0, null
-                );
-                dial.show();
-            }
+        mChangeColor.setOnClickListener(v -> {
+            SimpleColorDialogDesign dial = new SimpleColorDialogDesign(
+                    activity,
+                    getResources().getString(R.string.dialog_change_color) + " " +
+                            friend.userName + " " +
+                            getResources().getString(R.string.dialog_change_color_end),
+                    friend.color, R.drawable.ic_image_color_lens, 0, null
+            );
+            dial.show();
         });
     }
 
-    private int getStatusBarHeight() {
+    private @Px
+    int getStatusBarHeight() {
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             return getResources().getDimensionPixelSize(resourceId);

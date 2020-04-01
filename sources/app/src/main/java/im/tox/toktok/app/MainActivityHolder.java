@@ -1,7 +1,6 @@
 package im.tox.toktok.app;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -34,31 +33,9 @@ public final class MainActivityHolder extends AppCompatActivity {
         final LinearLayout chatsDrawerItem = this.findViewById(R.id.home_drawer_chats);
         final LinearLayout profileDrawerItem = this.findViewById(R.id.home_drawer_profile);
 
-        chatsDrawerItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activeTab = changeTab(activeTab, chatsDrawerItem, "Chats", "", new FragmentFactory() {
-                    @NonNull
-                    @Override
-                    public Fragment get() {
-                        return new MainFragment();
-                    }
-                });
-            }
-        });
+        chatsDrawerItem.setOnClickListener(v -> activeTab = changeTab(activeTab, chatsDrawerItem, "Chats", "", (FragmentFactory) () -> new MainFragment()));
 
-        profileDrawerItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activeTab = changeTab(activeTab, profileDrawerItem, "Profile", "Activity", new FragmentFactory() {
-                    @NonNull
-                    @Override
-                    public Fragment get() {
-                        return new ProfileFragment();
-                    }
-                });
-            }
-        });
+        profileDrawerItem.setOnClickListener(v -> activeTab = changeTab(activeTab, profileDrawerItem, "Profile", "Activity", (FragmentFactory) () -> new ProfileFragment()));
 
         chatsDrawerItem.callOnClick();
     }
@@ -120,22 +97,16 @@ public final class MainActivityHolder extends AppCompatActivity {
         }
 
         if (activeContacts != null) {
-            activeContacts.finish(new Runnable() {
-                @Override
-                public void run() {
-                    getWindowManager().removeView(activeContacts);
-                    activeContacts = null;
-                }
+            activeContacts.finish(() -> {
+                getWindowManager().removeView(activeContacts);
+                activeContacts = null;
             });
         }
 
         if (activeSearch != null) {
-            activeSearch.finish(new Runnable() {
-                @Override
-                public void run() {
-                    getWindowManager().removeView(activeSearch);
-                    activeSearch = null;
-                }
+            activeSearch.finish(() -> {
+                getWindowManager().removeView(activeSearch);
+                activeSearch = null;
             });
         }
     }

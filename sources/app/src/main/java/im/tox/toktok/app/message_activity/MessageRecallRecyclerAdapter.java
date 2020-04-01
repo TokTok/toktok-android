@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -98,12 +97,7 @@ final class MessageRecallRecyclerAdapter extends RecyclerView.Adapter<ViewHolder
 
             view.mMessageText.setText(itemMessage.msgContent);
             view.mMessageDetails.setText(itemMessage.msgDetails);
-            view.mMessageBase.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    recallMessageListener.onClick(viewHolder.getAdapterPosition());
-                }
-            });
+            view.mMessageBase.setOnClickListener(v -> recallMessageListener.onClick(viewHolder.getAdapterPosition()));
 
             if (isSelected(position)) {
                 view.mMessageBase.setBackgroundColor(Color.parseColor("#E0E0E0"));

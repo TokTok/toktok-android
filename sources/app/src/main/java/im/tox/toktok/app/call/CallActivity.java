@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -115,12 +114,7 @@ public final class CallActivity extends AppCompatActivity {
         contactsView.setAdapter(new CallOnGoingContactsAdapter(friends));
 
         FloatingActionButton callOngoingFab = this.findViewById(R.id.call_ongoing_fab);
-        callOngoingFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        callOngoingFab.setOnClickListener(v -> finish());
     }
 
     private void initReceiveCall(@NonNull final CallActivityViewHolder holder) {
@@ -299,12 +293,7 @@ public final class CallActivity extends AppCompatActivity {
 
         TextView bottomTextBar = this.findViewById(R.id.call_message_bottom_bar);
 
-        bottomTextBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logger.debug("asda");
-            }
-        });
+        bottomTextBar.setOnClickListener(v -> logger.debug("asda"));
     }
 
     private void initBackground(@NonNull CallActivityViewHolder holder, @DrawableRes int imgResource) {
@@ -317,14 +306,11 @@ public final class CallActivity extends AppCompatActivity {
 
         View content = findViewById(android.R.id.content).getRootView();
 
-        content.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (!backgroundInitialised) {
-                    Bitmap picture = BlurBuilder.blur(background);
-                    background.setImageDrawable(new BitmapDrawable(getResources(), picture));
-                    backgroundInitialised = true;
-                }
+        content.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            if (!backgroundInitialised) {
+                Bitmap picture = BlurBuilder.blur(background);
+                background.setImageDrawable(new BitmapDrawable(getResources(), picture));
+                backgroundInitialised = true;
             }
         });
 
