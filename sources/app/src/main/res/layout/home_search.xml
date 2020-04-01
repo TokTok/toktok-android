@@ -80,10 +80,13 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <include layout="@layout/home_search_item_friend"/>
-                <include layout="@layout/home_search_item_message"/>
-                <include layout="@layout/home_search_item_file"/>
-                <include layout="@layout/home_search_item_group"/>
+                <include layout="@layout/home_search_item_friend" />
+
+                <include layout="@layout/home_search_item_message" />
+
+                <include layout="@layout/home_search_item_file" />
+
+                <include layout="@layout/home_search_item_group" />
 
             </LinearLayout>
 

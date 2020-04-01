@@ -29,7 +29,7 @@
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:id="@+id/message_header"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"/>
+                    android:layout_height="?attr/actionBarSize" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -101,8 +101,7 @@
                 app:fabSize="mini"
                 android:src="@drawable/ic_content_send"
                 app:backgroundTint="@color/basicFABColor"
-                android:layout_alignParentEnd="true"
-                />
+                android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
 
@@ -115,7 +114,7 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent">
 
-        <include layout="@layout/overlay_attachments"/>
+        <include layout="@layout/overlay_attachments" />
 
     </im.tox.toktok.app.message_activity.SlideInAttachmentsLayout>
 

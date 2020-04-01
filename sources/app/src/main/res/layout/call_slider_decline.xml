@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="57dp"
         android:layout_alignBottom="@+id/call_slider_img"
-        android:layout_alignStart="@+id/call_slider_img"/>
+        android:layout_alignStart="@+id/call_slider_img" />
 
     <TextView
         android:id="@+id/call_slider_text"
@@ -29,6 +29,6 @@
         android:src="@drawable/call_decline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>

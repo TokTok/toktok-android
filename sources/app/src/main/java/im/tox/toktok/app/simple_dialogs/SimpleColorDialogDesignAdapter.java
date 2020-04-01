@@ -1,13 +1,14 @@
 package im.tox.toktok.app.simple_dialogs;
 
 import android.graphics.Color;
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

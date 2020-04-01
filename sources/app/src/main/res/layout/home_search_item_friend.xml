@@ -10,14 +10,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-            <ImageView
-                android:scaleType="centerCrop"
-                android:minHeight="200dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/home_search_friend_img"
-                android:src="@drawable/lorem"
-                android:cropToPadding="false" />
+        <ImageView
+            android:scaleType="centerCrop"
+            android:minHeight="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_search_friend_img"
+            android:src="@drawable/lorem"
+            android:cropToPadding="false" />
 
         <LinearLayout
             android:layout_alignBottom="@id/home_search_friend_img"

@@ -10,8 +10,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
-import androidx.core.view.MotionEventCompat;
-import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,6 +19,9 @@ import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
+
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewCompat;
 
 import com.sothree.slidinguppanel.library.R;
 
@@ -1099,7 +1100,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     public void setPanelState(PanelState state) {
 
         // Abort any running animation, to allow state change
-        if(mDragHelper.getViewDragState() == ViewDragHelper.STATE_SETTLING){
+        if (mDragHelper.getViewDragState() == ViewDragHelper.STATE_SETTLING) {
             Log.d(TAG, "View is settling. Aborting animation.");
             mDragHelper.abort();
         }

@@ -1,11 +1,12 @@
 package im.tox.toktok.app.main.friends;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 

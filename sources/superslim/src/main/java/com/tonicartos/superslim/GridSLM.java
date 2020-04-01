@@ -46,8 +46,8 @@ public class GridSLM extends SectionLayoutManager {
          */
         int areaAbove = 0;
         for (int position = sd.firstPosition + 1;
-                areaAbove < sd.headerHeight && position < firstVisiblePosition;
-                position += mNumColumns) {
+             areaAbove < sd.headerHeight && position < firstVisiblePosition;
+             position += mNumColumns) {
             // Look to see if the header overlaps with the displayed area of the mSection.
             int rowHeight = 0;
             for (int col = 0; col < mNumColumns && position + col < itemCount; col++) {
@@ -71,7 +71,7 @@ public class GridSLM extends SectionLayoutManager {
 
     @Override
     public int fillToEnd(int leadingEdge, int markerLine, int anchorPosition, SectionData sd,
-            LayoutState state) {
+                         LayoutState state) {
         if (markerLine >= leadingEdge) {
             return markerLine;
         }
@@ -132,7 +132,7 @@ public class GridSLM extends SectionLayoutManager {
 
     @Override
     public int fillToStart(int leadingEdge, int markerLine, int anchorPosition, SectionData sd,
-            LayoutState state) {
+                           LayoutState state) {
         final int firstContentPosition = sd.hasHeader ? sd.firstPosition + 1 : sd.firstPosition;
 
         // Check to see if we have to adjust for minimum section height. We don't if there is an
@@ -347,7 +347,7 @@ public class GridSLM extends SectionLayoutManager {
      * @return The height of the new row.
      */
     public int fillRow(int markerLine, int anchorPosition, LayoutManager.Direction direction,
-            boolean measureRowItems, SectionData sd, LayoutState state) {
+                       boolean measureRowItems, SectionData sd, LayoutState state) {
         int rowHeight = 0;
         LayoutState.View[] views = new LayoutState.View[mNumColumns];
         for (int i = 0; i < mNumColumns; i++) {
@@ -441,7 +441,7 @@ public class GridSLM extends SectionLayoutManager {
      * @param state     Layout state.
      */
     private void layoutChild(LayoutState.View child, int top, int col, int rowHeight,
-            SectionData sd, LayoutState state) {
+                             SectionData sd, LayoutState state) {
         final int height;
         if (child.getLayoutParams().height == LayoutManager.LayoutParams.MATCH_PARENT) {
             height = rowHeight;

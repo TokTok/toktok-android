@@ -2,10 +2,6 @@ package im.tox.toktok.app.main;
 
 import android.content.Context;
 import android.graphics.drawable.TransitionDrawable;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
-import androidx.cardview.widget.CardView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +9,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 
 import im.tox.toktok.R;
 

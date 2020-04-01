@@ -1,12 +1,14 @@
 package im.tox.toktok.app.message_activity;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.google.android.material.snackbar.Snackbar.SnackbarLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.google.android.material.snackbar.Snackbar.SnackbarLayout;
 
 public final class MessageInputBarBehavior extends CoordinatorLayout.Behavior<RelativeLayout> {
 

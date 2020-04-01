@@ -1,8 +1,9 @@
 package com.tonicartos.superslim;
 
+import android.util.SparseArray;
+
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.SparseArray;
 
 /**
  * State to track the current top mMarkerLine views are being mMarkerLine relative to.
@@ -18,7 +19,7 @@ public class LayoutState {
     public final boolean isLTR;
 
     public LayoutState(RecyclerView.LayoutManager layoutManager, RecyclerView.Recycler recycler,
-            RecyclerView.State recyclerState) {
+                       RecyclerView.State recyclerState) {
         viewCache = new SparseArray<>(layoutManager.getChildCount());
         this.recyclerState = recyclerState;
         this.recycler = recycler;

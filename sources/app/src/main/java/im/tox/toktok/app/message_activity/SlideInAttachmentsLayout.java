@@ -2,13 +2,14 @@ package im.tox.toktok.app.message_activity;
 
 import android.content.Context;
 import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
-import androidx.customview.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.customview.widget.ViewDragHelper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

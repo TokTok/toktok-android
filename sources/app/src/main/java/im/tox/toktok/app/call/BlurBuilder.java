@@ -7,8 +7,9 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
-import androidx.annotation.NonNull;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 final class BlurBuilder {
 

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public interface OrientationProvider {
 
-  public int getOrientation(RecyclerView recyclerView);
+    public int getOrientation(RecyclerView recyclerView);
 
-  public boolean isReverseLayout(RecyclerView recyclerView);
+    public boolean isReverseLayout(RecyclerView recyclerView);
 }

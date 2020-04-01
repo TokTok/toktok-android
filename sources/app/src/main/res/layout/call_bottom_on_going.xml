@@ -26,7 +26,7 @@
                 android:layout_marginRight="16dp"
                 android:background="@null"
                 android:padding="24dp"
-                android:src="@drawable/ic_av_volume_up"/>
+                android:src="@drawable/ic_av_volume_up" />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
                 android:layout_marginRight="16dp"
                 android:background="@null"
                 android:padding="24dp"
-                android:src="@drawable/ic_av_mic"/>
+                android:src="@drawable/ic_av_mic" />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
                 android:layout_marginRight="16dp"
                 android:background="@null"
                 android:padding="24dp"
-                android:src="@drawable/ic_content_add"/>
+                android:src="@drawable/ic_content_add" />
 
 
         </GridLayout>

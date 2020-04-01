@@ -1,9 +1,10 @@
 package im.tox.toktok.app;
 
-import androidx.annotation.NonNull;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+
+import androidx.annotation.NonNull;
 
 public final class SizeAnimation extends Animation {
 

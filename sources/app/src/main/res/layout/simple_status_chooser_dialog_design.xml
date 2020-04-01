@@ -46,8 +46,7 @@
                 android:paddingBottom="8dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:paddingTop="8dp"
-                >
+                android:paddingTop="8dp">
 
                 <ImageView
                     style="@style/CircleUserStatus"

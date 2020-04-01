@@ -27,7 +27,7 @@ public abstract class SectionLayoutManager {
      * +ve number indicates the header is offscreen.
      */
     public abstract int computeHeaderOffset(int firstVisiblePosition, SectionData sd,
-            LayoutState state);
+                                            LayoutState state);
 
     /**
      * Fill section content towards the end.
@@ -40,10 +40,10 @@ public abstract class SectionLayoutManager {
      * @return Line to which content has been filled.
      */
     public abstract int fillToEnd(int leadingEdge, int markerLine, int anchorPosition,
-            SectionData sd, LayoutState state);
+                                  SectionData sd, LayoutState state);
 
     public abstract int fillToStart(int leadingEdge, int markerLine, int anchorPosition,
-            SectionData sd, LayoutState state);
+                                    SectionData sd, LayoutState state);
 
     /**
      * Find the position of the first completely visible item of this section.
@@ -111,10 +111,10 @@ public abstract class SectionLayoutManager {
      * @return Line to which content has been filled.
      */
     public abstract int finishFillToEnd(int leadingEdge, View anchor, SectionData sd,
-            LayoutState state);
+                                        LayoutState state);
 
     public abstract int finishFillToStart(int leadingEdge, View anchor, SectionData sd,
-            LayoutState state);
+                                          LayoutState state);
 
     public LayoutManager.LayoutParams generateLayoutParams(LayoutManager.LayoutParams params) {
         return params;
@@ -356,7 +356,7 @@ public abstract class SectionLayoutManager {
         int itemsSkipped = 0;
         int itemsFound = 0;
         for (int i = lastPosition;
-                itemsFound < positionsOffscreen.size(); i--) {
+             itemsFound < positionsOffscreen.size(); i--) {
             if (positionsOffscreen.get(i, false)) {
                 itemsFound += 1;
             } else {
@@ -372,7 +372,7 @@ public abstract class SectionLayoutManager {
     }
 
     protected int addView(LayoutState.View child, int position, LayoutManager.Direction direction,
-            LayoutState state) {
+                          LayoutState state) {
         int addIndex;
         if (direction == LayoutManager.Direction.START) {
             addIndex = 0;

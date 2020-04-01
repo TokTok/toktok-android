@@ -1,5 +1,4 @@
-<manifest
-    package="com.timehop.stickyheadersrecyclerview">
+<manifest package="com.timehop.stickyheadersrecyclerview">
 
-    <application/>
+    <application />
 </manifest>

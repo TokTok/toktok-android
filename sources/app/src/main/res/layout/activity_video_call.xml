@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <RelativeLayout
         android:background="@color/contactsTransparentBar"
@@ -29,7 +29,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
             android:background="@null"
-            android:src="@drawable/ic_av_mic"/>
+            android:src="@drawable/ic_av_mic" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/call_ongoing_fab"

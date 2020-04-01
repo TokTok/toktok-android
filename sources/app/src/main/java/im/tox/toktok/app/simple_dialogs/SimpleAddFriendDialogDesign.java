@@ -7,13 +7,14 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
 
 import im.tox.toktok.R;
 import im.tox.toktok.app.CompatUtil;

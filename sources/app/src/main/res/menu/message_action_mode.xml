@@ -7,6 +7,6 @@
         android:orderInCategory="100"
         app:showAsAction="always"
         android:icon="@drawable/ic_action_delete_black"
-        android:title="@string/dialog_delete_friend"/>
+        android:title="@string/dialog_delete_friend" />
 
 </menu>

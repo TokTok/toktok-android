@@ -59,7 +59,7 @@
                     android:id="@+id/contacts_status_bar_color"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/contactsTransparentBar"/>
+                    android:background="@color/contactsTransparentBar" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/contacts_toolbar"
@@ -92,7 +92,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/contact_status"/>
+                                android:layout_toEndOf="@id/contact_status" />
 
                         </RelativeLayout>
 
@@ -100,7 +100,7 @@
                             android:id="@+id/contact_subtitle"
                             style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
@@ -124,9 +124,13 @@
                 android:orientation="vertical">
 
                 <include layout="@layout/contacts_call" />
+
                 <include layout="@layout/contacts_new_message" />
+
                 <include layout="@layout/contacts_save_profile_photo" />
+
                 <include layout="@layout/contacts_file_download" />
+
                 <include layout="@layout/contacts_other_options" />
 
             </LinearLayout>

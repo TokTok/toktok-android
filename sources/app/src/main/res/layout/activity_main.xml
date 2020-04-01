@@ -47,7 +47,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_communication_message"
-                                android:tint="@color/drawerTint"/>
+                                android:tint="@color/drawerTint" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_social_person"
-                                android:tint="@color/drawerTint"/>
+                                android:tint="@color/drawerTint" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_action_settings"
-                                android:tint="@color/drawerTint"/>
+                                android:tint="@color/drawerTint" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
 
                 <ImageView
                     android:layout_gravity="center"
-                    style="@style/CircleUserStatus"/>
+                    style="@style/CircleUserStatus" />
 
                 <TextView
                     android:textColor="@color/drawerTextColor"

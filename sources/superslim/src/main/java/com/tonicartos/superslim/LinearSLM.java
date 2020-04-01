@@ -19,8 +19,8 @@ public class LinearSLM extends SectionLayoutManager {
 
         int areaAbove = 0;
         for (int position = sd.firstPosition + 1;
-                areaAbove < sd.headerHeight && position < firstVisiblePosition;
-                position++) {
+             areaAbove < sd.headerHeight && position < firstVisiblePosition;
+             position++) {
             // Look to see if the header overlaps with the displayed area of the mSection.
             LayoutState.View child = state.getView(position);
             measureChild(child, sd);
@@ -40,7 +40,7 @@ public class LinearSLM extends SectionLayoutManager {
 
     @Override
     public int fillToEnd(int leadingEdge, int markerLine, int anchorPosition, SectionData sd,
-            LayoutState state) {
+                         LayoutState state) {
         final int itemCount = state.getRecyclerState().getItemCount();
 
         for (int i = anchorPosition; i < itemCount; i++) {
@@ -65,7 +65,7 @@ public class LinearSLM extends SectionLayoutManager {
 
     @Override
     public int fillToStart(int leadingEdge, int markerLine, int anchorPosition, SectionData sd,
-            LayoutState state) {
+                           LayoutState state) {
         // Check to see if we have to adjust for minimum section height. We don't if there is an
         // attached non-header view in this section.
         boolean applyMinHeight = false;
@@ -166,7 +166,7 @@ public class LinearSLM extends SectionLayoutManager {
     }
 
     private int layoutChild(LayoutState.View child, int markerLine,
-            LayoutManager.Direction direction, SectionData sd, LayoutState state) {
+                            LayoutManager.Direction direction, SectionData sd, LayoutState state) {
         final int height = mLayoutManager.getDecoratedMeasuredHeight(child.view);
         final int width = mLayoutManager.getDecoratedMeasuredWidth(child.view);
 

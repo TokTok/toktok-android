@@ -1,9 +1,10 @@
 package im.tox.toktok.app.message_activity;
 
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.RecyclerView;
 
 import im.tox.toktok.R;
 
