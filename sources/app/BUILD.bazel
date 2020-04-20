@@ -6,7 +6,7 @@ android_binary(
     custom_package = "im.tox.toktok",
     manifest = "src/main/AndroidManifest.xml",
     manifest_values = {
-        "minSdkVersion": "22",
+        "minSdkVersion": "14",
         "targetSdkVersion": "28",
     },
     resource_files = glob(["src/main/res/**"]),

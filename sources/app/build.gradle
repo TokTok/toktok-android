@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "im.tox.toktok"
-        minSdkVersion 22
+        minSdkVersion 14
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
