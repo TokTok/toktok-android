@@ -1,0 +1,19 @@
+---
+_extends: template
+
+repository:
+  name: toktok-android
+  description: Tox Android Client
+  topics: tox, android, chat
+  has_issues: true
+
+branches:
+  - name: "master"
+    protection:
+      required_status_checks:
+        contexts:
+          - Codacy/PR Quality Review
+          - Travis CI - Pull Request
+          - WIP
+          - code-review/reviewable
+          - license/cla
